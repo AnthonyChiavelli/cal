@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
-import Sidebar from "./components/sidebar";
+import { UserProvider } from '@auth0/nextjs-auth0/client';
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -17,9 +17,11 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`${inter.className} bg-slate-500 text-slate-100`}>
-        <Sidebar>{children}</Sidebar>
-      </body>
+      <UserProvider>
+        <body className={`${inter.className} bg-slate-500 text-slate-100`}>
+          {children}
+        </body>
+      </UserProvider>
     </html>
   );
 }

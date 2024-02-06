@@ -1,4 +1,4 @@
-import MonthCalendar from "../components/month_calendar";
+import MonthCalendar from "../../components/month_calendar";
 
 export default function Schedule() {
   return (
