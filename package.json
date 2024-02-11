@@ -32,7 +32,7 @@
   },
   "engines": {
     "npm": ">=10.0.0",
-    "node": ">=21.0.0"
+    "node": "18.x" 
   },
   "devDependencies": {
     "@testing-library/jest-dom": "^6.4.2",
