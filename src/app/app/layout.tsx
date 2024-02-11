@@ -6,10 +6,10 @@ import { withPageAuthRequired } from "@auth0/nextjs-auth0";
 
 const inter = Inter({ subsets: ["latin"] });
 
-export const metadata: Metadata = {
-  title: "Cal",
-  description: "Manage your bookings",
-};
+// const metadata: Metadata = {
+//   title: "Cal",
+//   description: "Manage your bookings",
+// };
 
 async function RootLayout({
   children,
