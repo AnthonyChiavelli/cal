@@ -6,12 +6,12 @@ import { withPageAuthRequired } from "@auth0/nextjs-auth0";
 
 const inter = Inter({ subsets: ["latin"] });
 
-// const metadata: Metadata = {
-//   title: "Cal",
-//   description: "Manage your bookings",
-// };
+export const metadata: Metadata = {
+  title: "Cal",
+  description: "Manage your bookings",
+};
 
-export default async function RootLayout({
+async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
@@ -25,4 +25,4 @@ export default async function RootLayout({
   );
 }
 
-// export default withPageAuthRequired(RootLayout as any, { returnTo: "/app" });
+export default withPageAuthRequired(RootLayout as any, { returnTo: "/app" });
