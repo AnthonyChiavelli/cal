@@ -28,13 +28,18 @@ export default function Sidebar(props: ISidebarProps) {
               <span className="flex font-medium text-sm text-gray-300 px-4 my-4 uppercase">Pages</span>
             </li>
             <SidebarEntry icon={CalendarDaysIcon} text="Schedule" href="/app/schedule" highlighted={false} />
-            <SidebarEntry icon={UsersIcon} text="Student List" href="/app/students" highlighted={false} />
+            <SidebarEntry icon={UsersIcon} text="Students" href="/app/students" highlighted={false} />
             <li className="my-px">
               <span className="flex font-medium text-sm text-gray-300 px-4 my-4 uppercase">Account</span>
             </li>
             <SidebarEntry icon={UserIcon} text="Profile" href="/app/profile" highlighted={false} />
             <SidebarEntry icon={Cog6ToothIcon} text="Account" href="/app/account" highlighted={false} />
-            <SidebarEntry icon={ArrowLeftStartOnRectangleIcon} text="Logout" href="/api/auth/logout" highlighted={false} />
+            <SidebarEntry
+              icon={ArrowLeftStartOnRectangleIcon}
+              text="Logout"
+              href="/api/auth/logout"
+              highlighted={false}
+            />
           </ul>
         </div>
       </aside>

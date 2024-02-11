@@ -1,14 +1,15 @@
 import Link from "next/link";
 import Image from "next/image";
-import { getSession } from '@auth0/nextjs-auth0';
+import { getSession } from "@auth0/nextjs-auth0";
+import Breadcrumbs from "./breadcrumbs";
 
 export default async function Header() {
-  const session = await getSession()
-  console.log(session)
+  const session = await getSession();
 
   return (
     <header className="header bg-white shadow py-4 px-4">
       <div className="header-content flex items-center flex-row">
+        <Breadcrumbs />
         <div className="flex ml-auto">
           <Link href="/app/profile" className="flex flex-row items-center">
             <Image
@@ -19,7 +20,9 @@ export default async function Header() {
               height={10}
             />
             <span className="flex flex-col ml-2">
-              <span className="truncate font-semibold tracking-wide leading-none">{session?.user.name ?? "Unknown"}</span>
+              <span className="truncate font-semibold tracking-wide leading-none">
+                {session?.user.name ?? "Unknown"}
+              </span>
               <span className="truncate text-gray-500 text-xs leading-none mt-1">Admin</span>
             </span>
           </Link>

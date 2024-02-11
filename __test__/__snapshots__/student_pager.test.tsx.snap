@@ -1,0 +1,1053 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`StudentPager Paginates correctly with page 1, totalCount 153, and pageSize 10 1`] = `
+{
+  "asFragment": [Function],
+  "baseElement": <body>
+    <div>
+      <div
+        class="my-5 flex items-center justify-between"
+      >
+        <div>
+          Showing 
+          1
+           to 
+          10
+           of
+           
+          <span
+            class="font-bold"
+          >
+            153
+          </span>
+           
+          total students
+        </div>
+        <div
+          class="flex cursor-pointer rounded-md -space-x-px"
+        >
+          <div
+            class="p-2 bg-white ring-1 ring-inset ring-gray-300 flex items-center content-center rounded-l-md hover:bg-gray-50 focus:z-20 focus:outline-offset-0"
+          >
+            <svg
+              aria-hidden="true"
+              data-slot="icon"
+              fill="none"
+              height="20"
+              stroke="currentColor"
+              stroke-width="1.5"
+              viewBox="0 0 24 24"
+              width="20"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M15.75 19.5 8.25 12l7.5-7.5"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              />
+            </svg>
+          </div>
+          <div
+            class="p-1 px-3 ring-1 ring-inset ring-gray-300 flex items-center content-center hover:bg-gray-50 focus:z-20 focus:outline-offset-0 bg-blue-500 text-white"
+          >
+            <span>
+              1
+            </span>
+          </div>
+          <div
+            class="p-1 px-3 ring-1 ring-inset ring-gray-300 flex items-center content-center hover:bg-gray-50 focus:z-20 focus:outline-offset-0 bg-white text-black"
+          >
+            <span>
+              2
+            </span>
+          </div>
+          <div
+            class="p-1 px-3 ring-1 ring-inset ring-gray-300 flex items-center content-center hover:bg-gray-50 focus:z-20 focus:outline-offset-0 bg-white text-black"
+          >
+            <span>
+              3
+            </span>
+          </div>
+          <div
+            class="p-1 px-3 ring-1 ring-inset ring-gray-300 flex items-center content-center hover:bg-gray-50 focus:z-20 focus:outline-offset-0 bg-white text-black"
+          >
+            <span>
+              4
+            </span>
+          </div>
+          <div
+            class="p-1 px-3 ring-1 ring-inset ring-gray-300 flex items-center content-center hover:bg-gray-50 focus:z-20 focus:outline-offset-0 bg-white text-black"
+          >
+            <span>
+              5
+            </span>
+          </div>
+          <div
+            class="p-2 bg-white ring-1 ring-inset ring-gray-300 flex items-center content-center rounded-r-md hover:bg-gray-50 focus:z-20 focus:outline-offset-0"
+          >
+            <svg
+              aria-hidden="true"
+              data-slot="icon"
+              fill="none"
+              height="20"
+              stroke="currentColor"
+              stroke-width="1.5"
+              viewBox="0 0 24 24"
+              width="20"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="m8.25 4.5 7.5 7.5-7.5 7.5"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              />
+            </svg>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>,
+  "container": <div>
+    <div
+      class="my-5 flex items-center justify-between"
+    >
+      <div>
+        Showing 
+        1
+         to 
+        10
+         of
+         
+        <span
+          class="font-bold"
+        >
+          153
+        </span>
+         
+        total students
+      </div>
+      <div
+        class="flex cursor-pointer rounded-md -space-x-px"
+      >
+        <div
+          class="p-2 bg-white ring-1 ring-inset ring-gray-300 flex items-center content-center rounded-l-md hover:bg-gray-50 focus:z-20 focus:outline-offset-0"
+        >
+          <svg
+            aria-hidden="true"
+            data-slot="icon"
+            fill="none"
+            height="20"
+            stroke="currentColor"
+            stroke-width="1.5"
+            viewBox="0 0 24 24"
+            width="20"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M15.75 19.5 8.25 12l7.5-7.5"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            />
+          </svg>
+        </div>
+        <div
+          class="p-1 px-3 ring-1 ring-inset ring-gray-300 flex items-center content-center hover:bg-gray-50 focus:z-20 focus:outline-offset-0 bg-blue-500 text-white"
+        >
+          <span>
+            1
+          </span>
+        </div>
+        <div
+          class="p-1 px-3 ring-1 ring-inset ring-gray-300 flex items-center content-center hover:bg-gray-50 focus:z-20 focus:outline-offset-0 bg-white text-black"
+        >
+          <span>
+            2
+          </span>
+        </div>
+        <div
+          class="p-1 px-3 ring-1 ring-inset ring-gray-300 flex items-center content-center hover:bg-gray-50 focus:z-20 focus:outline-offset-0 bg-white text-black"
+        >
+          <span>
+            3
+          </span>
+        </div>
+        <div
+          class="p-1 px-3 ring-1 ring-inset ring-gray-300 flex items-center content-center hover:bg-gray-50 focus:z-20 focus:outline-offset-0 bg-white text-black"
+        >
+          <span>
+            4
+          </span>
+        </div>
+        <div
+          class="p-1 px-3 ring-1 ring-inset ring-gray-300 flex items-center content-center hover:bg-gray-50 focus:z-20 focus:outline-offset-0 bg-white text-black"
+        >
+          <span>
+            5
+          </span>
+        </div>
+        <div
+          class="p-2 bg-white ring-1 ring-inset ring-gray-300 flex items-center content-center rounded-r-md hover:bg-gray-50 focus:z-20 focus:outline-offset-0"
+        >
+          <svg
+            aria-hidden="true"
+            data-slot="icon"
+            fill="none"
+            height="20"
+            stroke="currentColor"
+            stroke-width="1.5"
+            viewBox="0 0 24 24"
+            width="20"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="m8.25 4.5 7.5 7.5-7.5 7.5"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            />
+          </svg>
+        </div>
+      </div>
+    </div>
+  </div>,
+  "debug": [Function],
+  "findAllByAltText": [Function],
+  "findAllByDisplayValue": [Function],
+  "findAllByLabelText": [Function],
+  "findAllByPlaceholderText": [Function],
+  "findAllByRole": [Function],
+  "findAllByTestId": [Function],
+  "findAllByText": [Function],
+  "findAllByTitle": [Function],
+  "findByAltText": [Function],
+  "findByDisplayValue": [Function],
+  "findByLabelText": [Function],
+  "findByPlaceholderText": [Function],
+  "findByRole": [Function],
+  "findByTestId": [Function],
+  "findByText": [Function],
+  "findByTitle": [Function],
+  "getAllByAltText": [Function],
+  "getAllByDisplayValue": [Function],
+  "getAllByLabelText": [Function],
+  "getAllByPlaceholderText": [Function],
+  "getAllByRole": [Function],
+  "getAllByTestId": [Function],
+  "getAllByText": [Function],
+  "getAllByTitle": [Function],
+  "getByAltText": [Function],
+  "getByDisplayValue": [Function],
+  "getByLabelText": [Function],
+  "getByPlaceholderText": [Function],
+  "getByRole": [Function],
+  "getByTestId": [Function],
+  "getByText": [Function],
+  "getByTitle": [Function],
+  "queryAllByAltText": [Function],
+  "queryAllByDisplayValue": [Function],
+  "queryAllByLabelText": [Function],
+  "queryAllByPlaceholderText": [Function],
+  "queryAllByRole": [Function],
+  "queryAllByTestId": [Function],
+  "queryAllByText": [Function],
+  "queryAllByTitle": [Function],
+  "queryByAltText": [Function],
+  "queryByDisplayValue": [Function],
+  "queryByLabelText": [Function],
+  "queryByPlaceholderText": [Function],
+  "queryByRole": [Function],
+  "queryByTestId": [Function],
+  "queryByText": [Function],
+  "queryByTitle": [Function],
+  "rerender": [Function],
+  "unmount": [Function],
+}
+`;
+
+exports[`StudentPager Paginates correctly with page 7, totalCount 153, and pageSize 10 1`] = `
+{
+  "asFragment": [Function],
+  "baseElement": <body>
+    <div>
+      <div
+        class="my-5 flex items-center justify-between"
+      >
+        <div>
+          Showing 
+          61
+           to 
+          70
+           of
+           
+          <span
+            class="font-bold"
+          >
+            153
+          </span>
+           
+          total students
+        </div>
+        <div
+          class="flex cursor-pointer rounded-md -space-x-px"
+        >
+          <div
+            class="p-2 bg-white ring-1 ring-inset ring-gray-300 flex items-center content-center rounded-l-md hover:bg-gray-50 focus:z-20 focus:outline-offset-0"
+          >
+            <svg
+              aria-hidden="true"
+              data-slot="icon"
+              fill="none"
+              height="20"
+              stroke="currentColor"
+              stroke-width="1.5"
+              viewBox="0 0 24 24"
+              width="20"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M15.75 19.5 8.25 12l7.5-7.5"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              />
+            </svg>
+          </div>
+          <div
+            class="p-1 px-3 ring-1 ring-inset ring-gray-300 flex items-center content-center hover:bg-gray-50 focus:z-20 focus:outline-offset-0 bg-white text-black"
+          >
+            <span>
+              5
+            </span>
+          </div>
+          <div
+            class="p-1 px-3 ring-1 ring-inset ring-gray-300 flex items-center content-center hover:bg-gray-50 focus:z-20 focus:outline-offset-0 bg-white text-black"
+          >
+            <span>
+              6
+            </span>
+          </div>
+          <div
+            class="p-1 px-3 ring-1 ring-inset ring-gray-300 flex items-center content-center hover:bg-gray-50 focus:z-20 focus:outline-offset-0 bg-blue-500 text-white"
+          >
+            <span>
+              7
+            </span>
+          </div>
+          <div
+            class="p-1 px-3 ring-1 ring-inset ring-gray-300 flex items-center content-center hover:bg-gray-50 focus:z-20 focus:outline-offset-0 bg-white text-black"
+          >
+            <span>
+              8
+            </span>
+          </div>
+          <div
+            class="p-1 px-3 ring-1 ring-inset ring-gray-300 flex items-center content-center hover:bg-gray-50 focus:z-20 focus:outline-offset-0 bg-white text-black"
+          >
+            <span>
+              9
+            </span>
+          </div>
+          <div
+            class="p-2 bg-white ring-1 ring-inset ring-gray-300 flex items-center content-center rounded-r-md hover:bg-gray-50 focus:z-20 focus:outline-offset-0"
+          >
+            <svg
+              aria-hidden="true"
+              data-slot="icon"
+              fill="none"
+              height="20"
+              stroke="currentColor"
+              stroke-width="1.5"
+              viewBox="0 0 24 24"
+              width="20"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="m8.25 4.5 7.5 7.5-7.5 7.5"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              />
+            </svg>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>,
+  "container": <div>
+    <div
+      class="my-5 flex items-center justify-between"
+    >
+      <div>
+        Showing 
+        61
+         to 
+        70
+         of
+         
+        <span
+          class="font-bold"
+        >
+          153
+        </span>
+         
+        total students
+      </div>
+      <div
+        class="flex cursor-pointer rounded-md -space-x-px"
+      >
+        <div
+          class="p-2 bg-white ring-1 ring-inset ring-gray-300 flex items-center content-center rounded-l-md hover:bg-gray-50 focus:z-20 focus:outline-offset-0"
+        >
+          <svg
+            aria-hidden="true"
+            data-slot="icon"
+            fill="none"
+            height="20"
+            stroke="currentColor"
+            stroke-width="1.5"
+            viewBox="0 0 24 24"
+            width="20"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M15.75 19.5 8.25 12l7.5-7.5"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            />
+          </svg>
+        </div>
+        <div
+          class="p-1 px-3 ring-1 ring-inset ring-gray-300 flex items-center content-center hover:bg-gray-50 focus:z-20 focus:outline-offset-0 bg-white text-black"
+        >
+          <span>
+            5
+          </span>
+        </div>
+        <div
+          class="p-1 px-3 ring-1 ring-inset ring-gray-300 flex items-center content-center hover:bg-gray-50 focus:z-20 focus:outline-offset-0 bg-white text-black"
+        >
+          <span>
+            6
+          </span>
+        </div>
+        <div
+          class="p-1 px-3 ring-1 ring-inset ring-gray-300 flex items-center content-center hover:bg-gray-50 focus:z-20 focus:outline-offset-0 bg-blue-500 text-white"
+        >
+          <span>
+            7
+          </span>
+        </div>
+        <div
+          class="p-1 px-3 ring-1 ring-inset ring-gray-300 flex items-center content-center hover:bg-gray-50 focus:z-20 focus:outline-offset-0 bg-white text-black"
+        >
+          <span>
+            8
+          </span>
+        </div>
+        <div
+          class="p-1 px-3 ring-1 ring-inset ring-gray-300 flex items-center content-center hover:bg-gray-50 focus:z-20 focus:outline-offset-0 bg-white text-black"
+        >
+          <span>
+            9
+          </span>
+        </div>
+        <div
+          class="p-2 bg-white ring-1 ring-inset ring-gray-300 flex items-center content-center rounded-r-md hover:bg-gray-50 focus:z-20 focus:outline-offset-0"
+        >
+          <svg
+            aria-hidden="true"
+            data-slot="icon"
+            fill="none"
+            height="20"
+            stroke="currentColor"
+            stroke-width="1.5"
+            viewBox="0 0 24 24"
+            width="20"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="m8.25 4.5 7.5 7.5-7.5 7.5"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            />
+          </svg>
+        </div>
+      </div>
+    </div>
+  </div>,
+  "debug": [Function],
+  "findAllByAltText": [Function],
+  "findAllByDisplayValue": [Function],
+  "findAllByLabelText": [Function],
+  "findAllByPlaceholderText": [Function],
+  "findAllByRole": [Function],
+  "findAllByTestId": [Function],
+  "findAllByText": [Function],
+  "findAllByTitle": [Function],
+  "findByAltText": [Function],
+  "findByDisplayValue": [Function],
+  "findByLabelText": [Function],
+  "findByPlaceholderText": [Function],
+  "findByRole": [Function],
+  "findByTestId": [Function],
+  "findByText": [Function],
+  "findByTitle": [Function],
+  "getAllByAltText": [Function],
+  "getAllByDisplayValue": [Function],
+  "getAllByLabelText": [Function],
+  "getAllByPlaceholderText": [Function],
+  "getAllByRole": [Function],
+  "getAllByTestId": [Function],
+  "getAllByText": [Function],
+  "getAllByTitle": [Function],
+  "getByAltText": [Function],
+  "getByDisplayValue": [Function],
+  "getByLabelText": [Function],
+  "getByPlaceholderText": [Function],
+  "getByRole": [Function],
+  "getByTestId": [Function],
+  "getByText": [Function],
+  "getByTitle": [Function],
+  "queryAllByAltText": [Function],
+  "queryAllByDisplayValue": [Function],
+  "queryAllByLabelText": [Function],
+  "queryAllByPlaceholderText": [Function],
+  "queryAllByRole": [Function],
+  "queryAllByTestId": [Function],
+  "queryAllByText": [Function],
+  "queryAllByTitle": [Function],
+  "queryByAltText": [Function],
+  "queryByDisplayValue": [Function],
+  "queryByLabelText": [Function],
+  "queryByPlaceholderText": [Function],
+  "queryByRole": [Function],
+  "queryByTestId": [Function],
+  "queryByText": [Function],
+  "queryByTitle": [Function],
+  "rerender": [Function],
+  "unmount": [Function],
+}
+`;
+
+exports[`StudentPager Paginates correctly with page 9, totalCount 100, and pageSize 10 1`] = `
+{
+  "asFragment": [Function],
+  "baseElement": <body>
+    <div>
+      <div
+        class="my-5 flex items-center justify-between"
+      >
+        <div>
+          Showing 
+          81
+           to 
+          90
+           of
+           
+          <span
+            class="font-bold"
+          >
+            100
+          </span>
+           
+          total students
+        </div>
+        <div
+          class="flex cursor-pointer rounded-md -space-x-px"
+        >
+          <div
+            class="p-2 bg-white ring-1 ring-inset ring-gray-300 flex items-center content-center rounded-l-md hover:bg-gray-50 focus:z-20 focus:outline-offset-0"
+          >
+            <svg
+              aria-hidden="true"
+              data-slot="icon"
+              fill="none"
+              height="20"
+              stroke="currentColor"
+              stroke-width="1.5"
+              viewBox="0 0 24 24"
+              width="20"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M15.75 19.5 8.25 12l7.5-7.5"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              />
+            </svg>
+          </div>
+          <div
+            class="p-1 px-3 ring-1 ring-inset ring-gray-300 flex items-center content-center hover:bg-gray-50 focus:z-20 focus:outline-offset-0 bg-white text-black"
+          >
+            <span>
+              6
+            </span>
+          </div>
+          <div
+            class="p-1 px-3 ring-1 ring-inset ring-gray-300 flex items-center content-center hover:bg-gray-50 focus:z-20 focus:outline-offset-0 bg-white text-black"
+          >
+            <span>
+              7
+            </span>
+          </div>
+          <div
+            class="p-1 px-3 ring-1 ring-inset ring-gray-300 flex items-center content-center hover:bg-gray-50 focus:z-20 focus:outline-offset-0 bg-white text-black"
+          >
+            <span>
+              8
+            </span>
+          </div>
+          <div
+            class="p-1 px-3 ring-1 ring-inset ring-gray-300 flex items-center content-center hover:bg-gray-50 focus:z-20 focus:outline-offset-0 bg-blue-500 text-white"
+          >
+            <span>
+              9
+            </span>
+          </div>
+          <div
+            class="p-1 px-3 ring-1 ring-inset ring-gray-300 flex items-center content-center hover:bg-gray-50 focus:z-20 focus:outline-offset-0 bg-white text-black"
+          >
+            <span>
+              10
+            </span>
+          </div>
+          <div
+            class="p-2 bg-white ring-1 ring-inset ring-gray-300 flex items-center content-center rounded-r-md hover:bg-gray-50 focus:z-20 focus:outline-offset-0"
+          >
+            <svg
+              aria-hidden="true"
+              data-slot="icon"
+              fill="none"
+              height="20"
+              stroke="currentColor"
+              stroke-width="1.5"
+              viewBox="0 0 24 24"
+              width="20"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="m8.25 4.5 7.5 7.5-7.5 7.5"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              />
+            </svg>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>,
+  "container": <div>
+    <div
+      class="my-5 flex items-center justify-between"
+    >
+      <div>
+        Showing 
+        81
+         to 
+        90
+         of
+         
+        <span
+          class="font-bold"
+        >
+          100
+        </span>
+         
+        total students
+      </div>
+      <div
+        class="flex cursor-pointer rounded-md -space-x-px"
+      >
+        <div
+          class="p-2 bg-white ring-1 ring-inset ring-gray-300 flex items-center content-center rounded-l-md hover:bg-gray-50 focus:z-20 focus:outline-offset-0"
+        >
+          <svg
+            aria-hidden="true"
+            data-slot="icon"
+            fill="none"
+            height="20"
+            stroke="currentColor"
+            stroke-width="1.5"
+            viewBox="0 0 24 24"
+            width="20"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M15.75 19.5 8.25 12l7.5-7.5"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            />
+          </svg>
+        </div>
+        <div
+          class="p-1 px-3 ring-1 ring-inset ring-gray-300 flex items-center content-center hover:bg-gray-50 focus:z-20 focus:outline-offset-0 bg-white text-black"
+        >
+          <span>
+            6
+          </span>
+        </div>
+        <div
+          class="p-1 px-3 ring-1 ring-inset ring-gray-300 flex items-center content-center hover:bg-gray-50 focus:z-20 focus:outline-offset-0 bg-white text-black"
+        >
+          <span>
+            7
+          </span>
+        </div>
+        <div
+          class="p-1 px-3 ring-1 ring-inset ring-gray-300 flex items-center content-center hover:bg-gray-50 focus:z-20 focus:outline-offset-0 bg-white text-black"
+        >
+          <span>
+            8
+          </span>
+        </div>
+        <div
+          class="p-1 px-3 ring-1 ring-inset ring-gray-300 flex items-center content-center hover:bg-gray-50 focus:z-20 focus:outline-offset-0 bg-blue-500 text-white"
+        >
+          <span>
+            9
+          </span>
+        </div>
+        <div
+          class="p-1 px-3 ring-1 ring-inset ring-gray-300 flex items-center content-center hover:bg-gray-50 focus:z-20 focus:outline-offset-0 bg-white text-black"
+        >
+          <span>
+            10
+          </span>
+        </div>
+        <div
+          class="p-2 bg-white ring-1 ring-inset ring-gray-300 flex items-center content-center rounded-r-md hover:bg-gray-50 focus:z-20 focus:outline-offset-0"
+        >
+          <svg
+            aria-hidden="true"
+            data-slot="icon"
+            fill="none"
+            height="20"
+            stroke="currentColor"
+            stroke-width="1.5"
+            viewBox="0 0 24 24"
+            width="20"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="m8.25 4.5 7.5 7.5-7.5 7.5"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            />
+          </svg>
+        </div>
+      </div>
+    </div>
+  </div>,
+  "debug": [Function],
+  "findAllByAltText": [Function],
+  "findAllByDisplayValue": [Function],
+  "findAllByLabelText": [Function],
+  "findAllByPlaceholderText": [Function],
+  "findAllByRole": [Function],
+  "findAllByTestId": [Function],
+  "findAllByText": [Function],
+  "findAllByTitle": [Function],
+  "findByAltText": [Function],
+  "findByDisplayValue": [Function],
+  "findByLabelText": [Function],
+  "findByPlaceholderText": [Function],
+  "findByRole": [Function],
+  "findByTestId": [Function],
+  "findByText": [Function],
+  "findByTitle": [Function],
+  "getAllByAltText": [Function],
+  "getAllByDisplayValue": [Function],
+  "getAllByLabelText": [Function],
+  "getAllByPlaceholderText": [Function],
+  "getAllByRole": [Function],
+  "getAllByTestId": [Function],
+  "getAllByText": [Function],
+  "getAllByTitle": [Function],
+  "getByAltText": [Function],
+  "getByDisplayValue": [Function],
+  "getByLabelText": [Function],
+  "getByPlaceholderText": [Function],
+  "getByRole": [Function],
+  "getByTestId": [Function],
+  "getByText": [Function],
+  "getByTitle": [Function],
+  "queryAllByAltText": [Function],
+  "queryAllByDisplayValue": [Function],
+  "queryAllByLabelText": [Function],
+  "queryAllByPlaceholderText": [Function],
+  "queryAllByRole": [Function],
+  "queryAllByTestId": [Function],
+  "queryAllByText": [Function],
+  "queryAllByTitle": [Function],
+  "queryByAltText": [Function],
+  "queryByDisplayValue": [Function],
+  "queryByLabelText": [Function],
+  "queryByPlaceholderText": [Function],
+  "queryByRole": [Function],
+  "queryByTestId": [Function],
+  "queryByText": [Function],
+  "queryByTitle": [Function],
+  "rerender": [Function],
+  "unmount": [Function],
+}
+`;
+
+exports[`StudentPager Paginates correctly with page 9, totalCount 101, and pageSize 10 1`] = `
+{
+  "asFragment": [Function],
+  "baseElement": <body>
+    <div>
+      <div
+        class="my-5 flex items-center justify-between"
+      >
+        <div>
+          Showing 
+          81
+           to 
+          90
+           of
+           
+          <span
+            class="font-bold"
+          >
+            101
+          </span>
+           
+          total students
+        </div>
+        <div
+          class="flex cursor-pointer rounded-md -space-x-px"
+        >
+          <div
+            class="p-2 bg-white ring-1 ring-inset ring-gray-300 flex items-center content-center rounded-l-md hover:bg-gray-50 focus:z-20 focus:outline-offset-0"
+          >
+            <svg
+              aria-hidden="true"
+              data-slot="icon"
+              fill="none"
+              height="20"
+              stroke="currentColor"
+              stroke-width="1.5"
+              viewBox="0 0 24 24"
+              width="20"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M15.75 19.5 8.25 12l7.5-7.5"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              />
+            </svg>
+          </div>
+          <div
+            class="p-1 px-3 ring-1 ring-inset ring-gray-300 flex items-center content-center hover:bg-gray-50 focus:z-20 focus:outline-offset-0 bg-white text-black"
+          >
+            <span>
+              7
+            </span>
+          </div>
+          <div
+            class="p-1 px-3 ring-1 ring-inset ring-gray-300 flex items-center content-center hover:bg-gray-50 focus:z-20 focus:outline-offset-0 bg-white text-black"
+          >
+            <span>
+              8
+            </span>
+          </div>
+          <div
+            class="p-1 px-3 ring-1 ring-inset ring-gray-300 flex items-center content-center hover:bg-gray-50 focus:z-20 focus:outline-offset-0 bg-blue-500 text-white"
+          >
+            <span>
+              9
+            </span>
+          </div>
+          <div
+            class="p-1 px-3 ring-1 ring-inset ring-gray-300 flex items-center content-center hover:bg-gray-50 focus:z-20 focus:outline-offset-0 bg-white text-black"
+          >
+            <span>
+              10
+            </span>
+          </div>
+          <div
+            class="p-1 px-3 ring-1 ring-inset ring-gray-300 flex items-center content-center hover:bg-gray-50 focus:z-20 focus:outline-offset-0 bg-white text-black"
+          >
+            <span>
+              11
+            </span>
+          </div>
+          <div
+            class="p-2 bg-white ring-1 ring-inset ring-gray-300 flex items-center content-center rounded-r-md hover:bg-gray-50 focus:z-20 focus:outline-offset-0"
+          >
+            <svg
+              aria-hidden="true"
+              data-slot="icon"
+              fill="none"
+              height="20"
+              stroke="currentColor"
+              stroke-width="1.5"
+              viewBox="0 0 24 24"
+              width="20"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="m8.25 4.5 7.5 7.5-7.5 7.5"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              />
+            </svg>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>,
+  "container": <div>
+    <div
+      class="my-5 flex items-center justify-between"
+    >
+      <div>
+        Showing 
+        81
+         to 
+        90
+         of
+         
+        <span
+          class="font-bold"
+        >
+          101
+        </span>
+         
+        total students
+      </div>
+      <div
+        class="flex cursor-pointer rounded-md -space-x-px"
+      >
+        <div
+          class="p-2 bg-white ring-1 ring-inset ring-gray-300 flex items-center content-center rounded-l-md hover:bg-gray-50 focus:z-20 focus:outline-offset-0"
+        >
+          <svg
+            aria-hidden="true"
+            data-slot="icon"
+            fill="none"
+            height="20"
+            stroke="currentColor"
+            stroke-width="1.5"
+            viewBox="0 0 24 24"
+            width="20"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M15.75 19.5 8.25 12l7.5-7.5"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            />
+          </svg>
+        </div>
+        <div
+          class="p-1 px-3 ring-1 ring-inset ring-gray-300 flex items-center content-center hover:bg-gray-50 focus:z-20 focus:outline-offset-0 bg-white text-black"
+        >
+          <span>
+            7
+          </span>
+        </div>
+        <div
+          class="p-1 px-3 ring-1 ring-inset ring-gray-300 flex items-center content-center hover:bg-gray-50 focus:z-20 focus:outline-offset-0 bg-white text-black"
+        >
+          <span>
+            8
+          </span>
+        </div>
+        <div
+          class="p-1 px-3 ring-1 ring-inset ring-gray-300 flex items-center content-center hover:bg-gray-50 focus:z-20 focus:outline-offset-0 bg-blue-500 text-white"
+        >
+          <span>
+            9
+          </span>
+        </div>
+        <div
+          class="p-1 px-3 ring-1 ring-inset ring-gray-300 flex items-center content-center hover:bg-gray-50 focus:z-20 focus:outline-offset-0 bg-white text-black"
+        >
+          <span>
+            10
+          </span>
+        </div>
+        <div
+          class="p-1 px-3 ring-1 ring-inset ring-gray-300 flex items-center content-center hover:bg-gray-50 focus:z-20 focus:outline-offset-0 bg-white text-black"
+        >
+          <span>
+            11
+          </span>
+        </div>
+        <div
+          class="p-2 bg-white ring-1 ring-inset ring-gray-300 flex items-center content-center rounded-r-md hover:bg-gray-50 focus:z-20 focus:outline-offset-0"
+        >
+          <svg
+            aria-hidden="true"
+            data-slot="icon"
+            fill="none"
+            height="20"
+            stroke="currentColor"
+            stroke-width="1.5"
+            viewBox="0 0 24 24"
+            width="20"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="m8.25 4.5 7.5 7.5-7.5 7.5"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            />
+          </svg>
+        </div>
+      </div>
+    </div>
+  </div>,
+  "debug": [Function],
+  "findAllByAltText": [Function],
+  "findAllByDisplayValue": [Function],
+  "findAllByLabelText": [Function],
+  "findAllByPlaceholderText": [Function],
+  "findAllByRole": [Function],
+  "findAllByTestId": [Function],
+  "findAllByText": [Function],
+  "findAllByTitle": [Function],
+  "findByAltText": [Function],
+  "findByDisplayValue": [Function],
+  "findByLabelText": [Function],
+  "findByPlaceholderText": [Function],
+  "findByRole": [Function],
+  "findByTestId": [Function],
+  "findByText": [Function],
+  "findByTitle": [Function],
+  "getAllByAltText": [Function],
+  "getAllByDisplayValue": [Function],
+  "getAllByLabelText": [Function],
+  "getAllByPlaceholderText": [Function],
+  "getAllByRole": [Function],
+  "getAllByTestId": [Function],
+  "getAllByText": [Function],
+  "getAllByTitle": [Function],
+  "getByAltText": [Function],
+  "getByDisplayValue": [Function],
+  "getByLabelText": [Function],
+  "getByPlaceholderText": [Function],
+  "getByRole": [Function],
+  "getByTestId": [Function],
+  "getByText": [Function],
+  "getByTitle": [Function],
+  "queryAllByAltText": [Function],
+  "queryAllByDisplayValue": [Function],
+  "queryAllByLabelText": [Function],
+  "queryAllByPlaceholderText": [Function],
+  "queryAllByRole": [Function],
+  "queryAllByTestId": [Function],
+  "queryAllByText": [Function],
+  "queryAllByTitle": [Function],
+  "queryByAltText": [Function],
+  "queryByDisplayValue": [Function],
+  "queryByLabelText": [Function],
+  "queryByPlaceholderText": [Function],
+  "queryByRole": [Function],
+  "queryByTestId": [Function],
+  "queryByText": [Function],
+  "queryByTitle": [Function],
+  "rerender": [Function],
+  "unmount": [Function],
+}
+`;

@@ -1,3 +1,35 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer base {
+  h1 {
+    @apply text-3xl lg:text-4xl font-black mb-3;
+  }
+  h2 {
+    @apply text-2xl lg:text-2xl font-bold;
+  }
+  h3 {
+    @apply text-xl lg:text-xl font-bold;
+  }
+  h4 {
+    @apply text-xl font-bold;
+  }
+  h4 {
+    @apply text-lg font-bold;
+  }
+  a {
+    @apply text-indigo-600 hover:text-indigo-900;
+  }
+}
+
+/* Global overrides */
+*:focus-visible {
+  border: none;
+  outline: none;
+}
+
+/* Library specific hacks */
+.multiselect-outer {
+  width: 100%;
+}

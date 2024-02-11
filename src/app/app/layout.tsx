@@ -25,4 +25,4 @@ async function RootLayout({
   );
 }
 
-export default withPageAuthRequired(RootLayout as any, {returnTo: '/app'})
+export default withPageAuthRequired(RootLayout as any, { returnTo: "/app" });

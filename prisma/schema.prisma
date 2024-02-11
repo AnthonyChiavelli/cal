@@ -3,18 +3,59 @@
 
 generator client {
   provider = "prisma-client-js"
+  previewFeatures = ["fullTextSearch"]
 }
 
 datasource db {
-  provider = "sqlite"
+  provider = "postgresql"
   url      = env("DATABASE_URL")
+}
+
+model Family {
+  id String @id @default(uuid())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  students Student[]
 }
 
 model Student {
   id String @id @default(uuid())
-  firstName String
-  lastName String
-  enrolled Boolean
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+  
+  firstName String
+  lastName String
+  
+  family Family? @relation(fields: [familyId], references: [id])
+  familyId String?
+
+  classes Class[]
+  gradeLevel Int
+  areaOfNeed AreaOfNeed[]
+  notes String
+}
+
+model AreaOfNeed {
+  id String @id @default(uuid())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  students Student[]
+}
+
+model Class {
+  id String @id @default(uuid())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  classType ClassType
+  students Student[]
+
+  cost Decimal
+}
+
+
+enum ClassType {
+  PRIVATE
+  GROUP
 }
