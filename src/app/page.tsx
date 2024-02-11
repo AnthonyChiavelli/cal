@@ -6,7 +6,7 @@ export default async function Home() {
   return (
     <div className="flex flex-col items-center justify-center h-dvh w-screen">
       <h1 className="text-2xl mb-5">Welcome to Cal</h1>
-      {session?.user ? (
+      {session?.user || true ? (
         <Link className="border border-slate-200 rounded px-2 py-1" href="/app">
           Go to app
         </Link>

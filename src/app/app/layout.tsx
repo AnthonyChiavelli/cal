@@ -11,7 +11,7 @@ const inter = Inter({ subsets: ["latin"] });
 //   description: "Manage your bookings",
 // };
 
-async function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
@@ -25,4 +25,4 @@ async function RootLayout({
   );
 }
 
-export default withPageAuthRequired(RootLayout as any, { returnTo: "/app" });
+// export default withPageAuthRequired(RootLayout as any, { returnTo: "/app" });
