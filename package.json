@@ -8,8 +8,10 @@
     "start": "next start",
     "lint": "next lint",
     "format": "prettier ./src --write",
-    "test": "jest"
+    "test": "jest",
+    "postinstall": "prisma generate"
   },
+  
   "dependencies": {
     "@auth0/nextjs-auth0": "^3.5.0",
     "@headlessui/react": "^1.7.18",
