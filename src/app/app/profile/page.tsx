@@ -1,6 +1,5 @@
 import Image from "next/image";
-import { getSession } from "@auth0/nextjs-auth0";
-import { PaperClipIcon } from "@heroicons/react/20/solid";
+import { getSession, withPageAuthRequired } from "@auth0/nextjs-auth0";
 
 async function Profile() {
   const session = await getSession();
@@ -42,4 +41,4 @@ async function Profile() {
   );
 }
 
-export default withPageAuthRequired(Students as any, { returnTo: "/app" });
+export default withPageAuthRequired(Profile as any, { returnTo: "/app" });
