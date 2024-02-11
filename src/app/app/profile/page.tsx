@@ -2,7 +2,7 @@ import Image from "next/image";
 import { getSession } from "@auth0/nextjs-auth0";
 import { PaperClipIcon } from "@heroicons/react/20/solid";
 
-export default async function Profile() {
+async function Profile() {
   const session = await getSession();
 
   return (
@@ -41,3 +41,5 @@ export default async function Profile() {
     </div>
   );
 }
+
+export default withPageAuthRequired(Students as any, { returnTo: "/app" });

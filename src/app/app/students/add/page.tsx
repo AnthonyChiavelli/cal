@@ -2,6 +2,7 @@ import Button from "@/app/components/button";
 import Multiselect from "@/app/components/multiselect";
 
 import { prisma } from "@/db";
+import { withPageAuthRequired } from "@auth0/nextjs-auth0";
 import { redirect } from "next/navigation";
 
 async function createStudent(data: FormData) {
@@ -16,7 +17,7 @@ async function createStudent(data: FormData) {
   redirect("/app/students");
 }
 
-export default function AddStudent() {
+function AddStudent() {
   return (
     <div>
       <h1>Create student</h1>
@@ -119,3 +120,5 @@ export default function AddStudent() {
     </div>
   );
 }
+
+export default withPageAuthRequired(AddStudent as any, { returnTo: "/app" });

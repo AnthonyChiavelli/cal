@@ -14,10 +14,11 @@ import {
 import Button from "@/app/components/button";
 import classNames from "classnames";
 import { shallowCompareArrays } from "@/util/array";
+import { withPageAuthRequired } from "@auth0/nextjs-auth0";
 
 const EXPECTED_COLUMNS = ["First Name", "Last Name", "Grade Level", "Notes"];
 
-export default function ImportStudents() {
+function ImportStudents() {
   const [helpModalOpen, setHelpModalOpen] = React.useState(false);
   const [csvParseLoading, setCsvParseLoading] = React.useState(false);
   const [csvFileParsed, setCsvFileParsed] = React.useState<{ error: boolean; errors: string[] } | undefined>(undefined);
@@ -159,3 +160,5 @@ export default function ImportStudents() {
     </div>
   );
 }
+
+export default withPageAuthRequired(ImportStudents as any, { returnTo: "/app" });

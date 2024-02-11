@@ -9,6 +9,7 @@ import Link from "next/link";
 import { redirect } from "next/navigation";
 import ConfirmationModal from "@/app/components/confirmation_modal";
 import DeleteStudent from "@/app/components/delete_student";
+import { withPageAuthRequired } from "@auth0/nextjs-auth0";
 
 const PAGE_SIZE = 10;
 
@@ -52,7 +53,7 @@ async function getTotalStudentCount(searchParams: { search?: string }) {
   return await prisma.student.count(query);
 }
 
-export default async function Students({
+async function Students({
   searchParams,
 }: {
   searchParams: { page?: Number; search?: string; importComplete: boolean };
@@ -138,3 +139,5 @@ export default async function Students({
     </div>
   );
 }
+
+export default withPageAuthRequired(Students as any, { returnTo: "/app" });

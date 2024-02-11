@@ -2,7 +2,6 @@ import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "../globals.css";
 import Sidebar from "../components/sidebar";
-import { withPageAuthRequired } from "@auth0/nextjs-auth0";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -11,7 +10,7 @@ export const metadata: Metadata = {
   description: "Manage your bookings",
 };
 
-async function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
@@ -24,5 +23,3 @@ async function RootLayout({
     </html>
   );
 }
-
-export default withPageAuthRequired(RootLayout as any, { returnTo: "/app" });
