@@ -30,10 +30,6 @@
     "react-spinners": "^0.13.8",
     "ts-node": "^10.9.2"
   },
-  "engines": {
-    "npm": ">=10.0.0",
-    "node": "18.x" 
-  },
   "devDependencies": {
     "@testing-library/jest-dom": "^6.4.2",
     "@testing-library/react": "^14.2.1",
