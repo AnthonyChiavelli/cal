@@ -9,7 +9,7 @@
     "lint": "next lint",
     "format": "prettier ./src --write",
     "test": "jest",
-    "postinstall": "prisma generate"
+    "postinstall": "prisma generate && prisma migrate deploy"
   },
   
   "dependencies": {
