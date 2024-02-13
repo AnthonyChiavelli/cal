@@ -65,13 +65,16 @@ async function Students({
     <div>
       <h1>Students</h1>
       <section className="flex items-center gap-2">
-        <Button text="Add Student" flavor="primary" iconName="PlusIcon" href="/app/students/add" />
-        <Button
-          text="Import Students"
-          flavor="primary"
-          iconName="ArrowUpOnSquareStackIcon"
-          href="/app/students/import"
-        />
+        <Link href="/app/students/add">
+          <Button text="Add Student" flavor="primary" iconName="PlusIcon" />
+        </Link>
+        <Link href="/app/students/import">
+          <Button
+            text="Import Students"
+            flavor="primary"
+            iconName="ArrowUpOnSquareStackIcon"
+          />
+        </Link>
       </section>
       <section className="mt-5">
         <StudentSearch />
