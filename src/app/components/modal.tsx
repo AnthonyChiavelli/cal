@@ -1,8 +1,7 @@
 "use client";
 
-import React, { Fragment, ReactElement, useRef, useState } from "react";
+import React, { Fragment, ReactElement, useRef } from "react";
 import { Dialog, Transition } from "@headlessui/react";
-import { CheckIcon } from "@heroicons/react/24/outline";
 
 interface IModalProps {
   open: boolean;

@@ -4,10 +4,9 @@ import StudentPager from "@/app/components/student_pager";
 import dayjs from "dayjs";
 import StudentSearch from "@/app/components/student_search";
 import { prisma } from "@/db";
-import { PlusIcon, ArrowUpOnSquareStackIcon, PencilIcon, TrashIcon } from "@heroicons/react/24/outline";
+import { PencilIcon } from "@heroicons/react/24/outline";
 import Link from "next/link";
 import { redirect } from "next/navigation";
-import ConfirmationModal from "@/app/components/confirmation_modal";
 import DeleteStudent from "@/app/components/delete_student";
 import { withPageAuthRequired } from "@auth0/nextjs-auth0";
 
@@ -69,11 +68,7 @@ async function Students({
           <Button text="Add Student" flavor="primary" iconName="PlusIcon" />
         </Link>
         <Link href="/app/students/import">
-          <Button
-            text="Import Students"
-            flavor="primary"
-            iconName="ArrowUpOnSquareStackIcon"
-          />
+          <Button text="Import Students" flavor="primary" iconName="ArrowUpOnSquareStackIcon" />
         </Link>
       </section>
       <section className="mt-5">
