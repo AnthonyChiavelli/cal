@@ -16,8 +16,8 @@ export default function ConfirmationModal(props: IConfirmationModalProps) {
       <>
         <div className="mb-5">{props.message}</div>
         <div className="flex justify-end gap-3">
-          <Button style="secondary" onClick={() => props.onDeny()} text="Cancel" />
-          <Button style="primary" onClick={() => props.onAccept()} text="Okay" />
+          <Button flavor="secondary" onClick={() => props.onDeny()} text="Cancel" />
+          <Button flavor="primary" onClick={() => props.onAccept()} text="Okay" />
         </div>
       </>
     </Modal>

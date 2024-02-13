@@ -65,10 +65,10 @@ async function Students({
     <div>
       <h1>Students</h1>
       <section className="flex items-center gap-2">
-        <Button text="Add Student" style="primary" iconName="PlusIcon" href="/app/students/add" />
+        <Button text="Add Student" flavor="primary" iconName="PlusIcon" href="/app/students/add" />
         <Button
           text="Import Students"
-          style="primary"
+          flavor="primary"
           iconName="ArrowUpOnSquareStackIcon"
           href="/app/students/import"
         />
@@ -132,7 +132,7 @@ async function Students({
         <>
           <div className="text-md mb-5">Import successful! Your students are now on the roster!</div>
           <div className="flex justify-end">
-            <Button style="primary" text="Okay" onClick={onClose} />
+            <Button flavor="primary" text="Okay" onClick={onClose} />
           </div>
         </>
       </Modal>

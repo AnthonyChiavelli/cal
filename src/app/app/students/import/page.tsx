@@ -128,7 +128,7 @@ function ImportStudents() {
             />
           </label>
           <div className="flex justify-center my-5">
-            <Button style="primary" type="submit" text="Upload" disabled={!(csvFileParsed && !csvFileParsed.error)} />
+            <Button flavor="primary" type="submit" text="Upload" disabled={!(csvFileParsed && !csvFileParsed.error)} />
           </div>
         </form>
       </section>
@@ -153,7 +153,7 @@ function ImportStudents() {
           </p>
           <p className="mt-3">We&apos;ll keep a record of all your imports which import created which student</p>
           <div className="mt-3 flex justify-end">
-            <Button style="primary" text="Okay!" onClick={() => setHelpModalOpen(false)} />
+            <Button flavor="primary" text="Okay!" onClick={() => setHelpModalOpen(false)} />
           </div>
         </>
       </Modal>

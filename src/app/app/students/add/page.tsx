@@ -114,7 +114,7 @@ function AddStudent() {
           </div>
         </div>
         <div>
-          <Button style="primary" text="Add" type="submit" />
+          <Button flavor="primary" text="Add" type="submit" />
         </div>
       </form>
     </div>
