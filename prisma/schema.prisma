@@ -60,6 +60,9 @@ model Class {
   students Student[]
 
   cost Decimal
+
+  scheduledFor DateTime
+  durationMinutes Int
 }
 
 

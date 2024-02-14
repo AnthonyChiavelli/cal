@@ -28,3 +28,17 @@ export async function deleteStudent(studentId: string) {
   await prisma.student.delete({ where: { id: studentId } });
   redirect("/app/students", RedirectType.replace);
 }
+
+
+export async function createMockEvent() {
+  'use server'
+  await prisma.class.create({
+    data: {
+      classType: Math.random() > .5 ? 'PRIVATE' : 'GROUP',
+      cost: 45.66,
+      scheduledFor: new Date(),
+      durationMinutes: 90
+    }
+  })
+  redirect("/app");
+}
