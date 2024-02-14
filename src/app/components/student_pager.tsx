@@ -21,20 +21,10 @@ export default function StudentPager(props: IStudentPager) {
     handleChangePage(currentPage + direction);
   };
 
-  const handleChangePage = (pageNumber: number) => {
-    const newParams = new URLSearchParams(searchParams);
-    if (pageNumber > 1) {
-      newParams.set("page", String(pageNumber));
-    } else {
-      newParams.delete("page");
-    }
-    replace(`${pathname}?${newParams.toString()}`);
-  };
-
   const lastPage = Math.ceil(props.totalCount / props.pageSize);
-  let pageNumbersToShow;
+  let pageNumbersToShow: Array<number>;
   if (currentPage <= 3) {
-    pageNumbersToShow = [1, 2, 3, 4, 5];
+    pageNumbersToShow = [1, 2, 3, 4, 5].filter((n) => n <= lastPage);
   } else {
     const bottomNumber = currentPage - 3;
     pageNumbersToShow = Array(5)
@@ -51,6 +41,19 @@ export default function StudentPager(props: IStudentPager) {
     }
   }
 
+  const handleChangePage = (pageNumber: number) => {
+    const newParams = new URLSearchParams(searchParams);
+    if (pageNumber > pageNumbersToShow[pageNumbersToShow.length - 1]) {
+      return;
+    }
+    if (pageNumber > 1) {
+      newParams.set("page", String(pageNumber));
+    } else {
+      newParams.delete("page");
+    }
+    replace(`${pathname}?${newParams.toString()}`);
+  };
+
   return (
     <div className="my-5 flex items-center justify-between">
       <div>
@@ -58,10 +61,13 @@ export default function StudentPager(props: IStudentPager) {
         <span className="font-bold">{props.totalCount}</span>{" "}
         {searchParams.has("search") ? "results" : "total students"}
       </div>
-      <div className="flex cursor-pointer rounded-md -space-x-px">
+      <div className="flex rounded-md -space-x-px">
         <div
           onClick={() => handleIncPage(-1)}
-          className="p-2 bg-white ring-1 ring-inset ring-gray-300 flex items-center content-center rounded-l-md hover:bg-gray-50 focus:z-20 focus:outline-offset-0"
+          className={classNames(
+            "p-2 bg-white ring-1 ring-inset ring-gray-300 flex items-center content-center rounded-l-md hover:bg-gray-50 focus:z-20 focus:outline-offset-0",
+            { "cursor-pointer": currentPage > 1 },
+          )}
         >
           <ChevronLeftIcon width={20} height={20} />
         </div>
@@ -70,9 +76,9 @@ export default function StudentPager(props: IStudentPager) {
             key={pageNumber}
             onClick={() => handleChangePage(pageNumber)}
             className={classNames(
-              "p-1 px-3 ring-1 ring-inset ring-gray-300 flex items-center content-center hover:bg-gray-50 focus:z-20 focus:outline-offset-0",
-              { "bg-white text-black": pageNumber !== currentPage },
-              { "bg-blue-500 text-white": pageNumber === currentPage },
+              "page-number p-1 px-3 ring-1 ring-inset ring-gray-300 flex items-center cursor-pointer content-center focus:z-20 focus:outline-offset-0",
+              { "bg-white text-black hover:bg-gray-50": pageNumber !== currentPage },
+              { "bg-blue-500 text-white hover:bg-blue-700": pageNumber === currentPage },
             )}
           >
             <span>{pageNumber}</span>
@@ -80,7 +86,10 @@ export default function StudentPager(props: IStudentPager) {
         ))}
         <div
           onClick={() => handleIncPage(1)}
-          className="p-2 bg-white ring-1 ring-inset ring-gray-300 flex items-center content-center rounded-r-md hover:bg-gray-50 focus:z-20 focus:outline-offset-0"
+          className={classNames(
+            "p-2 bg-white ring-1 ring-inset ring-gray-300 flex items-center content-center rounded-r-md hover:bg-gray-50 focus:z-20 focus:outline-offset-0",
+            { "cursor-pointer": currentPage < pageNumbersToShow[pageNumbersToShow.length - 1] },
+          )}
         >
           <ChevronRightIcon width={20} height={20} />
         </div>

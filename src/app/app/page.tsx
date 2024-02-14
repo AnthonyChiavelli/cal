@@ -15,7 +15,6 @@ async function getUpcomingEvents() {
   });
 }
 
-
 async function App() {
   const session = await getSession();
   const upcomingEvents = await getUpcomingEvents();

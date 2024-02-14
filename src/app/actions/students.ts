@@ -29,16 +29,15 @@ export async function deleteStudent(studentId: string) {
   redirect("/app/students", RedirectType.replace);
 }
 
-
 export async function createMockEvent() {
-  'use server'
+  "use server";
   await prisma.class.create({
     data: {
-      classType: Math.random() > .5 ? 'PRIVATE' : 'GROUP',
+      classType: Math.random() > 0.5 ? "PRIVATE" : "GROUP",
       cost: 45.66,
       scheduledFor: new Date(),
-      durationMinutes: 90
-    }
-  })
+      durationMinutes: 90,
+    },
+  });
   redirect("/app");
 }

@@ -14,7 +14,7 @@ import {
 import Button from "@/app/components/button";
 import classNames from "classnames";
 import { shallowCompareArrays } from "@/util/array";
-import { withPageAuthRequired } from "@auth0/nextjs-auth0";
+import { withPageAuthRequired } from "@auth0/nextjs-auth0/client";
 
 const EXPECTED_COLUMNS = ["First Name", "Last Name", "Grade Level", "Notes"];
 
@@ -162,3 +162,4 @@ function ImportStudents() {
 }
 
 export default withPageAuthRequired(ImportStudents as any, { returnTo: "/app" });
+// export default ImportStudents
