@@ -1,5 +1,5 @@
 'use client'
-import { BarChart, Card, Divider, Switch } from "@tremor/react";
+import { BarChart } from "@tremor/react";
 
 const data = [
   {
