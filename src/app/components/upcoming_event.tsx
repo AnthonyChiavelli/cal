@@ -18,7 +18,7 @@ export default function UpcomingEvent(props: IUpcomingEventProps) {
           {props.event.classType === 'GROUP' ? 'Group' : 'Private'} class from {dayjs(props.event.scheduledFor).format("MM/DD/YYYY")} to {dayjs(props.event.scheduledFor).format("MM/DD/YYYY")}
         </div>
         <div className='text-xs'>
-          {pluralize('student', props.event.students.length, true)} scheduled
+          {pluralize('student', Math.floor(Math.random() * 10), true)} scheduled
         </div>
       </div>
     </div>
