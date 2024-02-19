@@ -26,7 +26,6 @@ function ImportStudents() {
   const handleFileInputChange = React.useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files && e.target.files[0]) {
       setCsvParseLoading(true);
-      console.log(e.target.files[0]);
       papa.parse(e.target.files[0], {
         header: true,
         complete(r) {
@@ -162,4 +161,3 @@ function ImportStudents() {
 }
 
 export default withPageAuthRequired(ImportStudents as any, { returnTo: "/app" });
-// export default ImportStudents

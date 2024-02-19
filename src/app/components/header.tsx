@@ -11,7 +11,7 @@ export default async function Header() {
       <div className="header-content flex items-center flex-row">
         <Breadcrumbs />
         <div className="flex ml-auto">
-          <Link href="/app/profile" className="flex flex-row items-center">
+          <Link href="/app/profile" className="hidden tiny:flex flex-row items-center">
             <Image
               alt="Profile Image"
               src="https://lh3.googleusercontent.com/a/ACg8ocKF5DLHNFxfuglyUAYWeQ_Aq5VJ6G33z57A40oXlHtwYSU=s96-c"
@@ -19,7 +19,7 @@ export default async function Header() {
               width={10}
               height={10}
             />
-            <span className="flex flex-col ml-2">
+            <span className="flex-col ml-2 hidden xs:flex">
               <span className="truncate font-semibold tracking-wide leading-none">
                 {session?.user.name ?? "Unknown"}
               </span>

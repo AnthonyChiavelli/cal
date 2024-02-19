@@ -1,5 +1,6 @@
 import type { Config, } from "tailwindcss";
 import colors from 'tailwindcss/colors'
+const defaultTheme = require('tailwindcss/defaultTheme')
 
 const config: Config = {
   content: [
@@ -9,6 +10,11 @@ const config: Config = {
     "./node_modules/@tremor/**/*.{js,ts,jsx,tsx}",
   ],
   theme: {
+    screens: {
+      'tiny': "350px",
+      'xs': "500px",
+      ...defaultTheme.screens
+    },
     extend: {
       backgroundImage: {
         "gradient-radial": "radial-gradient(var(--tw-gradient-stops))",

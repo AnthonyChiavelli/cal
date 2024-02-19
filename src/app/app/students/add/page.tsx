@@ -7,7 +7,6 @@ import { redirect } from "next/navigation";
 
 async function createStudent(data: FormData) {
   "use server";
-  console.log(data);
   const firstName = data.get("firstName")?.valueOf() as string;
   const lastName = data.get("lastName")?.valueOf() as string;
   const gradeLevel = parseInt(data.get("gradeLevel")?.valueOf() as string);

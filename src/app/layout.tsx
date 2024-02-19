@@ -8,6 +8,19 @@ const inter = Inter({ subsets: ["latin"] });
 export const metadata: Metadata = {
   title: "Cal",
   description: "Manage your bookings",
+  generator: "Next.js",
+  manifest: "/manifest.json",
+  keywords: ["nextjs", "nextjs13", "next13", "pwa", "next-pwa"],
+  themeColor: [{ media: "(prefers-color-scheme: light)", color: "#2196f3" }],
+  authors: [
+    { name: "Anthony Chiavelli" },
+  ],
+  viewport:
+    "minimum-scale=1, initial-scale=1, width=device-width, shrink-to-fit=no, viewport-fit=cover",
+  icons: [
+    { rel: "apple-touch-icon", url: "public/cal-face.png" },
+    { rel: "icon", url: "public/cal-face.png" },
+  ],
 };
 
 export default function RootLayout({

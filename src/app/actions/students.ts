@@ -35,7 +35,7 @@ export async function createMockEvent() {
     data: {
       classType: Math.random() > 0.5 ? "PRIVATE" : "GROUP",
       cost: 45.66,
-      scheduledFor: new Date(),
+      scheduledFor: new Date(2024, 0, 15),
       durationMinutes: 90,
     },
   });
