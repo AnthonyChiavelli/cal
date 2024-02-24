@@ -1,16 +1,16 @@
-import { prisma } from "@/db"
+import { prisma } from "@/db";
 
 interface IClassProps {
   params: {
-    classId: string
-  }
+    classId: string;
+  };
 }
 
 async function fetchClass(classId: string) {
-  return prisma.class.findFirstOrThrow({where: {id: classId}})
+  return prisma.class.findFirstOrThrow({ where: { id: classId } });
 }
 
 export default async function Class(props: IClassProps) {
-  const classObj = await fetchClass(props.params.classId)
-  return <code className="whitespace-pre">sfd: {JSON.stringify(classObj, null, 2)}</code>
+  const classObj = await fetchClass(props.params.classId);
+  return <code className="whitespace-pre">sfd: {JSON.stringify(classObj, null, 2)}</code>;
 }

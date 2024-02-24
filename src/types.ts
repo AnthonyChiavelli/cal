@@ -8,6 +8,6 @@ export type CalendarDay = {
     href: string;
   }>;
   isCurrentMonth: boolean;
-  isToday?: boolean
-  isSelected?: boolean
+  isToday?: boolean;
+  isSelected?: boolean;
 };

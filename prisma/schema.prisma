@@ -41,6 +41,8 @@ model Student {
   gradeLevel Int
   areaOfNeed AreaOfNeed[]
   notes String
+
+  client Client[]
 }
 
 model AreaOfNeed {
@@ -65,8 +67,36 @@ model Class {
   durationMinutes Int
 }
 
-
 enum ClassType {
   PRIVATE
   GROUP
+}
+
+model Invoice {
+  id String @id @default(uuid())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  amount Decimal @db.Money
+  paidAmount Decimal @db.Money
+
+  paid Boolean
+  sent Boolean
+
+  clients Client @relation(fields: [clientId], references: [id])
+  clientId String
+}
+
+model Client {
+  id String @id @default(uuid())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  name String
+  email String?
+  phone String?
+
+  students Student[]
+
+  invoice Invoice[]
 }

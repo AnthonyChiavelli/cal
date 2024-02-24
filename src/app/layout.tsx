@@ -12,14 +12,11 @@ export const metadata: Metadata = {
   manifest: "/manifest.json",
   keywords: ["nextjs", "nextjs13", "next13", "pwa", "next-pwa"],
   themeColor: [{ media: "(prefers-color-scheme: light)", color: "#2196f3" }],
-  authors: [
-    { name: "Anthony Chiavelli" },
-  ],
-  viewport:
-    "minimum-scale=1, initial-scale=1, width=device-width, shrink-to-fit=no, viewport-fit=cover",
+  authors: [{ name: "Anthony Chiavelli" }],
+  viewport: "minimum-scale=1, initial-scale=1, width=device-width, shrink-to-fit=no, viewport-fit=cover",
   icons: [
-    { rel: "apple-touch-icon", url: "public/cal-face.png" },
-    { rel: "icon", url: "public/cal-face.png" },
+    { rel: "apple-touch-icon", url: "cal-face.png" },
+    { rel: "icon", url: "cal-face.png" },
   ],
 };
 
@@ -31,7 +28,7 @@ export default function RootLayout({
   return (
     <UserProvider>
       <html lang="en">
-        <body className={`${inter.className} bg-slate-500 text-slate-100`}>{children}</body>
+        <body className={`${inter.className} bg-slate-500 text-slate-100 overflow-hidden`}>{children}</body>
       </html>
     </UserProvider>
   );

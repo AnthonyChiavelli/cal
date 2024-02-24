@@ -19,7 +19,7 @@
     @apply text-lg font-bold;
   }
   a {
-    @apply text-indigo-600 hover:text-indigo-900;
+    @apply text-black;
   }
 }
 

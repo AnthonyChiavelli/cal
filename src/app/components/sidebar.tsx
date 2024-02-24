@@ -5,6 +5,9 @@ import {
   UserIcon,
   Cog6ToothIcon,
   ArrowLeftStartOnRectangleIcon,
+  DocumentDuplicateIcon,
+  UserGroupIcon,
+  ChartBarIcon,
 } from "@heroicons/react/16/solid";
 import Header from "./header";
 import ProductLogo from "./product_logo";
@@ -29,6 +32,9 @@ export default function Sidebar(props: ISidebarProps) {
             </li>
             <SidebarEntry icon={CalendarDaysIcon} text="Schedule" href="/app/schedule" highlighted={false} />
             <SidebarEntry icon={UsersIcon} text="Students" href="/app/students" highlighted={false} />
+            <SidebarEntry icon={DocumentDuplicateIcon} text="Invoices" href="/app/invoices" highlighted={false} />
+            <SidebarEntry icon={UserGroupIcon} text="Clients" href="/app/clients" highlighted={false} />
+            <SidebarEntry icon={ChartBarIcon} text="Analytics" href="/app/analytics" highlighted={false} />
             <li className="my-px">
               <span className="flex font-medium text-sm text-gray-300 px-4 my-4 uppercase">Account</span>
             </li>
@@ -43,9 +49,9 @@ export default function Sidebar(props: ISidebarProps) {
           </ul>
         </div>
       </aside>
-      <main className="main flex flex-col flex-grow -ml-64 md:ml-0 transition-all duration-150 ease-in">
+      <main className="main max-h-screen overflow-hidden flex flex-col flex-grow -ml-64 md:ml-0 transition-all duration-150 ease-in">
         <Header />
-        <div className="main-content flex flex-col flex-grow p-4">{props.children}</div>
+        <div className="min-h-0 flex flex-col flex-grow p-4">{props.children}</div>
       </main>
     </div>
   );

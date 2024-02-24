@@ -16,10 +16,8 @@ export default async function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
-      <body className={`${inter.className} bg-slate-500 text-slate-100`}>
-        <Sidebar>{children}</Sidebar>
-      </body>
-    </html>
+    <div className={`${inter.className} bg-slate-500 text-slate-100`}>
+      <Sidebar>{children}</Sidebar>
+    </div>
   );
 }

@@ -1,18 +1,15 @@
 "use client";
 
-import { Fragment } from "react";
-import {
-  ChevronDownIcon,
-  ChevronLeftIcon,
-  ChevronRightIcon,
-  ClockIcon,
-  EllipsisHorizontalIcon,
-} from "@heroicons/react/20/solid";
+import { Fragment, useTransition } from "react";
+import { ChevronLeftIcon, ChevronRightIcon, ClockIcon, EllipsisHorizontalIcon } from "@heroicons/react/20/solid";
 import { Menu, Transition } from "@headlessui/react";
 import Link from "next/link";
-import { createMonthString, getAdjacentMonthString } from "@/util/calendar";
+import { createMonthString, getAdjacentMonthString, parseMonthString } from "@/util/calendar";
 import React from "react";
 import { CalendarDay } from "@/types";
+import { useRouter } from "next/navigation";
+import LoadingPane from "./loading_pane";
+import CalendarViewMenu from "./calendar_view_menu";
 
 const days = [
   { date: "2021-12-27", events: [] },
@@ -93,36 +90,37 @@ function classNames(...classes: (string | boolean | undefined)[]) {
 
 interface IMonthCalendar {
   monthString?: string;
-  calendarDays: CalendarDay[]
+  calendarDays: CalendarDay[];
 }
 
 export default function MonthCalendar(props: IMonthCalendar) {
+  const [isPending, startTransition] = useTransition();
+  const router = useRouter();
+
+  const goToPreviousMonth = () => {
+    startTransition(() => {
+      router.push(`?p=month&t=${getAdjacentMonthString(props.monthString || "", -1)}`);
+    });
+  };
+
   const [year, month] = React.useMemo((): [number, number] => {
-    let year, month;
-    const today = new Date();
-    if (!props.monthString || !props.monthString.match(/[\d]{4}-[\d]{2}/)) {
-      year = today.getFullYear();
-      month = today.getMonth() + 1;
-    } else {
-      const components = props.monthString.split("-");
-      year = Number(components[0]);
-      if (year < 0) year = today.getFullYear();
-      month = Number(components[1]);
-      if (month < 1 || month > 12) month = today.getMonth() + 1;
+    try {
+      return parseMonthString(props.monthString);
+    } catch {
+      return [new Date().getFullYear(), new Date().getMonth() + 1];
     }
-    return [year, month];
   }, [props.monthString]);
 
-  // const calendarDays = React.useMemo((): CalendarDay[] => {
-  //   return getDaysForCalendarMonthGrid(month as IMonthNumber, year);
-  // }, [month, year]);
-
-  const calendarDays = props.calendarDays
+  const calendarDays = props.calendarDays;
 
   const displayDate = React.useMemo((): string => {
     const monthName = new Date(year, month - 1).toLocaleString("en-us", { month: "long" });
     return `${monthName} ${year}`;
   }, [month, year]);
+
+  // if (isPending) {
+  //   return <div>ooooooooooooooo</div>
+  // }
 
   return (
     <div className="lg:flex lg:h-full lg:flex-col">
@@ -132,17 +130,21 @@ export default function MonthCalendar(props: IMonthCalendar) {
         </h1>
         <div className="flex items-center">
           <div className="relative flex items-center rounded-md bg-white shadow-sm md:items-stretch">
-            <Link href={`?p=month&t=${getAdjacentMonthString(props.monthString || "", -1)}`}>
-              <button
-                type="button"
-                className="flex h-9 w-12 items-center justify-center rounded-l-md border-y border-l border-gray-300 pr-1 text-gray-400 hover:text-gray-500 focus:relative md:w-9 md:pr-0 md:hover:bg-gray-50"
-              >
-                <span className="sr-only">Previous month</span>
-                <ChevronLeftIcon className="h-5 w-5" aria-hidden="true" />
-              </button>
-            </Link>
+            {/* <Link href={`?p=month&t=${getAdjacentMonthString(props.monthString || "", -1)}`}> */}
+            <button
+              type="button"
+              className="flex h-9 w-12 items-center justify-center rounded-l-md border-y border-l border-gray-300 pr-1 text-gray-400 hover:text-gray-500 focus:relative md:w-9 md:pr-0 md:hover:bg-gray-50"
+              onClick={() => goToPreviousMonth()}
+            >
+              <span className="sr-only">Previous month</span>
+              <ChevronLeftIcon className="h-5 w-5" aria-hidden="true" />
+            </button>
+            {/* </Link>goToPreviousMonth */}
 
-            <Link className="flex items-center content-center border-y border border-gray-300 pr-1" href={`?p=month&t=${createMonthString(new Date().getFullYear(), new Date().getMonth() + 1)}`}>
+            <Link
+              className="flex items-center content-center border-y border border-gray-300 pr-1"
+              href={`?p=month&t=${createMonthString(new Date().getFullYear(), new Date().getMonth() + 1)}`}
+            >
               <button
                 type="button"
                 className="hidden px-3.5 text-sm font-semibold text-gray-900 hover:bg-gray-50 focus:relative md:block"
@@ -161,82 +163,7 @@ export default function MonthCalendar(props: IMonthCalendar) {
             </Link>
           </div>
           <div className="hidden md:ml-4 md:flex md:items-center">
-            <Menu as="div" className="relative">
-              <Menu.Button
-                type="button"
-                className="flex items-center gap-x-1.5 rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50"
-              >
-                Month view
-                <ChevronDownIcon className="-mr-1 h-5 w-5 text-gray-400" aria-hidden="true" />
-              </Menu.Button>
-
-              <Transition
-                as={Fragment}
-                enter="transition ease-out duration-100"
-                enterFrom="transform opacity-0 scale-95"
-                enterTo="transform opacity-100 scale-100"
-                leave="transition ease-in duration-75"
-                leaveFrom="transform opacity-100 scale-100"
-                leaveTo="transform opacity-0 scale-95"
-              >
-                <Menu.Items className="absolute right-0 z-10 mt-3 w-36 origin-top-right overflow-hidden rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
-                  <div className="py-1">
-                    <Menu.Item>
-                      {({ active }) => (
-                        <a
-                          href="#"
-                          className={classNames(
-                            active ? "bg-gray-100 text-gray-900" : "text-gray-700",
-                            "block px-4 py-2 text-sm",
-                          )}
-                        >
-                          Day view
-                        </a>
-                      )}
-                    </Menu.Item>
-                    <Menu.Item>
-                      {({ active }) => (
-                        <a
-                          href="#"
-                          className={classNames(
-                            active ? "bg-gray-100 text-gray-900" : "text-gray-700",
-                            "block px-4 py-2 text-sm",
-                          )}
-                        >
-                          Week view
-                        </a>
-                      )}
-                    </Menu.Item>
-                    <Menu.Item>
-                      {({ active }) => (
-                        <a
-                          href="#"
-                          className={classNames(
-                            active ? "bg-gray-100 text-gray-900" : "text-gray-700",
-                            "block px-4 py-2 text-sm",
-                          )}
-                        >
-                          Month view
-                        </a>
-                      )}
-                    </Menu.Item>
-                    <Menu.Item>
-                      {({ active }) => (
-                        <a
-                          href="#"
-                          className={classNames(
-                            active ? "bg-gray-100 text-gray-900" : "text-gray-700",
-                            "block px-4 py-2 text-sm",
-                          )}
-                        >
-                          Year view
-                        </a>
-                      )}
-                    </Menu.Item>
-                  </div>
-                </Menu.Items>
-              </Transition>
-            </Menu>
+            <CalendarViewMenu timePeriod="month" />
             <div className="ml-6 h-6 w-px bg-gray-300" />
             <Link href="/app/schedule/add">
               <button
@@ -352,7 +279,9 @@ export default function MonthCalendar(props: IMonthCalendar) {
           </Menu>
         </div>
       </header>
-      <div className="shadow ring-1 ring-black ring-opacity-5 lg:flex lg:flex-auto lg:flex-col">
+
+      <div className="shadow ring-1 ring-black ring-opacity-5 lg:flex lg:flex-auto lg:flex-col relative">
+        {isPending && <LoadingPane />}
         <div className="grid grid-cols-7 gap-px border-b border-gray-300 bg-gray-200 text-center text-xs font-semibold leading-6 text-gray-700 lg:flex-none">
           <div className="bg-white py-2">
             M<span className="sr-only sm:not-sr-only">on</span>
@@ -384,19 +313,21 @@ export default function MonthCalendar(props: IMonthCalendar) {
                 className={classNames(
                   day.isCurrentMonth ? "bg-white" : "bg-gray-50 text-gray-500",
                   "relative px-3 py-2",
-                  day.events.length === 0 ? "h-32" : ""
+                  day.events.length === 0 ? "h-32" : "",
                 )}
               >
-                <time
-                  dateTime={day.date}
-                  className={
-                    day.isToday
-                      ? "flex h-6 w-6 items-center justify-center rounded-full bg-indigo-600 font-semibold text-white"
-                      : undefined
-                  }
-                >
-                  {day.date.split("-").pop()?.replace(/^0/, "")}
-                </time>
+                <Link href={`?p=day&t=${day.date}`}>
+                  <time
+                    dateTime={day.date}
+                    className={
+                      day.isToday
+                        ? "flex h-6 w-6 items-center justify-center rounded-full bg-indigo-600 font-semibold text-white"
+                        : "text-black"
+                    }
+                  >
+                    {day.date.split("-").pop()?.replace(/^0/, "")}
+                  </time>
+                </Link>
                 {day.events.length > 0 && (
                   <ol className="mt-2">
                     {day.events.slice(0, 2).map((event) => (
