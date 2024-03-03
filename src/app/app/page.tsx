@@ -7,10 +7,10 @@ import UpcomingEvent from "../components/upcoming_event";
 import DailyFinances from "../components/daily_finances";
 
 async function getUpcomingEvents() {
-  return prisma.class.findMany({
+  return prisma.event.findMany({
     orderBy: { scheduledFor: "desc" },
     include: {
-      students: true,
+      eventStudents: true,
     },
   });
 }

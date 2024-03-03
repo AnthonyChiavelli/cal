@@ -9,16 +9,18 @@ import DayCalendar from "@/app/components/day_calendar";
 async function calendarDaysForMonth(timeValue: string) {
   const [year, month] = parseMonthString(timeValue);
 
-  const events = await prisma.class.findMany({
+  const events = await prisma.event.findMany({
     orderBy: { scheduledFor: "asc" },
-    where: { scheduledFor: { gte: new Date(year, month - 1, 1), lte: new Date(year, month, 0) } },
+    where: { scheduledFor: { gte: new Date(year, month - 1, -7), lte: new Date(year, month, 7) } },
   });
   return getDaysForCalendarMonthGrid(month as IMonthNumber, year).map((calDay: CalendarDay) => {
+    // TODO something more elegant than this
+    const [year, month, date] = calDay.date.split("-").map(Number);
     const eventsForToday = events.filter(
       (e) =>
         e.scheduledFor.getFullYear() === year &&
         e.scheduledFor.getMonth() + 1 === month &&
-        e.scheduledFor.getDate() === Number(calDay.date.split("-")[2]),
+        e.scheduledFor.getDate() === date,
     );
     return {
       ...calDay,
@@ -41,7 +43,7 @@ async function getEventsForDay(dateString: string) {
     [year, month, date] = [new Date().getFullYear(), new Date().getMonth() + 1, new Date().getDate()];
   }
   const [dayStart, dayEnd] = [new Date(year, month - 1, date), new Date(year, month - 1, date + 1)];
-  return await prisma.class.findMany({
+  return await prisma.event.findMany({
     orderBy: { scheduledFor: "asc" },
     where: { scheduledFor: { gte: dayStart, lte: dayEnd } },
   });
@@ -75,12 +77,7 @@ async function Schedule(params: { searchParams: { p?: string; t?: string } }) {
       }
     }
   };
-  return (
-    <>
-      {/* <Suspense fallback={<Loading />}>{renderTimePeriodComponent()}</Suspense> */}
-      {renderTimePeriodComponent()}
-    </>
-  );
+  return <>{renderTimePeriodComponent()}</>;
 }
 
 export default withPageAuthRequired(Schedule as any, { returnTo: "/app" });

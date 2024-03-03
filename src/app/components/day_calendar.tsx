@@ -273,23 +273,30 @@ export default function DayCalendar(props: IDateCalendarProps) {
               {/* Events */}
               <ol
                 className="col-start-1 col-end-2 row-start-1 grid grid-cols-1"
-                style={{ gridTemplateRows: "1.75rem repeat(288, minmax(0, 1fr)) auto" }}
+                style={{
+                  gridTemplateRows: "1.75rem repeat(288, minmax(0, 1fr)) auto",
+                  gridTemplateColumns: "repeat(12, minmax(0, 1fr))",
+                }}
               >
-                <li
-                  className="h-1 bg-green-500 relative mt-px flex"
-                  key="current-time-line"
-                  style={{
-                    gridRow: ` ${Math.round((new Date().getHours() * 60 + new Date().getMinutes()) / 5)} / span 1`,
-                  }}
-                ></li>
                 {props.events.map((event) => {
                   const startMinute = event.scheduledFor.getHours() * 60 + event.scheduledFor.getMinutes();
                   const endMinute = startMinute + event.durationMinutes;
+                  // TODO calculate this upfront for better performance
+                  const concurrentEvents = props.events.filter((e) => {
+                    const eStartMinute = e.scheduledFor.getHours() * 60 + e.scheduledFor.getMinutes();
+                    const eEndMinute = eStartMinute + e.durationMinutes;
+                    return eStartMinute < endMinute && eEndMinute > startMinute;
+                  }).length;
+
+                  const timeRangeLabel = `${event.scheduledFor.getHours() % 12}:${event.scheduledFor.getMinutes().toString().padStart(2, "0")} - ${(event.scheduledFor.getHours() + Math.floor(event.durationMinutes / 60)) % 12}:${(event.scheduledFor.getMinutes() + (event.durationMinutes % 60)).toString().padStart(2, "0")} ${event.scheduledFor.getHours() + Math.floor(event.durationMinutes / 60) > 11 ? "PM" : "AM"}`;
                   return (
                     <li
                       key={event.id}
                       className="relative mt-px flex"
-                      style={{ gridRow: `${Math.round(startMinute / 5)} / span ${(endMinute - startMinute) / 5}` }}
+                      style={{
+                        gridRow: `${Math.round(startMinute / 5)} / span ${(endMinute - startMinute) / 5}`,
+                        gridColumn: `auto / span ${Math.floor(12 / concurrentEvents)}`,
+                      }}
                     >
                       <Link
                         href={"/app/schedule/" + event.id}
@@ -297,12 +304,20 @@ export default function DayCalendar(props: IDateCalendarProps) {
                       >
                         <p className="order-1 font-semibold text-blue-700">{event.classType}</p>
                         <p className="text-blue-500 group-hover:text-blue-700">
-                          <time dateTime={event.scheduledFor.toDateString()}>TIME</time>
+                          <time dateTime={event.scheduledFor.toDateString()}>{timeRangeLabel}</time>
                         </p>
                       </Link>
                     </li>
                   );
                 })}
+                <li
+                  className="h-1 bg-green-500 relative mt-px inline-flex"
+                  key="current-time-line"
+                  style={{
+                    gridRow: ` ${Math.round((new Date().getHours() * 60 + new Date().getMinutes()) / 5)} / span 1`,
+                    gridColumn: "auto / span 12",
+                  }}
+                ></li>
               </ol>
             </div>
           </div>

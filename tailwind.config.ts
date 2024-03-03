@@ -1,6 +1,7 @@
 import type { Config, } from "tailwindcss";
 import colors from 'tailwindcss/colors'
 const defaultTheme = require('tailwindcss/defaultTheme')
+const {nextui} = require("@nextui-org/react");
 
 const config: Config = {
   content: [
@@ -8,6 +9,7 @@ const config: Config = {
     "./src/components/**/*.{js,ts,jsx,tsx,mdx}",
     "./src/app/**/*.{js,ts,jsx,tsx,mdx}",
     "./node_modules/@tremor/**/*.{js,ts,jsx,tsx}",
+    "./node_modules/@nextui-org/theme/dist/**/*.{js,ts,jsx,tsx}",
   ],
   theme: {
     screens: {
@@ -75,6 +77,6 @@ const config: Config = {
       },
     },
   },
-  plugins: [],
+  plugins: [nextui()],
 };
 export default config;

@@ -31,12 +31,35 @@ export async function deleteStudent(studentId: string) {
 
 export async function createMockEvent() {
   "use server";
-  await prisma.class.create({
+  await prisma.event.create({
     data: {
       classType: Math.random() > 0.5 ? "PRIVATE" : "GROUP",
       cost: 45.66,
       scheduledFor: new Date(2024, 0, 15),
       durationMinutes: 90,
+    },
+  });
+  redirect("/app");
+}
+
+export async function createEvent({
+  scheduledFor,
+  durationMinutes,
+  classType,
+  cost,
+}: {
+  scheduledFor: string;
+  durationMinutes: number;
+  classType: string;
+  cost: number;
+}) {
+  "use server";
+  await prisma.event.create({
+    data: {
+      classType: Math.random() > 0.5 ? "PRIVATE" : "GROUP",
+      cost,
+      scheduledFor,
+      durationMinutes,
     },
   });
   redirect("/app");

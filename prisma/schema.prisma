@@ -12,6 +12,9 @@ datasource db {
   directUrl = env("POSTGRES_URL_NON_POOLING") // uses a direct connection
 }
 
+
+// ######## App #########
+
 model User {
   id String @id @default(uuid())
   email String
@@ -19,12 +22,8 @@ model User {
   displayName String
 }
 
-model Family {
-  id String @id @default(uuid())
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-  students Student[]
-}
+
+// ######## Student #########
 
 model Student {
   id String @id @default(uuid())
@@ -37,12 +36,12 @@ model Student {
   family Family? @relation(fields: [familyId], references: [id])
   familyId String?
 
-  classes Class[]
   gradeLevel Int
   areaOfNeed AreaOfNeed[]
   notes String
 
   client Client[]
+  eventStudents EventStudent[]
 }
 
 model AreaOfNeed {
@@ -53,24 +52,66 @@ model AreaOfNeed {
   students Student[]
 }
 
-model Class {
+
+// ######## Events #########
+
+model Event {
+  eventType EventType
+
   id String @id @default(uuid())
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
-  classType ClassType
-  students Student[]
-
-  cost Decimal
-
   scheduledFor DateTime
   durationMinutes Int
+
+  // Class Events
+  classType ClassType?
+  notes String?
+  eventStudents EventStudent[]
+
+  // Consultation Events
+  parentName String?
+  studentName String?
+  referralSource ReferralSource?
+}
+
+enum EventType {
+  CLASS
+  CONSULTATION
 }
 
 enum ClassType {
   PRIVATE
   GROUP
 }
+
+enum ReferralSource {
+  PHONE
+  PERSON
+  EMAIL
+  ZOOM
+  FACEBOOK
+  OTHER
+}
+
+model EventStudent {
+  id String @id @default(uuid())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  event Event @relation(fields: [eventId], references: [id])
+  eventId String
+
+  student Student @relation(fields: [studentId], references: [id])
+  studentId String
+
+  cost Decimal
+  cancelledAt DateTime?
+}
+
+
+// ######## Invoice #########
 
 model Invoice {
   id String @id @default(uuid())
@@ -87,6 +128,9 @@ model Invoice {
   clientId String
 }
 
+
+// ######## Client #########
+
 model Client {
   id String @id @default(uuid())
   createdAt DateTime @default(now())
@@ -99,4 +143,14 @@ model Client {
   students Student[]
 
   invoice Invoice[]
+}
+
+
+// ######## Family #########
+
+model Family {
+  id String @id @default(uuid())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  students Student[]
 }
