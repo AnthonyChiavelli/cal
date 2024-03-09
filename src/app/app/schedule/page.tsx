@@ -26,7 +26,7 @@ async function calendarDaysForMonth(timeValue: string) {
       ...calDay,
       events: eventsForToday.map((e) => ({
         id: e.id,
-        name: e.classType,
+        name: e.classType || "Unknown",
         time: e.scheduledFor.toLocaleTimeString("en-us", { hour: "numeric" }),
         datetime: e.scheduledFor.toString(),
         href: `/app/schedule/${e.id}`,

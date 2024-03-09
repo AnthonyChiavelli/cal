@@ -5,7 +5,7 @@ import { ChevronLeftIcon, ChevronRightIcon, EllipsisHorizontalIcon } from "@hero
 import { Menu, Transition } from "@headlessui/react";
 import CalendarViewMenu from "./calendar_view_menu";
 
-function classNames(...classes) {
+function classNames(...classes: string[]) {
   return classes.filter(Boolean).join(" ");
 }
 
@@ -16,11 +16,13 @@ export default function WeekCalendar() {
 
   useEffect(() => {
     // Set the container scroll position based on the current time.
-    const currentMinute = new Date().getHours() * 60;
-    container.current.scrollTop =
-      ((container.current.scrollHeight - containerNav.current.offsetHeight - containerOffset.current.offsetHeight) *
-        currentMinute) /
-      1440;
+    // const currentMinute = new Date().getHours() * 60;
+    // if (container.current && containerNav.current && containerOffset.current) {
+    //   container.current.scrollTop =
+    //     ((container.current.scrollHeight - containerNav.current.offsetHeight - containerOffset.current.offsetHeight) *
+    //       currentMinute) /
+    //     1440;
+    // }
   }, []);
 
   return (

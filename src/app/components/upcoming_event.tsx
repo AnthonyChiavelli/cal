@@ -1,9 +1,9 @@
 import { pluralize } from "@/util/string";
-import { Class } from "@prisma/client";
+import { Event } from "@prisma/client";
 import dayjs from "dayjs";
 
 interface IUpcomingEventProps {
-  event: Class;
+  event: Event;
 }
 
 export default function UpcomingEvent(props: IUpcomingEventProps) {
