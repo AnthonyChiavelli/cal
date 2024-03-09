@@ -8,6 +8,7 @@ import {
   DocumentDuplicateIcon,
   UserGroupIcon,
   ChartBarIcon,
+  DocumentTextIcon,
 } from "@heroicons/react/16/solid";
 import Header from "./header";
 import ProductLogo from "./product_logo";
@@ -35,6 +36,7 @@ export default function Sidebar(props: ISidebarProps) {
             <SidebarEntry icon={DocumentDuplicateIcon} text="Invoices" href="/app/invoices" highlighted={false} />
             <SidebarEntry icon={UserGroupIcon} text="Clients" href="/app/clients" highlighted={false} />
             <SidebarEntry icon={ChartBarIcon} text="Analytics" href="/app/analytics" highlighted={false} />
+            <SidebarEntry icon={DocumentTextIcon} text="Logs" href="/app/logs" highlighted={false} />
             <li className="my-px">
               <span className="flex font-medium text-sm text-gray-300 px-4 my-4 uppercase">Account</span>
             </li>

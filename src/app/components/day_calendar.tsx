@@ -7,19 +7,25 @@ import CalendarViewMenu from "./calendar_view_menu";
 import Link from "next/link";
 import React from "react";
 import { createDateString, getAdjacentDateString, parseDateString } from "@/util/calendar";
-import { Class } from "@prisma/client";
+import { Event } from "@prisma/client";
 import MiniMonthCalendar from "./mini_month_calendar";
 import classNames from "classnames";
 import { CalendarDay } from "@/types";
+import { useRouter } from "next/navigation";
+import EventCreateModal from "./event_create_modal";
 
 interface IDateCalendarProps {
   dateString?: string;
-  events: Class[];
+  events: Event[];
   daysForMiniCalendar: CalendarDay[];
   showMiniCalendar: boolean;
 }
 
 export default function DayCalendar(props: IDateCalendarProps) {
+  const router = useRouter();
+
+  const [createEventModalOpen, setCreateEventModalOpen] = React.useState(false);
+
   const [year, month, day] = React.useMemo((): [number, number, number] => {
     try {
       return parseDateString(props.dateString);
@@ -67,6 +73,11 @@ export default function DayCalendar(props: IDateCalendarProps) {
     }
     return days;
   }, [day, month, year]);
+
+  const handleClickCalendar = React.useCallback((i: number) => {
+    // TODO preset date and time in create event modal
+    setCreateEventModalOpen(true);
+  }, []);
 
   const container = useRef<HTMLDivElement>(null);
   const containerNav = useRef<HTMLDivElement>(null);
@@ -251,19 +262,19 @@ export default function DayCalendar(props: IDateCalendarProps) {
             <div className="grid flex-auto grid-cols-1 grid-rows-1">
               {/* Horizontal lines */}
               <div
-                className="col-start-1 col-end-2 row-start-1 grid divide-y divide-gray-100"
+                className="col-start-1 col-end-2 row-start-1 grid divide-y divide-gray-100 z-10"
                 style={{ gridTemplateRows: "repeat(48, minmax(3.5rem, 1fr))" }}
               >
                 <div ref={containerOffset} className="row-end-1 h-7"></div>
                 {Array.from({ length: 25 }).map((_, i) => (
                   <>
-                    <div>
+                    <div onClick={() => handleClickCalendar(i)}>
                       <div className="sticky left-0 -ml-14 -mt-2.5 w-14 pr-2 text-right text-xs leading-5 text-gray-400">
                         {i % 12 === 0 ? 12 : i % 12}
                         {i > 11 ? "PM" : "AM"}
                       </div>
                     </div>
-                    <div>
+                    <div onClick={() => handleClickCalendar(i + 0.5)}>
                       <div className="sticky left-0 -ml-14 -mt-2.5 w-14 pr-2 text-right text-xs leading-5 text-gray-400" />
                     </div>
                   </>
@@ -292,7 +303,7 @@ export default function DayCalendar(props: IDateCalendarProps) {
                   return (
                     <li
                       key={event.id}
-                      className="relative mt-px flex"
+                      className="relative mt-px flex z-20"
                       style={{
                         gridRow: `${Math.round(startMinute / 5)} / span ${(endMinute - startMinute) / 5}`,
                         gridColumn: `auto / span ${Math.floor(12 / concurrentEvents)}`,
@@ -328,6 +339,12 @@ export default function DayCalendar(props: IDateCalendarProps) {
           </div>
         )}
       </div>
+      <EventCreateModal
+        open={createEventModalOpen}
+        onClose={() => setCreateEventModalOpen(false)}
+        students={[]}
+        presetDate={new Date()}
+      />
     </div>
   );
 }

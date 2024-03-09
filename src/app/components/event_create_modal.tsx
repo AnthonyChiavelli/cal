@@ -8,6 +8,7 @@ interface IEventCreateModalProps {
   students: Student[];
   open: boolean;
   onClose: () => void;
+  presetDate: Date;
 }
 
 export default function EventCreateModal(props: IEventCreateModalProps) {

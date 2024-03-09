@@ -1,8 +1,6 @@
 import { prisma } from "@/db";
 import { getSession, withPageAuthRequired } from "@auth0/nextjs-auth0";
 
-import Button from "../components/button";
-import { createMockEvent } from "../actions/students";
 import UpcomingEvent from "../components/upcoming_event";
 import DailyFinances from "../components/daily_finances";
 
@@ -53,8 +51,6 @@ async function App() {
             </div>
           </div>
         </div>
-        {/* <Button flavor="primary" onClick={createMockStudents} text="Generate"/> */}
-        <Button onClick={createMockEvent} text="Create mock event" flavor="primary" />
       </section>
     </div>
   );

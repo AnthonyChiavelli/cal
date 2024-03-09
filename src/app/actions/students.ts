@@ -3,6 +3,30 @@
 import csvtojson from "csvtojson";
 import { prisma } from "@/db";
 import { RedirectType, redirect } from "next/navigation";
+import { ActionType } from "@prisma/client";
+
+export async function createStudent(data: FormData) {
+  "use server";
+
+  const firstName = data.get("firstName")?.valueOf() as string;
+  const lastName = data.get("lastName")?.valueOf() as string;
+  const gradeLevel = parseInt(data.get("gradeLevel")?.valueOf() as string);
+  const notes = data.get("notes")?.valueOf() as string;
+  const studentData = { firstName, lastName, gradeLevel, notes };
+  try {
+    const student = await prisma.student.create({ data: studentData });
+    await prisma.actionRecord.create({
+      data: {
+        actionType: ActionType.CREATE_STUDENT,
+        additionalData: { creationParams: studentData, studentObj: student },
+      },
+    });
+  } catch (err) {
+    // TODO Better logging
+    console.error("Error creating student", err);
+  }
+  redirect("/app/students");
+}
 
 export async function doCSVUpload(args: any) {
   "use server";
@@ -27,40 +51,4 @@ export async function deleteStudent(studentId: string) {
   "use server";
   await prisma.student.delete({ where: { id: studentId } });
   redirect("/app/students", RedirectType.replace);
-}
-
-export async function createMockEvent() {
-  "use server";
-  await prisma.event.create({
-    data: {
-      classType: Math.random() > 0.5 ? "PRIVATE" : "GROUP",
-      cost: 45.66,
-      scheduledFor: new Date(2024, 0, 15),
-      durationMinutes: 90,
-    },
-  });
-  redirect("/app");
-}
-
-export async function createEvent({
-  scheduledFor,
-  durationMinutes,
-  classType,
-  cost,
-}: {
-  scheduledFor: string;
-  durationMinutes: number;
-  classType: string;
-  cost: number;
-}) {
-  "use server";
-  await prisma.event.create({
-    data: {
-      classType: Math.random() > 0.5 ? "PRIVATE" : "GROUP",
-      cost,
-      scheduledFor,
-      durationMinutes,
-    },
-  });
-  redirect("/app");
 }

@@ -1,20 +1,7 @@
+import { createStudent } from "@/app/actions/students";
 import Button from "@/app/components/button";
 import Multiselect from "@/app/components/multiselect";
-
-import { prisma } from "@/db";
 import { withPageAuthRequired } from "@auth0/nextjs-auth0";
-import { redirect } from "next/navigation";
-
-async function createStudent(data: FormData) {
-  "use server";
-  const firstName = data.get("firstName")?.valueOf() as string;
-  const lastName = data.get("lastName")?.valueOf() as string;
-  const gradeLevel = parseInt(data.get("gradeLevel")?.valueOf() as string);
-  const notes = data.get("notes")?.valueOf() as string;
-
-  await prisma.student.create({ data: { firstName, lastName, gradeLevel, notes } });
-  redirect("/app/students");
-}
 
 function AddStudent() {
   return (

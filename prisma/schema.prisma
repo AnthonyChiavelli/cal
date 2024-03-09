@@ -154,3 +154,25 @@ model Family {
   updatedAt DateTime @updatedAt
   students Student[]
 }
+
+
+// ######## Action Records #########
+
+model ActionRecord {
+  id String @id @default(uuid())
+  createdAt DateTime @default(now())
+
+  actionType ActionType
+  success Boolean @default(true)
+  additionalData Json
+}
+
+enum ActionType {
+  CREATE_STUDENT
+  EDIT_STUDENT
+  DELETE_STUDENT
+  IMPORT_STUDENTS
+  SCHEDULE_EVENT
+  EDIT_EVENT
+  DELETE_EVENT
+}

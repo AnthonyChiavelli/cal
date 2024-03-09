@@ -110,7 +110,7 @@ async function Students({
                   <td className="py-3 px-4">{student.notes}</td>
                   <td className="py-3 px-4">{dayjs(student.createdAt).format("MM/DD/YYYY")}</td>
                   <td className="relative whitespace-nowrap py-3 px-4 text-right text-sm font-medium flex justify-end gap-2">
-                    <Link href="#" className="text-gray-800">
+                    <Link href={`/app/students/${student.id}`} className="text-gray-800">
                       <PencilIcon width={20} height={20} />
                     </Link>
                     <div className="text-gray-800 cursor-pointer">
