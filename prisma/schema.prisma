@@ -16,10 +16,23 @@ datasource db {
 // ######## App #########
 
 model User {
-  id String @id @default(uuid())
-  email String
+  email String @id @default(uuid())
   password String
   displayName String
+
+  settings UserSettings?
+
+}
+
+model UserSettings {
+  id String @id @default(uuid())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  user User? @relation(fields: [userEmail], references: [email])
+  userEmail String @unique
+
+  basePrice Decimal @db.Money
 }
 
 
@@ -40,7 +53,6 @@ model Student {
   areaOfNeed AreaOfNeed[]
   notes String
 
-  client Client[]
   eventStudents EventStudent[]
 }
 
@@ -74,6 +86,8 @@ model Event {
   parentName String?
   studentName String?
   referralSource ReferralSource?
+
+  completed Boolean @default(false)
 }
 
 enum EventType {
@@ -124,25 +138,8 @@ model Invoice {
   paid Boolean
   sent Boolean
 
-  clients Client @relation(fields: [clientId], references: [id])
-  clientId String
-}
-
-
-// ######## Client #########
-
-model Client {
-  id String @id @default(uuid())
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-
-  name String
-  email String?
-  phone String?
-
-  students Student[]
-
-  invoice Invoice[]
+  family Family @relation(fields: [familyId], references: [id])
+  familyId String
 }
 
 
@@ -152,7 +149,32 @@ model Family {
   id String @id @default(uuid())
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+
+  familyName String
+
   students Student[]
+  parents Parent[]
+  invoices Invoice[]
+
+  notes String
+
+  balance Decimal @db.Money
+}
+
+model Parent {
+  id String @id @default(uuid())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  firstName String
+  lastName String
+
+  phone String?
+  email String?
+  isPrimary Boolean
+
+  family Family? @relation(fields: [familyId], references: [id])
+  familyId String?
 }
 
 

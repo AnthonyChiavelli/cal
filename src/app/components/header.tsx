@@ -8,7 +8,7 @@ export default async function Header() {
 
   return (
     <header className="header bg-white shadow py-4 px-4">
-      <div className="header-content flex items-center flex-row">
+      <div className="header-content flex items-center flex-row overflow-y-auto">
         <Breadcrumbs />
         <div className="flex ml-auto">
           <Link href="/app/profile" className="hidden tiny:flex flex-row items-center">

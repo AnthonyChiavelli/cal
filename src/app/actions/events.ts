@@ -2,7 +2,7 @@
 
 import { prisma } from "@/db";
 import { createDateString } from "@/util/calendar";
-import { ActionType, ClassType, EventType } from "@prisma/client";
+import { ActionType, ClassType, EventType, Event } from "@prisma/client";
 import { redirect } from "next/navigation";
 
 export async function createEvent(formData: FormData) {
@@ -44,4 +44,9 @@ export async function createEvent(formData: FormData) {
 export async function deleteEvent(classId: string) {
   await prisma.event.delete({ where: { id: classId } });
   return redirect("/app/schedule");
+}
+
+export async function markEventCompleted(event: Event, completed: boolean) {
+  await prisma.event.update({ where: { id: event.id }, data: { completed } });
+  return { completed };
 }

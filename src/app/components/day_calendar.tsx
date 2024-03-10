@@ -7,23 +7,20 @@ import CalendarViewMenu from "./calendar_view_menu";
 import Link from "next/link";
 import React from "react";
 import { createDateString, getAdjacentDateString, parseDateString } from "@/util/calendar";
-import { Event } from "@prisma/client";
 import MiniMonthCalendar from "./mini_month_calendar";
 import classNames from "classnames";
-import { CalendarDay } from "@/types";
-import { useRouter } from "next/navigation";
+import { CalendarDay, EventWithRelations } from "@/types";
 import EventCreateModal from "./event_create_modal";
+import CalendarEvent from "./calendar_event";
 
 interface IDateCalendarProps {
   dateString?: string;
-  events: Event[];
+  events: EventWithRelations[];
   daysForMiniCalendar: CalendarDay[];
   showMiniCalendar: boolean;
 }
 
 export default function DayCalendar(props: IDateCalendarProps) {
-  const router = useRouter();
-
   const [createEventModalOpen, setCreateEventModalOpen] = React.useState(false);
 
   const [year, month, day] = React.useMemo((): [number, number, number] => {
@@ -299,7 +296,6 @@ export default function DayCalendar(props: IDateCalendarProps) {
                     return eStartMinute < endMinute && eEndMinute > startMinute;
                   }).length;
 
-                  const timeRangeLabel = `${event.scheduledFor.getHours() % 12}:${event.scheduledFor.getMinutes().toString().padStart(2, "0")} - ${(event.scheduledFor.getHours() + Math.floor(event.durationMinutes / 60)) % 12}:${(event.scheduledFor.getMinutes() + (event.durationMinutes % 60)).toString().padStart(2, "0")} ${event.scheduledFor.getHours() + Math.floor(event.durationMinutes / 60) > 11 ? "PM" : "AM"}`;
                   return (
                     <li
                       key={event.id}
@@ -309,15 +305,7 @@ export default function DayCalendar(props: IDateCalendarProps) {
                         gridColumn: `auto / span ${Math.floor(12 / concurrentEvents)}`,
                       }}
                     >
-                      <Link
-                        href={"/app/schedule/" + event.id}
-                        className="group absolute inset-1 flex flex-col overflow-y-auto rounded-lg bg-blue-50 p-2 text-xs leading-5 hover:bg-blue-100"
-                      >
-                        <p className="order-1 font-semibold text-blue-700">{event.classType}</p>
-                        <p className="text-blue-500 group-hover:text-blue-700">
-                          <time dateTime={event.scheduledFor.toDateString()}>{timeRangeLabel}</time>
-                        </p>
-                      </Link>
+                      <CalendarEvent event={event} />
                     </li>
                   );
                 })}

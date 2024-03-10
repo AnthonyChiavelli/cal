@@ -138,7 +138,12 @@ export default function EventCreate(props: IEventCreateProps) {
       </form>
 
       <Button text="Create Event" flavor="primary" onClick={() => setShowModal(true)} />
-      <EventCreateModal presetDate={new Date()} students={props.students} open={showModal} onClose={() => setShowModal(false)} />
+      <EventCreateModal
+        presetDate={new Date()}
+        students={props.students}
+        open={showModal}
+        onClose={() => setShowModal(false)}
+      />
     </div>
   );
 }

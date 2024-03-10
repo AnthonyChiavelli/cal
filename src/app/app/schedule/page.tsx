@@ -46,6 +46,7 @@ async function getEventsForDay(dateString: string) {
   return await prisma.event.findMany({
     orderBy: { scheduledFor: "asc" },
     where: { scheduledFor: { gte: dayStart, lte: dayEnd } },
+    include: { eventStudents: { include: { student: true } } },
   });
 }
 
