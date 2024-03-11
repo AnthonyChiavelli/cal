@@ -1,7 +1,7 @@
-import { prisma } from "@/db";
 import { getSession } from "@auth0/nextjs-auth0";
 import { updateUserSettings } from "@/app/actions/user";
 import SettingsForm from "@/app/components/settings_form";
+import { prisma } from "@/db";
 
 export default async function SettingsPage() {
   const session = await getSession();

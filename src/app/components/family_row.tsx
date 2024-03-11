@@ -1,5 +1,5 @@
-import { FamilyWithRelations } from "@/types";
 import Link from "next/link";
+import { FamilyWithRelations } from "@/types";
 
 interface IFamilyRowProps {
   family: FamilyWithRelations;

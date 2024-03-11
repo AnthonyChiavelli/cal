@@ -1,10 +1,10 @@
 "use client";
 
-import { EventStudent, Event, Student } from "@prisma/client";
-import Link from "next/link";
-import { markEventCompleted } from "../actions/events";
 import { useMemo, useState } from "react";
 import { toast } from "react-toastify";
+import { markEventCompleted } from "../actions/events";
+import { EventStudent, Event, Student } from "@prisma/client";
+import Link from "next/link";
 
 interface ICalendarEventProps {
   event: Event & {

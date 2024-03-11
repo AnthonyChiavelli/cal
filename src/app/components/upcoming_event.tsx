@@ -1,6 +1,6 @@
-import { pluralize } from "@/util/string";
 import { Event } from "@prisma/client";
 import dayjs from "dayjs";
+import { pluralize } from "@/util/string";
 
 interface IUpcomingEventProps {
   event: Event;

@@ -1,6 +1,6 @@
-import { prisma } from "@/db";
 import { getSession } from "@auth0/nextjs-auth0";
 import { redirect } from "next/navigation";
+import { prisma } from "@/db";
 
 export async function updateUserSettings(formData: FormData): Promise<{ success: boolean } | undefined> {
   "use server";

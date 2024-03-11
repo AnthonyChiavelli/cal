@@ -1,10 +1,11 @@
-import { withPageAuthRequired } from "@auth0/nextjs-auth0";
 import MonthCalendar from "../../components/month_calendar";
+import { withPageAuthRequired } from "@auth0/nextjs-auth0";
+import DayCalendar from "@/app/components/day_calendar";
+import WeekCalendar from "@/app/components/week_calendar";
 import { prisma } from "@/db";
 import { CalendarDay } from "@/types";
 import { IMonthNumber, getDaysForCalendarMonthGrid, parseDateString, parseMonthString } from "@/util/calendar";
-import WeekCalendar from "@/app/components/week_calendar";
-import DayCalendar from "@/app/components/day_calendar";
+import { getEventName } from "@/util/event";
 
 async function calendarDaysForMonth(timeValue: string) {
   const [year, month] = parseMonthString(timeValue);
@@ -12,6 +13,7 @@ async function calendarDaysForMonth(timeValue: string) {
   const events = await prisma.event.findMany({
     orderBy: { scheduledFor: "asc" },
     where: { scheduledFor: { gte: new Date(year, month - 1, -7), lte: new Date(year, month, 7) } },
+    include: { eventStudents: { include: { student: true } } },
   });
   return getDaysForCalendarMonthGrid(month as IMonthNumber, year).map((calDay: CalendarDay) => {
     // TODO something more elegant than this
@@ -26,7 +28,7 @@ async function calendarDaysForMonth(timeValue: string) {
       ...calDay,
       events: eventsForToday.map((e) => ({
         id: e.id,
-        name: e.classType || "Unknown",
+        name: getEventName(e),
         time: e.scheduledFor.toLocaleTimeString("en-us", { hour: "numeric" }),
         datetime: e.scheduledFor.toString(),
         href: `/app/schedule/${e.id}`,

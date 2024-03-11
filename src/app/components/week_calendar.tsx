@@ -1,8 +1,8 @@
 "use client";
 
 import { Fragment, useEffect, useRef } from "react";
-import { ChevronLeftIcon, ChevronRightIcon, EllipsisHorizontalIcon } from "@heroicons/react/20/solid";
 import { Menu, Transition } from "@headlessui/react";
+import { ChevronLeftIcon, ChevronRightIcon, EllipsisHorizontalIcon } from "@heroicons/react/20/solid";
 import CalendarViewMenu from "./calendar_view_menu";
 
 function classNames(...classes: string[]) {

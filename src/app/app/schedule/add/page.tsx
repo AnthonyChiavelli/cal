@@ -1,6 +1,6 @@
+import { withPageAuthRequired } from "@auth0/nextjs-auth0";
 import EventCreate from "@/app/components/event_create";
 import { prisma } from "@/db";
-import { withPageAuthRequired } from "@auth0/nextjs-auth0";
 
 async function AddEvent() {
   const students = await prisma.student.findMany();

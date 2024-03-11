@@ -1,7 +1,7 @@
-import { CalendarDay } from "@/types";
 import { ChevronRightIcon } from "@heroicons/react/20/solid";
 import { ChevronLeftIcon } from "@heroicons/react/20/solid";
 import classNames from "classnames";
+import { CalendarDay } from "@/types";
 
 interface IMiniMonthCalendarProps {
   calendarDays: CalendarDay[];

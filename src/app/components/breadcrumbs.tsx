@@ -1,8 +1,8 @@
 "use client";
 
 import { HomeIcon, ChevronRightIcon } from "@heroicons/react/24/outline";
-import { usePathname } from "next/navigation";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 
 export default function Breadcrumbs() {
   const pathname = usePathname();

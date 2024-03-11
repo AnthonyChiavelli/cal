@@ -1,4 +1,5 @@
 "use client";
+
 import { BarChart } from "@tremor/react";
 
 const data = [

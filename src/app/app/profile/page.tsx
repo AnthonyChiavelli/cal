@@ -1,5 +1,5 @@
-import Image from "next/image";
 import { getSession, withPageAuthRequired } from "@auth0/nextjs-auth0";
+import Image from "next/image";
 
 async function Profile() {
   const session = await getSession();

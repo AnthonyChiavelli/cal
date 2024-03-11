@@ -1,17 +1,17 @@
 "use client";
 
-import { Fragment, useEffect, useRef } from "react";
-import { ChevronLeftIcon, ChevronRightIcon, EllipsisHorizontalIcon } from "@heroicons/react/20/solid";
-import { Menu, Transition } from "@headlessui/react";
-import CalendarViewMenu from "./calendar_view_menu";
-import Link from "next/link";
+import { useEffect, useRef } from "react";
 import React from "react";
-import { createDateString, getAdjacentDateString, parseDateString } from "@/util/calendar";
-import MiniMonthCalendar from "./mini_month_calendar";
+import { ChevronLeftIcon, ChevronRightIcon } from "@heroicons/react/20/solid";
 import classNames from "classnames";
+import Link from "next/link";
 import { CalendarDay, EventWithRelations } from "@/types";
-import EventCreateModal from "./event_create_modal";
+import { createDateString, getAdjacentDateString, parseDateString } from "@/util/calendar";
 import CalendarEvent from "./calendar_event";
+import CalenderOverflowMenu from "./calendar_overflow_menu";
+import CalendarViewMenu from "./calendar_view_menu";
+import EventCreateModal from "./event_create_modal";
+import MiniMonthCalendar from "./mini_month_calendar";
 
 interface IDateCalendarProps {
   dateString?: string;
@@ -106,7 +106,7 @@ export default function DayCalendar(props: IDateCalendarProps) {
           <p className="mt-1 text-sm text-gray-500">{displayDay}</p>
         </div>
         <div className="flex items-center">
-          <div className="relative flex items-center rounded-md bg-white shadow-sm items-stretch">
+          <div className="relative flex rounded-md bg-white shadow-sm items-stretch">
             <Link href={`?p=day&t=${getAdjacentDateString(props.dateString || "", -1)}`}>
               <button
                 type="button"
@@ -150,83 +150,7 @@ export default function DayCalendar(props: IDateCalendarProps) {
               </button>
             </Link>
           </div>
-          <Menu as="div" className="relative ml-6 md:hidden">
-            <Menu.Button className="-mx-2 flex items-center rounded-full border border-transparent p-2 text-gray-400 hover:text-gray-500">
-              <span className="sr-only">Open menu</span>
-              <EllipsisHorizontalIcon className="h-5 w-5" aria-hidden="true" />
-            </Menu.Button>
-
-            <Transition
-              as={Fragment}
-              enter="transition ease-out duration-100"
-              enterFrom="transform opacity-0 scale-95"
-              enterTo="transform opacity-100 scale-100"
-              leave="transition ease-in duration-75"
-              leaveFrom="transform opacity-100 scale-100"
-              leaveTo="transform opacity-0 scale-95"
-            >
-              <Menu.Items className="absolute right-0 z-10 mt-3 w-36 origin-top-right divide-y divide-gray-100 overflow-hidden rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
-                <div className="py-1">
-                  <Menu.Item>
-                    {({ active }) => (
-                      <Link
-                        href="/app/schedule/create"
-                        className={classNames(
-                          active ? "bg-gray-100 text-gray-900" : "text-gray-700",
-                          "block px-4 py-2 text-sm",
-                        )}
-                      >
-                        Create event
-                      </Link>
-                    )}
-                  </Menu.Item>
-                </div>
-                <div className="py-1">
-                  <Menu.Item>
-                    {({ active }) => (
-                      <Link
-                        href={`?p=day&t=${createDateString(new Date())}`}
-                        className={classNames(
-                          active ? "bg-gray-100 text-gray-900" : "text-gray-700",
-                          "block px-4 py-2 text-sm",
-                        )}
-                      >
-                        Go to today
-                      </Link>
-                    )}
-                  </Menu.Item>
-                </div>
-                <div className="py-1">
-                  <Menu.Item>
-                    {({ active }) => (
-                      <Link
-                        href="?p=week"
-                        className={classNames(
-                          active ? "bg-gray-100 text-gray-900" : "text-gray-700",
-                          "block px-4 py-2 text-sm",
-                        )}
-                      >
-                        Week view
-                      </Link>
-                    )}
-                  </Menu.Item>
-                  <Menu.Item>
-                    {({ active }) => (
-                      <Link
-                        href="?p=month"
-                        className={classNames(
-                          active ? "bg-gray-100 text-gray-900" : "text-gray-700",
-                          "block px-4 py-2 text-sm",
-                        )}
-                      >
-                        Month view
-                      </Link>
-                    )}
-                  </Menu.Item>
-                </div>
-              </Menu.Items>
-            </Transition>
-          </Menu>
+          <CalenderOverflowMenu />
         </div>
       </header>
       <div className="isolate flex flex-auto overflow-hidden bg-white">

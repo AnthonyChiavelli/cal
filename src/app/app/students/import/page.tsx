@@ -1,20 +1,20 @@
 "use client";
 
 import React from "react";
-import Modal from "@/app/components/modal";
-import papa from "papaparse";
-import { SyncLoader } from "react-spinners";
-import { doCSVUpload } from "@/app/actions/students";
 import {
   QuestionMarkCircleIcon,
   ArrowUpOnSquareIcon,
   ExclamationCircleIcon,
   FaceSmileIcon,
 } from "@heroicons/react/24/outline";
-import Button from "@/app/components/button";
-import classNames from "classnames";
-import { shallowCompareArrays } from "@/util/array";
+import { SyncLoader } from "react-spinners";
 import { withPageAuthRequired } from "@auth0/nextjs-auth0/client";
+import classNames from "classnames";
+import papa from "papaparse";
+import { doCSVUpload } from "@/app/actions/students";
+import Button from "@/app/components/button";
+import Modal from "@/app/components/modal";
+import { shallowCompareArrays } from "@/util/array";
 
 const EXPECTED_COLUMNS = ["First Name", "Last Name", "Grade Level", "Notes"];
 

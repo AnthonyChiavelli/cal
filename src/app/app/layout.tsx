@@ -1,9 +1,9 @@
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import NavWrapper from "../components/nav_wrapper";
+import "../globals.css";
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
-import "../globals.css";
-import NavWrapper from "../components/nav_wrapper";
 
 const inter = Inter({ subsets: ["latin"] });
 

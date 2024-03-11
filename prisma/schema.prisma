@@ -78,7 +78,7 @@ model Event {
   durationMinutes Int
 
   // Class Events
-  classType ClassType?
+  classType ClassType @default(PRIVATE)
   notes String?
   eventStudents EventStudent[]
 

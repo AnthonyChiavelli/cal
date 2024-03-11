@@ -1,9 +1,10 @@
 "use client";
-import { toast } from "react-toastify";
-import { Popover, PopoverTrigger, PopoverContent } from "@nextui-org/react";
-import { QuestionMarkCircleIcon } from "@heroicons/react/24/outline";
-import LoadingPane from "./loading_pane";
+
 import { useCallback, useState } from "react";
+import { QuestionMarkCircleIcon } from "@heroicons/react/24/outline";
+import { Popover, PopoverTrigger, PopoverContent } from "@nextui-org/react";
+import { toast } from "react-toastify";
+import LoadingPane from "./loading_pane";
 
 interface ISettingsFormProps {
   updateUserSettings: (formData: FormData) => Promise<{ success: boolean } | undefined>;

@@ -1,9 +1,9 @@
 "use server";
 
-import { prisma } from "@/db";
-import { createDateString } from "@/util/calendar";
 import { ActionType, ClassType, EventType, Event } from "@prisma/client";
 import { redirect } from "next/navigation";
+import { prisma } from "@/db";
+import { createDateString } from "@/util/calendar";
 
 export async function createEvent(formData: FormData) {
   const scheduledFor = new Date(`${formData.get("scheduledForDate")}T${formData.get("scheduledForTime")}`);

@@ -1,14 +1,14 @@
-import Button from "@/app/components/button";
-import Modal from "@/app/components/modal";
-import StudentPager from "@/app/components/student_pager";
-import dayjs from "dayjs";
-import StudentSearch from "@/app/components/student_search";
-import { prisma } from "@/db";
 import { PencilIcon } from "@heroicons/react/24/outline";
+import { withPageAuthRequired } from "@auth0/nextjs-auth0";
+import dayjs from "dayjs";
 import Link from "next/link";
 import { redirect } from "next/navigation";
+import Button from "@/app/components/button";
 import DeleteStudent from "@/app/components/delete_student";
-import { withPageAuthRequired } from "@auth0/nextjs-auth0";
+import Modal from "@/app/components/modal";
+import StudentPager from "@/app/components/student_pager";
+import StudentSearch from "@/app/components/student_search";
+import { prisma } from "@/db";
 
 const PAGE_SIZE = 10;
 

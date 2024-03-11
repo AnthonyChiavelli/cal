@@ -1,8 +1,8 @@
 "use client";
 
+import React from "react";
 import { XMarkIcon } from "@heroicons/react/24/outline";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
-import React from "react";
 
 export default function StudentSearch() {
   const searchParams = useSearchParams();

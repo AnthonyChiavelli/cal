@@ -1,5 +1,5 @@
 import "@testing-library/jest-dom";
-import { pluralize } from "../../src/util/string";
+import { pluralize, toCapitalCase } from "../../src/util/string";
 
 describe("pluralize", () => {
   it.each([
@@ -31,3 +31,15 @@ describe("pluralize", () => {
     expect(pluralize(word, count, includeNumber, irregularPlural)).toBe(expected)
   })
 });
+
+describe("toCapitalCase", () => {
+  it("should capitalize the first letter of a lower-case string", () => {
+    expect(toCapitalCase("hello")).toBe("Hello")
+  })
+  it("should capitalize the first letter of an upper-case string", () => {
+    expect(toCapitalCase("HELLO")).toBe("Hello")
+  })
+  it("should capitalize the first letter of a mixed-case string", () => {
+    expect(toCapitalCase("hElLo")).toBe("Hello")
+  })
+})

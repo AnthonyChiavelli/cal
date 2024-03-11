@@ -1,9 +1,9 @@
 "use server";
 
-import csvtojson from "csvtojson";
-import { prisma } from "@/db";
-import { RedirectType, redirect } from "next/navigation";
 import { ActionType } from "@prisma/client";
+import csvtojson from "csvtojson";
+import { RedirectType, redirect } from "next/navigation";
+import { prisma } from "@/db";
 
 export async function createStudent(data: FormData) {
   "use server";

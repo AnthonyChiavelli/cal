@@ -1,9 +1,9 @@
 "use client";
 
-import { TrashIcon } from "@heroicons/react/24/outline";
-import ConfirmationModal from "./confirmation_modal";
 import React from "react";
+import { TrashIcon } from "@heroicons/react/24/outline";
 import { deleteStudent } from "../actions/students";
+import ConfirmationModal from "./confirmation_modal";
 
 interface IDeleteStudent {
   studentId: string;

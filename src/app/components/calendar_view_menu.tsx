@@ -1,8 +1,8 @@
 import { Fragment } from "react";
+import React from "react";
 import { Menu, Transition } from "@headlessui/react";
 import { ChevronDownIcon } from "@heroicons/react/20/solid";
 import classNames from "classnames";
-import React from "react";
 
 interface ICalendarViewMenuProps {
   timePeriod: string;
@@ -53,19 +53,6 @@ export default function CalendarViewMenu(props: ICalendarViewMenuProps) {
                   })}
                 >
                   Day view
-                </a>
-              )}
-            </Menu.Item>
-            <Menu.Item>
-              {({ active }) => (
-                <a
-                  href="?p=week"
-                  className={classNames("block px-4 py-2 text-sm", {
-                    "bg-gray-100 text-gray-900": active,
-                    "text-gray-700": !active,
-                  })}
-                >
-                  Week view
                 </a>
               )}
             </Menu.Item>

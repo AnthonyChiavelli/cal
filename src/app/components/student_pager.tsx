@@ -1,8 +1,8 @@
 "use client";
 
-import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { ChevronLeftIcon, ChevronRightIcon } from "@heroicons/react/24/outline";
 import classNames from "classnames";
+import { usePathname, useRouter, useSearchParams } from "next/navigation";
 
 interface IStudentPager {
   totalCount: number;

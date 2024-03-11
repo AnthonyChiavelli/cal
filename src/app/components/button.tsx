@@ -1,7 +1,7 @@
 "use client";
 
-import * as Icons from "@heroicons/react/24/outline";
 import React from "react";
+import * as Icons from "@heroicons/react/24/outline";
 import classNames from "classnames";
 
 interface IButtonProps {

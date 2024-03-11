@@ -1,6 +1,6 @@
-import Link from "next/link";
-import Image from "next/image";
 import { getSession } from "@auth0/nextjs-auth0";
+import Image from "next/image";
+import Link from "next/link";
 import Breadcrumbs from "./breadcrumbs";
 
 export default async function Header() {

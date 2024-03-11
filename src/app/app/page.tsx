@@ -1,8 +1,7 @@
-import { prisma } from "@/db";
-import { getSession, withPageAuthRequired } from "@auth0/nextjs-auth0";
-
-import UpcomingEvent from "../components/upcoming_event";
 import DailyFinances from "../components/daily_finances";
+import UpcomingEvent from "../components/upcoming_event";
+import { getSession, withPageAuthRequired } from "@auth0/nextjs-auth0";
+import { prisma } from "@/db";
 
 async function getUpcomingEvents() {
   return prisma.event.findMany({
