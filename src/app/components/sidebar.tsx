@@ -1,6 +1,5 @@
 "use client";
 
-import { useState } from "react";
 import {
   HomeIcon,
   CalendarDaysIcon,
@@ -12,21 +11,23 @@ import {
   UserGroupIcon,
   ChartBarIcon,
   DocumentTextIcon,
-  ChevronRightIcon,
   ChevronDoubleLeftIcon,
 } from "@heroicons/react/16/solid";
 import classNames from "classnames";
 import ProductLogo from "./product_logo";
 import SidebarEntry from "./sidebar_entry";
 
-export default function Sidebar() {
-  const [expanded, setExpanded] = useState(false);
+interface ISidebarProps {
+  expanded: boolean;
+  setExpanded: (expanded: boolean) => void;
+}
 
+export default function Sidebar(props: ISidebarProps) {
   return (
     <>
-      {expanded && (
+      {props.expanded && (
         <div
-          onClick={() => setExpanded(false)}
+          onClick={() => props.setExpanded(false)}
           className="block md:hidden overlay-zone fixed left-60 right-0 bottom-0 top-0 z-10 bg-transparent"
         />
       )}
@@ -34,22 +35,11 @@ export default function Sidebar() {
         className={classNames(
           "z-50 sidebar shrink-0 w-64 md:shadow transform md:translate-x-0 transition-transform duration-150 ease-in bg-slate-500",
           {
-            "translate-x-0": expanded,
-            "-translate-x-60": !expanded,
+            "translate-x-0": props.expanded,
+            "-translate-x-64": !props.expanded,
           },
         )}
       >
-        {!expanded && (
-          <ChevronRightIcon className="block md:hidden h-6 w-6 text-gray-300 absolute right-0 top-1/2 -mr-1" />
-        )}
-
-        {!expanded && (
-          <div
-            onClick={() => setExpanded(true)}
-            className="block md:hidden click-zone w-5 absolute top-0 right-0 bottom-0 z-10 cursor-pointer"
-          />
-        )}
-
         <div className="sidebar-header px-4 py-4">
           <ProductLogo />
         </div>
@@ -57,8 +47,8 @@ export default function Sidebar() {
         <div className="sidebar-content px-4 py-6">
           <ul
             className={classNames("flex flex-col w-full items-stretch md:visible", {
-              visible: expanded,
-              invisible: !expanded,
+              visible: props.expanded,
+              invisible: !props.expanded,
             })}
           >
             <SidebarEntry icon={HomeIcon} text="Home" href="/app" highlighted={false} />
@@ -83,7 +73,10 @@ export default function Sidebar() {
               highlighted={false}
             />
 
-            <li className="my-px absolute bottom-3 left-0 right-0 block md:hidden" onClick={() => setExpanded(false)}>
+            <li
+              className="my-px absolute bottom-3 left-0 right-0 block md:hidden"
+              onClick={() => props.setExpanded(false)}
+            >
               <div
                 className={classNames(
                   "flex flex-row items-center justify-center h-10 px-3 rounded-lg text-gray-300 hover:bg-gray-100 hover:text-gray-700",

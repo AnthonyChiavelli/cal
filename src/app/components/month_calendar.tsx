@@ -18,6 +18,7 @@ import { createMonthString, getAdjacentMonthString, parseMonthString } from "@/u
 interface IMonthCalendar {
   monthString?: string;
   calendarDays: CalendarDay[];
+  showMiniDayView: boolean;
 }
 
 export default function MonthCalendar(props: IMonthCalendar) {
@@ -50,6 +51,17 @@ export default function MonthCalendar(props: IMonthCalendar) {
     const currentMonth = new Date().getMonth() + 1;
     return year === currentYear && month === currentMonth;
   }, [props.monthString]);
+
+  const handleClickMiniMonthDay = React.useCallback(
+    (day: CalendarDay) => {
+      if (props.showMiniDayView) {
+        setSelectedDay(day);
+      } else {
+        router.push(`?p=day&t=${day.date}`);
+      }
+    },
+    [props.showMiniDayView, router],
+  );
 
   const [year, month] = React.useMemo((): [number, number] => {
     try {
@@ -188,7 +200,7 @@ export default function MonthCalendar(props: IMonthCalendar) {
               </div>
             ))}
           </div>
-          <MonthViewMiniCalendar onSelectDay={(day: CalendarDay) => setSelectedDay(day)} calendarDays={calendarDays} />
+          <MonthViewMiniCalendar onSelectDay={handleClickMiniMonthDay} calendarDays={calendarDays} />
         </div>
       </div>
       {selectedDay && selectedDay.events.length > 0 && <MonthCalendarMiniDay day={selectedDay} />}

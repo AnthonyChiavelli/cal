@@ -5,3 +5,7 @@ export function createFormDataFromObject(obj: { [k: string]: any }) {
   }
   return formData;
 }
+
+export function stringToBoolean(string: string | null) {
+  return string === "true";
+}

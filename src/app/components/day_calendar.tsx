@@ -189,7 +189,7 @@ export default function DayCalendar(props: IDateCalendarProps) {
                 <div ref={containerOffset} className="row-end-1 h-7"></div>
                 {Array.from({ length: 25 }).map((_, i) => (
                   <>
-                    <div onClick={() => handleClickCalendar(i)}>
+                    <div key={i} onClick={() => handleClickCalendar(i)}>
                       <div className="sticky left-0 -ml-14 -mt-2.5 w-14 pr-2 text-right text-xs leading-5 text-gray-400">
                         {i % 12 === 0 ? 12 : i % 12}
                         {i > 11 ? "PM" : "AM"}

@@ -20,12 +20,14 @@ export default function SettingsForm(props: ISettingsFormProps) {
       try {
         setIsLoading(true);
         const res = await props.updateUserSettings(formData);
-        setIsLoading(false);
         if (res?.success) {
           toast.success("Settings updated");
         }
-      } catch {
-        toast.success("Error updating setting");
+      } catch (e) {
+        console.error(e);
+        toast.error("Error updating settings");
+      } finally {
+        setIsLoading(false);
       }
     },
     [props],
@@ -40,14 +42,14 @@ export default function SettingsForm(props: ISettingsFormProps) {
             Base pricing
             <InfoPopover text="The default amount to charge 1 student for a session" />
           </dt>
-          <dd className="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0 flex items-center">
+          <dd className="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0 flex items-center mb-2">
             <Input defaultValue={String(props.userSettings.basePrice)} type="number" min="0" name="basePrice" />
           </dd>
           <dt className="text-sm font-medium leading-6 text-gray-900 flex flex-row gap-3 items-center justify-between">
             Show mini day-view calendar
             <InfoPopover text="Show a mini day-view calendar at the bottom of the page when a day is selected in the month view on mobile display, rather than navigating to the day-view calendar page" />
           </dt>
-          <dd className="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0 flex items-center">
+          <dd className="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0 flex items-center mb-2">
             <Switch
               defaultSelected={props.userSettings.showInlineDayCalendarInMobileView}
               name="showInlineDayCalendarInMobileView"

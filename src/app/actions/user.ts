@@ -8,12 +8,12 @@ export async function updateUserSettings(formData: FormData): Promise<{ success:
   const { user } = await getSessionOrFail();
 
   const basePrice = formData.get("basePrice");
-  const showInlineDayCalendarInMobileView = formData.get("showInlineDayCalendarInMobileView");
+  const showInlineDayCalendarInMobileView = formData.has("showInlineDayCalendarInMobileView");
 
   const userSettings = await prisma.userSettings.findFirst({ where: { userEmail: user.email } });
   const update = {
     basePrice: Number(basePrice),
-    showInlineDayCalendarInMobileView,
+    showInlineDayCalendarInMobileView: showInlineDayCalendarInMobileView,
   };
   if (userSettings) {
     await prisma.userSettings.update({
@@ -31,4 +31,19 @@ export async function updateUserSettings(formData: FormData): Promise<{ success:
       success: true,
     };
   }
+}
+
+export async function getUserSettings() {
+  "use server";
+
+  const { user } = await getSessionOrFail();
+  return await prisma.userSettings.upsert({
+    where: { userEmail: user.email },
+    update: {},
+    create: {
+      userEmail: user.email,
+      basePrice: 125,
+      showInlineDayCalendarInMobileView: false,
+    },
+  });
 }

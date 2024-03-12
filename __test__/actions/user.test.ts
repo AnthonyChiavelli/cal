@@ -2,8 +2,10 @@
  * @jest-environment node
  */
 import { prismaMock } from "../../src/singleton";
+import { UserSettings } from "@prisma/client";
 import { Decimal } from "@prisma/client/runtime/library";
-import { updateUserSettings } from "@/app/actions/user";
+import { get } from "http";
+import { getUserSettings, updateUserSettings } from "@/app/actions/user";
 import { getSessionOrFail } from "@/app/actions/util";
 import { createFormDataFromObject } from "@/util/formdata";
 
@@ -40,7 +42,7 @@ describe("updateUserSettings", () => {
     expect(prismaMock.userSettings.create).toHaveBeenCalledWith({
       data: {
         basePrice: 60,
-        showInlineDayCalendarInMobileView: "true",
+        showInlineDayCalendarInMobileView: true,
       },
     });
     expect(res).toEqual({ success: true });
@@ -67,9 +69,32 @@ describe("updateUserSettings", () => {
       where: { userEmail: mockUser.email },
       data: {
         basePrice: 60,
-        showInlineDayCalendarInMobileView: "true",
+        showInlineDayCalendarInMobileView: true,
       },
     });
     expect(res).toEqual({ success: true });
+  });
+});
+
+describe("getUserSettings", () => {
+  beforeEach(() => {
+    jest.clearAllMocks();
+  });
+
+  it("should have an auth guard", async () => {
+    const result = await getUserSettings();
+
+    expect(getSessionOrFail).toHaveBeenCalledTimes(1);
+    expect(result).toEqual(undefined);
+  });
+
+  it("should return the user settings", async () => {
+    const mockUser = { id: 1, email: "user@example.com" };
+    prismaMock.userSettings.upsert.mockResolvedValueOnce({ userEmail: mockUser.email } as any as UserSettings);
+
+    const result = await getUserSettings();
+
+    expect(prismaMock.userSettings.upsert).toHaveBeenCalledTimes(1);
+    expect(result).toEqual({ userEmail: mockUser.email });
   });
 });

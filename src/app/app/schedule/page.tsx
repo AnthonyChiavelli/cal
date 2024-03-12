@@ -1,5 +1,6 @@
 import MonthCalendar from "../../components/month_calendar";
 import { withPageAuthRequired } from "@auth0/nextjs-auth0";
+import { getUserSettings } from "@/app/actions/user";
 import DayCalendar from "@/app/components/day_calendar";
 import WeekCalendar from "@/app/components/week_calendar";
 import prisma from "@/db";
@@ -53,6 +54,7 @@ async function getEventsForDay(dateString: string) {
 }
 
 async function Schedule(params: { searchParams: { p?: string; t?: string } }) {
+  const settings = await getUserSettings();
   const timePeriod = params.searchParams.p || "month";
   const now = new Date();
 
@@ -76,7 +78,13 @@ async function Schedule(params: { searchParams: { p?: string; t?: string } }) {
       case "month": {
         const timeValue =
           params.searchParams.t || `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, "0")}`;
-        return <MonthCalendar monthString={timeValue} calendarDays={await calendarDaysForMonth(timeValue)} />;
+        return (
+          <MonthCalendar
+            monthString={timeValue}
+            calendarDays={await calendarDaysForMonth(timeValue)}
+            showMiniDayView={Boolean(settings?.showInlineDayCalendarInMobileView)}
+          />
+        );
       }
     }
   };
