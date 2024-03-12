@@ -1,19 +1,14 @@
-import { getSession } from "@auth0/nextjs-auth0";
 import { updateUserSettings } from "@/app/actions/user";
+import { getSessionOrFail } from "@/app/actions/util";
 import SettingsForm from "@/app/components/settings_form";
 import prisma from "@/db";
 
 export default async function SettingsPage() {
-  const session = await getSession();
+  const { session, user } = await getSessionOrFail();
   if (!session) {
     return <div>Unauthorized</div>;
   }
-  const user = await prisma.user.findFirst({ where: { email: session.user.email } });
-  if (!user) {
-    return <div>Unauthorized</div>;
-  }
   const userSettings = await prisma.userSettings.findFirst({ where: { userEmail: user.email } });
-  const basePricing = userSettings?.basePrice || 0;
 
   if (!userSettings) {
     return <div>Unauthorized</div>;
