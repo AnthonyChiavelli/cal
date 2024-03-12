@@ -8,7 +8,7 @@ import DeleteStudent from "@/app/components/delete_student";
 import Modal from "@/app/components/modal";
 import StudentPager from "@/app/components/student_pager";
 import StudentSearch from "@/app/components/student_search";
-import { prisma } from "@/db";
+import prisma from "@/db";
 
 const PAGE_SIZE = 10;
 

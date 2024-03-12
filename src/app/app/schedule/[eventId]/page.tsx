@@ -1,6 +1,6 @@
 import { deleteEvent } from "@/app/actions/events";
 import Button from "@/app/components/button";
-import { prisma } from "@/db";
+import prisma from "@/db";
 
 interface IClassProps {
   params: {

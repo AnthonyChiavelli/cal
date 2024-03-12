@@ -2,7 +2,7 @@
 
 import { ActionType, ClassType, EventType, Event } from "@prisma/client";
 import { redirect } from "next/navigation";
-import { prisma } from "@/db";
+import prisma from "@/db";
 import { createDateString } from "@/util/calendar";
 
 export async function createEvent(formData: FormData) {

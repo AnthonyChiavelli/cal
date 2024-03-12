@@ -2,7 +2,7 @@ import MonthCalendar from "../../components/month_calendar";
 import { withPageAuthRequired } from "@auth0/nextjs-auth0";
 import DayCalendar from "@/app/components/day_calendar";
 import WeekCalendar from "@/app/components/week_calendar";
-import { prisma } from "@/db";
+import prisma from "@/db";
 import { CalendarDay } from "@/types";
 import { IMonthNumber, getDaysForCalendarMonthGrid, parseDateString, parseMonthString } from "@/util/calendar";
 import { getEventName } from "@/util/event";

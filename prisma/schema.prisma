@@ -33,6 +33,8 @@ model UserSettings {
   userEmail String @unique
 
   basePrice Decimal @db.Money
+
+  showInlineDayCalendarInMobileView Boolean @default(true)
 }
 
 

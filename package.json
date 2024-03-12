@@ -6,8 +6,8 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint",
-    "format": "prettier ./src --write",
+    "lint": "next lint \"./src\" \"__test__/**/*.{ts,tsx,js,jsx}\"",
+    "format": "prettier \"./src\" \"__test__/**/*.{ts,tsx,js,jsx}\" --write",
     "test": "jest",
     "postinstall": "prisma generate && prisma migrate deploy"
   },
@@ -35,6 +35,7 @@
     "react-select": "^5.8.0",
     "react-spinners": "^0.13.8",
     "react-toastify": "^10.0.4",
+    "ts-jest": "^29.1.2",
     "ts-node": "^10.9.2"
   },
   "devDependencies": {

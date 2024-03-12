@@ -1,6 +1,6 @@
 import { updateOrCreateFamily } from "@/app/actions/families";
 import FamilyForm from "@/app/components/add_family_form";
-import { prisma } from "@/db";
+import prisma from "@/db";
 
 export default async function AddFamilyPage(props: { params: { familyId: string } }) {
   if (props.params.familyId) {

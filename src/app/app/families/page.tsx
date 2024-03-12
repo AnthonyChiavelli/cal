@@ -2,7 +2,7 @@ import Link from "next/link";
 import Button from "@/app/components/button";
 import DataTable from "@/app/components/data_table";
 import FamilyRow from "@/app/components/family_row";
-import { prisma } from "@/db";
+import prisma from "@/db";
 import { FamilyWithRelations } from "@/types";
 
 export default async function FamiliesPage() {

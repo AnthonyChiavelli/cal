@@ -1,5 +1,5 @@
 import EventCreate from "@/app/components/event_create";
-import { prisma } from "@/db";
+import prisma from "@/db";
 
 export default async function CreateEvent() {
   const students = await prisma.student.findMany();

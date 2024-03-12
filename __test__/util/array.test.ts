@@ -1,5 +1,5 @@
-import "@testing-library/jest-dom";
 import { shallowCompareArrays } from "../../src/util/array";
+import "@testing-library/jest-dom";
 
 describe("shallowCompareArrays", () => {
   it.each([
@@ -25,8 +25,8 @@ describe("shallowCompareArrays", () => {
     [[1.7, 2.7, 3.7], [1.7, 3.7, 2.7], false],
     [[239843874293847234, 213049823042183049], [213049823042183049, 239843874293847234], false],
   ])("Compares 2 arrays correctly with order important", (arr1, arr2, expected) => {
-    expect(shallowCompareArrays(arr1, arr2, true)).toBe(expected)
-  })
+    expect(shallowCompareArrays(arr1, arr2, true)).toBe(expected);
+  });
 
   it.each([
     // Exact matches
@@ -51,6 +51,6 @@ describe("shallowCompareArrays", () => {
     [[1.7, 2.7, 3.7], [1.7, 3.7, 2.7], true],
     [[239843874293847234, 213049823042183049], [213049823042183049, 239843874293847234], true],
   ])("Compares 2 arrays correctly with order not important", (arr1, arr2, expected) => {
-    expect(shallowCompareArrays(arr1, arr2, false)).toBe(expected)
-  })
+    expect(shallowCompareArrays(arr1, arr2, false)).toBe(expected);
+  });
 });

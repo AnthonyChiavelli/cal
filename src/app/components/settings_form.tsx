@@ -1,14 +1,15 @@
 "use client";
 
 import { useCallback, useState } from "react";
-import { QuestionMarkCircleIcon } from "@heroicons/react/24/outline";
-import { Popover, PopoverTrigger, PopoverContent } from "@nextui-org/react";
+import { Input, Switch } from "@nextui-org/react";
 import { toast } from "react-toastify";
+import { UserSettings } from "@prisma/client";
+import InfoPopover from "@/app/components/info_popover";
 import LoadingPane from "./loading_pane";
 
 interface ISettingsFormProps {
   updateUserSettings: (formData: FormData) => Promise<{ success: boolean } | undefined>;
-  basePricing: number;
+  userSettings: UserSettings;
 }
 
 export default function SettingsForm(props: ISettingsFormProps) {
@@ -35,19 +36,22 @@ export default function SettingsForm(props: ISettingsFormProps) {
       {isLoading && <LoadingPane />}
       <dl className="divide-y divide-gray-100">
         <div className="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
-          <dt className="text-sm font-medium leading-6 text-gray-900 flex flex-row gap-3 items-center">
+          <dt className="text-sm font-medium leading-6 text-gray-900 flex flex-row gap-3 items-center justify-between">
             Base pricing
-            <Popover>
-              <PopoverTrigger>
-                <QuestionMarkCircleIcon width={20} height={20} />
-              </PopoverTrigger>
-              <PopoverContent className="text-gray-900">
-                <div>The default amount to charge 1 student for a session</div>
-              </PopoverContent>
-            </Popover>
+            <InfoPopover text="The default amount to charge 1 student for a session" />
           </dt>
-          <dd className="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0">
-            <input defaultValue={Number(props.basePricing)} type="number" min="0" name="basePrice" />
+          <dd className="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0 flex items-center">
+            <Input defaultValue={String(props.userSettings.basePrice)} type="number" min="0" name="basePrice" />
+          </dd>
+          <dt className="text-sm font-medium leading-6 text-gray-900 flex flex-row gap-3 items-center justify-between">
+            Show mini day-view calendar
+            <InfoPopover text="Show a mini day-view calendar at the bottom of the page when a day is selected in the month view on mobile display, rather than navigating to the day-view calendar page" />
+          </dt>
+          <dd className="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0 flex items-center">
+            <Switch
+              defaultSelected={props.userSettings.showInlineDayCalendarInMobileView}
+              name="showInlineDayCalendarInMobileView"
+            />
           </dd>
         </div>
       </dl>

@@ -23,6 +23,12 @@ export default createJestConfig({
   // Automatically clear mock calls, instances, contexts and results before every test
   clearMocks: true,
 
+  preset: 'ts-jest',
+  
+  testEnvironment: 'jsdom',
+
+  setupFilesAfterEnv: ['<rootDir>/src/singleton.ts'],
+
   // Indicates whether the coverage information should be collected while executing the test
   collectCoverage: true,
 
@@ -149,9 +155,6 @@ export default createJestConfig({
 
   // A list of paths to snapshot serializer modules Jest should use for snapshot testing
   // snapshotSerializers: [],
-
-  // The test environment that will be used for testing
-  testEnvironment: "jsdom",
 
   // Options that will be passed to the testEnvironment
   // testEnvironmentOptions: {},

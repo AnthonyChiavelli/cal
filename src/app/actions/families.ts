@@ -1,4 +1,4 @@
-import { prisma } from "@/db";
+import prisma from "@/db";
 
 export async function updateOrCreateFamily(formData: FormData, familyId?: string): Promise<{ success: boolean }> {
   "use server";

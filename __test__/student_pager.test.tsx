@@ -1,7 +1,6 @@
-import "@testing-library/jest-dom";
 import { render, screen } from "@testing-library/react";
 import StudentPager from "../src/app/components/student_pager";
-
+import "@testing-library/jest-dom";
 
 let pageNumber = 0;
 jest.mock("next/navigation", () => ({
@@ -30,11 +29,11 @@ describe("StudentPager", () => {
     pageNumber = 7;
     const container = render(<StudentPager totalCount={153} pageSize={10} />);
     ["5", "6", "7", "8", "9"].forEach((pageNumber: string) => {
-      const currentPageButton = screen.queryByText(pageNumber, {selector: '.page-number > span'});
+      const currentPageButton = screen.queryByText(pageNumber, { selector: ".page-number > span" });
       expect(currentPageButton).toBeInTheDocument();
     });
     ["1", "2", "10", "11", "12"].forEach((pageNumber: string) => {
-      const currentPageButton = screen.queryByText(pageNumber, {selector: '.page-number > span'});
+      const currentPageButton = screen.queryByText(pageNumber, { selector: ".page-number > span" });
       expect(currentPageButton).not.toBeInTheDocument();
     });
     expect(container).toMatchSnapshot();
@@ -44,11 +43,11 @@ describe("StudentPager", () => {
     pageNumber = 1;
     const container = render(<StudentPager totalCount={153} pageSize={10} />);
     ["1", "2", "3", "4", "5"].forEach((pageNumber: string) => {
-      const currentPageButton = screen.queryByText(pageNumber, {selector: '.page-number > span'});
+      const currentPageButton = screen.queryByText(pageNumber, { selector: ".page-number > span" });
       expect(currentPageButton).toBeInTheDocument();
     });
     ["6", "7", "0", "8", "9"].forEach((pageNumber: string) => {
-      const currentPageButton = screen.queryByText(pageNumber, {selector: '.page-number > span'});
+      const currentPageButton = screen.queryByText(pageNumber, { selector: ".page-number > span" });
       expect(currentPageButton).not.toBeInTheDocument();
     });
     expect(container).toMatchSnapshot();
@@ -58,7 +57,7 @@ describe("StudentPager", () => {
     pageNumber = 9;
     const container = render(<StudentPager totalCount={101} pageSize={10} />);
     ["9", "8", "9", "10", "11"].forEach((pageNumber: string) => {
-      const currentPageButton = screen.queryByText(pageNumber, {selector: '.page-number > span'});
+      const currentPageButton = screen.queryByText(pageNumber, { selector: ".page-number > span" });
       expect(currentPageButton).toBeInTheDocument();
     });
     expect(container).toMatchSnapshot();
@@ -68,7 +67,7 @@ describe("StudentPager", () => {
     pageNumber = 9;
     const container = render(<StudentPager totalCount={100} pageSize={10} />);
     ["7", "9", "8", "9", "10"].forEach((pageNumber: string) => {
-      const currentPageButton = screen.queryByText(pageNumber, {selector: '.page-number > span'});
+      const currentPageButton = screen.queryByText(pageNumber, { selector: ".page-number > span" });
       expect(currentPageButton).toBeInTheDocument();
     });
     expect(container).toMatchSnapshot();
@@ -78,7 +77,7 @@ describe("StudentPager", () => {
     pageNumber = 1;
     const container = render(<StudentPager totalCount={1} pageSize={10} />);
     ["1"].forEach((pageNumber: string) => {
-      const currentPageButton = screen.queryByText(pageNumber, {selector: '.page-number > span'});
+      const currentPageButton = screen.queryByText(pageNumber, { selector: ".page-number > span" });
       expect(currentPageButton).toBeInTheDocument();
     });
     expect(container).toMatchSnapshot();
