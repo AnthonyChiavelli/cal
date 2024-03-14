@@ -9,6 +9,12 @@ interface ICalendarViewMenuProps {
 }
 
 export default function CalendarViewMenu(props: ICalendarViewMenuProps) {
+  const menuTimes = [
+    { name: "Day view", href: "?p=day" },
+    { name: "Week view", href: "?p=week" },
+    { name: "Month view", href: "?p=month" },
+  ];
+
   const displayText = () => {
     switch (props.timePeriod) {
       case "day":
@@ -43,32 +49,22 @@ export default function CalendarViewMenu(props: ICalendarViewMenuProps) {
       >
         <Menu.Items className="absolute right-0 z-10 mt-3 w-36 origin-top-right overflow-hidden rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
           <div className="py-1">
-            <Menu.Item>
-              {({ active }) => (
-                <a
-                  href="?p=day"
-                  className={classNames("block px-4 py-2 text-sm", {
-                    "bg-gray-100 text-gray-900": active,
-                    "text-gray-700": !active,
-                  })}
-                >
-                  Day view
-                </a>
-              )}
-            </Menu.Item>
-            <Menu.Item>
-              {({ active }) => (
-                <a
-                  href="?p=month"
-                  className={classNames("block px-4 py-2 text-sm", {
-                    "bg-gray-100 text-gray-900": active,
-                    "text-gray-700": !active,
-                  })}
-                >
-                  Month view
-                </a>
-              )}
-            </Menu.Item>
+            {menuTimes.map((item) => (
+              <Menu.Item key={item.name}>
+                {({ active }) => (
+                  <a
+                    href={item.href}
+                    className={classNames(
+                      { "bg-gray-100 text-gray-900": active },
+                      { "text-gray-700": !active },
+                      "block px-4 py-2 text-sm",
+                    )}
+                  >
+                    {item.name}
+                  </a>
+                )}
+              </Menu.Item>
+            ))}
           </div>
         </Menu.Items>
       </Transition>

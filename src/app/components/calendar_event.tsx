@@ -10,6 +10,7 @@ interface ICalendarEventProps {
   event: Event & {
     eventStudents: Array<EventStudent & { student: Student }>;
   };
+  compact?: boolean;
 }
 
 export default function CalendarEvent(props: ICalendarEventProps) {
@@ -34,12 +35,13 @@ export default function CalendarEvent(props: ICalendarEventProps) {
   return (
     <Link
       href={"/app/schedule/" + props.event.id}
-      className="group absolute inset-1 flex flex-col overflow-y-auto rounded-lg bg-blue-50 p-2 text-xs leading-5 hover:bg-blue-100"
+      className="@container group absolute inset-1 flex flex-col rounded-lg bg-blue-50 p-2 text-xs leading-5 hover:bg-blue-100 overflow-x-hidden overflow-y-auto"
     >
-      <div className="flex flex-row justify-between">
+      <div className="flex flex-row justify-between flex-wrap">
         <p className="font-semibold text-blue-700 truncate">{eventDisplayName}</p>
         <div className="text-md text-blue-700 font-semibold flex flex-row gap-2" onClick={handleMarkCompleted}>
-          Completed? <input type="checkbox" checked={eventCompleted} />
+          <span className="hidden @[160px]:block">Completed?</span>
+          <input type="checkbox" checked={eventCompleted} />
         </div>
       </div>
       <p className="text-blue-500 group-hover:text-blue-700">

@@ -6,7 +6,7 @@ import { ChevronLeftIcon, ChevronRightIcon } from "@heroicons/react/20/solid";
 import classNames from "classnames";
 import Link from "next/link";
 import { CalendarDay, EventWithRelations } from "@/types";
-import { createDateString, getAdjacentDateString, parseDateString } from "@/util/calendar";
+import { createDateString, getAdjacentDateString, splitDateString } from "@/util/calendar";
 import CalendarEvent from "./calendar_event";
 import CalenderOverflowMenu from "./calendar_overflow_menu";
 import CalendarViewMenu from "./calendar_view_menu";
@@ -25,7 +25,7 @@ export default function DayCalendar(props: IDateCalendarProps) {
 
   const [year, month, day] = React.useMemo((): [number, number, number] => {
     try {
-      return parseDateString(props.dateString);
+      return splitDateString(props.dateString);
     } catch {
       return [new Date().getFullYear(), new Date().getMonth() + 1, new Date().getDate()];
     }
@@ -138,7 +138,6 @@ export default function DayCalendar(props: IDateCalendarProps) {
             </Link>
           </div>
           <div className="hidden md:ml-4 md:flex md:items-center">
-            {/* TODO when navigating to wider period, go to the one that contains this day */}
             <CalendarViewMenu timePeriod="day" />
             <div className="ml-6 h-6 w-px bg-gray-300" />
             <Link href="/app/schedule/create">
@@ -157,7 +156,7 @@ export default function DayCalendar(props: IDateCalendarProps) {
         <div ref={container} className="flex flex-auto flex-col overflow-auto">
           <div
             ref={containerNav}
-            className="sticky top-0 z-10 grid flex-none grid-cols-7 bg-white text-xs text-gray-500 shadow ring-1 ring-black ring-opacity-5 md:hidden"
+            className="sticky top-0 z-50 grid flex-none grid-cols-7 bg-white text-xs text-gray-500 shadow ring-1 ring-black ring-opacity-5 md:hidden"
           >
             {surroundingDays.map((surroundingDay: Date) => (
               <button key={surroundingDay.getTime()} type="button" className="flex flex-col items-center pb-1.5 pt-3">

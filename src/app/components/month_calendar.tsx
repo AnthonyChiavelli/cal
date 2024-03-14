@@ -71,8 +71,6 @@ export default function MonthCalendar(props: IMonthCalendar) {
     }
   }, [props.monthString]);
 
-  const calendarDays = props.calendarDays;
-
   const displayDate = React.useMemo((): string => {
     const monthName = new Date(year, month - 1).toLocaleString("en-us", { month: "long" });
     return `${monthName} ${year}`;
@@ -143,7 +141,7 @@ export default function MonthCalendar(props: IMonthCalendar) {
         </div>
         <div className="flex bg-gray-200 text-xs leading-6 text-gray-700 lg:flex-auto">
           <div className="hidden w-full lg:grid lg:grid-cols-7 lg:grid-rows-5 lg:gap-px">
-            {calendarDays.map((day) => (
+            {props.calendarDays.map((day) => (
               <div
                 key={day.date}
                 className={classNames(
@@ -200,7 +198,7 @@ export default function MonthCalendar(props: IMonthCalendar) {
               </div>
             ))}
           </div>
-          <MonthViewMiniCalendar onSelectDay={handleClickMiniMonthDay} calendarDays={calendarDays} />
+          <MonthViewMiniCalendar onSelectDay={handleClickMiniMonthDay} calendarDays={props.calendarDays} />
         </div>
       </div>
       {selectedDay && selectedDay.events.length > 0 && <MonthCalendarMiniDay day={selectedDay} />}

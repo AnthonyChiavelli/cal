@@ -5,7 +5,14 @@ import DayCalendar from "@/app/components/day_calendar";
 import WeekCalendar from "@/app/components/week_calendar";
 import prisma from "@/db";
 import { CalendarDay } from "@/types";
-import { IMonthNumber, getDaysForCalendarMonthGrid, parseDateString, parseMonthString } from "@/util/calendar";
+import {
+  IMonthNumber,
+  getDaysForCalendarMonthGrid,
+  splitDateString,
+  parseMonthString,
+  parseDateString,
+  getPreviousMonday,
+} from "@/util/calendar";
 import { getEventName } from "@/util/event";
 
 async function calendarDaysForMonth(timeValue: string) {
@@ -41,7 +48,7 @@ async function calendarDaysForMonth(timeValue: string) {
 async function getEventsForDay(dateString: string) {
   let year: number, month: number, date: number;
   try {
-    [year, month, date] = parseDateString(dateString);
+    [year, month, date] = splitDateString(dateString);
   } catch {
     [year, month, date] = [new Date().getFullYear(), new Date().getMonth() + 1, new Date().getDate()];
   }
@@ -49,6 +56,22 @@ async function getEventsForDay(dateString: string) {
   return await prisma.event.findMany({
     orderBy: { scheduledFor: "asc" },
     where: { scheduledFor: { gte: dayStart, lte: dayEnd } },
+    include: { eventStudents: { include: { student: true } } },
+  });
+}
+
+async function getEventsForWeek(dateString: string) {
+  let date;
+  try {
+    date = parseDateString(dateString);
+  } catch {
+    date = new Date();
+  }
+  const weekStartDate = getPreviousMonday(date);
+  const weekEndDate = new Date(weekStartDate.getFullYear(), weekStartDate.getMonth(), weekStartDate.getDate() + 7);
+  return await prisma.event.findMany({
+    orderBy: { scheduledFor: "asc" },
+    where: { scheduledFor: { gte: weekStartDate, lte: weekEndDate } },
     include: { eventStudents: { include: { student: true } } },
   });
 }
@@ -74,7 +97,10 @@ async function Schedule(params: { searchParams: { p?: string; t?: string } }) {
         );
       }
       case "week":
-        return <WeekCalendar />;
+        const timeValue =
+          params.searchParams.t ||
+          `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, "0")}-${now.getDate()}`;
+        return <WeekCalendar weekString={timeValue} events={await getEventsForWeek(timeValue)} />;
       case "month": {
         const timeValue =
           params.searchParams.t || `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, "0")}`;

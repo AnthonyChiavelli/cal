@@ -1,14 +1,18 @@
 import {
   getAdjacentMonthString,
   getDaysForCalendarMonthGrid,
-  parseDateString,
+  splitDateString,
   parseMonthString,
   createDateString,
+  getAdjacentWeekString,
+  getPreviousMonday,
+  parseDateString,
 } from "../../src/util/calendar";
 import { getAdjacentDateString } from "../../src/util/calendar";
 import "@testing-library/jest-dom";
 import "@testing-library/jest-dom";
 import "@testing-library/jest-dom";
+import exp from "constants";
 
 describe("getDaysForCalendarMonthGrid", () => {
   it("returns the correct days for Jan 2022 (first month of year)", () => {
@@ -209,13 +213,35 @@ describe("parseMonthString", () => {
   });
 });
 
-describe("parseDateString", () => {
+describe("splitDateString", () => {
   it.each([
     ["2022-01-15", [2022, 1, 15]],
     ["2023-12-25", [2023, 12, 25]],
     ["2021-09-01", [2021, 9, 1]],
     ["2021-09-1", [2021, 9, 1]],
     ["2021-9-1", [2021, 9, 1]],
+  ])("returns the correct date components for a valid date string", (dateString, expected) => {
+    expect(splitDateString(dateString)).toEqual(expected);
+  });
+
+  it("throws an error for an invalid date string", () => {
+    const dateString = "2022-01-";
+    expect(() => splitDateString(dateString)).toThrow("Invalid date string provided");
+  });
+
+  it("throws an error for an invalid month number", () => {
+    const dateString = "2022-13-15";
+    expect(() => splitDateString(dateString)).toThrow("Invalid month number provided");
+  });
+});
+
+describe("parseDateString", () => {
+  it.each([
+    ["2022-01-15", new Date(2022, 0, 15)],
+    ["2023-12-25", new Date(2023, 11, 25)],
+    ["2021-09-01", new Date(2021, 8, 1)],
+    ["2021-09-1", new Date(2021, 8, 1)],
+    ["2021-9-1", new Date(2021, 8, 1)],
   ])("returns the correct date components for a valid date string", (dateString, expected) => {
     expect(parseDateString(dateString)).toEqual(expected);
   });
@@ -236,7 +262,7 @@ describe("getAdjacentDateString", () => {
     let currentDateString = "2022-01-15";
     for (let i = 1; i < 50; i++) {
       const adjacentDateString = getAdjacentDateString(currentDateString, 1);
-      expect(() => parseDateString(adjacentDateString)).not.toThrow();
+      expect(() => splitDateString(adjacentDateString)).not.toThrow();
       const currentDate = new Date(currentDateString);
       const nextDate = new Date(adjacentDateString);
       expect(nextDate.getTime() - currentDate.getTime()).toEqual(24 * 60 * 60 * 1000);
@@ -248,11 +274,34 @@ describe("getAdjacentDateString", () => {
     let currentDateString = "2022-01-15";
     for (let i = 1; i < 50; i++) {
       const adjacentDateString = getAdjacentDateString(currentDateString, -1);
-      expect(() => parseDateString(adjacentDateString)).not.toThrow();
+      expect(() => splitDateString(adjacentDateString)).not.toThrow();
       const currentDate = new Date(currentDateString);
       const nextDate = new Date(adjacentDateString);
       expect(currentDate.getTime() - nextDate.getTime()).toEqual(24 * 60 * 60 * 1000);
       currentDateString = adjacentDateString;
+    }
+  });
+});
+
+describe("getAdjacentWeekString", () => {
+  it("returns the correct week string when the direction is 1 (including across month boundaries)", () => {
+    let currentWeekString = "2022-01-01";
+    for (let i = 1; i < 50; i++) {
+      const nextWeekString = getAdjacentWeekString(currentWeekString, 1);
+      expect(() => splitDateString(nextWeekString)).not.toThrow();
+      const currentDate = new Date(currentWeekString);
+      const nextDate = new Date(nextWeekString);
+      expect(nextDate.getTime() - currentDate.getTime()).toEqual(7 * 24 * 60 * 60 * 1000);
+    }
+  });
+  it("returns the correct week string when the direction is -1 (including across month boundaries)", () => {
+    let currentWeekString = "2022-01-01";
+    for (let i = 1; i < 50; i++) {
+      const nextWeekString = getAdjacentWeekString(currentWeekString, -1);
+      expect(() => splitDateString(nextWeekString)).not.toThrow();
+      const currentDate = new Date(currentWeekString);
+      const nextDate = new Date(nextWeekString);
+      expect(nextDate.getTime() - currentDate.getTime()).toEqual(-1 * 7 * 24 * 60 * 60 * 1000);
     }
   });
 });
@@ -265,5 +314,28 @@ describe("createDateString", () => {
   ])("returns the correct date string for a given date", (date: Date, expectedDateString: string) => {
     const dateString = createDateString(date);
     expect(dateString).toBe(expectedDateString);
+  });
+});
+
+describe("getPreviousMonday", () => {
+  it.each([
+    [new Date(2022, 4, 1)],
+    [new Date(2023, 11, 31)],
+    [new Date(2021, 8, 15)],
+    [new Date(2020, 6, 15)],
+    [new Date(2020, 6, 16)],
+    [new Date(2020, 6, 17)],
+    [new Date(2020, 6, 18)],
+    [new Date(2020, 6, 19)],
+  ])("returns the previous Monday when the provided date is not a Monday", (date: Date) => {
+    const prevMonday = getPreviousMonday(date);
+    expect(prevMonday.getDay()).toBe(1);
+    expect(date.getTime() - prevMonday.getTime()).toBeLessThan(7 * 24 * 60 * 60 * 1000);
+  });
+
+  it("returns the provided date when it is a Monday", () => {
+    const date = new Date(2022, 0, 10); // a Monday
+    const previousMonday = getPreviousMonday(date);
+    expect(previousMonday).toEqual(date);
   });
 });

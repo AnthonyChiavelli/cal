@@ -12,6 +12,7 @@ export default function CalenderOverflowMenu() {
       href: `?p=month&t=${createMonthString(new Date().getFullYear(), new Date().getMonth() + 1)}`,
     },
     { name: "Day view", href: "?p=day" },
+    { name: "Week view", href: "?p=week" },
     { name: "Month view", href: "?p=month" },
   ];
   return (

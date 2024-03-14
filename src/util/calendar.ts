@@ -70,11 +70,11 @@ export function parseMonthString(monthString?: string): [number, number] {
 }
 
 /**
- * Parse a month string of the format "YYYY-MM-DD"
+ * Parse a month string of the format "YYYY-MM-DD" and return the components as strings
  * @param monthString A string of the format 'YYYY-MM-DD'
- * @returns A 2-tuple of: the year number, 1-indexed month number, and the date
+ * @returns A 3-tuple of: the year number, 1-indexed month number, and the date
  */
-export function parseDateString(dateString?: string): [number, number, number] {
+export function splitDateString(dateString?: string): [number, number, number] {
   if (!dateString || !dateString.match(/[\d]{4}-[\d]{1,2}-[\d]{1,2}/)) {
     throw new Error("Invalid date string provided");
   }
@@ -86,6 +86,16 @@ export function parseDateString(dateString?: string): [number, number, number] {
     throw new Error("Invalid month number provided");
   }
   return [year, month, date];
+}
+
+/**
+ * Parse a month string of the format "YYYY-MM-DD" and return a date
+ * @param monthString A string of the format 'YYYY-MM-DD'
+ * @returns a date
+ */
+export function parseDateString(dateString?: string): Date {
+  const components = splitDateString(dateString);
+  return new Date(components[0], components[1] - 1, components[2]);
 }
 
 /**
@@ -117,10 +127,36 @@ export function getAdjacentMonthString(monthString: string, direction: 1 | -1): 
 export function getAdjacentDateString(dateString: string, direction: 1 | -1): string {
   let year: number, month: number, date: number;
   try {
-    [year, month, date] = parseDateString(dateString);
+    [year, month, date] = splitDateString(dateString);
   } catch {
     [year, month, date] = [new Date().getFullYear(), new Date().getMonth() + 1, new Date().getDate()];
   }
   const newDate = new Date(year, month - 1, date + direction);
   return `${newDate.getFullYear()}-${String(newDate.getMonth() + 1).padStart(2, "0")}-${String(newDate.getDate()).padStart(2, "0")}`;
+}
+
+/**
+ * Returns a date string (YYYY-MM) representing the week before or after the provided one
+ *
+ * @param dateString A string in the format of YYY-MM-DD
+ * @param direction 1 to retrieve the string for the next week, -1 for the previous
+ * @returns A new date string representing the week adjacent to the provided week, in the direction provided
+ */
+export function getAdjacentWeekString(dateString: string, direction: 1 | -1): string {
+  const [year, month, date] = splitDateString(dateString);
+  const deltaDay = direction * 7;
+  const newDate = new Date(year, month - 1, date + deltaDay);
+  return createDateString(newDate);
+}
+/**
+ * Returns a date that is the monday before the provided date, or the provided date
+ * if it is a monday.
+ *
+ * @param date the date
+ * @returns the previous (or current) monday
+ */
+export function getPreviousMonday(date: Date) {
+  const day = date.getDay();
+  const diff = date.getDate() - day + (day === 0 ? -6 : 1);
+  return new Date(date.setDate(diff));
 }

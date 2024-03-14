@@ -17,6 +17,7 @@
     "@heroicons/react": "^2.1.1",
     "@nextui-org/react": "^2.2.9",
     "@prisma/client": "^5.9.1",
+    "@tailwindcss/container-queries": "^0.1.1",
     "@tremor/react": "^3.14.0",
     "@types/papaparse": "^5.3.14",
     "@types/react-select": "^5.0.1",
