@@ -13,9 +13,11 @@ import CalendarViewMenu from "./calendar_view_menu";
 
 interface IWeekCalendarProps {
   weekString: string;
-  events: Array<Event & {
-    eventStudents: Array<EventStudent & { student: Student }>;
-  }>;
+  events: Array<
+    Event & {
+      eventStudents: Array<EventStudent & { student: Student }>;
+    }
+  >;
 }
 
 export default function WeekCalendar(props: IWeekCalendarProps) {
@@ -96,7 +98,7 @@ export default function WeekCalendar(props: IWeekCalendarProps) {
           <time dateTime={`${year}-${month}-${day}`}>{displayDate}</time>
         </h1>
         <div className="flex items-center">
-          <div className="relative flex items-center rounded-md bg-white shadow-sm md:items-stretch">
+          <div className="relative flex rounded-md bg-white shadow-sm items-stretch">
             <button
               onClick={goToPreviousWeek}
               type="button"
@@ -105,13 +107,15 @@ export default function WeekCalendar(props: IWeekCalendarProps) {
               <span className="sr-only">Previous week</span>
               <ChevronLeftIcon className="h-5 w-5" aria-hidden="true" />
             </button>
-            <button
-              onClick={goToCurrentWeek}
-              type="button"
-              className="hidden border-y border-gray-300 px-3.5 text-sm font-semibold text-gray-900 hover:bg-gray-50 focus:relative md:block"
-            >
-              Today
-            </button>
+            <div className="flex items-center content-center border-y border border-gray-300 pr-1">
+              <button
+                onClick={goToCurrentWeek}
+                type="button"
+                className="px-3.5 text-sm font-semibold text-gray-900 hover:bg-gray-50 focus:relative"
+              >
+                Today
+              </button>
+            </div>
             <span className="relative -mx-px h-5 w-px bg-gray-300 md:hidden" />
             <button
               onClick={goToNextWeek}
