@@ -4,6 +4,7 @@ export type CalendarDay = {
   date: string;
   events: Array<{
     id: string;
+    event: Event;
     name: string;
     time: string;
     datetime: string;

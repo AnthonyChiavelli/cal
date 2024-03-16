@@ -2,17 +2,20 @@
 
 import { startTransition, useCallback, useEffect, useMemo, useRef } from "react";
 import { ChevronLeftIcon, ChevronRightIcon } from "@heroicons/react/20/solid";
+import { useOnMediaQueryState } from "../../util/hooks";
 import { Event, EventStudent, Student } from "@prisma/client";
 import classNames from "classnames";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { createDateString, getAdjacentWeekString, getPreviousMonday, parseDateString } from "@/util/calendar";
+import Button from "./button";
 import CalendarEvent from "./calendar_event";
 import CalenderOverflowMenu from "./calendar_overflow_menu";
 import CalendarViewMenu from "./calendar_view_menu";
 
 interface IWeekCalendarProps {
   weekString: string;
+  settings: UserSettings;
   events: Array<
     Event & {
       eventStudents: Array<EventStudent & { student: Student }>;
@@ -26,6 +29,8 @@ export default function WeekCalendar(props: IWeekCalendarProps) {
   const container = useRef<HTMLDivElement>(null);
   const containerNav = useRef<HTMLDivElement>(null);
   const containerOffset = useRef<HTMLDivElement>(null);
+
+  const isMobileSize = useOnMediaQueryState("640px");
 
   const goToPreviousWeek = () => {
     startTransition(() => {
@@ -62,6 +67,11 @@ export default function WeekCalendar(props: IWeekCalendarProps) {
     return startDate.toLocaleDateString("en-us", { month: "long", day: "numeric", year: "numeric" });
   }, [startDate]);
 
+  const isCurrentWeek = useMemo(() => {
+    const currentMonday = getPreviousMonday(new Date());
+    return startDate.toDateString() === currentMonday.toDateString();
+  }, [startDate]);
+
   const daysOfWeek = useMemo(
     () =>
       Array.from({ length: 7 }, (_, i) => {
@@ -92,7 +102,12 @@ export default function WeekCalendar(props: IWeekCalendarProps) {
   }, []);
 
   return (
-    <div className="flex h-full flex-col">
+    <div className="flex h-full flex-col relative">
+      {isMobileSize && (
+        <div className="absolute inset-0 opacity-70 bg-black z-50 flex items-center justify-center text-white p-5">
+          Week view calendar not yet supported on small screen sizes. Stay tuned!
+        </div>
+      )}
       <header className="flex flex-none items-center justify-between border-b border-gray-200 px-6 py-4">
         <h1 className="text-base font-semibold leading-6 text-gray-900">
           <time dateTime={`${year}-${month}-${day}`}>{displayDate}</time>
@@ -130,12 +145,7 @@ export default function WeekCalendar(props: IWeekCalendarProps) {
             <CalendarViewMenu timePeriod="week" />
             <div className="ml-6 h-6 w-px bg-gray-300" />
             <Link href="/app/schedule/add">
-              <button
-                type="button"
-                className="ml-6 rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
-              >
-                Add event
-              </button>
+              <Button flavor="primary" text="Add event" />
             </Link>
           </div>
           <CalenderOverflowMenu />
@@ -191,6 +201,7 @@ export default function WeekCalendar(props: IWeekCalendarProps) {
             <div className="grid flex-auto grid-cols-1 grid-rows-1">
               {/* Horizontal lines */}
               <div
+                key="horizontal-line"
                 className="col-start-1 col-end-2 row-start-1 grid divide-y divide-gray-100"
                 style={{ gridTemplateRows: "repeat(48, minmax(3.5rem, 1fr))" }}
               >
@@ -256,14 +267,17 @@ export default function WeekCalendar(props: IWeekCalendarProps) {
                     </li>
                   );
                 })}
-                <li
-                  className="h-1 bg-green-500 relative mt-px inline-flex"
-                  key="current-time-line"
-                  style={{
-                    gridRow: ` ${Math.round((new Date().getHours() * 60 + new Date().getMinutes()) / 5)} / span 1`,
-                    gridColumn: "auto / span 14",
-                  }}
-                ></li>
+                {/* Time line */}
+                {isCurrentWeek && (
+                  <li
+                    className="h-1 bg-green-500 relative mt-px inline-flex"
+                    key="current-time-line"
+                    style={{
+                      gridRow: `${Math.round((new Date().getHours() * 60 + new Date().getMinutes()) / 5)} / span 1`,
+                      gridColumn: `${new Date().getDay() * 2 - 1} / span 2`,
+                    }}
+                  ></li>
+                )}
               </ol>
             </div>
           </div>

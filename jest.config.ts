@@ -11,40 +11,37 @@ const createJestConfig = nextJest({
 })
  
 export default createJestConfig({
-  // All imported modules in your tests should be mocked automatically
-  // automock: false,
-
-  // Stop running tests after `n` failures
-  // bail: 0,
-
-  // The directory where Jest should store its cached dependency information
-  // cacheDirectory: "/private/var/folders/z6/hn4_0rd11pdc6pc50t8g_v940000gn/T/jest_dx",
-
-  // Automatically clear mock calls, instances, contexts and results before every test
   clearMocks: true,
-
   preset: 'ts-jest',
-  
   testEnvironment: 'jsdom',
-
   setupFilesAfterEnv: ['<rootDir>/src/singleton.ts'],
+
+  // "setupFiles": [
+  //   "./__test__/setupTests.ts"
+  // ],
+
+  // The directory where Jest should output its coverage files
+  coverageDirectory: "coverage",
 
   // Indicates whether the coverage information should be collected while executing the test
   collectCoverage: true,
 
+  moduleNameMapper: {
+    // ...
+    '^@/components/(.*)$': '<rootDir>/components/$1',
+  },
+
+  // Indicates which provider should be used to instrument code for coverage
+  coverageProvider: "v8",
+  
   // An array of glob patterns indicating a set of files for which coverage information should be collected
   // collectCoverageFrom: undefined,
-
-  // The directory where Jest should output its coverage files
-  coverageDirectory: "coverage",
 
   // An array of regexp pattern strings used to skip coverage collection
   // coveragePathIgnorePatterns: [
   //   "/node_modules/"
   // ],
 
-  // Indicates which provider should be used to instrument code for coverage
-  coverageProvider: "v8",
 
   // A list of reporter names that Jest uses when writing coverage reports
   // coverageReporters: [
@@ -202,9 +199,4 @@ export default createJestConfig({
 
   // Whether to use watchman for file crawling
   // watchman: true,
-
-  moduleNameMapper: {
-    // ...
-    '^@/components/(.*)$': '<rootDir>/components/$1',
-  }
 } as Config)

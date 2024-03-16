@@ -16,7 +16,7 @@ interface IButtonProps {
 export default function Button(props: IButtonProps) {
   // @ts-ignore
   const IconElement = Icons[props.iconName];
-  let colorClasses = "bg-slate-400 hover:bg-slate-500 text-white hover:text-white";
+  let colorClasses = "bg-rose-500 hover:bg-rose-600 text-white";
   switch (props.flavor) {
     case "secondary":
       colorClasses = "bg-white hover:bg-slate-200 text-black hover:text-black";
@@ -25,12 +25,15 @@ export default function Button(props: IButtonProps) {
       colorClasses = "bg-red-500 hover:bg-red-700 text-white hover:text-white";
       break;
     case "pizzaz":
-      colorClasses = "bg-rose-400 hover:bg-rose-500 text-white hover:text-white";
+      colorClasses = "bg-amber-400 hover:bg-amber-500 text-white hover:text-white";
       break;
   }
   return (
     <button
-      className={classNames("px-3 py-2 flex items-center rounded", colorClasses)}
+      className={classNames(
+        "text-sm font-semibold px-3 py-2 flex flex-row justify-center rounded-md shadow-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2",
+        colorClasses,
+      )}
       onClick={() => props.onClick && props.onClick()}
       type={props.type || "button"}
       disabled={props.disabled}

@@ -33,7 +33,7 @@ export default function Sidebar(props: ISidebarProps) {
       )}
       <aside
         className={classNames(
-          "z-50 sidebar shrink-0 w-64 md:shadow transform md:translate-x-0 transition-transform duration-150 ease-in bg-slate-500",
+          "z-30 sidebar shrink-0 w-64 md:shadow transform md:translate-x-0 transition-transform duration-150 ease-in bg-rose-500 text-white",
           {
             "translate-x-0": props.expanded,
             "-translate-x-64": !props.expanded,
@@ -46,6 +46,7 @@ export default function Sidebar(props: ISidebarProps) {
 
         <div className="sidebar-content px-4 py-6">
           <ul
+            onClick={() => props.setExpanded(false)}
             className={classNames("flex flex-col w-full items-stretch md:visible", {
               visible: props.expanded,
               invisible: !props.expanded,
@@ -53,7 +54,7 @@ export default function Sidebar(props: ISidebarProps) {
           >
             <SidebarEntry icon={HomeIcon} text="Home" href="/app" highlighted={false} />
             <li className="my-px">
-              <span className="flex font-medium text-sm text-gray-300 px-4 my-4 uppercase">Pages</span>
+              <span className="flex font-medium text-sm text-gray-100 px-4 my-4 uppercase">Pages</span>
             </li>
             <SidebarEntry icon={CalendarDaysIcon} text="Schedule" href="/app/schedule" highlighted={false} />
             <SidebarEntry icon={UsersIcon} text="Students" href="/app/students" highlighted={false} />
@@ -62,7 +63,7 @@ export default function Sidebar(props: ISidebarProps) {
             <SidebarEntry icon={ChartBarIcon} text="Analytics" href="/app/analytics" highlighted={false} />
             <SidebarEntry icon={DocumentTextIcon} text="Logs" href="/app/logs" highlighted={false} />
             <li className="my-px">
-              <span className="flex font-medium text-sm text-gray-300 px-4 my-4 uppercase">Account</span>
+              <span className="flex font-medium text-sm text-gray-100 px-4 my-4 uppercase">Account</span>
             </li>
             <SidebarEntry icon={UserIcon} text="Profile" href="/app/profile" highlighted={false} />
             <SidebarEntry icon={Cog6ToothIcon} text="Settings" href="/app/settings" highlighted={false} />

@@ -1,8 +1,9 @@
-import { ClockIcon } from "@heroicons/react/20/solid";
+import { ClockIcon, PlusCircleIcon } from "@heroicons/react/20/solid";
 import { CalendarDay } from "@/types";
 
 interface IMonthCalendarMiniDayProps {
   day: CalendarDay;
+  addEvent: (day: CalendarDay) => void;
 }
 
 export default function MonthCalendarMiniDay(props: IMonthCalendarMiniDayProps) {
@@ -26,6 +27,14 @@ export default function MonthCalendarMiniDay(props: IMonthCalendarMiniDayProps) 
             </a>
           </li>
         ))}
+        <li
+          className="flex flex-row justify-center items-center cursor-pointer p-4 pr-6 focus-within:bg-gray-50 hover:bg-gray-50"
+          onClick={() => props.addEvent(props.day)}
+        >
+          Add event
+          <PlusCircleIcon className="ml-1 h-6 w-6 text-blue-400 cursor-pointer" />
+          {/* TODO open with correct date */}
+        </li>
       </ol>
     </div>
   );

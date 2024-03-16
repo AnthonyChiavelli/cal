@@ -7,6 +7,9 @@ import {
   getAdjacentWeekString,
   getPreviousMonday,
   parseDateString,
+  getDateNMinutesLater,
+  parseHourFormatDuration,
+  parseDuration,
 } from "../../src/util/calendar";
 import { getAdjacentDateString } from "../../src/util/calendar";
 import "@testing-library/jest-dom";
@@ -338,4 +341,68 @@ describe("getPreviousMonday", () => {
     const previousMonday = getPreviousMonday(date);
     expect(previousMonday).toEqual(date);
   });
+});
+
+describe("getDateNMinutesLater", () => {
+  it.each([
+    [new Date(2022, 0, 1, 0, 0, 0), 60, new Date(2022, 0, 1, 1, 0, 0)],
+    [new Date(2022, 11, 31, 23, 59, 0), 1, new Date(2023, 0, 1, 0, 0, 0)],
+    [new Date(2021, 8, 15, 12, 0, 0), 60, new Date(2021, 8, 15, 13, 0, 0)],
+    [new Date(2020, 6, 15, 0, 0, 0), 1440, new Date(2020, 6, 16, 0, 0, 0)],
+  ])(
+    "returns the correct date for a given date and number of minutes",
+    (date: Date, minutes: number, expectedDate: Date) => {
+      const newDate = getDateNMinutesLater(date, minutes);
+      expect(newDate).toEqual(expectedDate);
+    },
+  );
+});
+
+describe("parseHourFormatDuration", () => {
+  it.each([
+    ["00:00", 0],
+    ["00:01", 1],
+    ["01:00", 60],
+    ["01:01", 61],
+    ["01:30", 90],
+    ["02:30", 150],
+    ["10:02", 602],
+  ])("returns the correct number of minutes for a given duration string", (durationString, expectedMinutes) => {
+    expect(parseHourFormatDuration(durationString)).toBe(expectedMinutes);
+  });
+});
+
+describe("parseDuration", () => {
+  it.each([
+    ["00:00", 0, false],
+    ["00:01", 1, false],
+    ["01:00", 60, false],
+    ["01:01", 61, false],
+    ["01:30", 90, false],
+    ["02:30", 150, false],
+    ["10:02", 602, false],
+    ["5", 5, false],
+    ["10", 10, false],
+    ["105", 105, false],
+    ["abc", undefined, true],
+    ["10.0", undefined, true],
+    ["$100", undefined, true],
+    ["10 ", undefined, true],
+    ["10 50", undefined, true],
+    ["100,00", undefined, true],
+    [":30", undefined, true],
+    ["1:2", undefined, true],
+    ["1:234", undefined, true],
+    ["1:2a", undefined, true],
+    ["1::20", undefined, true],
+  ])(
+    "returns the correct number of minutes for a given duration string",
+    (durationString, expectedMinutes, shouldThrow) => {
+      if (shouldThrow) {
+        expect(() => parseDuration(durationString)).toThrow("Invalid duration format");
+      } else {
+        expect(parseDuration(durationString)).toBe(expectedMinutes);
+      }
+    },
+  );
 });

@@ -160,3 +160,40 @@ export function getPreviousMonday(date: Date) {
   const diff = date.getDate() - day + (day === 0 ? -6 : 1);
   return new Date(date.setDate(diff));
 }
+
+/**
+ * Returns a date that is n minutes after the provided date
+ *
+ * @param date the date
+ * @returns a new date n minutes after the provided date
+ */
+export function getDateNMinutesLater(date: Date, minutes: number) {
+  return new Date(date.getTime() + minutes * 60000);
+}
+
+/**
+ * Parse a string in the format "HH:MM" and return the number of minutes it represents
+ *
+ * @param duration the duration in "HH:MM" format
+ * @returns the number of minutes
+ */
+export function parseHourFormatDuration(duration: string): number {
+  const [hours, minutes] = duration.split(":").map(Number);
+  return hours * 60 + minutes;
+}
+
+/**
+ * Parse a duration string in the format "HH:MM" or a number representing minutes, and return the number of minutes it represents
+ *
+ * @param duration the duration in "HH:MM" or "MM" format
+ * @returns the number of minutes
+ */
+export function parseDuration(duration: string): number {
+  if (/^[\d]+:[\d]{2}$/.test(duration)) {
+    const [hours, minutes] = duration.split(":").map(Number);
+    return hours * 60 + minutes;
+  } else if (/^\d+$/.test(duration) && !isNaN(Number(duration))) {
+    return Number(duration);
+  }
+  throw new Error("Invalid duration format");
+}

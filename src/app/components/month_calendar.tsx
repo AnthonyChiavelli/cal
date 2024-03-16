@@ -2,8 +2,9 @@
 
 import { useTransition } from "react";
 import React from "react";
-import { ChevronLeftIcon, ChevronRightIcon } from "@heroicons/react/20/solid";
+import { ChevronLeftIcon, ChevronRightIcon, CheckIcon, PlusCircleIcon } from "@heroicons/react/20/solid";
 import { Tooltip } from "@nextui-org/react";
+import { Student, UserSettings } from "@prisma/client";
 import classNames from "classnames";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
@@ -14,11 +15,13 @@ import MonthCalendarMiniDay from "@/app/components/month_calendar_mini_day";
 import MonthViewMiniCalendar from "@/app/components/month_view_mini_calendar";
 import { CalendarDay } from "@/types";
 import { createMonthString, getAdjacentMonthString, parseMonthString } from "@/util/calendar";
+import EventCreateModal from "./event_create_modal";
 
 interface IMonthCalendar {
   monthString?: string;
   calendarDays: CalendarDay[];
-  showMiniDayView: boolean;
+  settings: UserSettings;
+  students: Student[];
 }
 
 export default function MonthCalendar(props: IMonthCalendar) {
@@ -26,6 +29,7 @@ export default function MonthCalendar(props: IMonthCalendar) {
   const [isPending, startTransition] = useTransition();
 
   const [selectedDay, setSelectedDay] = React.useState<CalendarDay | null>(props.calendarDays[0] || null);
+  const [showEventCreateModal, setShowEventCreateModal] = React.useState(false);
 
   const goToPreviousMonth = () => {
     startTransition(() => {
@@ -54,14 +58,18 @@ export default function MonthCalendar(props: IMonthCalendar) {
 
   const handleClickMiniMonthDay = React.useCallback(
     (day: CalendarDay) => {
-      if (props.showMiniDayView) {
+      if (props.settings?.showInlineDayCalendarInMobileView) {
         setSelectedDay(day);
       } else {
         router.push(`?p=day&t=${day.date}`);
       }
     },
-    [props.showMiniDayView, router],
+    [props.settings?.showInlineDayCalendarInMobileView, router],
   );
+
+  const handleLaunchCreateModal = React.useCallback(() => {
+    setShowEventCreateModal(true);
+  }, []);
 
   const [year, month] = React.useMemo((): [number, number] => {
     try {
@@ -139,14 +147,16 @@ export default function MonthCalendar(props: IMonthCalendar) {
             </div>
           ))}
         </div>
+        {/* Desktop calendar */}
         <div className="flex bg-gray-200 text-xs leading-6 text-gray-700 lg:flex-auto">
           <div className="hidden w-full lg:grid lg:grid-cols-7 lg:grid-rows-5 lg:gap-px">
+            {/* Grid days */}
             {props.calendarDays.map((day) => (
               <div
                 key={day.date}
                 className={classNames(
                   day.isCurrentMonth ? "bg-white" : "bg-gray-50 text-gray-500",
-                  "relative px-3 py-2",
+                  "relative px-3 py-2 group",
                 )}
               >
                 <Link href={`?p=day&t=${day.date}`}>
@@ -161,28 +171,43 @@ export default function MonthCalendar(props: IMonthCalendar) {
                     {day.date.split("-").pop()?.replace(/^0/, "")}
                   </time>
                 </Link>
+                <div className="hidden group-hover:block absolute right-3 bottom-3">
+                  <PlusCircleIcon
+                    className="h-6 w-6 text-blue-400 cursor-pointer"
+                    onClick={() => setShowEventCreateModal(true)}
+                  />{" "}
+                </div>
+                {/* Day events */}
                 {day.events.length > 0 && (
                   <ol className="mt-2">
-                    {day.events.slice(0, 2).map((event) => (
-                      <li key={event.id}>
+                    {day.events.slice(0, 2).map((calendarEvent) => (
+                      <li key={calendarEvent.id}>
                         <Tooltip
                           content={
-                            <div className="text-gray-900">
-                              <div className="text-md font-bold">{event.name}</div>
-                              <div className="text-sm">{event.datetime}</div>
+                            <div className="text-gray-900 p-3">
+                              <div className="text-md font-bold flex flex-row items-center">
+                                {calendarEvent.name} {calendarEvent.event.cancelledAt && "(Cancelled)"}{" "}
+                                {calendarEvent.event.completed && "(Completed)"}
+                              </div>
+                              <div className="text-sm">{calendarEvent.datetime}</div>
                             </div>
                           }
                           placement="top"
                         >
-                          <a href={event.href} className="group flex">
+                          <a href={calendarEvent.href} className="flex">
                             <p className="flex-auto truncate font-small text-gray-900 group-hover:text-indigo-600">
-                              {event.name}
+                              <span className="flex flex-row items-center">
+                                <span className={classNames({ "line-through": calendarEvent.event.cancelledAt })}>
+                                  {calendarEvent.name}
+                                </span>
+                                {calendarEvent.event.completed && <CheckIcon className="h-4 w-4 ml-1 text-green-500" />}
+                              </span>
                             </p>
                             <time
-                              dateTime={event.datetime}
+                              dateTime={calendarEvent.datetime}
                               className="ml-3 hidden flex-none text-gray-500 group-hover:text-indigo-600 xl:block"
                             >
-                              {event.time}
+                              {calendarEvent.time}
                             </time>
                           </a>
                         </Tooltip>
@@ -198,10 +223,21 @@ export default function MonthCalendar(props: IMonthCalendar) {
               </div>
             ))}
           </div>
-          <MonthViewMiniCalendar onSelectDay={handleClickMiniMonthDay} calendarDays={props.calendarDays} />
+          <MonthViewMiniCalendar
+            onSelectDay={handleClickMiniMonthDay}
+            calendarDays={props.calendarDays}
+            selectedDay={selectedDay}
+          />
         </div>
       </div>
-      {selectedDay && selectedDay.events.length > 0 && <MonthCalendarMiniDay day={selectedDay} />}
+      {selectedDay && <MonthCalendarMiniDay day={selectedDay} addEvent={handleLaunchCreateModal} />}
+      <EventCreateModal
+        open={showEventCreateModal}
+        students={props.students}
+        onClose={() => setShowEventCreateModal(false)}
+        presetDate={new Date()}
+        settings={props.settings}
+      />
     </div>
   );
 }

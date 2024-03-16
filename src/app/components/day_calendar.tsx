@@ -3,6 +3,7 @@
 import { useEffect, useRef } from "react";
 import React from "react";
 import { ChevronLeftIcon, ChevronRightIcon } from "@heroicons/react/20/solid";
+import { Student } from "@prisma/client";
 import classNames from "classnames";
 import Link from "next/link";
 import { CalendarDay, EventWithRelations } from "@/types";
@@ -17,7 +18,9 @@ interface IDateCalendarProps {
   dateString?: string;
   events: EventWithRelations[];
   daysForMiniCalendar: CalendarDay[];
+  settings: UserSettings;
   showMiniCalendar: boolean;
+  students: Student[];
 }
 
 export default function DayCalendar(props: IDateCalendarProps) {
@@ -46,6 +49,11 @@ export default function DayCalendar(props: IDateCalendarProps) {
         {yearNumber}
       </div>
     );
+  }, [day, month, year]);
+
+  const isCurrentDay = React.useMemo(() => {
+    const date = new Date(year, month - 1, day);
+    return date.toDateString() === new Date().toDateString();
   }, [day, month, year]);
 
   const displayDay = React.useMemo(() => {
@@ -232,14 +240,16 @@ export default function DayCalendar(props: IDateCalendarProps) {
                     </li>
                   );
                 })}
-                <li
-                  className="h-1 bg-green-500 relative mt-px inline-flex"
-                  key="current-time-line"
-                  style={{
-                    gridRow: ` ${Math.round((new Date().getHours() * 60 + new Date().getMinutes()) / 5)} / span 1`,
-                    gridColumn: "auto / span 12",
-                  }}
-                ></li>
+                {isCurrentDay && (
+                  <li
+                    className="h-1 bg-green-500 relative mt-px inline-flex"
+                    key="current-time-line"
+                    style={{
+                      gridRow: ` ${Math.round((new Date().getHours() * 60 + new Date().getMinutes()) / 5)} / span 1`,
+                      gridColumn: "auto / span 12",
+                    }}
+                  ></li>
+                )}
               </ol>
             </div>
           </div>
@@ -253,7 +263,7 @@ export default function DayCalendar(props: IDateCalendarProps) {
       <EventCreateModal
         open={createEventModalOpen}
         onClose={() => setCreateEventModalOpen(false)}
-        students={[]}
+        students={props.students}
         presetDate={new Date()}
       />
     </div>

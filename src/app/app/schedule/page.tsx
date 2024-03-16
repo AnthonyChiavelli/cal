@@ -36,6 +36,7 @@ async function calendarDaysForMonth(timeValue: string) {
       ...calDay,
       events: eventsForToday.map((e) => ({
         id: e.id,
+        event: e,
         name: getEventName(e),
         time: e.scheduledFor.toLocaleTimeString("en-us", { hour: "numeric" }),
         datetime: e.scheduledFor.toString(),
@@ -93,6 +94,8 @@ async function Schedule(params: { searchParams: { p?: string; t?: string } }) {
             events={await getEventsForDay(timeValue)}
             daysForMiniCalendar={getDaysForCalendarMonthGrid(2, 2022)}
             showMiniCalendar={false}
+            students={await prisma.student.findMany()}
+            settings={settings}
           />
         );
       }
@@ -100,7 +103,7 @@ async function Schedule(params: { searchParams: { p?: string; t?: string } }) {
         const timeValue =
           params.searchParams.t ||
           `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, "0")}-${now.getDate()}`;
-        return <WeekCalendar weekString={timeValue} events={await getEventsForWeek(timeValue)} />;
+        return <WeekCalendar weekString={timeValue} events={await getEventsForWeek(timeValue)} settings={settings} />;
       case "month": {
         const timeValue =
           params.searchParams.t || `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, "0")}`;
@@ -108,7 +111,8 @@ async function Schedule(params: { searchParams: { p?: string; t?: string } }) {
           <MonthCalendar
             monthString={timeValue}
             calendarDays={await calendarDaysForMonth(timeValue)}
-            showMiniDayView={Boolean(settings?.showInlineDayCalendarInMobileView)}
+            settings={settings}
+            students={await prisma.student.findMany()}
           />
         );
       }

@@ -1,10 +1,9 @@
+"use server";
+
 import prisma from "@/db";
 import { getSessionOrFail } from "./util";
 
 export async function updateUserSettings(formData: FormData): Promise<{ success: boolean } | undefined> {
-  "use server";
-
-  // TODO this in all server actions
   const { user } = await getSessionOrFail();
 
   const basePrice = formData.get("basePrice");
@@ -34,8 +33,6 @@ export async function updateUserSettings(formData: FormData): Promise<{ success:
 }
 
 export async function getUserSettings() {
-  "use server";
-
   const { user } = await getSessionOrFail();
   return await prisma.userSettings.upsert({
     where: { userEmail: user.email },

@@ -3,7 +3,7 @@ import { ClassType, Student } from "@prisma/client";
 import "@testing-library/jest-dom";
 import { EventWithRelations } from "@/types";
 
-describe("pluralize", () => {
+describe("getEventName", () => {
   it("Handles an event with no students (not expected)", async () => {
     const mockEvent = {
       eventStudents: [],

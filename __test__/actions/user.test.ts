@@ -4,7 +4,6 @@
 import { prismaMock } from "../../src/singleton";
 import { UserSettings } from "@prisma/client";
 import { Decimal } from "@prisma/client/runtime/library";
-import { get } from "http";
 import { getUserSettings, updateUserSettings } from "@/app/actions/user";
 import { getSessionOrFail } from "@/app/actions/util";
 import { createFormDataFromObject } from "@/util/formdata";

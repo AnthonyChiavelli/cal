@@ -1,7 +1,8 @@
-import type { Config, } from "tailwindcss";
-import colors from 'tailwindcss/colors'
-const defaultTheme = require('tailwindcss/defaultTheme')
-const {nextui} = require("@nextui-org/react");
+import type { Config } from "tailwindcss";
+import colors from "tailwindcss/colors";
+
+const defaultTheme = require("tailwindcss/defaultTheme");
+const { nextui } = require("@nextui-org/react");
 
 const config: Config = {
   content: [
@@ -13,14 +14,14 @@ const config: Config = {
   ],
   theme: {
     screens: {
-      'tiny': "350px",
-      'xs': "500px",
-      ...defaultTheme.screens
+      tiny: "350px",
+      xs: "500px",
+      ...defaultTheme.screens,
     },
     extend: {
       gridTemplateColumns: {
-        '13': 'repeat(13, minmax(0, 1fr))',
-        '14': 'repeat(14, minmax(0, 1fr))',
+        "13": "repeat(13, minmax(0, 1fr))",
+        "14": "repeat(14, minmax(0, 1fr))",
       },
       backgroundImage: {
         "gradient-radial": "radial-gradient(var(--tw-gradient-stops))",
@@ -81,7 +82,12 @@ const config: Config = {
       },
     },
   },
+  variants: {
+    extend: {
+      display: ["group-hover"],
+    },
+  },
   darkMode: "class",
-  plugins: [nextui(), require('@tailwindcss/container-queries')],
+  plugins: [nextui(), require("@tailwindcss/container-queries")],
 };
 export default config;

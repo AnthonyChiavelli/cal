@@ -90,6 +90,8 @@ model Event {
   referralSource ReferralSource?
 
   completed Boolean @default(false)
+
+  cancelledAt DateTime?
 }
 
 enum EventType {
@@ -199,4 +201,6 @@ enum ActionType {
   SCHEDULE_EVENT
   EDIT_EVENT
   DELETE_EVENT
+  CANCEL_EVENT
+  MARK_COMPLETE_EVENT
 }

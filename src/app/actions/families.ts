@@ -1,10 +1,11 @@
+"use server";
+
 import prisma from "@/db";
+import { getSessionOrFail } from "./util";
 
 export async function updateOrCreateFamily(formData: FormData, familyId?: string): Promise<{ success: boolean }> {
-  "use server";
-  // TODO auth guard, add action log
+  await getSessionOrFail();
 
-  // prisma.fam
   if (familyId) {
     await prisma.family.update({
       where: {

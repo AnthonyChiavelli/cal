@@ -4,9 +4,10 @@ import { ActionType } from "@prisma/client";
 import csvtojson from "csvtojson";
 import { RedirectType, redirect } from "next/navigation";
 import prisma from "@/db";
+import { getSessionOrFail } from "./util";
 
 export async function createStudent(data: FormData) {
-  "use server";
+  await getSessionOrFail();
 
   const firstName = data.get("firstName")?.valueOf() as string;
   const lastName = data.get("lastName")?.valueOf() as string;
@@ -29,7 +30,7 @@ export async function createStudent(data: FormData) {
 }
 
 export async function doCSVUpload(args: any) {
-  "use server";
+  await getSessionOrFail();
 
   const csvFile = args.get("csvFile") as File;
 
@@ -48,7 +49,8 @@ export async function doCSVUpload(args: any) {
 }
 
 export async function deleteStudent(studentId: string) {
-  "use server";
+  await getSessionOrFail();
+
   await prisma.student.delete({ where: { id: studentId } });
   redirect("/app/students", RedirectType.replace);
 }

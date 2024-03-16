@@ -1,4 +1,4 @@
-import { deleteEvent } from "@/app/actions/events";
+import { deleteEvent, cancelEvent } from "@/app/actions/events";
 import Button from "@/app/components/button";
 import prisma from "@/db";
 
@@ -21,6 +21,7 @@ export default async function Class(props: IClassProps) {
     <div className="overflow-y-auto">
       <code className="whitespace-pre">sfd: {JSON.stringify(classObj, null, 2)}</code>;
       <Button flavor="danger" text="Delete" onClick={deleteEvent.bind(deleteEvent, props.params.eventId)} />
+      <Button flavor="danger" text="Cancel" onClick={cancelEvent.bind(deleteEvent, props.params.eventId)} />
     </div>
   );
 }
