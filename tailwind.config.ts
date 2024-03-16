@@ -26,8 +26,13 @@ const config: Config = {
       backgroundImage: {
         "gradient-radial": "radial-gradient(var(--tw-gradient-stops))",
         "gradient-conic": "conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))",
+        "gradient-45": "linear-gradient(45deg, var(--tw-gradient-stops))",
       },
       colors: {
+        "soft-purple": "#8271c0",
+        "blueberry": "#494da3",
+        "azure": "#2f89fc",
+        "hot-pink": "#ff5db1",
         // light mode
         tremor: {
           brand: {

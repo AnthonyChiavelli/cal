@@ -32,6 +32,9 @@ describe("getSessionOrFail", () => {
 
     expect(getSession).toHaveBeenCalledTimes(1);
     expect(prismaMock.user.findFirst).toHaveBeenCalledTimes(1);
+    expect(prismaMock.user.findFirst).toHaveBeenCalledWith({
+      where: { email: { equals: mockUser.email, mode: "insensitive" } },
+    });
     expect(redirect).not.toHaveBeenCalled();
     expect(result).toEqual({ session: mockSession, user: mockUser });
   });

@@ -8,7 +8,6 @@ export default withPageAuthRequired(async function SettingsPage() {
   if (!userSettings) {
     return <div>Unauthorized</div>;
   }
-
   return (
     <div>
       <div className="px-4 sm:px-0">

@@ -33,7 +33,7 @@ export default function Sidebar(props: ISidebarProps) {
       )}
       <aside
         className={classNames(
-          "z-30 sidebar shrink-0 w-64 md:shadow transform md:translate-x-0 transition-transform duration-150 ease-in bg-rose-500 text-white",
+          "z-30 sidebar shrink-0 w-64 md:shadow transform md:translate-x-0 transition-transform duration-150 ease-in text-white bg-gradient-45 from-azure to-hot-pink",
           {
             "translate-x-0": props.expanded,
             "-translate-x-64": !props.expanded,
