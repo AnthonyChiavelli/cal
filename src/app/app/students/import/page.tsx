@@ -11,7 +11,7 @@ import { SyncLoader } from "react-spinners";
 import { withPageAuthRequired } from "@auth0/nextjs-auth0/client";
 import classNames from "classnames";
 import papa from "papaparse";
-import { doCSVUpload } from "@/app/actions/students";
+import { doCSVUpload } from "@/app/actions/student";
 import Button from "@/app/components/button";
 import Modal from "@/app/components/modal";
 import { shallowCompareArrays } from "@/util/array";

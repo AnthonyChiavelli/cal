@@ -2,7 +2,7 @@
 
 import React from "react";
 import { TrashIcon } from "@heroicons/react/24/outline";
-import { deleteStudent } from "../actions/students";
+import { deleteStudent } from "../actions/student";
 import ConfirmationModal from "./confirmation_modal";
 
 interface IDeleteStudent {

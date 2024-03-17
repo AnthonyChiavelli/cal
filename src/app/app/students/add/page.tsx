@@ -1,5 +1,5 @@
 import { withPageAuthRequired } from "@auth0/nextjs-auth0";
-import { createStudent } from "@/app/actions/students";
+import { createStudent } from "@/app/actions/student";
 import Button from "@/app/components/button";
 import Multiselect from "@/app/components/multiselect";
 

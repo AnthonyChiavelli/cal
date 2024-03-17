@@ -6,7 +6,7 @@ import { getDateNMinutesLater } from "../../util/calendar";
 import { EventStudent, Event, Student } from "@prisma/client";
 import classNames from "classnames";
 import Link from "next/link";
-import { markEventCompleted } from "@/app/actions/events";
+import { markEventCompleted } from "@/app/actions/event";
 import ConfirmationModal from "@/app/components/confirmation_modal";
 
 interface ICalendarEventProps {

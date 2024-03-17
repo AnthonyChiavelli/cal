@@ -7,7 +7,7 @@ import { redirect } from "next/navigation";
 import { getSessionOrFail } from "./util";
 
 export async function createEvent(formData: FormData) {
-  await getSessionOrFail();
+  const { user } = await getSessionOrFail();
 
   const scheduledFor = new Date(`${formData.get("scheduledForDate")}T${formData.get("scheduledForTime")}`);
   formData.entries;
@@ -20,10 +20,12 @@ export async function createEvent(formData: FormData) {
           eventType: EventType.CLASS,
           classType: ClassType.PRIVATE,
           notes: formData.get("notes") as string,
+          ownerId: user.email,
           eventStudents: {
             create: (formData.getAll("student") as string[]).map((studentId) => ({
               studentId,
               cost: parseFloat(formData.get(`cost-${studentId}`) as string),
+              ownerId: user.email,
             })),
           },
         },
@@ -32,11 +34,17 @@ export async function createEvent(formData: FormData) {
         data: {
           actionType: ActionType.SCHEDULE_EVENT,
           additionalData: { event, formData: JSON.parse(JSON.stringify(Object.fromEntries(formData))) },
+          ownerId: user.email,
         },
       });
     } catch (e: any) {
       await prisma.actionRecord.create({
-        data: { actionType: ActionType.SCHEDULE_EVENT, success: false, additionalData: { error: e.message } },
+        data: {
+          actionType: ActionType.SCHEDULE_EVENT,
+          success: false,
+          additionalData: { error: e.message },
+          ownerId: user.email,
+        },
       });
       throw e;
     }
@@ -46,25 +54,35 @@ export async function createEvent(formData: FormData) {
 
 // TODO do we need this?
 export async function deleteEvent(classId: string) {
-  await getSessionOrFail();
-  await prisma.event.delete({ where: { id: classId } });
+  const { user } = await getSessionOrFail();
+  await prisma.event.delete({ where: { id: classId, ownerId: user.email } });
   return redirect("/app/schedule");
 }
 
 export async function markEventCompleted(eventId: string, completed: boolean) {
-  await getSessionOrFail();
+  const { user } = await getSessionOrFail();
   try {
-    const event = await prisma.event.findFirstOrThrow({ where: { id: eventId } });
+    const event = await prisma.event.findFirstOrThrow({ where: { id: eventId, ownerId: user.email } });
     if (event.cancelledAt) {
       throw new Error("Cannot mark a cancelled event as complete");
     }
-    await prisma.event.update({ where: { id: eventId }, data: { completed } });
+    await prisma.event.update({ where: { id: eventId, ownerId: user.email }, data: { completed } });
     await prisma.actionRecord.create({
-      data: { actionType: ActionType.MARK_COMPLETE_EVENT, success: true, additionalData: { eventId: eventId } },
+      data: {
+        actionType: ActionType.MARK_COMPLETE_EVENT,
+        success: true,
+        additionalData: { eventId: eventId },
+        ownerId: user.email,
+      },
     });
   } catch (e) {
     await prisma.actionRecord.create({
-      data: { actionType: ActionType.MARK_COMPLETE_EVENT, success: false, additionalData: { error: e.message } },
+      data: {
+        actionType: ActionType.MARK_COMPLETE_EVENT,
+        success: false,
+        additionalData: { error: e.message },
+        ownerId: user.email,
+      },
     });
     throw e;
   }
@@ -72,19 +90,29 @@ export async function markEventCompleted(eventId: string, completed: boolean) {
 }
 
 export async function cancelEvent(eventId: string) {
-  await getSessionOrFail();
+  const { user } = await getSessionOrFail();
   try {
-    const event = await prisma.event.findFirstOrThrow({ where: { id: eventId } });
+    const event = await prisma.event.findFirstOrThrow({ where: { id: eventId, ownerId: user.email } });
     if (event.completed) {
       throw new Error("Cannot cancel an event that has been marked as complete");
     }
-    await prisma.event.update({ where: { id: eventId }, data: { cancelledAt: new Date() } });
+    await prisma.event.update({ where: { id: eventId, ownerId: user.email }, data: { cancelledAt: new Date() } });
     await prisma.actionRecord.create({
-      data: { actionType: ActionType.CANCEL_EVENT, success: true, additionalData: { eventId: eventId } },
+      data: {
+        actionType: ActionType.CANCEL_EVENT,
+        success: true,
+        additionalData: { eventId: eventId },
+        ownerId: user.email,
+      },
     });
   } catch (e) {
     await prisma.actionRecord.create({
-      data: { actionType: ActionType.CANCEL_EVENT, success: false, additionalData: { error: e.message } },
+      data: {
+        actionType: ActionType.CANCEL_EVENT,
+        success: false,
+        additionalData: { error: e.message },
+        ownerId: user.email,
+      },
     });
     throw e;
   }

@@ -1,4 +1,4 @@
-import prisma from "@/db";
+import { getStudent } from "@/app/methods/student";
 
 interface IStudentPageProps {
   params: {
@@ -7,7 +7,7 @@ interface IStudentPageProps {
 }
 
 export default async function StudentPage(props: IStudentPageProps) {
-  const student = await prisma.student.findFirst({ where: { OR: [{ id: props.params.studentId }] } });
+  const student = await getStudent(props.params.studentId);
 
   return <div>{JSON.stringify(student)}</div>;
 }

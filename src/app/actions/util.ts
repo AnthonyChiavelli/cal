@@ -10,7 +10,7 @@ export async function getSessionOrFail() {
   }
   const user = await prisma.user.findFirst({ where: { email: { equals: session.user.email, mode: "insensitive" } } });
   if (!user) {
-    return redirect("/");
+    return redirect("/authorization-error");
   }
   return { session, user };
 }

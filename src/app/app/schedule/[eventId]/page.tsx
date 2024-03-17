@@ -1,6 +1,6 @@
-import { deleteEvent, cancelEvent } from "@/app/actions/events";
+import { deleteEvent, cancelEvent } from "@/app/actions/event";
 import Button from "@/app/components/button";
-import prisma from "@/db";
+import { getEvent } from "@/app/methods/event";
 
 interface IClassProps {
   params: {
@@ -8,15 +8,8 @@ interface IClassProps {
   };
 }
 
-async function fetchClass(eventId: string) {
-  return prisma.event.findFirstOrThrow({
-    where: { id: eventId },
-    include: { eventStudents: { include: { student: true } } },
-  });
-}
-
 export default async function Class(props: IClassProps) {
-  const classObj = await fetchClass(props.params.eventId);
+  const classObj = await getEvent(props.params.eventId);
   return (
     <div className="overflow-y-auto">
       <code className="whitespace-pre">sfd: {JSON.stringify(classObj, null, 2)}</code>;

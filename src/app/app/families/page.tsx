@@ -2,14 +2,11 @@ import Link from "next/link";
 import Button from "@/app/components/button";
 import DataTable from "@/app/components/data_table";
 import FamilyRow from "@/app/components/family_row";
-import prisma from "@/db";
 import { FamilyWithRelations } from "@/types";
 
 export default async function FamiliesPage() {
-  const families: FamilyWithRelations[] = await prisma.family.findMany({
-    include: { parents: true, students: true, invoices: true },
-    orderBy: { createdAt: "desc" },
-  });
+  const families: FamilyWithRelations[] = [];
+  // TODO use method
   return (
     <div>
       <h1>Families</h1>

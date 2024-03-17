@@ -8,48 +8,13 @@ import DeleteStudent from "@/app/components/delete_student";
 import Modal from "@/app/components/modal";
 import StudentPager from "@/app/components/student_pager";
 import StudentSearch from "@/app/components/student_search";
-import prisma from "@/db";
+import { getStudents, getTotalStudentCount } from "@/app/methods/student";
 
 const PAGE_SIZE = 10;
-
-async function getStudents(searchParams: { page?: Number; search?: string }) {
-  const page = Number(searchParams?.page) || 1;
-  const query: any = {};
-  if (searchParams?.search) {
-    query.where = {
-      OR: [
-        { firstName: { contains: searchParams.search, mode: "insensitive" } },
-        { lastName: { contains: searchParams.search, mode: "insensitive" } },
-        { notes: { contains: searchParams.search, mode: "insensitive" } },
-      ],
-    };
-  }
-
-  return await prisma.student.findMany({
-    ...query,
-    skip: (page - 1) * PAGE_SIZE,
-    take: PAGE_SIZE,
-    orderBy: { createdAt: "desc" },
-  });
-}
 
 async function onClose() {
   "use server";
   redirect("/app/students");
-}
-
-async function getTotalStudentCount(searchParams: { search?: string }) {
-  const query: any = {};
-  if (searchParams?.search) {
-    query.where = {
-      OR: [
-        { firstName: { contains: searchParams.search, mode: "insensitive" } },
-        { lastName: { contains: searchParams.search, mode: "insensitive" } },
-        { notes: { contains: searchParams.search, mode: "insensitive" } },
-      ],
-    };
-  }
-  return await prisma.student.count(query);
 }
 
 async function Students({

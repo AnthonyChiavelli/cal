@@ -1,20 +1,11 @@
-import DailyFinances from "../components/daily_finances";
 import UpcomingEvent from "../components/upcoming_event";
 import { getSession, withPageAuthRequired } from "@auth0/nextjs-auth0";
-import prisma from "@/db";
-
-async function getUpcomingEvents() {
-  return prisma.event.findMany({
-    orderBy: { scheduledFor: "desc" },
-    include: {
-      eventStudents: true,
-    },
-  });
-}
+import DailyFinances from "@/app/components/daily_finances";
+import { getEvents } from "@/app/methods/event";
 
 async function App() {
   const session = await getSession();
-  const upcomingEvents = await getUpcomingEvents();
+  const upcomingEvents = await getEvents({});
 
   return (
     <div>

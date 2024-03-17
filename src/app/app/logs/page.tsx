@@ -1,9 +1,9 @@
 import DataTable from "@/app/components/data_table";
 import LogRow from "@/app/components/log_row";
-import prisma from "@/db";
+import { getActionRecords } from "@/app/methods/actionRecord";
 
 export default async function Log() {
-  const actionRecords = await prisma.actionRecord.findMany({ orderBy: { createdAt: "desc" } });
+  const actionRecords = await getActionRecords();
   return (
     <div>
       <h1 className="">Log</h1>

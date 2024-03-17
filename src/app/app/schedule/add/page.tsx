@@ -1,10 +1,10 @@
 import { withPageAuthRequired } from "@auth0/nextjs-auth0";
 import { getUserSettings } from "@/app/actions";
 import EventCreate from "@/app/components/event_create";
-import prisma from "@/db";
+import { getAllStudents } from "@/app/methods/student";
 
 async function AddEvent() {
-  const students = await prisma.student.findMany();
+  const students = await getAllStudents();
   return (
     <div>
       <EventCreate students={students} settings={await getUserSettings()} />

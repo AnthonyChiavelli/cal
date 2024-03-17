@@ -2,7 +2,7 @@
  * @jest-environment node
  */
 import { prismaMock } from "../../src/singleton";
-import { cancelEvent, markEventCompleted } from "@/app/actions/events";
+import { cancelEvent, markEventCompleted } from "@/app/actions/event";
 
 jest.mock("../../src/app/actions/util", () => ({
   getSessionOrFail: jest.fn(() => Promise.resolve({ user: { email: "test@examples.com" }, session: {} })),
@@ -15,7 +15,10 @@ describe("cancelEvent", () => {
     // @ts-ignore
     await cancelEvent(1);
     expect(prismaMock.event.update).toHaveBeenCalledTimes(1);
-    expect(prismaMock.event.update).toHaveBeenCalledWith({ where: { id: 1 }, data: { cancelledAt: expect.any(Date) } });
+    expect(prismaMock.event.update).toHaveBeenCalledWith({
+      where: { id: 1, ownerId: "test@examples.com" },
+      data: { cancelledAt: expect.anything() },
+    });
   });
 
   it("should refuse to cancel an event that has been marked as complete", async () => {
@@ -34,7 +37,7 @@ describe("cancelEvent", () => {
     await cancelEvent(1);
     expect(prismaMock.actionRecord.create).toHaveBeenCalledTimes(1);
     expect(prismaMock.actionRecord.create).toHaveBeenCalledWith({
-      data: { actionType: "CANCEL_EVENT", success: true, additionalData: { eventId: 1 } },
+      data: { actionType: "CANCEL_EVENT", success: true, additionalData: { eventId: 1 }, ownerId: "test@examples.com" },
     });
   });
 });
@@ -47,7 +50,10 @@ describe("markEventCompleted", () => {
     // @ts-ignore
     await markEventCompleted(1, true);
     expect(prismaMock.event.update).toHaveBeenCalledTimes(1);
-    expect(prismaMock.event.update).toHaveBeenCalledWith({ where: { id: 1 }, data: { completed: true } });
+    expect(prismaMock.event.update).toHaveBeenCalledWith({
+      where: { id: 1, ownerId: "test@examples.com" },
+      data: { completed: true },
+    });
   });
 
   it("should refuse to mark an event complete if it has been cancelled", async () => {
@@ -64,7 +70,12 @@ describe("markEventCompleted", () => {
     await markEventCompleted(1, true);
     expect(prismaMock.actionRecord.create).toHaveBeenCalledTimes(1);
     expect(prismaMock.actionRecord.create).toHaveBeenCalledWith({
-      data: { actionType: "MARK_COMPLETE_EVENT", success: true, additionalData: { eventId: 1 } },
+      data: {
+        actionType: "MARK_COMPLETE_EVENT",
+        success: true,
+        additionalData: { eventId: 1 },
+        ownerId: "test@examples.com",
+      },
     });
   });
 });

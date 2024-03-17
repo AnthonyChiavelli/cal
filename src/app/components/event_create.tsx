@@ -18,7 +18,7 @@ import {
   PopoverContent,
 } from "@nextui-org/react";
 import { Student, UserSettings } from "@prisma/client";
-import { createEvent } from "@/app/actions/events";
+import { createEvent } from "@/app/actions/event";
 import { parseDuration } from "@/util/calendar";
 import Button from "./button";
 

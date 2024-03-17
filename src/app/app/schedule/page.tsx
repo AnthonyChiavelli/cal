@@ -3,7 +3,6 @@ import { withPageAuthRequired } from "@auth0/nextjs-auth0";
 import { getUserSettings } from "@/app/actions/user";
 import DayCalendar from "@/app/components/day_calendar";
 import WeekCalendar from "@/app/components/week_calendar";
-import prisma from "@/db";
 import { CalendarDay } from "@/types";
 import {
   IMonthNumber,
@@ -14,15 +13,14 @@ import {
   getPreviousMonday,
 } from "@/util/calendar";
 import { getEventName } from "@/util/event";
+import { getEvents } from "@/app/methods/event";
+import { getAllStudents } from "@/app/methods/student";
 
 async function calendarDaysForMonth(timeValue: string) {
   const [year, month] = parseMonthString(timeValue);
 
-  const events = await prisma.event.findMany({
-    orderBy: { scheduledFor: "asc" },
-    where: { scheduledFor: { gte: new Date(year, month - 1, -7), lte: new Date(year, month, 7) } },
-    include: { eventStudents: { include: { student: true } } },
-  });
+  const events = await getEvents({ scheduledFor: { gte: new Date(year, month - 1, -7), lte: new Date(year, month, 7) } });
+
   return getDaysForCalendarMonthGrid(month as IMonthNumber, year).map((calDay: CalendarDay) => {
     // TODO something more elegant than this
     const [year, month, date] = calDay.date.split("-").map(Number);
@@ -54,11 +52,8 @@ async function getEventsForDay(dateString: string) {
     [year, month, date] = [new Date().getFullYear(), new Date().getMonth() + 1, new Date().getDate()];
   }
   const [dayStart, dayEnd] = [new Date(year, month - 1, date), new Date(year, month - 1, date + 1)];
-  return await prisma.event.findMany({
-    orderBy: { scheduledFor: "asc" },
-    where: { scheduledFor: { gte: dayStart, lte: dayEnd } },
-    include: { eventStudents: { include: { student: true } } },
-  });
+
+  return await getEvents({ scheduledFor: { gte: dayStart, lte: dayEnd } });
 }
 
 async function getEventsForWeek(dateString: string) {
@@ -70,11 +65,7 @@ async function getEventsForWeek(dateString: string) {
   }
   const weekStartDate = getPreviousMonday(date);
   const weekEndDate = new Date(weekStartDate.getFullYear(), weekStartDate.getMonth(), weekStartDate.getDate() + 7);
-  return await prisma.event.findMany({
-    orderBy: { scheduledFor: "asc" },
-    where: { scheduledFor: { gte: weekStartDate, lte: weekEndDate } },
-    include: { eventStudents: { include: { student: true } } },
-  });
+  return await getEvents({ scheduledFor: { gte: weekStartDate, lte: weekEndDate } });
 }
 
 async function Schedule(params: { searchParams: { p?: string; t?: string } }) {
@@ -94,7 +85,7 @@ async function Schedule(params: { searchParams: { p?: string; t?: string } }) {
             events={await getEventsForDay(timeValue)}
             daysForMiniCalendar={getDaysForCalendarMonthGrid(2, 2022)}
             showMiniCalendar={false}
-            students={await prisma.student.findMany()}
+            students={await getAllStudents()}
             settings={settings}
           />
         );
@@ -112,7 +103,7 @@ async function Schedule(params: { searchParams: { p?: string; t?: string } }) {
             monthString={timeValue}
             calendarDays={await calendarDaysForMonth(timeValue)}
             settings={settings}
-            students={await prisma.student.findMany()}
+            students={await getAllStudents()}
           />
         );
       }

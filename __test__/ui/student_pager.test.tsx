@@ -1,5 +1,5 @@
 import { render, screen } from "@testing-library/react";
-import StudentPager from "../src/app/components/student_pager";
+import StudentPager from "../../src/app/components/student_pager";
 import "@testing-library/jest-dom";
 
 let pageNumber = 0;
