@@ -4,7 +4,7 @@ import prisma from "@/db";
 import { getSessionOrFail } from "./util";
 
 export async function updateOrCreateFamily(formData: FormData, familyId?: string): Promise<{ success: boolean }> {
-  await getSessionOrFail();
+  const { user } = await getSessionOrFail();
 
   if (familyId) {
     await prisma.family.update({
@@ -15,6 +15,7 @@ export async function updateOrCreateFamily(formData: FormData, familyId?: string
         familyName: formData.get("familyName") as string,
         balance: 0,
         notes: formData.get("notes") as string,
+        ownerId: user.email,
         parents: {
           create: [
             {
@@ -23,6 +24,7 @@ export async function updateOrCreateFamily(formData: FormData, familyId?: string
               lastName: formData.get("parent1LastName") as string,
               email: formData.get("parent1Email") as string,
               phone: formData.get("parent1Phone") as string,
+              ownerId: user.email,
             },
             // {
             //   firstName: formData.get('parent2FirstName') as string,
@@ -40,6 +42,7 @@ export async function updateOrCreateFamily(formData: FormData, familyId?: string
         familyName: formData.get("familyName") as string,
         balance: 0,
         notes: formData.get("notes") as string,
+        ownerId: user.email,
         parents: {
           create: [
             {
@@ -48,6 +51,7 @@ export async function updateOrCreateFamily(formData: FormData, familyId?: string
               lastName: formData.get("parent1LastName") as string,
               email: formData.get("parent1Email") as string,
               phone: formData.get("parent1Phone") as string,
+              ownerId: user.email,
             },
             // {
             //   firstName: formData.get('parent2FirstName') as string,

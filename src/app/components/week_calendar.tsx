@@ -3,7 +3,7 @@
 import { startTransition, useCallback, useEffect, useMemo, useRef } from "react";
 import { ChevronLeftIcon, ChevronRightIcon } from "@heroicons/react/20/solid";
 import { useOnMediaQueryState } from "../../util/hooks";
-import { Event, EventStudent, Student } from "@prisma/client";
+import { Event, EventStudent, Student, UserSettings } from "@prisma/client";
 import classNames from "classnames";
 import Link from "next/link";
 import { useRouter } from "next/navigation";

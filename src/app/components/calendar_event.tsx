@@ -40,7 +40,7 @@ export default function CalendarEvent(props: ICalendarEventProps) {
       const result = await markEventCompleted(props.event.id, !eventCompleted);
       setEventCompleted(result.completed);
       toast.success("Event updated");
-    } catch (e) {
+    } catch (e: any) {
       toast.error(e.message || "Failed to mark event as completed");
     }
   };
@@ -74,6 +74,7 @@ export default function CalendarEvent(props: ICalendarEventProps) {
             type="checkbox"
             checked={eventCompleted}
             disabled={eventCompleted}
+            readOnly
           />
         </div>
       </div>

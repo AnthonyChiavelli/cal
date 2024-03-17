@@ -6,25 +6,32 @@ import { ActionType, ClassType, EventType } from "@prisma/client";
 import { redirect } from "next/navigation";
 import { getSessionOrFail } from "./util";
 
-export async function createEvent(formData: FormData) {
+interface ICreateEventData {
+  scheduledFor: Date;
+  duration: number;
+  eventType: string;
+  notes: string;
+  eventStudents: Array<{ studentId: string; cost: number }>;
+}
+
+export async function createEvent(data: ICreateEventData) {
   const { user } = await getSessionOrFail();
 
-  const scheduledFor = new Date(`${formData.get("scheduledForDate")}T${formData.get("scheduledForTime")}`);
-  formData.entries;
-  if (formData.get("eventType") === "class") {
+  const scheduledFor = data.scheduledFor;
+
+  if (data.eventType === "class") {
     try {
       const event = await prisma.event.create({
         data: {
           scheduledFor,
-          durationMinutes: Number(formData.get("duration")) as any as number,
+          durationMinutes: data.duration,
           eventType: EventType.CLASS,
-          classType: ClassType.PRIVATE,
-          notes: formData.get("notes") as string,
+          classType: ClassType.GROUP,
+          notes: data.notes,
           ownerId: user.email,
           eventStudents: {
-            create: (formData.getAll("student") as string[]).map((studentId) => ({
-              studentId,
-              cost: parseFloat(formData.get(`cost-${studentId}`) as string),
+            create: data.eventStudents.map((eventStudent) => ({
+              ...eventStudent,
               ownerId: user.email,
             })),
           },
@@ -33,7 +40,7 @@ export async function createEvent(formData: FormData) {
       await prisma.actionRecord.create({
         data: {
           actionType: ActionType.SCHEDULE_EVENT,
-          additionalData: { event, formData: JSON.parse(JSON.stringify(Object.fromEntries(formData))) },
+          additionalData: { event, formData: JSON.parse(JSON.stringify(data)) },
           ownerId: user.email,
         },
       });
@@ -75,7 +82,7 @@ export async function markEventCompleted(eventId: string, completed: boolean) {
         ownerId: user.email,
       },
     });
-  } catch (e) {
+  } catch (e: any) {
     await prisma.actionRecord.create({
       data: {
         actionType: ActionType.MARK_COMPLETE_EVENT,
@@ -105,7 +112,7 @@ export async function cancelEvent(eventId: string) {
         ownerId: user.email,
       },
     });
-  } catch (e) {
+  } catch (e: any) {
     await prisma.actionRecord.create({
       data: {
         actionType: ActionType.CANCEL_EVENT,

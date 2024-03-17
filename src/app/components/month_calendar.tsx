@@ -194,7 +194,7 @@ export default function MonthCalendar(props: IMonthCalendar) {
                           }
                           placement="top"
                         >
-                          <a href={calendarEvent.href} className="flex">
+                          <Link href={calendarEvent.href} className="flex">
                             <p className="flex-auto truncate font-small text-gray-900 group-hover:text-indigo-600">
                               <span className="flex flex-row items-center">
                                 <span className={classNames({ "line-through": calendarEvent.event.cancelledAt })}>
@@ -209,7 +209,7 @@ export default function MonthCalendar(props: IMonthCalendar) {
                             >
                               {calendarEvent.time}
                             </time>
-                          </a>
+                          </Link>
                         </Tooltip>
                       </li>
                     ))}

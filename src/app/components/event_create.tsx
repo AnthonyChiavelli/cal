@@ -1,6 +1,6 @@
 "use client";
 
-import { useCallback, useMemo, useState } from "react";
+import { Key, useCallback, useMemo, useState } from "react";
 import { XMarkIcon } from "@heroicons/react/20/solid";
 import { InformationCircleIcon } from "@heroicons/react/24/outline";
 import {
@@ -44,7 +44,7 @@ export default function EventCreate(props: IEventCreateProps) {
 
   const presetDurationOptions = useMemo(() => ["1:00", "1:30", "2:00", "2:30"], []);
 
-  const durationInMinutes = useMemo((): number => {
+  const durationInMinutes = useMemo((): number | undefined => {
     if (duration) {
       return parseDuration(duration);
     }
@@ -67,7 +67,7 @@ export default function EventCreate(props: IEventCreateProps) {
         const roundedPrice = Number(individualHourlyPrice.toFixed(2));
         const adjustedStudents = selectedStudents.map((s) => ({ ...s, cost: s.costModified ? s.cost : roundedPrice }));
         setSelectedStudents(adjustedStudents);
-      } catch (e) {
+      } catch (e: any) {
         setDurationValidationError(e.message);
       }
     },
@@ -98,7 +98,7 @@ export default function EventCreate(props: IEventCreateProps) {
     (student: Student) => {
       const newSelectedStudents = selectedStudents.filter((s) => s.student.id !== student.id);
       // Recalculate the student costs
-      const defaultHourlyPrice = Number(props.settings.basePrice) * (durationInMinutes / 60);
+      const defaultHourlyPrice = Number(props.settings.basePrice) * ((durationInMinutes || 60) / 60);
       const individualHourlyPrice = defaultHourlyPrice / newSelectedStudents.length;
       const roundedPrice = Number(individualHourlyPrice.toFixed(2));
       const adjustedStudents = newSelectedStudents.map((s) => ({ ...s, cost: s.costModified ? s.cost : roundedPrice }));
@@ -117,6 +117,21 @@ export default function EventCreate(props: IEventCreateProps) {
     });
     setSelectedStudents(newSelectedStudents);
   };
+
+  const handleSubmit = useCallback(
+    (formData: FormData) => {
+      if (eventType === "class") {
+        createEvent({
+          eventType,
+          scheduledFor: new Date(),
+          duration: durationInMinutes || 60,
+          eventStudents: selectedStudents.map((s) => ({ studentId: s.student.id, cost: s.cost })),
+          notes: formData.get("notes") as string,
+        });
+      }
+    },
+    [durationInMinutes, eventType, selectedStudents],
+  );
 
   const renderClassForm = () => {
     return (
@@ -178,7 +193,7 @@ export default function EventCreate(props: IEventCreateProps) {
                   shouldCloseOnBlur
                   label="Add student..."
                   placeholder="Search"
-                  onSelectionChange={handleStudentSelected}
+                  onSelectionChange={(key: Key) => handleStudentSelected(key as string)}
                 >
                   {(student) => (
                     <AutocompleteItem key={student.id} className="text-black" id={student.id}>
@@ -210,7 +225,7 @@ export default function EventCreate(props: IEventCreateProps) {
   };
 
   return (
-    <form action={createEvent} className="flex flex-col justify-between h-full">
+    <form action={handleSubmit} className="flex flex-col justify-between h-full">
       <div className="flex flex-col gap-5">
         <Card>
           <CardBody>
@@ -223,7 +238,7 @@ export default function EventCreate(props: IEventCreateProps) {
                 label="Duration"
                 placeholder="Duration"
                 onValueChange={handleDurationChange}
-                onSelectionChange={handleDurationChange}
+                onSelectionChange={(key: Key) => handleDurationChange(key as string)}
                 value={duration}
                 isInvalid={!!durationValidationError}
               >

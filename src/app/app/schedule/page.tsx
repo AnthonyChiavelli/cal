@@ -3,6 +3,8 @@ import { withPageAuthRequired } from "@auth0/nextjs-auth0";
 import { getUserSettings } from "@/app/actions/user";
 import DayCalendar from "@/app/components/day_calendar";
 import WeekCalendar from "@/app/components/week_calendar";
+import { getEvents } from "@/app/methods/event";
+import { getAllStudents } from "@/app/methods/student";
 import { CalendarDay } from "@/types";
 import {
   IMonthNumber,
@@ -13,13 +15,13 @@ import {
   getPreviousMonday,
 } from "@/util/calendar";
 import { getEventName } from "@/util/event";
-import { getEvents } from "@/app/methods/event";
-import { getAllStudents } from "@/app/methods/student";
 
 async function calendarDaysForMonth(timeValue: string) {
   const [year, month] = parseMonthString(timeValue);
 
-  const events = await getEvents({ scheduledFor: { gte: new Date(year, month - 1, -7), lte: new Date(year, month, 7) } });
+  const events = await getEvents({
+    scheduledFor: { gte: new Date(year, month - 1, -7), lte: new Date(year, month, 7) },
+  });
 
   return getDaysForCalendarMonthGrid(month as IMonthNumber, year).map((calDay: CalendarDay) => {
     // TODO something more elegant than this
@@ -83,6 +85,7 @@ async function Schedule(params: { searchParams: { p?: string; t?: string } }) {
           <DayCalendar
             dateString={timeValue}
             events={await getEventsForDay(timeValue)}
+            // TODO fix this hard-coded date
             daysForMiniCalendar={getDaysForCalendarMonthGrid(2, 2022)}
             showMiniCalendar={false}
             students={await getAllStudents()}

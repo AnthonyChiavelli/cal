@@ -1,4 +1,5 @@
-import { ClockIcon, PlusCircleIcon } from "@heroicons/react/20/solid";
+import { ClockIcon, PlusCircleIcon, ArrowUpRightIcon } from "@heroicons/react/20/solid";
+import Link from "next/link";
 import { CalendarDay } from "@/types";
 
 interface IMonthCalendarMiniDayProps {
@@ -19,14 +20,23 @@ export default function MonthCalendarMiniDay(props: IMonthCalendarMiniDayProps) 
                 {event.time}
               </time>
             </div>
-            <a
+            <Link
               href={event.href}
               className="ml-6 flex-none self-center rounded-md bg-white px-3 py-2 font-semibold text-gray-900 opacity-0 shadow-sm ring-1 ring-inset ring-gray-300 hover:ring-gray-400 focus:opacity-100 group-hover:opacity-100"
             >
               Edit<span className="sr-only">, {event.name}</span>
-            </a>
+            </Link>
           </li>
         ))}
+        <Link href={`?p=day&t=${props.day.date}`}>
+          <li
+            className="flex flex-row justify-center items-center cursor-pointer p-4 pr-6 focus-within:bg-gray-50 hover:bg-gray-50"
+            onClick={() => props.addEvent(props.day)}
+          >
+            Go to day
+            <ArrowUpRightIcon className="ml-1 h-6 w-6 text-green-600 cursor-pointer" />
+          </li>
+        </Link>
         <li
           className="flex flex-row justify-center items-center cursor-pointer p-4 pr-6 focus-within:bg-gray-50 hover:bg-gray-50"
           onClick={() => props.addEvent(props.day)}

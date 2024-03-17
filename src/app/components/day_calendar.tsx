@@ -3,7 +3,7 @@
 import { useEffect, useRef } from "react";
 import React from "react";
 import { ChevronLeftIcon, ChevronRightIcon } from "@heroicons/react/20/solid";
-import { Student } from "@prisma/client";
+import { Student, UserSettings } from "@prisma/client";
 import classNames from "classnames";
 import Link from "next/link";
 import { CalendarDay, EventWithRelations } from "@/types";
@@ -193,19 +193,19 @@ export default function DayCalendar(props: IDateCalendarProps) {
                 className="col-start-1 col-end-2 row-start-1 grid divide-y divide-gray-100 z-10"
                 style={{ gridTemplateRows: "repeat(48, minmax(3.5rem, 1fr))" }}
               >
-                <div ref={containerOffset} className="row-end-1 h-7"></div>
+                <div key="container-offset" ref={containerOffset} className="row-end-1 h-7"></div>
                 {Array.from({ length: 25 }).map((_, i) => (
-                  <>
+                  <React.Fragment key={i}>
                     <div key={i} onClick={() => handleClickCalendar(i)}>
                       <div className="sticky left-0 -ml-14 -mt-2.5 w-14 pr-2 text-right text-xs leading-5 text-gray-400">
                         {i % 12 === 0 ? 12 : i % 12}
                         {i > 11 ? "PM" : "AM"}
                       </div>
                     </div>
-                    <div onClick={() => handleClickCalendar(i + 0.5)}>
+                    <div key={i + "half"} onClick={() => handleClickCalendar(i + 0.5)}>
                       <div className="sticky left-0 -ml-14 -mt-2.5 w-14 pr-2 text-right text-xs leading-5 text-gray-400" />
                     </div>
-                  </>
+                  </React.Fragment>
                 ))}
               </div>
 
@@ -265,6 +265,7 @@ export default function DayCalendar(props: IDateCalendarProps) {
         onClose={() => setCreateEventModalOpen(false)}
         students={props.students}
         presetDate={new Date()}
+        settings={props.settings}
       />
     </div>
   );

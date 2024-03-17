@@ -8,6 +8,7 @@ import DeleteStudent from "@/app/components/delete_student";
 import Modal from "@/app/components/modal";
 import StudentPager from "@/app/components/student_pager";
 import StudentSearch from "@/app/components/student_search";
+import TableEmpty from "@/app/components/table_empty";
 import { getStudents, getTotalStudentCount } from "@/app/methods/student";
 
 const PAGE_SIZE = 10;
@@ -54,18 +55,16 @@ async function Students({
             </thead>
             <tbody className="bg-white">
               {!students.length && (
-                <tr className="bg-white italic">
-                  <td className="text-center py-3" colSpan={6}>
-                    {searchParams?.search !== "" ? (
-                      <>No results found</>
-                    ) : (
-                      <>
-                        No students yet! <Link href={"/app/students/add"}>Add</Link> or{" "}
-                        <Link href={"/app/students/import"}>import</Link> some to get started.
-                      </>
-                    )}
-                  </td>
-                </tr>
+                <TableEmpty colSpan={6}>
+                  {searchParams?.search !== "" ? (
+                    <>No results found</>
+                  ) : (
+                    <>
+                      No students yet! <Link href={"/app/students/add"}>Add</Link> or{" "}
+                      <Link href={"/app/students/import"}>import</Link> some to get started.
+                    </>
+                  )}
+                </TableEmpty>
               )}
               {students.map((student) => (
                 <tr key={student.id} className="text-sm text-gray-800 even:bg-gray-50">

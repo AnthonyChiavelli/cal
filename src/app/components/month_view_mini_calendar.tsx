@@ -6,14 +6,14 @@ import { CalendarDay } from "@/types";
 interface IMonthViewMiniCalendarProps {
   calendarDays: CalendarDay[];
   onSelectDay: (day: CalendarDay) => void;
-  selectedDay: CalendarDay;
+  selectedDay: CalendarDay | null;
 }
 
 export default function MonthViewMiniCalendar(props: IMonthViewMiniCalendarProps) {
   return (
     <div className="isolate grid w-full grid-cols-7 grid-rows-5 gap-px lg:hidden">
       {props.calendarDays.map((day) => {
-        const isSelected = day.date === props.selectedDay.date;
+        const isSelected = props.selectedDay && day.date === props.selectedDay.date;
         return (
           <button
             key={day.date}
