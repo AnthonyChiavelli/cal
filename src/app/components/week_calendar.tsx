@@ -1,6 +1,6 @@
 "use client";
 
-import { startTransition, useCallback, useEffect, useMemo, useRef } from "react";
+import { Fragment, startTransition, useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { ChevronLeftIcon, ChevronRightIcon } from "@heroicons/react/20/solid";
 import { useOnMediaQueryState } from "../../util/hooks";
 import { Event, EventStudent, Student, UserSettings } from "@prisma/client";
@@ -12,10 +12,12 @@ import Button from "./button";
 import CalendarEvent from "./calendar_event";
 import CalenderOverflowMenu from "./calendar_overflow_menu";
 import CalendarViewMenu from "./calendar_view_menu";
+import EventCreateModal from "./event_create_modal";
 
 interface IWeekCalendarProps {
   weekString: string;
   settings: UserSettings;
+  students: Student[];
   events: Array<
     Event & {
       eventStudents: Array<EventStudent & { student: Student }>;
@@ -25,6 +27,11 @@ interface IWeekCalendarProps {
 
 export default function WeekCalendar(props: IWeekCalendarProps) {
   const router = useRouter();
+
+  const [createEventModalOpen, setCreateEventModalOpen] = useState(false);
+  const [createModalPresetDate, setCreateModalPresetDate] = useState<{ date?: Date; time?: Date } | undefined>(
+    undefined,
+  );
 
   const container = useRef<HTMLDivElement>(null);
   const containerNav = useRef<HTMLDivElement>(null);
@@ -86,7 +93,16 @@ export default function WeekCalendar(props: IWeekCalendarProps) {
     [startDate],
   );
 
-  const handleClickCalendar = useCallback((a: any) => false, []);
+  const handleClickCalendar = useCallback(
+    (hour: number, date: Date) => {
+      setCreateModalPresetDate({
+        date,
+        time: new Date(year, month - 1, day, 0, hour * 60),
+      });
+      setCreateEventModalOpen(true);
+    },
+    [day, month, year],
+  );
 
   useEffect(() => {
     // Set the container scroll position based on the current time.
@@ -176,7 +192,6 @@ export default function WeekCalendar(props: IWeekCalendarProps) {
             <div className="-mr-px hidden grid-cols-14 divide-x divide-gray-100 border-r border-gray-100 text-sm leading-6 text-gray-500 sm:grid">
               <div className="col-end-1 w-14" />
               {daysOfWeek.map((day) => (
-                // TODO hidden on mobile unless in selected day
                 <Link href={day.href} key={day.date} className="sm:col-start-auto sm:col-span-2">
                   <div key={day.date} className="flex items-center justify-center py-3">
                     <span className={classNames({ "flex items-baseline": day.isToday })}>
@@ -202,23 +217,43 @@ export default function WeekCalendar(props: IWeekCalendarProps) {
               {/* Horizontal lines */}
               <div
                 key="horizontal-line"
-                className="col-start-1 col-end-2 row-start-1 grid divide-y divide-gray-100"
+                className="col-start-1 col-end-2 row-start-1 grid divide-y divide-gray-100 z-10"
                 style={{ gridTemplateRows: "repeat(48, minmax(3.5rem, 1fr))" }}
               >
                 <div ref={containerOffset} className="row-end-1 h-7"></div>
 
                 {Array.from({ length: 25 }).map((_, i) => (
-                  <>
-                    <div key={i} onClick={() => handleClickCalendar(i)}>
-                      <div className="sticky left-0 z-20 -ml-14 -mt-2.5 w-14 pr-2 text-right text-xs leading-5 text-gray-400">
+                  //  Calendar row pair
+                  <Fragment key={i}>
+                    {/* Hour row */}
+                    <div className="grid grid-cols-7 relative" key={i}>
+                      {/* Hour display */}
+                      <div className="absolute left-0 z-20 -ml-14 -mt-2.5 w-14 pr-2 text-right text-xs leading-5 text-gray-400">
                         {i % 12 === 0 ? 12 : i % 12}
                         {i > 11 ? "PM" : "AM"}
                       </div>
+                      {/* Hour cells */}
+                      {Array.from({ length: 7 }).map((_, j) => (
+                        <div
+                          className="col-span-1 z-20"
+                          onClick={() => handleClickCalendar(i, new Date(year, month - 1, day + j))}
+                          key={`${i}-${j}`}
+                        ></div>
+                      ))}
                     </div>
-                    <div onClick={() => handleClickCalendar(i + 0.5)}>
-                      <div className="sticky left-0 -ml-14 -mt-2.5 w-14 pr-2 text-right text-xs leading-5 text-gray-400" />
+
+                    {/* Half-hour row */}
+                    <div className="grid grid-cols-7">
+                      {/* Half-hour cells */}
+                      {Array.from({ length: 7 }).map((_, j) => (
+                        <div
+                          className="col-span-1 z-20"
+                          onClick={() => handleClickCalendar(i + 0.5, new Date(year, month - 1, day + j))}
+                          key={`${i}-${j}`}
+                        ></div>
+                      ))}
                     </div>
-                  </>
+                  </Fragment>
                 ))}
               </div>
 
@@ -258,7 +293,8 @@ export default function WeekCalendar(props: IWeekCalendarProps) {
                   return (
                     <li
                       key={event.id}
-                      className={`relative mt-px flex ${dayToCSSColumnClassMap[column]} col-span-2`}
+                      // TODO fix this margin top/bottom fudge factor
+                      className={`relative mt-px flex ${dayToCSSColumnClassMap[column]} col-span-2 mt-[5px] mb-[-12px] z-20`}
                       style={{
                         gridRow: `${Math.round(startMinute / 5)} / span ${(endMinute - startMinute) / 5}`,
                       }}
@@ -283,6 +319,13 @@ export default function WeekCalendar(props: IWeekCalendarProps) {
           </div>
         </div>
       </div>
+      <EventCreateModal
+        open={createEventModalOpen}
+        onClose={() => setCreateEventModalOpen(false)}
+        students={props.students}
+        presetDate={createModalPresetDate}
+        settings={props.settings}
+      />
     </div>
   );
 }

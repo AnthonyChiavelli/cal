@@ -52,6 +52,16 @@ export function createDateString(date: Date) {
 }
 
 /**
+ * Create a time string of the format "HH:MM" (24 hour format) from a date object, suitable for use in an input[type="time"]
+ *
+ * @param date the date
+ * @returns a string in the format of HH:MM
+ */
+export function createTimeString(date: Date): string {
+  return `${String(date.getHours()).padStart(2, "0")}:${String(date.getMinutes()).padStart(2, "0")}`;
+}
+
+/**
  * Parse a month string of the format "YYYY-MM"
  * @param monthString A string of the format 'YYYY-MM'
  * @returns A 2-tuple of the year number and 1-indexed month number

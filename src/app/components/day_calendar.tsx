@@ -21,10 +21,14 @@ interface IDateCalendarProps {
   settings: UserSettings;
   showMiniCalendar: boolean;
   students: Student[];
+  condensed?: boolean;
 }
 
 export default function DayCalendar(props: IDateCalendarProps) {
   const [createEventModalOpen, setCreateEventModalOpen] = React.useState(false);
+  const [createModalPresetDate, setCreateModalPresetDate] = React.useState<{ date?: Date; time?: Date } | undefined>(
+    undefined,
+  );
 
   const [year, month, day] = React.useMemo((): [number, number, number] => {
     try {
@@ -79,10 +83,16 @@ export default function DayCalendar(props: IDateCalendarProps) {
     return days;
   }, [day, month, year]);
 
-  const handleClickCalendar = React.useCallback((i: number) => {
-    // TODO preset date and time in create event modal
-    setCreateEventModalOpen(true);
-  }, []);
+  const handleClickCalendar = React.useCallback(
+    (i: number) => {
+      setCreateModalPresetDate({
+        date: new Date(year, month - 1, day),
+        time: new Date(year, month - 1, day, 0, i * 60),
+      });
+      setCreateEventModalOpen(true);
+    },
+    [day, month, year],
+  );
 
   const container = useRef<HTMLDivElement>(null);
   const containerNav = useRef<HTMLDivElement>(null);
@@ -101,65 +111,68 @@ export default function DayCalendar(props: IDateCalendarProps) {
 
   return (
     <div className="flex h-full flex-col">
-      <header className="flex flex-none items-center justify-between border-b border-gray-200 px-6 py-4">
-        <div>
-          <h1 className="text-base font-semibold leading-6 text-gray-900">
-            <time dateTime="2022-01-22" className="sm:hidden">
-              {displayDate}
-            </time>
-            <time dateTime="2022-01-22" className="hidden sm:inline">
-              {displayDate}
-            </time>
-          </h1>
-          <p className="mt-1 text-sm text-gray-500">{displayDay}</p>
-        </div>
-        <div className="flex items-center">
-          <div className="relative flex rounded-md bg-white shadow-sm items-stretch">
-            <Link href={`?p=day&t=${getAdjacentDateString(props.dateString || "", -1)}`}>
-              <button
-                type="button"
-                className="flex h-9 w-12 items-center justify-center rounded-l-md border-y border-l border-gray-300 pr-1 text-gray-400 hover:text-gray-500 focus:relative md:w-9 md:pr-0 md:hover:bg-gray-50"
-              >
-                <span className="sr-only">Previous day</span>
-                <ChevronLeftIcon className="h-5 w-5" aria-hidden="true" />
-              </button>
-            </Link>
-            <Link
-              className="flex items-center content-center border-y border border-gray-300 pr-1"
-              href={`?p=day&t=${createDateString(new Date())}`}
-            >
-              <button
-                type="button"
-                className="px-3.5 text-sm font-semibold text-gray-900 hover:bg-gray-50 focus:relative"
-              >
-                Today
-              </button>
-            </Link>
-            <Link href={`?p=day&t=${getAdjacentDateString(props.dateString || "", 1)}`}>
-              <button
-                type="button"
-                className="flex h-9 w-12 items-center justify-center rounded-r-md border-y border-r border-gray-300 pl-1 text-gray-400 hover:text-gray-500 focus:relative md:w-9 md:pl-0 md:hover:bg-gray-50"
-              >
-                <span className="sr-only">Next day</span>
-                <ChevronRightIcon className="h-5 w-5" aria-hidden="true" />
-              </button>
-            </Link>
+      {!props.condensed && (
+        <header className="flex flex-none items-center justify-between border-b border-gray-200 px-6 py-4">
+          <div>
+            <h1 className="text-base font-semibold leading-6 text-gray-900">
+              <time dateTime="2022-01-22" className="sm:hidden">
+                {displayDate}
+              </time>
+              <time dateTime="2022-01-22" className="hidden sm:inline">
+                {displayDate}
+              </time>
+            </h1>
+            <p className="mt-1 text-sm text-gray-500">{displayDay}</p>
           </div>
-          <div className="hidden md:ml-4 md:flex md:items-center">
-            <CalendarViewMenu timePeriod="day" />
-            <div className="ml-6 h-6 w-px bg-gray-300" />
-            <Link href="/app/schedule/create">
-              <button
-                type="button"
-                className="ml-6 rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+          <div className="flex items-center">
+            <div className="relative flex rounded-md bg-white shadow-sm items-stretch">
+              <Link href={`?p=day&t=${getAdjacentDateString(props.dateString || "", -1)}`}>
+                <button
+                  type="button"
+                  className="flex h-9 w-12 items-center justify-center rounded-l-md border-y border-l border-gray-300 pr-1 text-gray-400 hover:text-gray-500 focus:relative md:w-9 md:pr-0 md:hover:bg-gray-50"
+                >
+                  <span className="sr-only">Previous day</span>
+                  <ChevronLeftIcon className="h-5 w-5" aria-hidden="true" />
+                </button>
+              </Link>
+              <Link
+                className="flex items-center content-center border-y border border-gray-300 pr-1"
+                href={`?p=day&t=${createDateString(new Date())}`}
               >
-                Add event
-              </button>
-            </Link>
+                <button
+                  type="button"
+                  className="px-3.5 text-sm font-semibold text-gray-900 hover:bg-gray-50 focus:relative"
+                >
+                  Today
+                </button>
+              </Link>
+              <Link href={`?p=day&t=${getAdjacentDateString(props.dateString || "", 1)}`}>
+                <button
+                  type="button"
+                  className="flex h-9 w-12 items-center justify-center rounded-r-md border-y border-r border-gray-300 pl-1 text-gray-400 hover:text-gray-500 focus:relative md:w-9 md:pl-0 md:hover:bg-gray-50"
+                >
+                  <span className="sr-only">Next day</span>
+                  <ChevronRightIcon className="h-5 w-5" aria-hidden="true" />
+                </button>
+              </Link>
+            </div>
+            <div className="hidden md:ml-4 md:flex md:items-center">
+              <CalendarViewMenu timePeriod="day" />
+              <div className="ml-6 h-6 w-px bg-gray-300" />
+              <Link href="/app/schedule/create">
+                <button
+                  type="button"
+                  className="ml-6 rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+                >
+                  Add event
+                </button>
+              </Link>
+            </div>
+            <CalenderOverflowMenu />
           </div>
-          <CalenderOverflowMenu />
-        </div>
-      </header>
+        </header>
+      )}
+
       <div className="isolate flex flex-auto overflow-hidden bg-white">
         <div ref={container} className="flex flex-auto flex-col overflow-auto">
           <div
@@ -190,19 +203,24 @@ export default function DayCalendar(props: IDateCalendarProps) {
             <div className="grid flex-auto grid-cols-1 grid-rows-1">
               {/* Horizontal lines */}
               <div
+                data-cy="calendar-row-grid"
                 className="col-start-1 col-end-2 row-start-1 grid divide-y divide-gray-100 z-10"
                 style={{ gridTemplateRows: "repeat(48, minmax(3.5rem, 1fr))" }}
               >
                 <div key="container-offset" ref={containerOffset} className="row-end-1 h-7"></div>
                 {Array.from({ length: 25 }).map((_, i) => (
                   <React.Fragment key={i}>
-                    <div key={i} onClick={() => handleClickCalendar(i)}>
+                    <div key={i} onClick={() => handleClickCalendar(i)} data-cy={`calendar-row-${i}`}>
                       <div className="sticky left-0 -ml-14 -mt-2.5 w-14 pr-2 text-right text-xs leading-5 text-gray-400">
                         {i % 12 === 0 ? 12 : i % 12}
                         {i > 11 ? "PM" : "AM"}
                       </div>
                     </div>
-                    <div key={i + "half"} onClick={() => handleClickCalendar(i + 0.5)}>
+                    <div
+                      key={i + "half"}
+                      onClick={() => handleClickCalendar(i + 0.5)}
+                      data-cy={`calendar-row-${i + 0.5}`}
+                    >
                       <div className="sticky left-0 -ml-14 -mt-2.5 w-14 pr-2 text-right text-xs leading-5 text-gray-400" />
                     </div>
                   </React.Fragment>
@@ -230,7 +248,8 @@ export default function DayCalendar(props: IDateCalendarProps) {
                   return (
                     <li
                       key={event.id}
-                      className="relative mt-px flex z-20"
+                      // TODO fix this margin top/bottom fudge factor
+                      className="relative flex z-20 mt-[5px] mb-[-12px]"
                       style={{
                         gridRow: `${Math.round(startMinute / 5)} / span ${(endMinute - startMinute) / 5}`,
                         gridColumn: `auto / span ${Math.floor(12 / concurrentEvents)}`,
@@ -264,7 +283,7 @@ export default function DayCalendar(props: IDateCalendarProps) {
         open={createEventModalOpen}
         onClose={() => setCreateEventModalOpen(false)}
         students={props.students}
-        presetDate={new Date()}
+        presetDate={createModalPresetDate}
         settings={props.settings}
       />
     </div>

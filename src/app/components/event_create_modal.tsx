@@ -9,13 +9,20 @@ interface IEventCreateModalProps {
   open: boolean;
   onClose: () => void;
   settings: UserSettings;
-  presetDate: Date;
+  presetDate?: { date?: Date; time?: Date };
 }
 
-export default function EventCreateModal(props: IEventCreateModalProps) {
+export default function EventCreateModal(props: IEventCreateModalProps, ref: any) {
   return (
     <Modal open={props.open} close={props.onClose}>
-      <EventCreate students={props.students} settings={props.settings} onCloseParentModal={props.onClose} />
+      <>
+        <EventCreate
+          students={props.students}
+          settings={props.settings}
+          onCloseParentModal={props.onClose}
+          presetDate={props.presetDate}
+        />
+      </>
     </Modal>
   );
 }

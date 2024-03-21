@@ -10,6 +10,7 @@ import {
   getDateNMinutesLater,
   parseHourFormatDuration,
   parseDuration,
+  createTimeString,
 } from "../../src/util/calendar";
 import { getAdjacentDateString } from "../../src/util/calendar";
 import "@testing-library/jest-dom";
@@ -405,4 +406,17 @@ describe("parseDuration", () => {
       }
     },
   );
+});
+
+describe("createTimeString", () => {
+  it.each([
+    [new Date(2000, 10, 9, 9, 11), "09:11"],
+    [new Date(2000, 10, 9, 14, 11), "14:11"],
+    [new Date(2000, 10, 9, -2, 0), "22:00"],
+    [new Date(2000, 10, 9, 0, 0), "00:00"],
+    [new Date(2000, 10, 9, 8, 50), "08:50"],
+    [new Date(2000, 10, 9, 8, 90), "09:30"],
+  ])("returns the correct time string for a given number of minutes", (date, expectedTimeString) => {
+    expect(createTimeString(date)).toBe(expectedTimeString);
+  });
 });

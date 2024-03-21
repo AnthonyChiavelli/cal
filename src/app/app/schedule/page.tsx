@@ -46,6 +46,7 @@ async function calendarDaysForMonth(timeValue: string) {
   });
 }
 
+// TODO extract into a method, guard by owner
 async function getEventsForDay(dateString: string) {
   let year: number, month: number, date: number;
   try {
@@ -97,7 +98,14 @@ async function Schedule(params: { searchParams: { p?: string; t?: string } }) {
         const timeValue =
           params.searchParams.t ||
           `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, "0")}-${now.getDate()}`;
-        return <WeekCalendar weekString={timeValue} events={await getEventsForWeek(timeValue)} settings={settings} />;
+        return (
+          <WeekCalendar
+            weekString={timeValue}
+            events={await getEventsForWeek(timeValue)}
+            settings={settings}
+            students={await getAllStudents()}
+          />
+        );
       case "month": {
         const timeValue =
           params.searchParams.t || `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, "0")}`;

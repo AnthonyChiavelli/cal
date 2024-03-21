@@ -1,6 +1,6 @@
 "use client";
 
-import { Key, useCallback, useMemo, useState } from "react";
+import { Key, useCallback, useMemo, useReducer } from "react";
 import { XMarkIcon } from "@heroicons/react/20/solid";
 import { InformationCircleIcon } from "@heroicons/react/24/outline";
 import {
@@ -19,6 +19,7 @@ import {
 } from "@nextui-org/react";
 import { Student, UserSettings } from "@prisma/client";
 import { createEvent } from "@/app/actions/event";
+import { eventCreateReducer, EventCreateActionType, createInitialState } from "@/app/reducers/event_create";
 import { parseDuration } from "@/util/calendar";
 import Button from "./button";
 
@@ -27,159 +28,94 @@ interface IEventCreateProps {
   eventId?: string;
   settings: UserSettings;
   onCloseParentModal?: () => void;
+  presetDate?: { date?: Date; time?: Date };
 }
 
-type SelectedStudent = {
-  student: Student;
-  cost: number;
-  costModified?: boolean;
-};
-
 export default function EventCreate(props: IEventCreateProps) {
-  // TODO use reducer?
-  const [eventType, setEventType] = useState("class");
-  const [selectedStudents, setSelectedStudents] = useState<SelectedStudent[]>([]);
-  const [durationValidationError, setDurationValidationError] = useState<string | undefined>();
-  const [duration, setDuration] = useState<string | undefined>();
+  const [state, dispatch] = useReducer(
+    eventCreateReducer,
+    createInitialState(props.presetDate, Number(props.settings.basePrice)),
+  );
 
   const presetDurationOptions = useMemo(() => ["1:00", "1:30", "2:00", "2:30"], []);
-
   const durationInMinutes = useMemo((): number | undefined => {
-    if (duration) {
-      return parseDuration(duration);
-    }
-  }, [duration]);
-
+    return state.duration ? parseDuration(state.duration) : undefined;
+  }, [state.duration]);
   const totalCost = useMemo(() => {
-    return selectedStudents.reduce((acc, s) => acc + s.cost, 0);
-  }, [selectedStudents]);
+    return state.students.reduce((acc, s) => acc + Math.round((s.cost + Number.EPSILON) * 100) / 100, 0);
+  }, [state.students]);
 
-  const handleDurationChange = useCallback(
-    (value: string) => {
-      try {
-        const minutes = parseDuration(value);
-        setDuration(value);
-        setDurationValidationError(undefined);
-
-        // Recalculate the student costs
-        const defaultHourlyPrice = Number(props.settings.basePrice) * (minutes / 60);
-        const individualHourlyPrice = defaultHourlyPrice / selectedStudents.length;
-        const roundedPrice = Number(individualHourlyPrice.toFixed(2));
-        const adjustedStudents = selectedStudents.map((s) => ({ ...s, cost: s.costModified ? s.cost : roundedPrice }));
-        setSelectedStudents(adjustedStudents);
-      } catch (e: any) {
-        setDurationValidationError(e.message);
-      }
-    },
-    [props.settings.basePrice, selectedStudents],
-  );
-
-  const handleStudentSelected = useCallback(
-    (studentId: string) => {
-      const newSelectedStudent = props.students.find((student) => student.id === studentId);
-      if (newSelectedStudent && !selectedStudents.find((s) => s.student.id === newSelectedStudent.id)) {
-        // Calculate the student cost by multiplying the base price by the duration in hours, then divying it up among the number of students
-        const defaultHourlyPrice = Number(props.settings.basePrice) * (durationInMinutes ? durationInMinutes / 60 : 1);
-        const individualHourlyPrice = defaultHourlyPrice / (selectedStudents.length + 1);
-        const roundedPrice = Number(individualHourlyPrice.toFixed(2));
-
-        // Modify the price of the other students to be equal (but don't touch students who have had their price manually modified)
-        const adjustedOtherStudents = selectedStudents.map((s) => ({
-          ...s,
-          cost: s.costModified ? s.cost : roundedPrice,
-        }));
-        setSelectedStudents([...adjustedOtherStudents, { student: newSelectedStudent, cost: roundedPrice }]);
-      }
-    },
-    [durationInMinutes, props.settings.basePrice, props.students, selectedStudents],
-  );
-
-  const handleRemoveStudent = useCallback(
-    (student: Student) => {
-      const newSelectedStudents = selectedStudents.filter((s) => s.student.id !== student.id);
-      // Recalculate the student costs
-      const defaultHourlyPrice = Number(props.settings.basePrice) * ((durationInMinutes || 60) / 60);
-      const individualHourlyPrice = defaultHourlyPrice / newSelectedStudents.length;
-      const roundedPrice = Number(individualHourlyPrice.toFixed(2));
-      const adjustedStudents = newSelectedStudents.map((s) => ({ ...s, cost: s.costModified ? s.cost : roundedPrice }));
-      setSelectedStudents(adjustedStudents);
-    },
-    [durationInMinutes, props.settings.basePrice, selectedStudents],
-  );
-
-  const handleChangeStudentCost = (student: Student, newCostValue: String) => {
-    const newSelectedStudents = selectedStudents.map((s) => {
-      if (s.student.id === student.id) {
-        return { ...s, cost: Number(newCostValue), costModified: false };
-      } else {
-        return s;
-      }
-    });
-    setSelectedStudents(newSelectedStudents);
-  };
-
-  const handleSubmit = useCallback(
-    (formData: FormData) => {
-      if (eventType === "class") {
-        createEvent({
-          eventType,
-          scheduledFor: new Date(),
-          duration: durationInMinutes || 60,
-          eventStudents: selectedStudents.map((s) => ({ studentId: s.student.id, cost: s.cost })),
-          notes: formData.get("notes") as string,
-        });
-      }
-    },
-    [durationInMinutes, eventType, selectedStudents],
-  );
+  const handleSubmit = useCallback(() => {
+    if (state.eventType === "class") {
+      createEvent({
+        eventType: state.eventType,
+        scheduledFor: state.date && state.time ? new Date(`${state.date}T${state.time}`) : new Date(),
+        duration: durationInMinutes || 60,
+        eventStudents: state.students.map((s) => ({ studentId: s.student.id, cost: s.cost })),
+        notes: state.notes,
+      });
+    }
+  }, [state, durationInMinutes]);
 
   const renderClassForm = () => {
     return (
+      // Form for class type event
       <>
         <Card>
           <CardBody>
             <fieldset>
               <legend>Students</legend>
               <div className="flex flex-col gap-2">
-                {selectedStudents.map(({ student, cost }) => (
+                {/* EventStudents */}
+                {state.students.map(({ student, cost, costModified }) => (
                   <div key={student.id} className="flex flex-row items-center gap-2">
                     <div className="flex-[5]">{student.firstName}</div>
-                    <input type="hidden" name="student" value={student.id} />
                     <Input
                       className="flex-shrink-0 flex-grow-1 max-w-32"
                       name={`cost-${student.id}`}
-                      value={String(cost)}
-                      onValueChange={(newValue: string) => handleChangeStudentCost(student, newValue)}
+                      value={cost.toFixed(2)}
+                      onValueChange={(newCost: string) =>
+                        dispatch({
+                          type: EventCreateActionType.UPDATE_STUDENT_COST,
+                          payload: { studentId: student.id, newCost },
+                        })
+                      }
                       type="number"
                       min="0"
                       label="$"
                       placeholder=""
                       labelPlacement="outside-left"
                       radius="none"
+                      endContent={costModified ? "*" : undefined}
+                      step={0.01}
+                      required
                     />
                     <XMarkIcon
                       className="cursor-pointer"
                       width={20}
                       height={20}
-                      onClick={() => handleRemoveStudent(student)}
+                      onClick={() => dispatch({ type: EventCreateActionType.REMOVE_STUDENT, payload: student })}
                     />
                   </div>
                 ))}
-                {selectedStudents.length > 0 && (
+                {/* Price total */}
+                {state.students.length > 0 && (
                   <div className="flex flex-row justify-between mt-5">
                     <div>Total</div>
                     <div className="flex flex-row">
-                      <div className="font-bold">${totalCost.toFixed(2)}</div>
+                      <div className="font-bold" data-cy="event-total">
+                        ${totalCost.toFixed(2)}
+                      </div>
                       <Popover>
                         <PopoverTrigger>
                           <InformationCircleIcon className="cursor-pointer ml-3" width={20} height={20} />
                         </PopoverTrigger>
-                        <PopoverContent className="p-3 text-black">
+                        <PopoverContent className="p-5 text-black">
                           <p>
                             The total cost is calculated by multiplying the base price by the duration in hours, then
                             dividing it up among the number of students. Once a custom cost is set for a student, that
                             cost won&apos;t change as students are added or the duration is changed. To set the base
-                            price, go to &apos;Settings&apos;
+                            price, go to &apos;Settings&apos;. Your current base price is ${String(props.settings.basePrice)}.
                           </p>
                         </PopoverContent>
                       </Popover>
@@ -188,15 +124,27 @@ export default function EventCreate(props: IEventCreateProps) {
                 )}
               </div>
               <div className="flex flex-col items-start mt-5">
+                {/* Student search/add */}
                 <Autocomplete
+                  data-cy="student-autocomplete"
                   defaultItems={props.students}
                   shouldCloseOnBlur
                   label="Add student..."
                   placeholder="Search"
-                  onSelectionChange={(key: Key) => handleStudentSelected(key as string)}
+                  onSelectionChange={(key: Key) =>
+                    dispatch({
+                      type: EventCreateActionType.ADD_STUDENT,
+                      payload: props.students.find((student) => student.id === key),
+                    })
+                  }
                 >
                   {(student) => (
-                    <AutocompleteItem key={student.id} className="text-black" id={student.id}>
+                    <AutocompleteItem
+                      data-cy="student-autocomplete-option"
+                      key={student.id}
+                      className="text-black"
+                      id={student.id}
+                    >
                       {student.firstName}
                     </AutocompleteItem>
                   )}
@@ -207,7 +155,12 @@ export default function EventCreate(props: IEventCreateProps) {
         </Card>
         <Card>
           <CardBody>
-            <Textarea name="notes" label="Notes" />
+            <Textarea
+              name="notes"
+              label="Notes"
+              value={state.notes}
+              onValueChange={(newVal) => dispatch({ type: EventCreateActionType.UPDATE_NOTES, payload: newVal })}
+            />
           </CardBody>
         </Card>
       </>
@@ -231,16 +184,34 @@ export default function EventCreate(props: IEventCreateProps) {
           <CardBody>
             <fieldset className="xs:flex flex-row gap-3 space-y-3">
               <legend>Time</legend>
-              <Input name="scheduledForDate" type="date" label="Date" placeholder="1" />
-              <Input name="scheduledForTime" type="time" label="Time" placeholder="1" />
+              <Input
+                data-cy="scheduledForDate"
+                name="scheduledForDate"
+                type="date"
+                label="Date"
+                placeholder="1"
+                value={state.date}
+                onValueChange={(val) => dispatch({ type: EventCreateActionType.UPDATE_DATE, payload: val })}
+              />
+              <Input
+                data-cy="scheduledForTime"
+                name="scheduledForTime"
+                type="time"
+                label="Time"
+                placeholder="1"
+                value={state.time}
+                onValueChange={(val) => dispatch({ type: EventCreateActionType.UPDATE_TIME, payload: val })}
+              />
               <Autocomplete
+                data-cy="duration"
                 allowsCustomValue
                 label="Duration"
                 placeholder="Duration"
-                onValueChange={handleDurationChange}
-                onSelectionChange={(key: Key) => handleDurationChange(key as string)}
-                value={duration}
-                isInvalid={!!durationValidationError}
+                onValueChange={(val) => dispatch({ type: EventCreateActionType.UPDATE_DURATION, payload: val })}
+                onSelectionChange={(val) =>
+                  dispatch({ type: EventCreateActionType.UPDATE_DURATION, payload: String(val) })
+                }
+                value={state.duration}
               >
                 {presetDurationOptions.map((duration) => (
                   <AutocompleteItem key={duration} className="text-black" id={duration}>
@@ -255,8 +226,10 @@ export default function EventCreate(props: IEventCreateProps) {
           <CardBody>
             <RadioGroup
               name="eventType"
-              value={eventType}
-              onValueChange={(value) => setEventType(value)}
+              value={state.eventType}
+              onValueChange={(value) =>
+                dispatch({ type: EventCreateActionType.UPDATE_EVENT_TYPE, payload: value as "class" | "consultation" })
+              }
               classNames={{
                 wrapper: cn("flex-row xs:flex-col justify-around"),
               }}
@@ -267,13 +240,23 @@ export default function EventCreate(props: IEventCreateProps) {
           </CardBody>
         </Card>
 
-        {eventType === "class" && renderClassForm()}
-        {eventType === "consultation" && renderConsultationForm()}
+        {state.eventType === "class" && renderClassForm()}
+        {state.eventType === "consultation" && renderConsultationForm()}
       </div>
-      <div className="flex flex-col gap-3 justify-end">
-        <Button type="submit" text={props.eventId ? `Edit ${eventType}` : `Create ${eventType}`} flavor="primary" />
+      <div className="flex flex-col gap-3 justify-end pt-5">
+        <Button
+          type="submit"
+          text={props.eventId ? `Edit ${state.eventType}` : `Create ${state.eventType}`}
+          flavor="primary"
+        />
         {props.onCloseParentModal && (
-          <Button type="button" text="Cancel" flavor="secondary" onClick={props.onCloseParentModal} />
+          <Button
+            dataCy="cancel-create-event"
+            type="button"
+            text="Cancel"
+            flavor="secondary"
+            onClick={props.onCloseParentModal}
+          />
         )}
       </div>
     </form>

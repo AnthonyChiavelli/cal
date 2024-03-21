@@ -30,6 +30,9 @@ export default function MonthCalendar(props: IMonthCalendar) {
 
   const [selectedDay, setSelectedDay] = React.useState<CalendarDay | null>(props.calendarDays[0] || null);
   const [showEventCreateModal, setShowEventCreateModal] = React.useState(false);
+  const [createModalPresetDate, setCreateModalPresetDate] = React.useState<{ date?: Date; time?: Date } | undefined>(
+    undefined,
+  );
 
   const goToPreviousMonth = () => {
     startTransition(() => {
@@ -67,7 +70,8 @@ export default function MonthCalendar(props: IMonthCalendar) {
     [props.settings?.showInlineDayCalendarInMobileView, router],
   );
 
-  const handleLaunchCreateModal = React.useCallback(() => {
+  const handleLaunchCreateModal = React.useCallback((date?: Date, time?: Date) => {
+    setCreateModalPresetDate({ date, time });
     setShowEventCreateModal(true);
   }, []);
 
@@ -86,13 +90,13 @@ export default function MonthCalendar(props: IMonthCalendar) {
 
   return (
     <div className="lg:flex lg:h-full lg:flex-col">
-      <header className="flex items-center justify-between border-b border-gray-200 px-6 py-4 lg:flex-none">
-        <div>
-          <h1 className="text-base font-semibold leading-6 text-gray-900">
-            <time dateTime={`${year}-${month}`}>{displayDate}</time>
-            <div className={classNames("text-sm font-normal", { invisible: !isCurrentMonth })}>(Current month)</div>
-          </h1>
-        </div>
+      <header className="flex flex-col xs:flex-row items-center justify-between border-b border-gray-200 px-2 lg:px-6 py-4 lg:flex-none">
+        <h1 className="flex flex-row xs:flex-col items-center justify-center text-base font-semibold leading-6 text-gray-900">
+          <time dateTime={`${year}-${month}`}>{displayDate}</time>
+          <div className={classNames("text-xs font-normal ml-3 xs:ml-0", { invisible: !isCurrentMonth })}>
+            (Current month)
+          </div>
+        </h1>
         <div className="flex items-center">
           <div className="relative flex rounded-md bg-white shadow-sm items-stretch">
             <button
@@ -129,7 +133,8 @@ export default function MonthCalendar(props: IMonthCalendar) {
                 type="button"
                 className="ml-6 rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
               >
-                Add event
+                <span className="hidden lg:block">Add event</span>
+                <span className="lg:hidden">+</span>
               </button>
             </Link>
           </div>
@@ -174,7 +179,9 @@ export default function MonthCalendar(props: IMonthCalendar) {
                 <div className="hidden group-hover:block absolute right-3 bottom-3">
                   <PlusCircleIcon
                     className="h-6 w-6 text-blue-400 cursor-pointer"
-                    onClick={() => setShowEventCreateModal(true)}
+                    onClick={() => {
+                      handleLaunchCreateModal(new Date(day.date));
+                    }}
                   />{" "}
                 </div>
                 {/* Day events */}
@@ -230,12 +237,14 @@ export default function MonthCalendar(props: IMonthCalendar) {
           />
         </div>
       </div>
-      {selectedDay && <MonthCalendarMiniDay day={selectedDay} addEvent={handleLaunchCreateModal} />}
+      {selectedDay && (
+        <MonthCalendarMiniDay day={selectedDay} addEvent={() => handleLaunchCreateModal(new Date(selectedDay.date))} />
+      )}
       <EventCreateModal
         open={showEventCreateModal}
         students={props.students}
         onClose={() => setShowEventCreateModal(false)}
-        presetDate={new Date()}
+        presetDate={createModalPresetDate}
         settings={props.settings}
       />
     </div>

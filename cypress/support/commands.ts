@@ -3,34 +3,43 @@ function loginViaAuth0Ui(username: string, password: string) {
   // cy.visit('/')
 
   // Login on Auth0.
-  cy.origin(
-    Cypress.env('auth0_domain'),
-    { args: { username, password } },
-    ({ username, password }) => {
-      cy.get('input#username').type(username)
-      cy.get('input#password').type(password, { log: false })
-      cy.contains('button[value=default]', 'Continue').click()
-    }
-  )
+  cy.origin(Cypress.env("auth0_domain"), { args: { username, password } }, ({ username, password }) => {
+    cy.get("input#username").type(username);
+    cy.get("input#password").type(password, { log: false });
+    cy.contains("button[value=default]", "Continue").click();
+  });
 
   // Ensure Auth0 has redirected us back to the RWA.
-  cy.url().should('equal', 'http://localhost:3000/app')
+  cy.url().should("equal", "http://localhost:3000/app");
 }
 
-Cypress.Commands.add('loginToAuth0', (username: string, password: string) => {
+Cypress.Commands.add("loginToAuth0", (username: string, password: string) => {
   const log = Cypress.log({
-    displayName: 'AUTH0 LOGIN',
+    displayName: "AUTH0 LOGIN",
     message: [`🔐 Authenticating | ${username}`],
     // @ts-ignore
     autoEnd: false,
-  })
-  log.snapshot('before')
+  });
+  log.snapshot("before");
 
-  loginViaAuth0Ui(username, password)
+  loginViaAuth0Ui(username, password);
 
-  log.snapshot('after')
-  log.end()
-})
+  log.snapshot("after");
+  log.end();
+});
+
+Cypress.Commands.add("seedDatabase", () => {
+  cy.request({
+    method: "POST",
+    url: "http://localhost:3000/api/test-seed",
+    body: {
+      authorization: 41,
+    },
+    headers: {
+      authorization: Cypress.env("cypress_api_token"),
+    },
+  });
+});
 
 /// <reference types="cypress" />
 // ***********************************************

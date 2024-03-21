@@ -10,21 +10,21 @@ interface ICalendarViewMenuProps {
 
 export default function CalendarViewMenu(props: ICalendarViewMenuProps) {
   const menuTimes = [
-    { name: "Day view", href: "?p=day" },
-    { name: "Week view", href: "?p=week" },
-    { name: "Month view", href: "?p=month" },
+    { name: "Day", href: "?p=day" },
+    { name: "Week", href: "?p=week" },
+    { name: "Month", href: "?p=month" },
   ];
 
   const displayText = () => {
     switch (props.timePeriod) {
       case "day":
-        return "Day view";
+        return "Day";
       case "week":
-        return "Week view";
+        return "Week";
       case "month":
-        return "Month view";
+        return "Month";
       default:
-        return "Month view";
+        return "Month";
     }
   };
 

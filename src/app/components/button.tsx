@@ -11,6 +11,7 @@ interface IButtonProps {
   iconName?: string;
   type?: "button" | "submit" | "reset";
   disabled?: boolean;
+  dataCy?: string;
 }
 
 export default function Button(props: IButtonProps) {
@@ -30,6 +31,7 @@ export default function Button(props: IButtonProps) {
   }
   return (
     <button
+      data-cy={props.dataCy}
       className={classNames(
         "text-sm font-semibold px-3 py-2 flex flex-row justify-center rounded-md shadow-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2",
         colorClasses,
