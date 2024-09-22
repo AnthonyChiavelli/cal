@@ -2,7 +2,7 @@
  * @jest-environment node
  */
 import { prismaMock } from "../../src/singleton";
-import { cancelEvent, markEventCompleted } from "@/app/actions/event";
+import { cancelEvent, createRecurrenceGroup, markEventCompleted } from "@/app/actions/event";
 
 jest.mock("../../src/app/actions/util", () => ({
   getSessionOrFail: jest.fn(() => Promise.resolve({ user: { email: "test@examples.com" }, session: {} })),
@@ -77,5 +77,14 @@ describe("markEventCompleted", () => {
         ownerId: "test@examples.com",
       },
     });
+  });
+});
+
+describe("createRecurrenceGroup", () => {
+  it("should create a recurrence group", async () => {
+    prismaMock.recurrenceGroup.create.mockResolvedValue({ id: "1" });
+    const res = await createRecurrenceGroup();
+    expect(prismaMock.recurrenceGroup.create).toHaveBeenCalledTimes(1);
+    expect(res.id).toBe("1");
   });
 });

@@ -6,6 +6,7 @@ import classNames from "classnames";
 
 interface IButtonProps {
   onClick?: () => void;
+  className?: string;
   flavor: "primary" | "secondary" | "danger" | "pizzaz";
   text: string;
   iconName?: string;
@@ -35,6 +36,7 @@ export default function Button(props: IButtonProps) {
       className={classNames(
         "text-sm font-semibold px-3 py-2 flex flex-row justify-center rounded-md shadow-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2",
         colorClasses,
+        props.className,
       )}
       onClick={() => props.onClick && props.onClick()}
       type={props.type || "button"}

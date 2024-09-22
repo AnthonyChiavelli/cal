@@ -13,6 +13,11 @@ describe("event_create reducer", () => {
       eventType: "class",
       duration: undefined,
       students: [],
+      recurrenceEnabled: false,
+      recurrencePattern: {
+        endDate: undefined,
+        weeklyDays: [],
+      },
       basePrice: 100,
       notes: "",
       validationErrors: [],
@@ -31,6 +36,11 @@ describe("event_create reducer", () => {
       duration: undefined,
       students: [],
       basePrice: 100,
+      recurrenceEnabled: false,
+      recurrencePattern: {
+        endDate: undefined,
+        weeklyDays: [],
+      },
       notes: "",
       validationErrors: [],
     });
@@ -77,6 +87,11 @@ describe("event_create reducer", () => {
       duration: "1:00",
       students: [],
       basePrice: 100,
+      recurrenceEnabled: false,
+      recurrencePattern: {
+        endDate: undefined,
+        weeklyDays: [],
+      },
       notes: "Child prodigy",
       validationErrors: [],
     });
@@ -218,5 +233,43 @@ describe("event_create reducer", () => {
       { student: mockStudent, cost: basePrice },
       { student: mockStudent2, cost: basePrice },
     ]);
+  });
+
+  it("should update reccurence settings", () => {
+    const basePrice = 100;
+
+    let state = eventCreateReducer(createInitialState({ date: undefined, time: undefined }, basePrice), {
+      type: EventCreateActionType.INIT,
+    });
+
+    state = eventCreateReducer(state, { type: EventCreateActionType.UPDATE_RECURRENCE_ENABLED, payload: true });
+    expect(state.recurrenceEnabled).toEqual(true);
+
+    state = eventCreateReducer(state, { type: EventCreateActionType.UPDATE_RECURRENCE_ENABLED, payload: false });
+    expect(state.recurrenceEnabled).toEqual(false);
+
+    state = eventCreateReducer(state, { type: EventCreateActionType.UPDATE_RECURRENCE_ENABLED, payload: true });
+    state = eventCreateReducer(state, { type: EventCreateActionType.UPDATE_PERIOD_WEEKS, payload: 3 });
+    expect(state.recurrenceEnabled).toEqual(true);
+    expect(state.recurrencePattern).toBeDefined();
+    expect(state.recurrencePattern?.period).toEqual(3);
+
+    state = eventCreateReducer(state, {
+      type: EventCreateActionType.UPDATE_WEEKLY_DAYS,
+      payload: ["monday", "thursday", "sunday"],
+    });
+    expect(state.recurrencePattern?.weeklyDays).toEqual(["monday", "thursday", "sunday"]);
+
+    state = eventCreateReducer(state, {
+      type: EventCreateActionType.UPDATE_RECURRENCE_END_DATE,
+      payload: new Date(2024, 4, 5),
+    });
+    expect(state.recurrencePattern?.endDate).toEqual(new Date(2024, 4, 5));
+
+    state = eventCreateReducer(state, { type: EventCreateActionType.UPDATE_INCLUDE_CURRENT_DATE, payload: true });
+    expect(state.recurrencePattern?.includeSelectedDate).toEqual(true);
+
+    state = eventCreateReducer(state, { type: EventCreateActionType.UPDATE_INCLUDE_CURRENT_DATE, payload: false });
+    expect(state.recurrencePattern?.includeSelectedDate).toEqual(false);
   });
 });

@@ -16,12 +16,26 @@ import {
   Popover,
   PopoverTrigger,
   PopoverContent,
+  Switch,
+  CheckboxGroup,
+  Checkbox,
 } from "@nextui-org/react";
 import { Student, UserSettings } from "@prisma/client";
 import { createEvent } from "@/app/actions/event";
 import { eventCreateReducer, EventCreateActionType, createInitialState } from "@/app/reducers/event_create";
-import { parseDuration } from "@/util/calendar";
+import { DayOfWeek, RecurrencePattern } from "@/app/types";
+import {
+  compareDatesWithoutTime,
+  createDateString,
+  getDatesForRecurrencePattern,
+  isCompleteRecurrencePattern,
+  parseDateString,
+  parseDuration,
+} from "@/util/calendar";
 import Button from "./button";
+import RecurrencePreview from "./recurrence_preview";
+
+// import RecurrencePreview from "./recurrence_preview";
 
 interface IEventCreateProps {
   students: Student[];
@@ -37,6 +51,23 @@ export default function EventCreate(props: IEventCreateProps) {
     createInitialState(props.presetDate, Number(props.settings.basePrice)),
   );
 
+  const showRecurrencePreview = useMemo(
+    () =>
+      state.date &&
+      state.recurrenceEnabled &&
+      state.recurrencePattern?.endDate &&
+      state.recurrencePattern?.period &&
+      (state.recurrencePattern?.weeklyDays?.length || 0) > 0,
+
+    [
+      state.date,
+      state.recurrenceEnabled,
+      state.recurrencePattern?.endDate,
+      state.recurrencePattern?.period,
+      state.recurrencePattern?.weeklyDays?.length,
+    ],
+  );
+
   const presetDurationOptions = useMemo(() => ["1:00", "1:30", "2:00", "2:30"], []);
   const durationInMinutes = useMemo((): number | undefined => {
     return state.duration ? parseDuration(state.duration) : undefined;
@@ -45,14 +76,45 @@ export default function EventCreate(props: IEventCreateProps) {
     return state.students.reduce((acc, s) => acc + Math.round((s.cost + Number.EPSILON) * 100) / 100, 0);
   }, [state.students]);
 
+  const currentDateWouldntBeIncluded = useMemo(() => {
+    if (isCompleteRecurrencePattern(state.recurrencePattern)) {
+      const recurrenceDates = getDatesForRecurrencePattern({ ...state.recurrencePattern, includeSelectedDate: false });
+      return !recurrenceDates.some((date) => compareDatesWithoutTime(date, parseDateString(state.date)) === 0);
+    }
+    return false;
+  }, [state.date, state.recurrencePattern]);
+
   const handleSubmit = useCallback(() => {
+    let errors = false;
+    if (state.students.length === 0) {
+      errors = true;
+      dispatch({
+        type: EventCreateActionType.SET_VALIDATION_ERRORS,
+        payload: [{ fieldName: "students", message: "At least one student is required" }],
+      });
+    }
+    if (state.recurrenceEnabled && state.recurrencePattern?.weeklyDays?.length === 0) {
+      errors = true;
+      dispatch({
+        type: EventCreateActionType.SET_VALIDATION_ERRORS,
+        payload: [{ fieldName: "recurrence", message: "At least one day is required" }],
+      });
+    }
+    if (errors) {
+      return;
+    }
     if (state.eventType === "class") {
+      const scheduledForDate = state.date && state.time ? parseDateString(`${state.date}T${state.time}`) : new Date();
       createEvent({
         eventType: state.eventType,
-        scheduledFor: state.date && state.time ? new Date(`${state.date}T${state.time}`) : new Date(),
+        scheduledFor: scheduledForDate,
         duration: durationInMinutes || 60,
         eventStudents: state.students.map((s) => ({ studentId: s.student.id, cost: s.cost })),
         notes: state.notes,
+        recurrencePattern:
+          state.recurrenceEnabled && isCompleteRecurrencePattern(state.recurrencePattern)
+            ? (state.recurrencePattern as RecurrencePattern)
+            : undefined,
       });
     }
   }, [state, durationInMinutes]);
@@ -71,6 +133,7 @@ export default function EventCreate(props: IEventCreateProps) {
                   <div key={student.id} className="flex flex-row items-center gap-2">
                     <div className="flex-[5]">{student.firstName}</div>
                     <Input
+                      isRequired
                       className="flex-shrink-0 flex-grow-1 max-w-32"
                       name={`cost-${student.id}`}
                       value={cost.toFixed(2)}
@@ -98,6 +161,9 @@ export default function EventCreate(props: IEventCreateProps) {
                     />
                   </div>
                 ))}
+                <div className="text-red-400">
+                  {state.validationErrors.find((e) => e.fieldName === "students")?.message}
+                </div>
                 {/* Price total */}
                 {state.students.length > 0 && (
                   <div className="flex flex-row justify-between mt-5">
@@ -115,7 +181,8 @@ export default function EventCreate(props: IEventCreateProps) {
                             The total cost is calculated by multiplying the base price by the duration in hours, then
                             dividing it up among the number of students. Once a custom cost is set for a student, that
                             cost won&apos;t change as students are added or the duration is changed. To set the base
-                            price, go to &apos;Settings&apos;. Your current base price is ${String(props.settings.basePrice)}.
+                            price, go to &apos;Settings&apos;. Your current base price is $
+                            {String(props.settings.basePrice)}.
                           </p>
                         </PopoverContent>
                       </Popover>
@@ -182,9 +249,11 @@ export default function EventCreate(props: IEventCreateProps) {
       <div className="flex flex-col gap-5">
         <Card>
           <CardBody>
+            {/* Date/time settings */}
             <fieldset className="xs:flex flex-row gap-3 space-y-3">
               <legend>Time</legend>
               <Input
+                isRequired
                 data-cy="scheduledForDate"
                 name="scheduledForDate"
                 type="date"
@@ -194,6 +263,7 @@ export default function EventCreate(props: IEventCreateProps) {
                 onValueChange={(val) => dispatch({ type: EventCreateActionType.UPDATE_DATE, payload: val })}
               />
               <Input
+                isRequired
                 data-cy="scheduledForTime"
                 name="scheduledForTime"
                 type="time"
@@ -203,6 +273,7 @@ export default function EventCreate(props: IEventCreateProps) {
                 onValueChange={(val) => dispatch({ type: EventCreateActionType.UPDATE_TIME, payload: val })}
               />
               <Autocomplete
+                isRequired
                 data-cy="duration"
                 allowsCustomValue
                 label="Duration"
@@ -222,6 +293,120 @@ export default function EventCreate(props: IEventCreateProps) {
             </fieldset>
           </CardBody>
         </Card>
+        <Card>
+          <CardBody>
+            {/* Recurrence Settings */}
+            <Switch
+              onValueChange={(val) => dispatch({ type: EventCreateActionType.UPDATE_RECURRENCE_ENABLED, payload: val })}
+            >
+              Recurring?
+            </Switch>
+            {state.recurrenceEnabled && (
+              <>
+                <div>
+                  <RadioGroup
+                    name="eventType"
+                    value={state.recurrencePattern?.recurrenceType || "weekly"}
+                    onValueChange={(value) =>
+                      dispatch({
+                        type: EventCreateActionType.UPDATE_RECURRENCE_TYPE,
+                        payload: value as "weekly" | "monthly",
+                      })
+                    }
+                    classNames={{
+                      wrapper: cn("flex-row justify-start mt-3"),
+                    }}
+                  >
+                    <Radio value="weekly">Weekly</Radio>
+                    <Radio value="monthly">
+                      {state.date ? `Monthly on ${parseDateString(state.date).toLocaleDateString()}` : `Monthly`}
+                    </Radio>
+                  </RadioGroup>
+                  <div className="text-red-400">
+                    {state.validationErrors.find((e) => e.fieldName === "recurrence")?.message}
+                  </div>
+                  {state.recurrencePattern?.recurrenceType === "weekly" && (
+                    <>
+                      <CheckboxGroup
+                        isRequired
+                        className="flex-1 mt-5"
+                        orientation="horizontal"
+                        label="Select days"
+                        value={state.recurrencePattern?.weeklyDays}
+                        onValueChange={(value) =>
+                          dispatch({ type: EventCreateActionType.UPDATE_WEEKLY_DAYS, payload: value as DayOfWeek[] })
+                        }
+                      >
+                        {["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"].map((day) => (
+                          <Checkbox key={day} value={day.toLocaleLowerCase()}>
+                            {day.slice(0, 3)}
+                          </Checkbox>
+                        ))}
+                      </CheckboxGroup>
+                      <div className="flex-1 mt-5 xs:mt-0">
+                        <Input
+                          className="mt-5"
+                          isRequired={state.recurrencePattern?.recurrenceType === "weekly"}
+                          type="number"
+                          min={1}
+                          label="Repeat every"
+                          value={String(state.recurrencePattern?.period || 1)}
+                          onValueChange={(val) =>
+                            dispatch({ type: EventCreateActionType.UPDATE_PERIOD_WEEKS, payload: parseInt(val) })
+                          }
+                          endContent={state.recurrencePattern?.period === 1 ? "week" : "weeks"}
+                        />
+                      </div>
+                    </>
+                  )}
+                </div>
+                <Input
+                  isRequired
+                  min={new Date().toISOString().split("T")[0]}
+                  className="mt-5"
+                  placeholder="1"
+                  type="date"
+                  label="End date"
+                  value={
+                    state.recurrencePattern?.endDate ? createDateString(state.recurrencePattern?.endDate) : undefined
+                  }
+                  onValueChange={(val) =>
+                    dispatch({ type: EventCreateActionType.UPDATE_RECURRENCE_END_DATE, payload: parseDateString(val) })
+                  }
+                />
+                {Boolean(state.date) && currentDateWouldntBeIncluded && (
+                  <Checkbox
+                    className="mt-2"
+                    isSelected={state.recurrencePattern?.includeSelectedDate}
+                    onValueChange={(val) =>
+                      dispatch({
+                        type: EventCreateActionType.UPDATE_INCLUDE_CURRENT_DATE,
+                        payload: val,
+                      })
+                    }
+                  >
+                    <span className="text-sm">
+                      Include selected date {parseDateString(state.date).toLocaleDateString()}?
+                    </span>
+                  </Checkbox>
+                )}
+                {showRecurrencePreview && Boolean(state.date) && (
+                  <Popover className="text-slate-900 w-full" placement="top-start" backdrop="blur" shouldFlip>
+                    <PopoverTrigger>
+                      <span className="mt-5 cursor-pointer bg-rose-500 hover:bg-rose-600 text-white text-sm font-semibold px-3 py-2 flex flex-row justify-center rounded-md shadow-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2">
+                        Preview Recurrence Schedule
+                      </span>
+                    </PopoverTrigger>
+                    <PopoverContent className="p-3">
+                      <RecurrencePreview recurrentPattern={state.recurrencePattern as RecurrencePattern} />
+                    </PopoverContent>
+                  </Popover>
+                )}
+              </>
+            )}
+          </CardBody>
+        </Card>
+
         <Card>
           <CardBody>
             <RadioGroup

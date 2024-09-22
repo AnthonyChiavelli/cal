@@ -20,7 +20,7 @@ export default function NavWrapper(props: ISidebarProps) {
       <Sidebar expanded={sidebarExpanded} setExpanded={setSidebarExpanded} />
       <main className="main max-h-screen overflow-hidden flex flex-col flex-grow -ml-64 md:ml-0 transition-all duration-150 ease-in">
         <Header userName={props.userName ?? "unknown"} handleClickExpandSidebar={() => setSidebarExpanded(true)} />
-        <div className="min-h-0 flex flex-col flex-grow p-4">{props.children}</div>
+        <div className="min-h-0 flex flex-col flex-grow p-4 overflow-y-auto">{props.children}</div>
       </main>
     </div>
   );

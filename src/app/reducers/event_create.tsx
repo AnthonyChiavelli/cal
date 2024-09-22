@@ -1,5 +1,6 @@
 import { Student } from "@prisma/client";
-import { createTimeString, parseDuration } from "@/util/calendar";
+import { DayOfWeek, RecurrencePattern } from "@/app/types";
+import { createTimeString, parseDateString, parseDuration } from "@/util/calendar";
 
 type SelectedStudent = {
   student: Student;
@@ -18,6 +19,12 @@ export enum EventCreateActionType {
   UPDATE_STUDENT_COST = "UPDATE_STUDENT_COST",
   UPDATE_NOTES = "UPDATE_NOTES",
   SET_VALIDATION_ERRORS = "SET_VALIDATION_ERRORS",
+  UPDATE_RECURRENCE_ENABLED = "UPDATE_RECURRENCE_ENABLED",
+  UPDATE_WEEKLY_DAYS = "UPDATE_WEEKLY_DAYS",
+  UPDATE_PERIOD_WEEKS = "UPDATE_PERIOD_WEEKS",
+  UPDATE_RECURRENCE_END_DATE = "UPDATE_RECURRENCE_END_DATE",
+  UPDATE_INCLUDE_CURRENT_DATE = "UPDATE_INCLUDE_CURRENT_DATE",
+  UPDATE_RECURRENCE_TYPE = "UPDATE_RECURRENCE_TYPE",
 }
 
 type InitAction = {
@@ -69,6 +76,36 @@ type UpdateSetValidationErrorsAction = {
   payload: { fieldName: string; message: string }[];
 };
 
+type UpdateSetRecurrenceEnabledAction = {
+  type: EventCreateActionType.UPDATE_RECURRENCE_ENABLED;
+  payload: boolean;
+};
+
+type UpdateWeeklyDaysAction = {
+  type: EventCreateActionType.UPDATE_WEEKLY_DAYS;
+  payload: Array<DayOfWeek>;
+};
+
+type UpdatePeriodWeeksAction = {
+  type: EventCreateActionType.UPDATE_PERIOD_WEEKS;
+  payload: number;
+};
+
+type UpdateRecurrenceEndDateAction = {
+  type: EventCreateActionType.UPDATE_RECURRENCE_END_DATE;
+  payload: Date;
+};
+
+type UpdateIncludeCurrentDateAction = {
+  type: EventCreateActionType.UPDATE_INCLUDE_CURRENT_DATE;
+  payload: boolean;
+};
+
+type UpdateRecurrenceTypeAction = {
+  type: EventCreateActionType.UPDATE_RECURRENCE_TYPE;
+  payload: "weekly" | "monthly";
+};
+
 type EventCreateAction =
   | InitAction
   | UpdateEventAction
@@ -80,7 +117,13 @@ type EventCreateAction =
   | RemoveStudentAction
   | UpdateStudentCostAction
   | UpdateNotesAction
-  | UpdateSetValidationErrorsAction;
+  | UpdateSetValidationErrorsAction
+  | UpdateSetRecurrenceEnabledAction
+  | UpdateWeeklyDaysAction
+  | UpdatePeriodWeeksAction
+  | UpdateRecurrenceEndDateAction
+  | UpdateIncludeCurrentDateAction
+  | UpdateRecurrenceTypeAction;
 
 export interface IEventCreateState {
   date?: string;
@@ -91,9 +134,14 @@ export interface IEventCreateState {
   basePrice: number;
   notes: string;
   validationErrors: Array<{ fieldName: string; message: string }>;
+  recurrenceEnabled: boolean;
+  recurrencePattern: Partial<RecurrencePattern>;
 }
 
-export function createInitialState(presetDate: { date?: Date; time?: Date } | undefined, basePrice: number): IEventCreateState {
+export function createInitialState(
+  presetDate: { date?: Date; time?: Date } | undefined,
+  basePrice: number,
+): IEventCreateState {
   return {
     date: presetDate?.date ? presetDate.date.toISOString().split("T")[0] : undefined,
     time: presetDate?.time ? createTimeString(presetDate.time) : undefined,
@@ -103,16 +151,32 @@ export function createInitialState(presetDate: { date?: Date; time?: Date } | un
     basePrice: Number(basePrice),
     notes: "",
     validationErrors: [],
+    recurrenceEnabled: false,
+    recurrencePattern: {
+      weeklyDays: [],
+      endDate: undefined,
+      includeSelectedDate: false,
+      recurrenceType: "weekly",
+      period: 1,
+    },
   };
 }
 
 export function eventCreateReducer(state: IEventCreateState, action: EventCreateAction): IEventCreateState {
+  if (process.env.NODE_ENV === "development") {
+    // eslint-disable-next-line no-console
+    console.log("EventCreateReducer", action);
+  }
   switch (action.type) {
     case EventCreateActionType.UPDATE_EVENT_TYPE: {
       return { ...state, eventType: action.payload };
     }
     case EventCreateActionType.UPDATE_DATE: {
-      return { ...state, date: action.payload };
+      return {
+        ...state,
+        date: action.payload,
+        recurrencePattern: { ...state.recurrencePattern, startDate: parseDateString(action.payload) },
+      };
     }
     case EventCreateActionType.UPDATE_TIME: {
       return { ...state, time: action.payload };
@@ -137,7 +201,11 @@ export function eventCreateReducer(state: IEventCreateState, action: EventCreate
           ...s,
           cost: s.costModified ? s.cost : roundedPrice,
         }));
-        return { ...state, students: [...adjustedOtherStudents, { student: newStudent, cost: roundedPrice }] };
+        return {
+          ...state,
+          students: [...adjustedOtherStudents, { student: newStudent, cost: roundedPrice }],
+          validationErrors: state.validationErrors.filter((e) => e.fieldName !== "students"),
+        };
       } else return state;
     }
     case EventCreateActionType.REMOVE_STUDENT: {
@@ -171,6 +239,28 @@ export function eventCreateReducer(state: IEventCreateState, action: EventCreate
     }
     case EventCreateActionType.SET_VALIDATION_ERRORS: {
       return { ...state, validationErrors: action.payload };
+    }
+    case EventCreateActionType.UPDATE_RECURRENCE_ENABLED: {
+      return { ...state, recurrenceEnabled: action.payload };
+    }
+    case EventCreateActionType.UPDATE_WEEKLY_DAYS: {
+      return {
+        ...state,
+        recurrencePattern: { ...state.recurrencePattern, weeklyDays: action.payload },
+        validationErrors: state.validationErrors.filter((e) => e.fieldName !== "recurrence"),
+      };
+    }
+    case EventCreateActionType.UPDATE_PERIOD_WEEKS: {
+      return { ...state, recurrencePattern: { ...state.recurrencePattern, period: action.payload } };
+    }
+    case EventCreateActionType.UPDATE_RECURRENCE_END_DATE: {
+      return { ...state, recurrencePattern: { ...state.recurrencePattern, endDate: action.payload } };
+    }
+    case EventCreateActionType.UPDATE_INCLUDE_CURRENT_DATE: {
+      return { ...state, recurrencePattern: { ...state.recurrencePattern, includeSelectedDate: action.payload } };
+    }
+    case EventCreateActionType.UPDATE_RECURRENCE_TYPE: {
+      return { ...state, recurrencePattern: { ...state.recurrencePattern, recurrenceType: action.payload } };
     }
     default:
       return state;

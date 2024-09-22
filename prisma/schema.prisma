@@ -30,6 +30,7 @@ model User {
   families Family[]
   parents Parent[]
   actionRecords ActionRecord[]
+  recurrenceGroups RecurrenceGroup[]
 }
 
 model UserSettings {
@@ -109,6 +110,9 @@ model Event {
   completed Boolean @default(false)
 
   cancelledAt DateTime?
+
+  recurrenceGroup RecurrenceGroup? @relation(fields: [recurrenceGroupId], references: [id])
+  recurrenceGroupId String?
 }
 
 enum EventType {
@@ -148,7 +152,16 @@ model EventStudent {
   cancelledAt DateTime?
 }
 
+model RecurrenceGroup {
+  id String @id @default(uuid())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 
+  owner User @relation(fields: [ownerId], references: [email])
+  ownerId String
+
+  events Event[]
+}
 // ######## Invoice #########
 
 model Invoice {
@@ -235,4 +248,5 @@ enum ActionType {
   DELETE_EVENT
   CANCEL_EVENT
   MARK_COMPLETE_EVENT
+  CREATE_RECURRING_EVENT
 }

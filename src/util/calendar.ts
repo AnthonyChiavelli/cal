@@ -1,3 +1,4 @@
+import { RecurrencePattern } from "@/app/types";
 import { CalendarDay } from "@/types";
 
 export type IMonthNumber = 1 | 2 | 3 | 6 | 4 | 5 | 7 | 8 | 9 | 10 | 11 | 12;
@@ -166,9 +167,28 @@ export function getAdjacentWeekString(dateString: string, direction: 1 | -1): st
  * @returns the previous (or current) monday
  */
 export function getPreviousMonday(date: Date) {
-  const day = date.getDay();
-  const diff = date.getDate() - day + (day === 0 ? -6 : 1);
-  return new Date(date.setDate(diff));
+  const dateClone = new Date(date.getTime());
+  const day = dateClone.getDay();
+  const diff = dateClone.getDate() - day + (day === 0 ? -6 : 1);
+  return new Date(dateClone.setDate(diff));
+}
+/**
+ * Returns a date that is the monday before the after date, or the provided date
+ * if it is a monday.
+ *
+ * @param date the date
+ * @returns the next (or current) monday
+ */
+export function getNextMonday(date: Date) {
+  const dateClone = new Date(date.getTime());
+  const day = dateClone.getDay();
+  const mondayIndexedDay = day === 0 ? 7 : day;
+  if (mondayIndexedDay === 0) {
+    return dateClone;
+  } else {
+    const diff = dateClone.getDate() + (8 - mondayIndexedDay);
+    return new Date(dateClone.setDate(diff));
+  }
 }
 
 /**
@@ -206,4 +226,99 @@ export function parseDuration(duration: string): number {
     return Number(duration);
   }
   throw new Error("Invalid duration format");
+}
+
+/**
+ * Compare 2 date objects, disregarding the time component. If the dates are equal, return 0.
+ * If a is before b, return -1. If a is after b, return 1.
+ *
+ * @param a the first date
+ * @param b the second date
+ * @returns 0 if dates are equal, -1 if first date is before second, 1 if first date is after second
+ */
+export function compareDatesWithoutTime(a: Date, b: Date): -1 | 0 | 1 {
+  if (a.getFullYear() !== b.getFullYear()) return a.getFullYear() < b.getFullYear() ? -1 : 1;
+  if (a.getMonth() !== b.getMonth()) return a.getMonth() < b.getMonth() ? -1 : 1;
+  if (a.getDate() !== b.getDate()) return a.getDate() < b.getDate() ? -1 : 1;
+  return 0;
+}
+
+/**
+ * Convert a sunday-index day number (0-6) to a monday-indexed day number (1-7)
+ *
+ * @param dayNumber A day number between 0-6, where 0 is sunday
+ * @returns A day number between 1-7, where 1 is monday
+ */
+export function mondayIndexedDay(dayNumber: number): number {
+  return dayNumber === 0 ? 7 : dayNumber;
+}
+
+const dayOfWeekToNumberMap = {
+  monday: 1,
+  tuesday: 2,
+  wednesday: 3,
+  thursday: 4,
+  friday: 5,
+  saturday: 6,
+  sunday: 7,
+};
+
+export function getDatesForRecurrencePattern(pattern: RecurrencePattern): Date[] {
+  const dates: Date[] = [];
+  const recurrenceType = pattern.recurrenceType || "weekly";
+
+  // If the start date is later in the week than any days that would be included this week, begin on monday of next week
+  // Otherwise, begin on monday of this week (days before start date will be shaved off later)
+  const startDateAfterThisWeeksScheduledDays = pattern.weeklyDays?.every(
+    (day) => dayOfWeekToNumberMap[day] < mondayIndexedDay(pattern.startDate.getDay()),
+  );
+  const startOfWeek = startDateAfterThisWeeksScheduledDays
+    ? getNextMonday(pattern.startDate)
+    : getPreviousMonday(pattern.startDate);
+  let nextDate = startOfWeek;
+  // Keep making dates until we hit the end date
+  while (compareDatesWithoutTime(nextDate, pattern.endDate) <= 0) {
+    // Add the days for this week
+    pattern.weeklyDays?.forEach((day) => {
+      const dayNumber = dayOfWeekToNumberMap[day];
+      const n = new Date(
+        nextDate.getFullYear(),
+        nextDate.getMonth(),
+        nextDate.getDate() + (dayNumber - 1),
+        pattern.startDate.getHours(),
+        pattern.startDate.getMinutes(),
+      );
+      if (compareDatesWithoutTime(n, pattern.endDate) <= 0) {
+        dates.push(n);
+      }
+    });
+    // Advance to the next
+    nextDate.setDate(nextDate.getDate() + (pattern.period || 1) * 7);
+  }
+
+  // Cut out any dates before the start date
+  const filteredDates = dates.filter((date) => date >= pattern.startDate);
+  if (pattern.includeSelectedDate) {
+    // Add the start date itself in if specified and if it's not already in the list
+    const alreadyContainsStartDate = dates.some((date) => compareDatesWithoutTime(date, pattern.startDate) === 0);
+    return alreadyContainsStartDate ? filteredDates : [pattern.startDate, ...filteredDates];
+  }
+  return filteredDates;
+}
+
+/**
+ * A TS typeguard that ensures that a partial recurrence pattern is a complete recurrence pattern
+ *
+ * @param pattern A partial recurrence pattern
+ * @returns true if the pattern is a complete recurrence pattern
+ */
+export function isCompleteRecurrencePattern(pattern: Partial<RecurrencePattern>): pattern is RecurrencePattern {
+  return Boolean(
+    pattern.endDate &&
+      pattern.period &&
+      pattern.recurrenceType &&
+      pattern.startDate &&
+      pattern.weeklyDays &&
+      pattern.weeklyDays.length > 0,
+  );
 }
