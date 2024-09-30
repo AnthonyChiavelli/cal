@@ -8,8 +8,13 @@ const errorBlacklist = [
 const clientSetup = () => {
   const originalLog = console.error;
 
-  console.error = (msg: string) => {
-    if (errorBlacklist.some((blackListedError: string) => msg.includes(blackListedError))) {
+  console.error = (msg?: string) => {
+    debugger;
+    if (
+      errorBlacklist.some(
+        (blackListedError: string) => msg && typeof msg === "string" && msg.includes(blackListedError),
+      )
+    ) {
       return;
     } else {
       originalLog(msg);

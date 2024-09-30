@@ -1,4 +1,4 @@
-import { Student } from "@prisma/client";
+import { EventType, Student } from "@prisma/client";
 import { DayOfWeek, RecurrencePattern } from "@/app/types";
 import { createTimeString, parseDateString, parseDuration } from "@/util/calendar";
 
@@ -33,7 +33,7 @@ type InitAction = {
 
 type UpdateEventAction = {
   type: EventCreateActionType.UPDATE_EVENT_TYPE;
-  payload: "class" | "consultation";
+  payload: EventType;
 };
 
 type UpdateDateAction = {
@@ -128,7 +128,7 @@ type EventCreateAction =
 export interface IEventCreateState {
   date?: string;
   time?: string;
-  eventType?: "class" | "consultation";
+  eventType?: EventType;
   duration?: string;
   students: SelectedStudent[];
   basePrice: number;
@@ -145,7 +145,7 @@ export function createInitialState(
   return {
     date: presetDate?.date ? presetDate.date.toISOString().split("T")[0] : undefined,
     time: presetDate?.time ? createTimeString(presetDate.time) : undefined,
-    eventType: "class",
+    eventType: EventType.CLASS,
     duration: undefined,
     students: [],
     basePrice: Number(basePrice),

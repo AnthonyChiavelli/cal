@@ -9,9 +9,11 @@
     "lint": "next lint \"./src\" \"__test__/**/*.{ts,tsx,js,jsx}\"",
     "format": "prettier \"./src\" \"__test__/**/*.{ts,tsx,js,jsx}\" --write",
     "tscheck": "tsc --project tsconfig.json",
+    "full-check": "yarn format && yarn lint && yarn tscheck",
     "test": "jest",
     "postinstall": "prisma generate && prisma migrate deploy",
-    "cypress:open": "cypress open"
+    "cypress:open": "cypress open",
+    "cypress:run": "cypress run"
   },
   "dependencies": {
     "@auth0/nextjs-auth0": "^3.5.0",

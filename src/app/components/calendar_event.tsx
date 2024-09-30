@@ -57,6 +57,7 @@ export default function CalendarEvent(props: ICalendarEventProps) {
 
   return (
     <Link
+      data-cy={`calendar-event`}
       href={"/app/schedule/" + props.event.id}
       className={classNames(
         "@container group absolute inset-1 flex flex-col rounded-lg p-2 text-xs leading-5 overflow-x-hidden overflow-y-auto",

@@ -33,12 +33,21 @@ Cypress.Commands.add("seedDatabase", () => {
     method: "POST",
     url: "http://localhost:3000/api/test-seed",
     body: {
+      // TODO make secure
       authorization: 41,
     },
     headers: {
       authorization: Cypress.env("cypress_api_token"),
     },
   });
+});
+
+Cypress.Commands.add("getCy", (dataCySelector: string, additionalSelectors?: string) => {
+  if (additionalSelectors) {
+    return cy.get(`[data-cy=${dataCySelector}] ${additionalSelectors}`);
+  } else {
+    return cy.get(`[data-cy=${dataCySelector}]`);
+  }
 });
 
 /// <reference types="cypress" />

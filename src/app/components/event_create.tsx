@@ -20,7 +20,8 @@ import {
   CheckboxGroup,
   Checkbox,
 } from "@nextui-org/react";
-import { Student, UserSettings } from "@prisma/client";
+import { toast } from "react-toastify";
+import { EventType, Student, UserSettings } from "@prisma/client";
 import { createEvent } from "@/app/actions/event";
 import { eventCreateReducer, EventCreateActionType, createInitialState } from "@/app/reducers/event_create";
 import { DayOfWeek, RecurrencePattern } from "@/app/types";
@@ -32,6 +33,7 @@ import {
   parseDateString,
   parseDuration,
 } from "@/util/calendar";
+import { useOnMount } from "@/util/hooks";
 import Button from "./button";
 import RecurrencePreview from "./recurrence_preview";
 
@@ -50,6 +52,15 @@ export default function EventCreate(props: IEventCreateProps) {
     eventCreateReducer,
     createInitialState(props.presetDate, Number(props.settings.basePrice)),
   );
+
+  useOnMount(() => {
+    if (props.presetDate) {
+      const newDate = props.presetDate.date?.toISOString().split("T")[0];
+      if (newDate) {
+        dispatch({ type: EventCreateActionType.UPDATE_DATE, payload: newDate });
+      }
+    }
+  });
 
   const showRecurrencePreview = useMemo(
     () =>
@@ -84,7 +95,7 @@ export default function EventCreate(props: IEventCreateProps) {
     return false;
   }, [state.date, state.recurrencePattern]);
 
-  const handleSubmit = useCallback(() => {
+  const handleSubmit = useCallback(async () => {
     let errors = false;
     if (state.students.length === 0) {
       errors = true;
@@ -103,19 +114,25 @@ export default function EventCreate(props: IEventCreateProps) {
     if (errors) {
       return;
     }
-    if (state.eventType === "class") {
-      const scheduledForDate = state.date && state.time ? parseDateString(`${state.date}T${state.time}`) : new Date();
-      createEvent({
-        eventType: state.eventType,
-        scheduledFor: scheduledForDate,
-        duration: durationInMinutes || 60,
-        eventStudents: state.students.map((s) => ({ studentId: s.student.id, cost: s.cost })),
-        notes: state.notes,
-        recurrencePattern:
-          state.recurrenceEnabled && isCompleteRecurrencePattern(state.recurrencePattern)
-            ? (state.recurrencePattern as RecurrencePattern)
-            : undefined,
-      });
+    if (state.eventType === EventType.CLASS) {
+      const scheduledForDate = state.date && state.time ? new Date(`${state.date}T${state.time}`) : new Date();
+      try {
+        const result = await createEvent({
+          eventType: state.eventType,
+          scheduledFor: scheduledForDate,
+          duration: durationInMinutes || 60,
+          eventStudents: state.students.map((s) => ({ studentId: s.student.id, cost: s.cost })),
+          notes: state.notes,
+          recurrencePattern:
+            state.recurrenceEnabled && isCompleteRecurrencePattern(state.recurrencePattern)
+              ? (state.recurrencePattern as RecurrencePattern)
+              : undefined,
+        });
+      } catch (e) {
+        toast.error("An error occurred while creating the event. Please try again later.");
+      }
+      debugger;
+      // if (result.success === false) {
     }
   }, [state, durationInMinutes]);
 
@@ -130,13 +147,18 @@ export default function EventCreate(props: IEventCreateProps) {
               <div className="flex flex-col gap-2">
                 {/* EventStudents */}
                 {state.students.map(({ student, cost, costModified }) => (
-                  <div key={student.id} className="flex flex-row items-center gap-2">
+                  <div
+                    key={student.id}
+                    className="flex flex-row items-center gap-2"
+                    data-cy={`row-${student.firstName}`}
+                  >
                     <div className="flex-[5]">{student.firstName}</div>
                     <Input
                       isRequired
                       className="flex-shrink-0 flex-grow-1 max-w-32"
                       name={`cost-${student.id}`}
-                      value={cost.toFixed(2)}
+                      // value={cost === 0 ? "" : cost.toFixed(2)}
+                      value={cost.toString()}
                       onValueChange={(newCost: string) =>
                         dispatch({
                           type: EventCreateActionType.UPDATE_STUDENT_COST,
@@ -154,7 +176,7 @@ export default function EventCreate(props: IEventCreateProps) {
                       required
                     />
                     <XMarkIcon
-                      className="cursor-pointer"
+                      className="cursor-pointer remove-student"
                       width={20}
                       height={20}
                       onClick={() => dispatch({ type: EventCreateActionType.REMOVE_STUDENT, payload: student })}
@@ -170,7 +192,7 @@ export default function EventCreate(props: IEventCreateProps) {
                     <div>Total</div>
                     <div className="flex flex-row">
                       <div className="font-bold" data-cy="event-total">
-                        ${totalCost.toFixed(2)}
+                        {Number.isNaN(totalCost) ? "0.00" : `$${totalCost.toFixed(2)}`}
                       </div>
                       <Popover>
                         <PopoverTrigger>
@@ -223,6 +245,8 @@ export default function EventCreate(props: IEventCreateProps) {
         <Card>
           <CardBody>
             <Textarea
+              data-cy="class-notes"
+              className="cy-class-notes"
               name="notes"
               label="Notes"
               value={state.notes}
@@ -413,24 +437,25 @@ export default function EventCreate(props: IEventCreateProps) {
               name="eventType"
               value={state.eventType}
               onValueChange={(value) =>
-                dispatch({ type: EventCreateActionType.UPDATE_EVENT_TYPE, payload: value as "class" | "consultation" })
+                dispatch({ type: EventCreateActionType.UPDATE_EVENT_TYPE, payload: value as EventType })
               }
               classNames={{
                 wrapper: cn("flex-row xs:flex-col justify-around"),
               }}
             >
-              <Radio value="class">Class</Radio>
-              <Radio value="consultation">Consultation</Radio>
+              <Radio value={EventType.CLASS}>Class</Radio>
+              <Radio value={EventType.CONSULTATION}>Consultation</Radio>
             </RadioGroup>
           </CardBody>
         </Card>
 
-        {state.eventType === "class" && renderClassForm()}
-        {state.eventType === "consultation" && renderConsultationForm()}
+        {state.eventType === EventType.CLASS && renderClassForm()}
+        {state.eventType === EventType.CONSULTATION && renderConsultationForm()}
       </div>
       <div className="flex flex-col gap-3 justify-end pt-5">
         <Button
           type="submit"
+          dataCy="submit-button"
           text={props.eventId ? `Edit ${state.eventType}` : `Create ${state.eventType}`}
           flavor="primary"
         />

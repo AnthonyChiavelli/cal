@@ -276,28 +276,46 @@ export function getDatesForRecurrencePattern(pattern: RecurrencePattern): Date[]
     ? getNextMonday(pattern.startDate)
     : getPreviousMonday(pattern.startDate);
   let nextDate = startOfWeek;
-  // Keep making dates until we hit the end date
-  while (compareDatesWithoutTime(nextDate, pattern.endDate) <= 0) {
-    // Add the days for this week
-    pattern.weeklyDays?.forEach((day) => {
-      const dayNumber = dayOfWeekToNumberMap[day];
+
+  if (recurrenceType === "weekly") {
+    // Keep making dates until we hit the end date
+    while (compareDatesWithoutTime(nextDate, pattern.endDate) <= 0) {
+      // Add the days for this week
+      pattern.weeklyDays?.forEach((day) => {
+        const dayNumber = dayOfWeekToNumberMap[day];
+        const n = new Date(
+          nextDate.getFullYear(),
+          nextDate.getMonth(),
+          nextDate.getDate() + (dayNumber - 1),
+          pattern.startDate.getHours(),
+          pattern.startDate.getMinutes(),
+        );
+        if (compareDatesWithoutTime(n, pattern.endDate) <= 0) {
+          dates.push(n);
+        }
+      });
+      // Advance to the next
+      nextDate.setDate(nextDate.getDate() + (pattern.period || 1) * 7);
+    }
+  } else if (recurrenceType === "monthly") {
+    // Keep making dates until we hit the end date
+    while (compareDatesWithoutTime(nextDate, pattern.endDate) <= 0) {
       const n = new Date(
         nextDate.getFullYear(),
         nextDate.getMonth(),
-        nextDate.getDate() + (dayNumber - 1),
+        nextDate.getDate(),
         pattern.startDate.getHours(),
         pattern.startDate.getMinutes(),
       );
       if (compareDatesWithoutTime(n, pattern.endDate) <= 0) {
         dates.push(n);
       }
-    });
-    // Advance to the next
-    nextDate.setDate(nextDate.getDate() + (pattern.period || 1) * 7);
+      nextDate.setMonth(nextDate.getMonth() + 1);
+    }
   }
 
-  // Cut out any dates before the start date
-  const filteredDates = dates.filter((date) => date >= pattern.startDate);
+  // Cut out any dates before the start date or after the end date
+  const filteredDates = dates.filter((date) => date >= pattern.startDate && date <= pattern.endDate);
   if (pattern.includeSelectedDate) {
     // Add the start date itself in if specified and if it's not already in the list
     const alreadyContainsStartDate = dates.some((date) => compareDatesWithoutTime(date, pattern.startDate) === 0);

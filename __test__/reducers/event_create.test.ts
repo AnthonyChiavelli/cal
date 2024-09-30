@@ -1,3 +1,4 @@
+import { EventType } from "@prisma/client";
 import { EventCreateActionType, createInitialState, eventCreateReducer } from "@/app/reducers/event_create";
 import { createTimeString } from "@/util/calendar";
 import { student } from "@/util/mock";
@@ -10,13 +11,16 @@ describe("event_create reducer", () => {
     expect(state).toEqual({
       date: undefined,
       time: undefined,
-      eventType: "class",
+      eventType: EventType.CLASS,
       duration: undefined,
       students: [],
       recurrenceEnabled: false,
       recurrencePattern: {
         endDate: undefined,
         weeklyDays: [],
+        includeSelectedDate: false,
+        period: 1,
+        recurrenceType: "weekly",
       },
       basePrice: 100,
       notes: "",
@@ -32,7 +36,7 @@ describe("event_create reducer", () => {
     expect(state).toEqual({
       date: date.toISOString().split("T")[0],
       time: createTimeString(date),
-      eventType: "class",
+      eventType: EventType.CLASS,
       duration: undefined,
       students: [],
       basePrice: 100,
@@ -40,6 +44,9 @@ describe("event_create reducer", () => {
       recurrencePattern: {
         endDate: undefined,
         weeklyDays: [],
+        includeSelectedDate: false,
+        period: 1,
+        recurrenceType: "weekly",
       },
       notes: "",
       validationErrors: [],
@@ -62,8 +69,11 @@ describe("event_create reducer", () => {
     state = eventCreateReducer(state, { type: EventCreateActionType.UPDATE_DURATION, payload: "1:00" });
     expect(state.duration).toEqual("1:00");
 
-    state = eventCreateReducer(state, { type: EventCreateActionType.UPDATE_EVENT_TYPE, payload: "consultation" });
-    expect(state.eventType).toEqual("consultation");
+    state = eventCreateReducer(state, {
+      type: EventCreateActionType.UPDATE_EVENT_TYPE,
+      payload: EventType.CONSULTATION,
+    });
+    expect(state.eventType).toEqual(EventType.CONSULTATION);
 
     state = eventCreateReducer(state, { type: EventCreateActionType.ADD_STUDENT, payload: mockStudent });
     expect(state.students).toEqual([{ student: mockStudent, cost: basePrice }]);
@@ -83,12 +93,16 @@ describe("event_create reducer", () => {
     expect(state).toEqual({
       date: "2000-01-01",
       time: "4:20",
-      eventType: "consultation",
+      eventType: EventType.CONSULTATION,
       duration: "1:00",
       students: [],
       basePrice: 100,
       recurrenceEnabled: false,
       recurrencePattern: {
+        includeSelectedDate: false,
+        period: 1,
+        recurrenceType: "weekly",
+        startDate: new Date("2000-01-01T05:00:00.000Z"),
         endDate: undefined,
         weeklyDays: [],
       },

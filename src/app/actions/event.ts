@@ -10,7 +10,7 @@ import { createDateString, createMonthString, getDatesForRecurrencePattern } fro
 interface ICreateEventData {
   scheduledFor: Date;
   duration: number;
-  eventType: string;
+  eventType: EventType;
   notes: string;
   eventStudents: Array<{ studentId: string; cost: number }>;
   recurrencePattern?: RecurrencePattern;
@@ -19,12 +19,13 @@ interface ICreateEventData {
 export async function createEvent(data: ICreateEventData) {
   const { user } = await getSessionOrFail();
 
+  // TODO create both event types in same code
   if (data.recurrencePattern) {
     const dates = getDatesForRecurrencePattern(data.recurrencePattern);
     // Create recurrence group
     const recurrenceGroup = await createRecurrenceGroup();
     try {
-      dates.forEach(async (date) => {
+      for (const date of dates) {
         await prisma.event.create({
           data: {
             scheduledFor: date,
@@ -33,17 +34,21 @@ export async function createEvent(data: ICreateEventData) {
             eventType: EventType.CLASS,
             classType: ClassType.GROUP,
             notes: data.notes,
-            ownerId: user.email,
+            owner: {
+              connect: { email: user.email },
+            },
             eventStudents: {
               create: data.eventStudents.map((eventStudent) => ({
                 ...eventStudent,
                 ownerId: user.email,
               })),
             },
-            recurrenceGroupId: recurrenceGroup.id,
+            recurrenceGroup: {
+              connect: { id: recurrenceGroup.id },
+            },
           },
         });
-      });
+      }
     } catch (e: any) {
       // If any event fails to create, delete all events belonging to the recurrence group
       if (recurrenceGroup !== undefined) {
@@ -57,9 +62,12 @@ export async function createEvent(data: ICreateEventData) {
               details: "Error occured during recurrent event creation, all events deleted",
               error: e.message,
             },
-            ownerId: user.email,
+            owner: {
+              connect: { email: user.email },
+            },
           },
         });
+        throw e;
       }
     }
 
@@ -71,8 +79,10 @@ export async function createEvent(data: ICreateEventData) {
         ownerId: user.email,
       },
     });
-    return redirect(`/app/schedule?p=month&t=${createMonthString(dates[0].getFullYear(), dates[0].getMonth() + 1)}`);
-  } else if (data.eventType === "class") {
+    return redirect(
+      `/app/schedule?p=month&t=${createMonthString(dates[0]?.getFullYear() || new Date().getFullYear(), dates[0]?.getMonth() || new Date().getMonth() + 1)}`,
+    );
+  } else if (data.eventType === EventType.CLASS) {
     try {
       const event = await prisma.event.create({
         data: {
@@ -81,7 +91,9 @@ export async function createEvent(data: ICreateEventData) {
           eventType: EventType.CLASS,
           classType: ClassType.GROUP,
           notes: data.notes,
-          ownerId: user.email,
+          owner: {
+            connect: { email: user.email },
+          },
           eventStudents: {
             create: data.eventStudents.map((eventStudent) => ({
               ...eventStudent,
@@ -93,6 +105,7 @@ export async function createEvent(data: ICreateEventData) {
       await prisma.actionRecord.create({
         data: {
           actionType: ActionType.SCHEDULE_EVENT,
+          success: true,
           additionalData: { event, formData: JSON.parse(JSON.stringify(data)) },
           ownerId: user.email,
         },
