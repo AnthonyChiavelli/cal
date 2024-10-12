@@ -7,7 +7,7 @@ import Button from "@/app/components/button";
 import DeleteStudent from "@/app/components/delete_student";
 import Modal from "@/app/components/modal";
 import StudentPager from "@/app/components/student_pager";
-import StudentSearch from "@/app/components/student_search";
+import EntitySearch from "@/app/components/entity_search";
 import TableEmpty from "@/app/components/table_empty";
 import { getStudents, getTotalStudentCount } from "@/app/methods/student";
 
@@ -38,7 +38,7 @@ async function Students({
         </Link>
       </section>
       <section className="mt-5">
-        <StudentSearch />
+        <EntitySearch placeHolder="Search students" />
       </section>
       <div className="mt-5 flex flex-col gap-y-2">
         <div className="overflow-hidden shadow ring-1 ring-black ring-opacity-5 rounded-lg">

@@ -21,12 +21,14 @@ export default function PhoneInput(props: IPhoneInputProps) {
         className="input w-full"
         country="US"
         data-testid={`phone-input-${props.name}`}
-      />
-    );
-  } else {
-    return (
-      <ReactPhoneInput
+        data-cy={`phone-input-${props.name}`}
+        />
+      );
+    } else {
+      return (
+        <ReactPhoneInput
         data-testid={`phone-input-${props.name}`}
+        data-cy={`phone-input-${props.name}`}
         name={props.name}
         className="input w-full"
         country="US"

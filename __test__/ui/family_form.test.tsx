@@ -186,4 +186,109 @@ describe("FamilyForm", () => {
       undefined,
     );
   });
+
+  it("Submits proper data when editing a new family", async () => {
+    const mockSubmit = jest.fn(() => Promise.resolve({ success: true }));
+    render(
+      <FamilyForm
+        updateOrCreateFamily={mockSubmit}
+        deleteFamily={() => Promise.resolve({ success: true })}
+        family={{ ...mockFamily, students: [] }}
+      />,
+    );
+
+    fireEvent.change(screen.getByTestId("input-familyName"), { target: { value: "Chunderson" } });
+    fireEvent.change(screen.getByTestId("input-parent1LastName"), { target: { value: "Latusius" } });
+    fireEvent.change(screen.getByTestId("phone-input-parent1Phone"), { target: { value: "2223334444" } });
+    fireEvent.change(screen.getByTestId("input-parent2FirstName"), { target: { value: "Shadankly" } });
+    fireEvent.change(screen.getByTestId("textarea-notes"), { target: { value: "A fine family" } });
+
+    const submitButton = screen.getByRole("submit");
+    expect(submitButton).not.toBeDisabled();
+    fireEvent.click(submitButton);
+    await waitFor(() => expect(mockSubmit).toHaveBeenCalled());
+
+    expect(mockSubmit).toHaveBeenCalledWith(
+      {
+        familyName: "Chunderson",
+        notes: "A fine family",
+        parent1FirstName: "John",
+        parent1LastName: "Latusius",
+        parent1Phone: "+12223334444",
+        parent2FirstName: "Shadankly",
+        parent2LastName: "Smith",
+        parent2Phone: "+17775553333",
+      },
+      "f1",
+    );
+  });
+
+  it("Submits the same exact data when editing a new family but not making any changes", async () => {
+    const mockSubmit = jest.fn(() => Promise.resolve({ success: true }));
+    const resubmittedForm = render(
+      <FamilyForm
+        updateOrCreateFamily={mockSubmit}
+        deleteFamily={() => Promise.resolve({ success: true })}
+        family={{ ...mockFamily, students: [] }}
+      />,
+    );
+
+    const submitButton = screen.getByRole("submit");
+    (submitButton as any).disabled = false;
+    expect(submitButton).not.toBeDisabled();
+    fireEvent.click(submitButton);
+    (submitButton as any).disabled = true;
+    await waitFor(() => expect(mockSubmit).toHaveBeenCalled());
+
+    expect(mockSubmit).toHaveBeenCalledWith(
+      {
+        familyName: "Smith",
+        notes: "Some notes",
+        parent1FirstName: "John",
+        parent1LastName: "Smith",
+        parent1Phone: "+15554443333",
+        parent2FirstName: "Jane",
+        parent2LastName: "Smith",
+        parent2Phone: "+17775553333",
+      },
+      "f1",
+    );
+
+    const newForm = render(
+      <FamilyForm
+        updateOrCreateFamily={mockSubmit}
+        deleteFamily={() => Promise.resolve({ success: true })}
+        family={{ ...mockFamily, students: [] }}
+      />,
+    );
+
+    expect(resubmittedForm.container).toEqual(newForm.container);
+  });
+
+  it("Does not submit without required data", async () => {
+    const mockSubmit = jest.fn(() => Promise.resolve({ success: true }));
+    render(<FamilyForm updateOrCreateFamily={mockSubmit} />);
+
+    const submitButton = screen.getByRole("submit");
+    fireEvent.click(submitButton);
+    expect(mockSubmit).not.toHaveBeenCalled();
+
+    fireEvent.change(screen.getByTestId("input-familyName"), { target: { value: "Chunderson" } });
+    fireEvent.click(submitButton);
+    expect(mockSubmit).not.toHaveBeenCalled();
+
+    const requiredFields = [
+      ["input-familyName", "Bruce"],
+      ["input-parent1FirstName", "Goose"],
+      ["input-parent1LastName", "Spruce"],
+    ];
+
+    for (const field of requiredFields) {
+      fireEvent.click(submitButton);
+      expect(mockSubmit).not.toHaveBeenCalled();
+      fireEvent.change(screen.getByTestId(field[0]), { target: { value: field[1] } });
+    }
+    await waitFor(() => expect(mockSubmit).toHaveBeenCalled());
+    expect(mockSubmit).toHaveBeenCalled();
+  });
 });

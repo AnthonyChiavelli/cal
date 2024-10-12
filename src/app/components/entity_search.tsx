@@ -4,7 +4,11 @@ import React from "react";
 import { XMarkIcon } from "@heroicons/react/24/outline";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 
-export default function StudentSearch() {
+interface IEntitySearchProps {
+  placeHolder: string;
+}
+
+export default function EntitySearch(props: IEntitySearchProps) {
   const searchParams = useSearchParams();
   const pathname = usePathname();
   const { replace } = useRouter();
@@ -34,7 +38,7 @@ export default function StudentSearch() {
         className="block w-full rounded-md border-0 py-1.5 pr-10 pl-3 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-slate-600 sm:text-sm sm:leading-6"
         type="text"
         onChange={(e) => handleUpdateSearch(e.target.value)}
-        placeholder="Search students"
+        placeholder={props.placeHolder}
         value={search}
       />
       {searchParams.get("search")?.toString().length && (

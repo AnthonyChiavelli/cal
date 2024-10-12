@@ -84,6 +84,7 @@ export default function SimpleForm(props: ISimpleForm) {
                           isMulti={formElement.type === "multiselectCreateable"}
                           {...formElement.additionalProps}
                           data-testid={`input-${formElement.name}`}
+                          data-cy={`input-${formElement.name}`}
                           {...field}
                           styles={{
                             control: (baseStyles) => ({
@@ -103,6 +104,7 @@ export default function SimpleForm(props: ISimpleForm) {
                     <textarea
                       aria-labelledby={formElement.name}
                       data-testid={`textarea-${formElement.name}`}
+                      data-cy={`textarea-${formElement.name}`}
                       className={cn("textarea w-full", {
                         "textarea-error": errors[formElement.name],
                       })}
