@@ -2,7 +2,7 @@
  * @jest-environment node
  */
 import { prismaMock } from "../../src/singleton";
-import { ActionType } from "@prisma/client";
+import { ActionType, Prisma } from "@prisma/client";
 import { createStudent, deleteStudent, doCSVUpload } from "@/app/actions/student";
 
 jest.mock("../../src/app/actions/util", () => ({
@@ -10,29 +10,31 @@ jest.mock("../../src/app/actions/util", () => ({
 }));
 
 const getStudentMockData = () => {
-  const formData = new FormData();
-  formData.append("firstName", "Testoolio");
-  formData.append("lastName", "Testorini");
-  formData.append("gradeLevel", "12");
-  formData.append("notes", "Problem Child");
-  formData.append("ownerId", "nefarious-jones@test.com");
-  return formData;
+  return {
+    firstName: "Testoolio",
+    lastName: "Testorini",
+    gradeLevel: 12,
+    notes: "Problem Child",
+  };
 };
 
 describe("createStudent", () => {
   it("should create a student with the current user as the owner", async () => {
     const mockData = getStudentMockData();
     try {
-      await createStudent(mockData);
+      await createStudent({ ...mockData, ownerId: "nefarious-jones@test.com" });
     } catch (err: any) {
       expect(err.message).toBe("NEXT_REDIRECT");
     } finally {
       expect(prismaMock.student.create).toHaveBeenCalledTimes(1);
       expect(prismaMock.student.create).toHaveBeenCalledWith({
         data: {
-          ...Object.fromEntries(mockData),
-          gradeLevel: Number(mockData.get("gradeLevel")?.valueOf() as unknown as number),
-          ownerId: "test-user@example.com",
+          ...mockData,
+          owner: {
+            connect: {
+              email: "test-user@example.com",
+            },
+          },
         },
       });
     }
@@ -40,7 +42,7 @@ describe("createStudent", () => {
 
   it("should create an EventRecord with the current user as the owner", async () => {
     const mockData = getStudentMockData();
-    const mockStudentDBEntity = { id: "1" };
+    const mockStudentDBEntity = { id: "1" } as Prisma.StudentGetPayload<{}>;
     try {
       prismaMock.student.create.mockResolvedValue(mockStudentDBEntity);
       await createStudent(mockData);
@@ -52,12 +54,15 @@ describe("createStudent", () => {
         data: {
           actionType: ActionType.CREATE_STUDENT,
           additionalData: {
-            creationParams: {
-              ...Object.fromEntries(mockData),
-              gradeLevel: Number(mockData.get("gradeLevel")?.valueOf() as unknown as number),
-              ownerId: "test-user@example.com",
-            },
-            studentObj: mockStudentDBEntity,
+            creationParams: JSON.stringify({
+              ...mockData,
+              owner: {
+                connect: {
+                  email: "test-user@example.com",
+                },
+              },
+            }),
+            studentObj: JSON.stringify(mockStudentDBEntity),
           },
           ownerId: "test-user@example.com",
         },

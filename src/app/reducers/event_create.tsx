@@ -106,7 +106,7 @@ type UpdateRecurrenceTypeAction = {
   payload: "weekly" | "monthly";
 };
 
-type EventCreateAction =
+export type EventCreateAction =
   | InitAction
   | UpdateEventAction
   | UpdateDurationAction
@@ -169,17 +169,18 @@ export function eventCreateReducer(state: IEventCreateState, action: EventCreate
   }
   switch (action.type) {
     case EventCreateActionType.UPDATE_EVENT_TYPE: {
-      return { ...state, eventType: action.payload };
+      return { ...state, eventType: action.payload, validationErrors: [] };
     }
     case EventCreateActionType.UPDATE_DATE: {
       return {
         ...state,
         date: action.payload,
         recurrencePattern: { ...state.recurrencePattern, startDate: parseDateString(action.payload) },
+        validationErrors: [],
       };
     }
     case EventCreateActionType.UPDATE_TIME: {
-      return { ...state, time: action.payload };
+      return { ...state, time: action.payload, validationErrors: [] };
     }
     case EventCreateActionType.UPDATE_DURATION: {
       const minutes = parseDuration(action.payload);
@@ -188,7 +189,7 @@ export function eventCreateReducer(state: IEventCreateState, action: EventCreate
       const roundedPrice = Number(individualHourlyPrice.toFixed(2));
       const adjustedStudents = state.students.map((s) => ({ ...s, cost: s.costModified ? s.cost : roundedPrice }));
 
-      return { ...state, duration: action.payload, students: adjustedStudents };
+      return { ...state, duration: action.payload, students: adjustedStudents, validationErrors: [] };
     }
     case EventCreateActionType.ADD_STUDENT: {
       const newStudent = action.payload;
@@ -220,7 +221,7 @@ export function eventCreateReducer(state: IEventCreateState, action: EventCreate
           ...s,
           cost: s.costModified ? s.cost : roundedPrice,
         }));
-        return { ...state, students: adjustedStudents };
+        return { ...state, students: adjustedStudents, validationErrors: [] };
       } else return state;
     }
     case EventCreateActionType.UPDATE_STUDENT_COST: {
@@ -232,16 +233,16 @@ export function eventCreateReducer(state: IEventCreateState, action: EventCreate
           return s;
         }
       });
-      return { ...state, students: adjustedStudents };
+      return { ...state, students: adjustedStudents, validationErrors: [] };
     }
     case EventCreateActionType.UPDATE_NOTES: {
-      return { ...state, notes: action.payload };
+      return { ...state, notes: action.payload, validationErrors: [] };
     }
     case EventCreateActionType.SET_VALIDATION_ERRORS: {
       return { ...state, validationErrors: action.payload };
     }
     case EventCreateActionType.UPDATE_RECURRENCE_ENABLED: {
-      return { ...state, recurrenceEnabled: action.payload };
+      return { ...state, recurrenceEnabled: action.payload, validationErrors: [] };
     }
     case EventCreateActionType.UPDATE_WEEKLY_DAYS: {
       return {
@@ -254,14 +255,27 @@ export function eventCreateReducer(state: IEventCreateState, action: EventCreate
       return { ...state, recurrencePattern: { ...state.recurrencePattern, period: action.payload } };
     }
     case EventCreateActionType.UPDATE_RECURRENCE_END_DATE: {
-      return { ...state, recurrencePattern: { ...state.recurrencePattern, endDate: action.payload } };
+      return {
+        ...state,
+        recurrencePattern: { ...state.recurrencePattern, endDate: action.payload },
+        validationErrors: [],
+      };
     }
     case EventCreateActionType.UPDATE_INCLUDE_CURRENT_DATE: {
-      return { ...state, recurrencePattern: { ...state.recurrencePattern, includeSelectedDate: action.payload } };
+      return {
+        ...state,
+        recurrencePattern: { ...state.recurrencePattern, includeSelectedDate: action.payload },
+        validationErrors: [],
+      };
     }
     case EventCreateActionType.UPDATE_RECURRENCE_TYPE: {
-      return { ...state, recurrencePattern: { ...state.recurrencePattern, recurrenceType: action.payload } };
+      return {
+        ...state,
+        recurrencePattern: { ...state.recurrencePattern, recurrenceType: action.payload },
+        validationErrors: [],
+      };
     }
+
     default:
       return state;
   }

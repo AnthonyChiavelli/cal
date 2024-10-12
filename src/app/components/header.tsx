@@ -18,7 +18,6 @@ export default function Header(props: IHeaderProps) {
         <Breadcrumbs />
         <div className="flex ml-auto">
           <Link href="/app/profile" className="hidden tiny:flex flex-row items-center">
-            {/* TODO get image url */}
             <Image
               alt="Profile Image"
               src="https://lh3.googleusercontent.com/a/ACg8ocKF5DLHNFxfuglyUAYWeQ_Aq5VJ6G33z57A40oXlHtwYSU=s96-c"

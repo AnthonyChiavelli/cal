@@ -20,7 +20,9 @@ export default function SidebarEntry(props: ISidebarEntry) {
         })}
       >
         <IconElement className="h-5 w-5" />
-        <span className="ml-3">{props.text}</span>
+        <span className="ml-3" data-cy={`sidebar-link-${props.text}`}>
+          {props.text}
+        </span>
       </Link>
     </li>
   );

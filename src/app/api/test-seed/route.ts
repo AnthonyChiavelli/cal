@@ -1,29 +1,70 @@
 import { User } from "@prisma/client";
 import { env } from "process";
 import prisma from "@/db";
+import { clearAllSeedData } from "@/util/db";
 
 export const dynamic = "force-dynamic";
 
 const mockData = {
-  students: [
+  student: [
     {
       firstName: "Cranjis",
       lastName: "McBasketball",
+      gradeLevel: 8,
+      notes: "Student",
     },
     {
       firstName: "Nougat",
       lastName: "Zarathustra",
+      gradeLevel: 8,
+      notes: "Student",
     },
     {
       firstName: "Quenjamin",
       lastName: "Flopjack",
+      gradeLevel: 8,
+      notes: "Student",
     },
     {
       firstName: "Slosage",
       lastName: "Hamlander",
+      gradeLevel: 8,
+      notes: "Test Student 4",
     },
   ],
-};
+  family: [
+    {
+      familyName: "Jugdish",
+      balance: 0,
+      notes: "Test Family 1",
+      owner: {
+        connect: {
+          email: env.AUTH0_USERNAME,
+        },
+      },
+      parents: {
+        create: [
+          {
+            isPrimary: true,
+            firstName: "Ramesh",
+            lastName: "Jugdish",
+            email: "",
+            phone: "555-555-5555",
+            ownerId: env.AUTH0_USERNAME,
+          },
+          {
+            isPrimary: false,
+            firstName: "Ramoosh",
+            lastName: "Jugdish",
+            email: "",
+            phone: "555-555-5555",
+            ownerId: env.AUTH0_USERNAME,
+          },
+        ],
+      },
+    },
+  ],
+} as const;
 
 export const POST = async (request: any) => {
   const bearerToken = request.headers.get("authorization");
@@ -34,22 +75,7 @@ export const POST = async (request: any) => {
     return new Response("Missing AUTH0_USERNAME or AUTH0_PASSWORD", { status: 500 });
   }
 
-  // Clear old data first (TODO: call common function?)
-  await prisma.user.delete({
-    where: {
-      email: env.AUTH0_USERNAME,
-    },
-  });
-  await prisma.student.deleteMany({
-    where: {
-      ownerId: env.AUTH0_USERNAME,
-    },
-  });
-  await prisma.event.deleteMany({
-    where: {
-      ownerId: env.AUTH0_USERNAME,
-    },
-  });
+  await clearAllSeedData();
 
   let testUser: User;
   try {
@@ -67,24 +93,32 @@ export const POST = async (request: any) => {
       },
     });
   }
-  for (const student of mockData.students) {
-    const existingStudent = await prisma.student.findFirst({
-      where: {
-        firstName: student.firstName,
-        lastName: student.lastName,
-        ownerId: testUser.email,
-      },
-    });
 
-    if (!existingStudent) {
-      await prisma.student.create({
-        data: {
+  for (const entityType of Object.keys(mockData)) {
+    // @ts-ignore
+    for (const entity of mockData[entityType]) {
+      // @ts-ignore
+      const existingEntity = await prisma[entityType].findFirst({
+        where: {
+          ...prisma[entity],
           ownerId: testUser.email,
-          gradeLevel: 8,
-          notes: "Student",
-          ...student,
         },
       });
+
+      if (!existingEntity) {
+        // @ts-ignore
+        await prisma[entityType].create({
+          // @ts-ignore
+          data: {
+            owner: {
+              connect: {
+                email: testUser.email,
+              },
+            },
+            ...entity,
+          },
+        });
+      }
     }
   }
   return Response.json({ success: true });

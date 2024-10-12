@@ -42,6 +42,20 @@ Cypress.Commands.add("seedDatabase", () => {
   });
 });
 
+Cypress.Commands.add("clearSeedDatafromDatabase", () => {
+  cy.request({
+    method: "POST",
+    url: "http://localhost:3000/api/test-seed-clear",
+    body: {
+      // TODO make secure
+      authorization: 41,
+    },
+    headers: {
+      authorization: Cypress.env("cypress_api_token"),
+    },
+  });
+});
+
 Cypress.Commands.add("getCy", (dataCySelector: string, additionalSelectors?: string) => {
   if (additionalSelectors) {
     return cy.get(`[data-cy=${dataCySelector}] ${additionalSelectors}`);

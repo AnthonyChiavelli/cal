@@ -31,7 +31,7 @@ async function Students({
       <h1>Students</h1>
       <section className="flex items-center gap-2">
         <Link href="/app/students/add">
-          <Button text="Add Student" flavor="primary" iconName="PlusIcon" />
+          <Button dataCy="button-add-student" text="Add Student" flavor="primary" iconName="PlusIcon" />
         </Link>
         <Link href="/app/students/import">
           <Button text="Import Students" flavor="primary" iconName="ArrowUpOnSquareStackIcon" />

@@ -2,7 +2,7 @@
 
 interface IDataTableProps {
   columns: string[];
-  children: React.ReactNode;
+  children: any;
 }
 
 export default function DataTable(props: IDataTableProps) {

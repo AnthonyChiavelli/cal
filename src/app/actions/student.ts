@@ -1,31 +1,47 @@
 "use server";
 
-import { ActionType } from "@prisma/client";
+import { ActionType, Prisma } from "@prisma/client";
 import csvtojson from "csvtojson";
 import { RedirectType, redirect } from "next/navigation";
 import prisma from "@/db";
 import { getSessionOrFail } from "./util";
 
-export async function createStudent(data: FormData) {
+interface IStudentFormData {
+  firstName: string;
+  lastName: string;
+  gradeLevel: number;
+  notes: string;
+  family?: {
+    value: string;
+  };
+}
+
+export async function createStudent(data: IStudentFormData) {
   const { user } = await getSessionOrFail();
 
-  const firstName = data.get("firstName")?.valueOf() as string;
-  const lastName = data.get("lastName")?.valueOf() as string;
-  const gradeLevel = parseInt(data.get("gradeLevel")?.valueOf() as string);
-  const notes = data.get("notes")?.valueOf() as string;
-  const studentData = { firstName, lastName, gradeLevel, notes, ownerId: user.email };
-  try {
-    const student = await prisma.student.create({ data: studentData });
-    await prisma.actionRecord.create({
-      data: {
-        actionType: ActionType.CREATE_STUDENT,
-        additionalData: { creationParams: studentData, studentObj: student },
-        ownerId: user.email,
-      },
-    });
-  } catch (err) {
-    console.error("Error creating student", err);
+  const firstName = data.firstName;
+  const lastName = data.lastName;
+  const gradeLevel = Number(data.gradeLevel);
+  const notes = data.notes;
+  const studentData: Prisma.StudentCreateInput = {
+    firstName,
+    lastName,
+    gradeLevel,
+    notes,
+    owner: { connect: { email: user.email } },
+  };
+  if (data.family !== undefined) {
+    studentData["family"] = { connect: { id: data.family.value } };
   }
+
+  const student = await prisma.student.create({ data: studentData });
+  await prisma.actionRecord.create({
+    data: {
+      actionType: ActionType.CREATE_STUDENT,
+      additionalData: { creationParams: JSON.stringify(studentData), studentObj: JSON.stringify(student) },
+      ownerId: user.email,
+    },
+  });
   redirect("/app/students");
 }
 

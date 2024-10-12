@@ -1,7 +1,7 @@
 "use server";
 
 import prisma from "../../db";
-import { ActionType, ClassType, EventType } from "@prisma/client";
+import { ActionType, ClassType, EventType, User } from "@prisma/client";
 import { redirect } from "next/navigation";
 import { getSessionOrFail } from "@/app/actions";
 import { RecurrencePattern } from "@/app/types";
@@ -11,43 +11,64 @@ interface ICreateEventData {
   scheduledFor: Date;
   duration: number;
   eventType: EventType;
+  classType: ClassType;
   notes: string;
   eventStudents: Array<{ studentId: string; cost: number }>;
   recurrencePattern?: RecurrencePattern;
 }
 
+async function createEventFromData(
+  eventCreationData: ICreateEventData,
+  date: Date,
+  recurrenceGroupId: string | null,
+  user: User,
+) {
+  const eventCreationQueryObject: any = {
+    data: {
+      scheduledFor: date,
+      durationMinutes: eventCreationData.duration,
+      eventType: eventCreationData.eventType,
+      notes: eventCreationData.notes,
+      owner: {
+        connect: { email: user.email },
+      },
+    },
+  };
+
+  if (eventCreationData.classType) {
+    eventCreationQueryObject.data.classType = eventCreationData.classType;
+  }
+
+  if (eventCreationData.eventStudents?.length > 0) {
+    eventCreationQueryObject.data.eventStudents = {
+      create: eventCreationData.eventStudents.map((eventStudent) => ({
+        ...eventStudent,
+        ownerId: user.email,
+      })),
+    };
+  }
+
+  if (recurrenceGroupId !== null) {
+    eventCreationQueryObject.data.recurrenceGroup = {
+      connect: {
+        id: recurrenceGroupId,
+      },
+    };
+  }
+  return await prisma.event.create(eventCreationQueryObject);
+}
+
 export async function createEvent(data: ICreateEventData) {
   const { user } = await getSessionOrFail();
 
-  // TODO create both event types in same code
   if (data.recurrencePattern) {
     const dates = getDatesForRecurrencePattern(data.recurrencePattern);
-    // Create recurrence group
     const recurrenceGroup = await createRecurrenceGroup();
+
     try {
+      Promise.all;
       for (const date of dates) {
-        await prisma.event.create({
-          data: {
-            scheduledFor: date,
-            durationMinutes: data.duration,
-            // TODO handle other event types
-            eventType: EventType.CLASS,
-            classType: ClassType.GROUP,
-            notes: data.notes,
-            owner: {
-              connect: { email: user.email },
-            },
-            eventStudents: {
-              create: data.eventStudents.map((eventStudent) => ({
-                ...eventStudent,
-                ownerId: user.email,
-              })),
-            },
-            recurrenceGroup: {
-              connect: { id: recurrenceGroup.id },
-            },
-          },
-        });
+        await createEventFromData(data, date, recurrenceGroup.id, user);
       }
     } catch (e: any) {
       // If any event fails to create, delete all events belonging to the recurrence group
@@ -82,26 +103,9 @@ export async function createEvent(data: ICreateEventData) {
     return redirect(
       `/app/schedule?p=month&t=${createMonthString(dates[0]?.getFullYear() || new Date().getFullYear(), dates[0]?.getMonth() || new Date().getMonth() + 1)}`,
     );
-  } else if (data.eventType === EventType.CLASS) {
+  } else {
     try {
-      const event = await prisma.event.create({
-        data: {
-          scheduledFor: data.scheduledFor,
-          durationMinutes: data.duration,
-          eventType: EventType.CLASS,
-          classType: ClassType.GROUP,
-          notes: data.notes,
-          owner: {
-            connect: { email: user.email },
-          },
-          eventStudents: {
-            create: data.eventStudents.map((eventStudent) => ({
-              ...eventStudent,
-              ownerId: user.email,
-            })),
-          },
-        },
-      });
+      const event = await createEventFromData(data, data.scheduledFor, null, user);
       await prisma.actionRecord.create({
         data: {
           actionType: ActionType.SCHEDULE_EVENT,

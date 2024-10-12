@@ -1,5 +1,5 @@
-import { updateOrCreateFamily } from "@/app/actions/family";
-import FamilyForm from "@/app/components/add_family_form";
+import { updateOrCreateFamily } from "@/app/actions";
+import FamilyForm from "@/app/components/family_form";
 
 export default function AddFamilyPage() {
   return (

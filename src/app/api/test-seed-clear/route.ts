@@ -1,5 +1,5 @@
 import { env } from "process";
-import prisma from "@/db";
+import { clearAllSeedData } from "@/util/db";
 
 export const dynamic = "force-dynamic";
 
@@ -9,20 +9,7 @@ export const POST = async (request: any) => {
     return new Response("Unauthorized", { status: 401 });
   }
 
-  await prisma.user.delete({
-    where: {
-      email: env.AUTH0_USERNAME,
-    },
-  });
-  await prisma.student.deleteMany({
-    where: {
-      ownerId: env.AUTH0_USERNAME,
-    },
-  });
-  await prisma.event.deleteMany({
-    where: {
-      ownerId: env.AUTH0_USERNAME,
-    },
-  });
+  await clearAllSeedData();
+
   return Response.json({});
 };

@@ -9,7 +9,7 @@ interface IStudentPager {
   pageSize: number;
 }
 
-export default function StudentPager(props: IStudentPager) {
+export default function StudentPager(props: IStudentPager): JSX.Element {
   const searchParams = useSearchParams();
   const pathname = usePathname();
   const { replace } = useRouter();

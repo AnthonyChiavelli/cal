@@ -1,12 +1,12 @@
 "use client";
 
-import React, { Fragment, ReactElement, useRef } from "react";
+import { Fragment, ReactElement, useRef } from "react";
 import { Dialog, Transition } from "@headlessui/react";
 
 interface IModalProps {
   open: boolean;
   close: () => void;
-  children: ReactElement;
+  children: ReactElement | null;
 }
 
 export default function Modal(props: IModalProps) {

@@ -6,20 +6,18 @@ const errorBlacklist = [
 
 // TODO find a cleaner way to run client code before startup
 const clientSetup = () => {
-  const originalLog = console.error;
-
-  console.error = (msg?: string) => {
-    debugger;
-    if (
-      errorBlacklist.some(
-        (blackListedError: string) => msg && typeof msg === "string" && msg.includes(blackListedError),
-      )
-    ) {
-      return;
-    } else {
-      originalLog(msg);
-    }
-  };
+  // const originalLog = console.error;
+  // console.error = (msg?: string) => {
+  //   if (
+  //     errorBlacklist.some(
+  //       (blackListedError: string) => msg && typeof msg === "string" && msg.includes(blackListedError),
+  //     )
+  //   ) {
+  //     return;
+  //   } else {
+  //     originalLog(msg);
+  //   }
+  // };
 };
 
 export default clientSetup;
