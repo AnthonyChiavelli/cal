@@ -232,6 +232,7 @@ exports[`SimpleForm Renders a consistent snapshot with various form element type
                 <textarea
                   aria-labelledby="notes"
                   class="textarea w-full"
+                  data-cy="textarea-notes"
                   data-testid="textarea-notes"
                   name="notes"
                 />
@@ -483,6 +484,7 @@ exports[`SimpleForm Renders a consistent snapshot with various form element type
               <textarea
                 aria-labelledby="notes"
                 class="textarea w-full"
+                data-cy="textarea-notes"
                 data-testid="textarea-notes"
                 name="notes"
               />

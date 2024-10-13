@@ -16,7 +16,7 @@ interface FamilyFormData {
 
 export async function updateOrCreateFamily(formData: FamilyFormData, familyId?: string): Promise<{ success: boolean }> {
   const { user } = await getSessionOrFail();
-  
+
   const parentsQuery = [
     {
       isPrimary: true,

@@ -1,10 +1,10 @@
 import { updateOrCreateFamily } from "@/app/actions";
-import FamilyForm from "@/app/components/family_form";
+import FamilyPage from "@/app/components/family_page";
 
 export default function AddFamilyPage() {
   return (
     <div>
-      <FamilyForm updateOrCreateFamily={updateOrCreateFamily} />
+      <FamilyPage updateOrCreateFamily={updateOrCreateFamily} />
     </div>
   );
 }

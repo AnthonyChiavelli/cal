@@ -1,5 +1,5 @@
 import { updateOrCreateFamily, deleteFamily, getSessionOrFail } from "@/app/actions";
-import FamilyForm from "@/app/components/family_form";
+import FamilyPage from "@/app/components/family_page";
 import ResourceNotFound from "@/app/components/resource_not_found";
 import prisma from "@/db";
 
@@ -24,7 +24,7 @@ export default async function AddFamilyPage(props: { params: { familyId: string 
 
   return (
     <div>
-      <FamilyForm updateOrCreateFamily={updateOrCreateFamily} deleteFamily={deleteFamily} family={family} />
+      <FamilyPage updateOrCreateFamily={updateOrCreateFamily} deleteFamily={deleteFamily} family={family} />
     </div>
   );
 }

@@ -1,9 +1,8 @@
 import React from "react";
-import { fireEvent, render, screen, waitFor, within } from "@testing-library/react";
-import { useForm } from "react-hook-form";
-import FamilyForm from "../../src/app/components/family_form";
+import { fireEvent, render, screen, waitFor } from "@testing-library/react";
 import { Decimal } from "@prisma/client/runtime/library";
 import "@testing-library/jest-dom";
+import FamilyPage from "@/app/components/family_page";
 
 jest.mock("next/navigation", () => ({
   useRouter() {
@@ -65,10 +64,10 @@ const mockFamily = {
   ],
 };
 
-describe("FamilyForm", () => {
+describe("FamilyPage", () => {
   it("Renders a consistent snapshot when empty", async () => {
     const container = render(
-      <FamilyForm
+      <FamilyPage
         updateOrCreateFamily={() => Promise.resolve({ success: true })}
         deleteFamily={() => Promise.resolve({ success: true })}
       />,
@@ -78,7 +77,7 @@ describe("FamilyForm", () => {
 
   it("Renders a consistent snapshot when prefilled with data", async () => {
     const container = render(
-      <FamilyForm
+      <FamilyPage
         updateOrCreateFamily={() => Promise.resolve({ success: true })}
         deleteFamily={() => Promise.resolve({ success: true })}
         family={mockFamily}
@@ -89,7 +88,7 @@ describe("FamilyForm", () => {
 
   it("Renders properly when empty", async () => {
     render(
-      <FamilyForm
+      <FamilyPage
         updateOrCreateFamily={() => Promise.resolve({ success: true })}
         deleteFamily={() => Promise.resolve({ success: true })}
       />,
@@ -106,7 +105,7 @@ describe("FamilyForm", () => {
 
   it("Renders properly when prefilled with a family with no associated students", async () => {
     render(
-      <FamilyForm
+      <FamilyPage
         updateOrCreateFamily={() => Promise.resolve({ success: true })}
         deleteFamily={() => Promise.resolve({ success: true })}
         family={{ ...mockFamily, students: [] }}
@@ -127,7 +126,7 @@ describe("FamilyForm", () => {
 
   it("Renders properly when prefilled with a family with associated students", async () => {
     render(
-      <FamilyForm
+      <FamilyPage
         updateOrCreateFamily={() => Promise.resolve({ success: true })}
         deleteFamily={() => Promise.resolve({ success: true })}
         family={mockFamily}
@@ -156,7 +155,7 @@ describe("FamilyForm", () => {
 
   it("Submits proper data when creating a new family", async () => {
     const mockSubmit = jest.fn(() => Promise.resolve({ success: true }));
-    render(<FamilyForm updateOrCreateFamily={mockSubmit} />);
+    render(<FamilyPage updateOrCreateFamily={mockSubmit} />);
 
     fireEvent.change(screen.getByTestId("input-familyName"), { target: { value: "Chunderson" } });
     fireEvent.change(screen.getByTestId("input-parent1FirstName"), { target: { value: "Wanko" } });
@@ -190,7 +189,7 @@ describe("FamilyForm", () => {
   it("Submits proper data when editing a new family", async () => {
     const mockSubmit = jest.fn(() => Promise.resolve({ success: true }));
     render(
-      <FamilyForm
+      <FamilyPage
         updateOrCreateFamily={mockSubmit}
         deleteFamily={() => Promise.resolve({ success: true })}
         family={{ ...mockFamily, students: [] }}
@@ -226,7 +225,7 @@ describe("FamilyForm", () => {
   it("Submits the same exact data when editing a new family but not making any changes", async () => {
     const mockSubmit = jest.fn(() => Promise.resolve({ success: true }));
     const resubmittedForm = render(
-      <FamilyForm
+      <FamilyPage
         updateOrCreateFamily={mockSubmit}
         deleteFamily={() => Promise.resolve({ success: true })}
         family={{ ...mockFamily, students: [] }}
@@ -255,7 +254,7 @@ describe("FamilyForm", () => {
     );
 
     const newForm = render(
-      <FamilyForm
+      <FamilyPage
         updateOrCreateFamily={mockSubmit}
         deleteFamily={() => Promise.resolve({ success: true })}
         family={{ ...mockFamily, students: [] }}
@@ -267,7 +266,7 @@ describe("FamilyForm", () => {
 
   it("Does not submit without required data", async () => {
     const mockSubmit = jest.fn(() => Promise.resolve({ success: true }));
-    render(<FamilyForm updateOrCreateFamily={mockSubmit} />);
+    render(<FamilyPage updateOrCreateFamily={mockSubmit} />);
 
     const submitButton = screen.getByRole("submit");
     fireEvent.click(submitButton);
@@ -290,5 +289,48 @@ describe("FamilyForm", () => {
     }
     await waitFor(() => expect(mockSubmit).toHaveBeenCalled());
     expect(mockSubmit).toHaveBeenCalled();
+  });
+
+  it("Should fill in parent 1 and 2's last names based on family name unless those fields are dirty, and submits data as expected", async () => {
+    const mockSubmit = jest.fn(() => Promise.resolve({ success: true }));
+    render(<FamilyPage updateOrCreateFamily={mockSubmit} />);
+
+    fireEvent.change(screen.getByTestId("input-familyName"), { target: { value: "Chunderson" } });
+    expect(screen.getByTestId("input-parent1LastName")).toHaveValue("Chunderson");
+    expect(screen.getByTestId("input-parent2LastName")).toHaveValue("Chunderson");
+
+    fireEvent.change(screen.getByTestId("input-parent1LastName"), { target: { value: "Bumphrey" } });
+    fireEvent.change(screen.getByTestId("input-familyName"), { target: { value: "Grunky" } });
+    expect(screen.getByTestId("input-parent1LastName")).toHaveValue("Bumphrey");
+    expect(screen.getByTestId("input-parent2LastName")).toHaveValue("Grunky");
+
+    fireEvent.change(screen.getByTestId("input-parent1LastName"), { target: { value: "Cloom" } });
+    fireEvent.change(screen.getByTestId("input-parent2LastName"), { target: { value: "Broom" } });
+    fireEvent.change(screen.getByTestId("input-familyName"), { target: { value: "Spencil" } });
+    expect(screen.getByTestId("input-parent1LastName")).toHaveValue("Cloom");
+    expect(screen.getByTestId("input-parent2LastName")).toHaveValue("Broom");
+
+    fireEvent.change(screen.getByTestId("input-parent1FirstName"), { target: { value: "Barry" } });
+    fireEvent.change(screen.getByTestId("phone-input-parent1Phone"), { target: { value: "+13334442222" } });
+    fireEvent.change(screen.getByTestId("input-parent2FirstName"), { target: { value: "Glarry" } });
+    fireEvent.change(screen.getByTestId("phone-input-parent2Phone"), { target: { value: "+8889994444" } });
+
+    const submitButton = screen.getByRole("submit");
+    fireEvent.click(submitButton);
+    await waitFor(() => expect(mockSubmit).toHaveBeenCalled());
+
+    expect(mockSubmit).toHaveBeenCalledWith(
+      {
+        familyName: "Spencil",
+        notes: "",
+        parent1FirstName: "Barry",
+        parent1LastName: "Cloom",
+        parent1Phone: "+13334442222",
+        parent2FirstName: "Glarry",
+        parent2LastName: "Broom",
+        parent2Phone: "+18889994444",
+      },
+      undefined,
+    );
   });
 });

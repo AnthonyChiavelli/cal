@@ -22,9 +22,9 @@ export async function getFamilies(searchParams: {
     query.where = {
       OR: [
         { familyName: { contains: searchParams.search, mode: "insensitive" } },
-        { parents: { some: {firstName: {contains: searchParams.search, mode: "insensitive"}}} },
-        { parents: { some: {lastName: {contains: searchParams.search, mode: "insensitive"}}} },
-        { parents: { some: {phone: {contains: searchParams.search, mode: "insensitive"}}} },
+        { parents: { some: { firstName: { contains: searchParams.search, mode: "insensitive" } } } },
+        { parents: { some: { lastName: { contains: searchParams.search, mode: "insensitive" } } } },
+        { parents: { some: { phone: { contains: searchParams.search, mode: "insensitive" } } } },
         { notes: { contains: searchParams.search, mode: "insensitive" } },
       ],
       ownerId: { equals: user.email },
@@ -41,7 +41,6 @@ export async function getFamilies(searchParams: {
     },
   })) as Prisma.FamilyGetPayload<{ include: { parents: true; students: true; invoices: true } }>[];
 }
-
 
 // export async function getStudent(studentId: string) {
 //   const { user } = await getSessionOrFail();

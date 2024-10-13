@@ -5,9 +5,9 @@ import Link from "next/link";
 import { redirect } from "next/navigation";
 import Button from "@/app/components/button";
 import DeleteStudent from "@/app/components/delete_student";
+import EntitySearch from "@/app/components/entity_search";
 import Modal from "@/app/components/modal";
 import StudentPager from "@/app/components/student_pager";
-import EntitySearch from "@/app/components/entity_search";
 import TableEmpty from "@/app/components/table_empty";
 import { getStudents, getTotalStudentCount } from "@/app/methods/student";
 

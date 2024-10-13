@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`FamilyForm Renders a consistent snapshot when empty 1`] = `
+exports[`FamilyPage Renders a consistent snapshot when empty 1`] = `
 {
   "asFragment": [Function],
   "baseElement": <body>
@@ -31,7 +31,7 @@ exports[`FamilyForm Renders a consistent snapshot when empty 1`] = `
                 class="block text-sm font-medium leading-6 text-gray-900 sm:pt-1.5"
                 for="firstName"
               >
-                Family Name
+                Family Name*
               </label>
               <div
                 class="mt-2 sm:col-span-2 sm:mt-0"
@@ -45,7 +45,6 @@ exports[`FamilyForm Renders a consistent snapshot when empty 1`] = `
                     data-cy="input-familyName"
                     data-testid="input-familyName"
                     name="familyName"
-                    type="text"
                   />
                 </div>
               </div>
@@ -61,7 +60,7 @@ exports[`FamilyForm Renders a consistent snapshot when empty 1`] = `
                 class="block text-sm font-medium leading-6 text-gray-900 sm:pt-1.5"
                 for="firstName"
               >
-                Parent 1 First Name
+                Parent 1 First Name*
               </label>
               <div
                 class="mt-2 sm:col-span-2 sm:mt-0"
@@ -75,7 +74,6 @@ exports[`FamilyForm Renders a consistent snapshot when empty 1`] = `
                     data-cy="input-parent1FirstName"
                     data-testid="input-parent1FirstName"
                     name="parent1FirstName"
-                    type="text"
                   />
                 </div>
               </div>
@@ -91,7 +89,7 @@ exports[`FamilyForm Renders a consistent snapshot when empty 1`] = `
                 class="block text-sm font-medium leading-6 text-gray-900 sm:pt-1.5"
                 for="firstName"
               >
-                Parent 1 Last Name
+                Parent 1 Last Name*
               </label>
               <div
                 class="mt-2 sm:col-span-2 sm:mt-0"
@@ -105,7 +103,6 @@ exports[`FamilyForm Renders a consistent snapshot when empty 1`] = `
                     data-cy="input-parent1LastName"
                     data-testid="input-parent1LastName"
                     name="parent1LastName"
-                    type="text"
                   />
                 </div>
               </div>
@@ -132,6 +129,7 @@ exports[`FamilyForm Renders a consistent snapshot when empty 1`] = `
                   <input
                     autocomplete="tel"
                     class="input w-full"
+                    data-cy="phone-input-parent1Phone"
                     data-testid="phone-input-parent1Phone"
                     name="parent1Phone"
                     type="tel"
@@ -165,7 +163,6 @@ exports[`FamilyForm Renders a consistent snapshot when empty 1`] = `
                     data-cy="input-parent2FirstName"
                     data-testid="input-parent2FirstName"
                     name="parent2FirstName"
-                    type="text"
                   />
                 </div>
               </div>
@@ -195,7 +192,6 @@ exports[`FamilyForm Renders a consistent snapshot when empty 1`] = `
                     data-cy="input-parent2LastName"
                     data-testid="input-parent2LastName"
                     name="parent2LastName"
-                    type="text"
                   />
                 </div>
               </div>
@@ -222,6 +218,7 @@ exports[`FamilyForm Renders a consistent snapshot when empty 1`] = `
                   <input
                     autocomplete="tel"
                     class="input w-full"
+                    data-cy="phone-input-parent2Phone"
                     data-testid="phone-input-parent2Phone"
                     name="parent2Phone"
                     type="tel"
@@ -252,6 +249,7 @@ exports[`FamilyForm Renders a consistent snapshot when empty 1`] = `
                   <textarea
                     aria-labelledby="notes"
                     class="textarea w-full"
+                    data-cy="textarea-notes"
                     data-testid="textarea-notes"
                     name="notes"
                   />
@@ -303,7 +301,7 @@ exports[`FamilyForm Renders a consistent snapshot when empty 1`] = `
               class="block text-sm font-medium leading-6 text-gray-900 sm:pt-1.5"
               for="firstName"
             >
-              Family Name
+              Family Name*
             </label>
             <div
               class="mt-2 sm:col-span-2 sm:mt-0"
@@ -317,7 +315,6 @@ exports[`FamilyForm Renders a consistent snapshot when empty 1`] = `
                   data-cy="input-familyName"
                   data-testid="input-familyName"
                   name="familyName"
-                  type="text"
                 />
               </div>
             </div>
@@ -333,7 +330,7 @@ exports[`FamilyForm Renders a consistent snapshot when empty 1`] = `
               class="block text-sm font-medium leading-6 text-gray-900 sm:pt-1.5"
               for="firstName"
             >
-              Parent 1 First Name
+              Parent 1 First Name*
             </label>
             <div
               class="mt-2 sm:col-span-2 sm:mt-0"
@@ -347,7 +344,6 @@ exports[`FamilyForm Renders a consistent snapshot when empty 1`] = `
                   data-cy="input-parent1FirstName"
                   data-testid="input-parent1FirstName"
                   name="parent1FirstName"
-                  type="text"
                 />
               </div>
             </div>
@@ -363,7 +359,7 @@ exports[`FamilyForm Renders a consistent snapshot when empty 1`] = `
               class="block text-sm font-medium leading-6 text-gray-900 sm:pt-1.5"
               for="firstName"
             >
-              Parent 1 Last Name
+              Parent 1 Last Name*
             </label>
             <div
               class="mt-2 sm:col-span-2 sm:mt-0"
@@ -377,7 +373,6 @@ exports[`FamilyForm Renders a consistent snapshot when empty 1`] = `
                   data-cy="input-parent1LastName"
                   data-testid="input-parent1LastName"
                   name="parent1LastName"
-                  type="text"
                 />
               </div>
             </div>
@@ -404,6 +399,7 @@ exports[`FamilyForm Renders a consistent snapshot when empty 1`] = `
                 <input
                   autocomplete="tel"
                   class="input w-full"
+                  data-cy="phone-input-parent1Phone"
                   data-testid="phone-input-parent1Phone"
                   name="parent1Phone"
                   type="tel"
@@ -437,7 +433,6 @@ exports[`FamilyForm Renders a consistent snapshot when empty 1`] = `
                   data-cy="input-parent2FirstName"
                   data-testid="input-parent2FirstName"
                   name="parent2FirstName"
-                  type="text"
                 />
               </div>
             </div>
@@ -467,7 +462,6 @@ exports[`FamilyForm Renders a consistent snapshot when empty 1`] = `
                   data-cy="input-parent2LastName"
                   data-testid="input-parent2LastName"
                   name="parent2LastName"
-                  type="text"
                 />
               </div>
             </div>
@@ -494,6 +488,7 @@ exports[`FamilyForm Renders a consistent snapshot when empty 1`] = `
                 <input
                   autocomplete="tel"
                   class="input w-full"
+                  data-cy="phone-input-parent2Phone"
                   data-testid="phone-input-parent2Phone"
                   name="parent2Phone"
                   type="tel"
@@ -524,6 +519,7 @@ exports[`FamilyForm Renders a consistent snapshot when empty 1`] = `
                 <textarea
                   aria-labelledby="notes"
                   class="textarea w-full"
+                  data-cy="textarea-notes"
                   data-testid="textarea-notes"
                   name="notes"
                 />
@@ -601,7 +597,7 @@ exports[`FamilyForm Renders a consistent snapshot when empty 1`] = `
 }
 `;
 
-exports[`FamilyForm Renders a consistent snapshot when prefilled with data 1`] = `
+exports[`FamilyPage Renders a consistent snapshot when prefilled with data 1`] = `
 {
   "asFragment": [Function],
   "baseElement": <body>
@@ -672,7 +668,7 @@ exports[`FamilyForm Renders a consistent snapshot when prefilled with data 1`] =
                 class="block text-sm font-medium leading-6 text-gray-900 sm:pt-1.5"
                 for="firstName"
               >
-                Family Name
+                Family Name*
               </label>
               <div
                 class="mt-2 sm:col-span-2 sm:mt-0"
@@ -686,7 +682,6 @@ exports[`FamilyForm Renders a consistent snapshot when prefilled with data 1`] =
                     data-cy="input-familyName"
                     data-testid="input-familyName"
                     name="familyName"
-                    type="text"
                   />
                 </div>
               </div>
@@ -702,7 +697,7 @@ exports[`FamilyForm Renders a consistent snapshot when prefilled with data 1`] =
                 class="block text-sm font-medium leading-6 text-gray-900 sm:pt-1.5"
                 for="firstName"
               >
-                Parent 1 First Name
+                Parent 1 First Name*
               </label>
               <div
                 class="mt-2 sm:col-span-2 sm:mt-0"
@@ -716,7 +711,6 @@ exports[`FamilyForm Renders a consistent snapshot when prefilled with data 1`] =
                     data-cy="input-parent1FirstName"
                     data-testid="input-parent1FirstName"
                     name="parent1FirstName"
-                    type="text"
                   />
                 </div>
               </div>
@@ -732,7 +726,7 @@ exports[`FamilyForm Renders a consistent snapshot when prefilled with data 1`] =
                 class="block text-sm font-medium leading-6 text-gray-900 sm:pt-1.5"
                 for="firstName"
               >
-                Parent 1 Last Name
+                Parent 1 Last Name*
               </label>
               <div
                 class="mt-2 sm:col-span-2 sm:mt-0"
@@ -746,7 +740,6 @@ exports[`FamilyForm Renders a consistent snapshot when prefilled with data 1`] =
                     data-cy="input-parent1LastName"
                     data-testid="input-parent1LastName"
                     name="parent1LastName"
-                    type="text"
                   />
                 </div>
               </div>
@@ -773,6 +766,7 @@ exports[`FamilyForm Renders a consistent snapshot when prefilled with data 1`] =
                   <input
                     autocomplete="tel"
                     class="input w-full"
+                    data-cy="phone-input-parent1Phone"
                     data-testid="phone-input-parent1Phone"
                     name="parent1Phone"
                     type="tel"
@@ -806,7 +800,6 @@ exports[`FamilyForm Renders a consistent snapshot when prefilled with data 1`] =
                     data-cy="input-parent2FirstName"
                     data-testid="input-parent2FirstName"
                     name="parent2FirstName"
-                    type="text"
                   />
                 </div>
               </div>
@@ -836,7 +829,6 @@ exports[`FamilyForm Renders a consistent snapshot when prefilled with data 1`] =
                     data-cy="input-parent2LastName"
                     data-testid="input-parent2LastName"
                     name="parent2LastName"
-                    type="text"
                   />
                 </div>
               </div>
@@ -863,6 +855,7 @@ exports[`FamilyForm Renders a consistent snapshot when prefilled with data 1`] =
                   <input
                     autocomplete="tel"
                     class="input w-full"
+                    data-cy="phone-input-parent2Phone"
                     data-testid="phone-input-parent2Phone"
                     name="parent2Phone"
                     type="tel"
@@ -893,6 +886,7 @@ exports[`FamilyForm Renders a consistent snapshot when prefilled with data 1`] =
                   <textarea
                     aria-labelledby="notes"
                     class="textarea w-full"
+                    data-cy="textarea-notes"
                     data-testid="textarea-notes"
                     name="notes"
                   />
@@ -999,7 +993,7 @@ exports[`FamilyForm Renders a consistent snapshot when prefilled with data 1`] =
               class="block text-sm font-medium leading-6 text-gray-900 sm:pt-1.5"
               for="firstName"
             >
-              Family Name
+              Family Name*
             </label>
             <div
               class="mt-2 sm:col-span-2 sm:mt-0"
@@ -1013,7 +1007,6 @@ exports[`FamilyForm Renders a consistent snapshot when prefilled with data 1`] =
                   data-cy="input-familyName"
                   data-testid="input-familyName"
                   name="familyName"
-                  type="text"
                 />
               </div>
             </div>
@@ -1029,7 +1022,7 @@ exports[`FamilyForm Renders a consistent snapshot when prefilled with data 1`] =
               class="block text-sm font-medium leading-6 text-gray-900 sm:pt-1.5"
               for="firstName"
             >
-              Parent 1 First Name
+              Parent 1 First Name*
             </label>
             <div
               class="mt-2 sm:col-span-2 sm:mt-0"
@@ -1043,7 +1036,6 @@ exports[`FamilyForm Renders a consistent snapshot when prefilled with data 1`] =
                   data-cy="input-parent1FirstName"
                   data-testid="input-parent1FirstName"
                   name="parent1FirstName"
-                  type="text"
                 />
               </div>
             </div>
@@ -1059,7 +1051,7 @@ exports[`FamilyForm Renders a consistent snapshot when prefilled with data 1`] =
               class="block text-sm font-medium leading-6 text-gray-900 sm:pt-1.5"
               for="firstName"
             >
-              Parent 1 Last Name
+              Parent 1 Last Name*
             </label>
             <div
               class="mt-2 sm:col-span-2 sm:mt-0"
@@ -1073,7 +1065,6 @@ exports[`FamilyForm Renders a consistent snapshot when prefilled with data 1`] =
                   data-cy="input-parent1LastName"
                   data-testid="input-parent1LastName"
                   name="parent1LastName"
-                  type="text"
                 />
               </div>
             </div>
@@ -1100,6 +1091,7 @@ exports[`FamilyForm Renders a consistent snapshot when prefilled with data 1`] =
                 <input
                   autocomplete="tel"
                   class="input w-full"
+                  data-cy="phone-input-parent1Phone"
                   data-testid="phone-input-parent1Phone"
                   name="parent1Phone"
                   type="tel"
@@ -1133,7 +1125,6 @@ exports[`FamilyForm Renders a consistent snapshot when prefilled with data 1`] =
                   data-cy="input-parent2FirstName"
                   data-testid="input-parent2FirstName"
                   name="parent2FirstName"
-                  type="text"
                 />
               </div>
             </div>
@@ -1163,7 +1154,6 @@ exports[`FamilyForm Renders a consistent snapshot when prefilled with data 1`] =
                   data-cy="input-parent2LastName"
                   data-testid="input-parent2LastName"
                   name="parent2LastName"
-                  type="text"
                 />
               </div>
             </div>
@@ -1190,6 +1180,7 @@ exports[`FamilyForm Renders a consistent snapshot when prefilled with data 1`] =
                 <input
                   autocomplete="tel"
                   class="input w-full"
+                  data-cy="phone-input-parent2Phone"
                   data-testid="phone-input-parent2Phone"
                   name="parent2Phone"
                   type="tel"
@@ -1220,6 +1211,7 @@ exports[`FamilyForm Renders a consistent snapshot when prefilled with data 1`] =
                 <textarea
                   aria-labelledby="notes"
                   class="textarea w-full"
+                  data-cy="textarea-notes"
                   data-testid="textarea-notes"
                   name="notes"
                 />

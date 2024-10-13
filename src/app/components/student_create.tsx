@@ -3,9 +3,9 @@
 import { useState } from "react";
 import { toast } from "react-toastify";
 import { Family } from "@prisma/client";
+import FamilyForm from "@/app/components/family_page";
 import Modal from "@/app/components/modal";
-import FamilyForm from "./family_form";
-import SimpleForm from "./simple_form";
+import SimpleForm from "@/app/components/simple_form";
 
 // TODO extract this to 1 definition
 interface FamilyFormData {

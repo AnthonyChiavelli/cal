@@ -6,10 +6,10 @@ import { toast } from "react-toastify";
 import { Prisma } from "@prisma/client";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
+import Button from "@/app/components/button";
+import ConfirmationModal from "@/app/components/confirmation_modal";
 import LoadingPane from "@/app/components/loading_pane";
-import SimpleForm from "@/app/components/simple_form";
-import Button from "./button";
-import ConfirmationModal from "./confirmation_modal";
+import FamilyForm from "./family_form";
 
 interface FamilyFormData {
   familyId?: string;
@@ -23,7 +23,7 @@ interface FamilyFormData {
   notes?: string;
 }
 
-interface IAddFamilyFormProps {
+interface IFamilyPageProps {
   updateOrCreateFamily: (formData: FamilyFormData, familyId?: string) => Promise<{ success: boolean }>;
   deleteFamily?: (familyId: string) => Promise<{ success: boolean }>;
   family?: Prisma.FamilyGetPayload<{
@@ -34,7 +34,7 @@ interface IAddFamilyFormProps {
   onCreate?: () => void;
 }
 
-export default function FamilyForm(props: IAddFamilyFormProps): JSX.Element {
+export default function FamilyPage(props: IFamilyPageProps): JSX.Element {
   const [isLoading, setIsLoading] = useState(false);
   const router = useRouter();
 
@@ -45,20 +45,7 @@ export default function FamilyForm(props: IAddFamilyFormProps): JSX.Element {
     [props.family],
   );
 
-  const initialFieldsToPopulate = useMemo(() => {
-    return {
-      familyName: props.family?.familyName,
-      parent1FirstName: props.family?.parents[0].firstName,
-      parent1LastName: props.family?.parents[0].lastName,
-      parent1Phone: props.family?.parents[0].phone,
-      parent2FirstName: props.family?.parents[1]?.firstName,
-      parent2LastName: props.family?.parents[1]?.lastName,
-      parent2Phone: props.family?.parents[1]?.phone,
-      notes: props.family?.notes,
-    };
-  }, [props.family]);
-
-  const handleSubmit = useCallback(
+  const onSubmit = useCallback(
     async (formData: FamilyFormData) => {
       try {
         setIsLoading(true);
@@ -136,67 +123,7 @@ export default function FamilyForm(props: IAddFamilyFormProps): JSX.Element {
       )}
       <div className="my-5">
         <h2>Family Profile</h2>
-        <SimpleForm
-          // @ts-ignore
-          onSubmit={handleSubmit}
-          editMode={!!props.family}
-          // initialValues={props.family ? initialFieldsToPopulate : {}}
-          initialValues={initialFieldsToPopulate}
-          formElements={
-            [
-              {
-                title: "Family Name",
-                name: "familyName",
-                type: "text",
-                initialValue: props.presetFamilyName,
-                required: true,
-              },
-              {
-                title: "Parent 1 First Name",
-                name: "parent1FirstName",
-                type: "text",
-                required: true,
-              },
-              {
-                title: "Parent 1 Last Name",
-                name: "parent1LastName",
-                type: "text",
-                required: true,
-              },
-              {
-                title: "Parent 1 Phone",
-                name: "parent1Phone",
-                type: "phone",
-                required: true,
-              },
-              {
-                title: "Parent 2 First Name",
-                name: "parent2FirstName",
-                type: "text",
-              },
-              {
-                title: "Parent 2 Last Name",
-                name: "parent2LastName",
-                type: "text",
-              },
-              {
-                title: "Parent 2 Phone",
-                name: "parent2Phone",
-                type: "phone",
-                additionalProps: {
-                  placeholder: "888 888 8888",
-                  pattern: "[0-9]{3} [0-9]{3} [0-9]{4}",
-                  maxlength: "12",
-                },
-              },
-              {
-                title: "Notes",
-                name: "notes",
-                type: "textarea",
-              },
-            ] as const
-          }
-        />
+        <FamilyForm onSubmit={onSubmit} family={props.family} />
       </div>
       <ConfirmationModal
         open={showDeleteModal}
