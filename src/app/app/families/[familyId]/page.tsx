@@ -3,7 +3,7 @@ import FamilyPage from "@/app/components/family_page";
 import ResourceNotFound from "@/app/components/resource_not_found";
 import prisma from "@/db";
 
-export default async function AddFamilyPage(props: { params: { familyId: string } }) {
+export default async function FamilyServerPage(props: { params: { familyId: string } }) {
   const { user } = await getSessionOrFail();
   // TODO create and use protected method
 

@@ -1,7 +1,7 @@
 import { withPageAuthRequired } from "@auth0/nextjs-auth0";
 import { updateOrCreateFamily } from "@/app/actions";
-import { createStudent } from "@/app/actions/student";
-import StudentCreate from "@/app/components/student_create";
+import { updaterOrCreateStudent } from "@/app/actions/student";
+import StudentCreate from "@/app/components/student_page";
 import { getFamilies } from "@/app/methods/family";
 
 async function AddStudent() {
@@ -9,7 +9,11 @@ async function AddStudent() {
   return (
     <div>
       <h1>Create student</h1>
-      <StudentCreate onSubmit={createStudent} families={families} updateOrCreateFamily={updateOrCreateFamily} />
+      <StudentCreate
+        onSubmit={updaterOrCreateStudent}
+        families={families}
+        updateOrCreateFamily={updateOrCreateFamily}
+      />
     </div>
   );
 }

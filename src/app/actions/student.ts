@@ -10,13 +10,12 @@ interface IStudentFormData {
   firstName: string;
   lastName: string;
   gradeLevel: number;
+  areasOfNeed: string[];
+  familyId?: string;
   notes: string;
-  family?: {
-    value: string;
-  };
 }
 
-export async function createStudent(data: IStudentFormData) {
+export async function updaterOrCreateStudent(data: IStudentFormData, studentId?: string) {
   const { user } = await getSessionOrFail();
 
   const firstName = data.firstName;
@@ -30,8 +29,8 @@ export async function createStudent(data: IStudentFormData) {
     notes,
     owner: { connect: { email: user.email } },
   };
-  if (data.family !== undefined) {
-    studentData["family"] = { connect: { id: data.family.value } };
+  if (data.familyId !== undefined) {
+    studentData["family"] = { connect: { id: data.familyId } };
   }
 
   const student = await prisma.student.create({ data: studentData });
@@ -42,7 +41,7 @@ export async function createStudent(data: IStudentFormData) {
       ownerId: user.email,
     },
   });
-  redirect("/app/students");
+  return { success: true };
 }
 
 export async function doCSVUpload(data: FormData) {
@@ -50,6 +49,7 @@ export async function doCSVUpload(data: FormData) {
 
   const csvFile = data.get("csvFile") as File;
   const csvResults = await csvtojson({ output: "json" }).fromString(await csvFile.text());
+  // TODO use for of loop
   await csvResults.forEach(async (student) => {
     await prisma.student.create({
       data: {

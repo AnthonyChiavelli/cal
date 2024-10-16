@@ -1,3 +1,6 @@
+import { updaterOrCreateStudent, updateOrCreateFamily } from "@/app/actions";
+import StudentPage from "@/app/components/student_page";
+import { getFamilies } from "@/app/methods/family";
 import { getStudent } from "@/app/methods/student";
 
 interface IStudentPageProps {
@@ -6,8 +9,16 @@ interface IStudentPageProps {
   };
 }
 
-export default async function StudentPage(props: IStudentPageProps) {
+export default async function StudentServerPage(props: IStudentPageProps) {
   const student = await getStudent(props.params.studentId);
+  const families = await getFamilies({});
 
-  return <div>{JSON.stringify(student)}</div>;
+  return (
+    <StudentPage
+      updaterOrCreateStudent={updaterOrCreateStudent}
+      updateOrCreateFamily={updateOrCreateFamily}
+      student={student}
+      families={families}
+    />
+  );
 }

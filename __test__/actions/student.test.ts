@@ -3,7 +3,7 @@
  */
 import { prismaMock } from "../../src/singleton";
 import { ActionType, Prisma } from "@prisma/client";
-import { createStudent, deleteStudent, doCSVUpload } from "@/app/actions/student";
+import { updateOrCreateStudent, deleteStudent, doCSVUpload } from "@/app/actions/student";
 
 jest.mock("../../src/app/actions/util", () => ({
   getSessionOrFail: jest.fn(() => Promise.resolve({ user: { email: "test-user@example.com" }, session: {} })),
@@ -18,11 +18,11 @@ const getStudentMockData = () => {
   };
 };
 
-describe("createStudent", () => {
+describe("updateOrCreateStudent", () => {
   it("should create a student with the current user as the owner", async () => {
     const mockData = getStudentMockData();
     try {
-      await createStudent({ ...mockData, ownerId: "nefarious-jones@test.com" });
+      await updateOrCreateStudent({ ...mockData, ownerId: "nefarious-jones@test.com" });
     } catch (err: any) {
       expect(err.message).toBe("NEXT_REDIRECT");
     } finally {
@@ -45,7 +45,7 @@ describe("createStudent", () => {
     const mockStudentDBEntity = { id: "1" } as Prisma.StudentGetPayload<{}>;
     try {
       prismaMock.student.create.mockResolvedValue(mockStudentDBEntity);
-      await createStudent(mockData);
+      await updateOrCreateStudent(mockData);
     } catch (err: any) {
       expect(err.message).toBe("NEXT_REDIRECT");
     } finally {

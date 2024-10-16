@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { toast } from "react-toastify";
-import { Family } from "@prisma/client";
+import { Family, Student } from "@prisma/client";
 import FamilyForm from "@/app/components/family_page";
 import Modal from "@/app/components/modal";
 import SimpleForm from "@/app/components/simple_form";
@@ -19,16 +19,28 @@ interface FamilyFormData {
   notes?: string;
 }
 
-interface IStudentCreateProps {
-  onSubmit: (formData: any) => void;
-  families: Array<Family>;
-  updateOrCreateFamily: (formData: FamilyFormData, familyId?: string) => Promise<{ success: boolean }>;
+// TODO extract this to 1 definition
+interface StudentFormData {
+  firstName: string;
+  lastName: string;
+  gradeLevel: number;
+  areasOfNeed: string[];
+  familyId?: string;
+  notes?: string;
 }
 
-export default function StudentCreate(props: IStudentCreateProps) {
+interface IStudentCreateProps {
+  // onSubmit: (formData: any) => void;
+  families: Array<Family>;
+  student?: Student;
+  updateOrCreateFamily: (formData: FamilyFormData, familyId?: string) => Promise<{ success: boolean }>;
+  updaterOrCreateStudent: (formData: StudentFormData, studentId?: string) => Promise<{ success: boolean }>;
+}
+
+export default function StudentPage(props: IStudentCreateProps) {
   const handleSubmit = async (formData: any) => {
     try {
-      await props.onSubmit(formData);
+      await props.updateOrCreateFamily(formData);
     } catch (e) {
       toast.error("Error creating student");
     }
