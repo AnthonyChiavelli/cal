@@ -12,7 +12,7 @@ export function deslugifyStudentToQuery(slug: string) {
 }
 
 export async function clearAllSeedData() {
-  const collectionsToClear = ["eventStudent", "student", "event", "family", "actionRecord"];
+  const collectionsToClear = ["eventStudent", "student", "event", "family", "actionRecord", "areaOfNeed"];
   for (const collection of collectionsToClear) {
     // @ts-ignore
     // @ts-ignore

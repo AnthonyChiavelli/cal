@@ -32,6 +32,40 @@ const mockData = {
       notes: "Test Student 4",
     },
   ],
+  areaOfNeed: [
+    {
+      name: "Math",
+      owner: {
+        connect: {
+          email: env.AUTH0_USERNAME,
+        },
+      },
+    },
+    {
+      name: "Reading",
+      owner: {
+        connect: {
+          email: env.AUTH0_USERNAME,
+        },
+      },
+    },
+    {
+      name: "Writing",
+      owner: {
+        connect: {
+          email: env.AUTH0_USERNAME,
+        },
+      },
+    },
+    {
+      name: "Science",
+      owner: {
+        connect: {
+          email: env.AUTH0_USERNAME,
+        },
+      },
+    },
+  ],
   family: [
     {
       familyName: "Jugdish",

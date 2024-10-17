@@ -261,6 +261,7 @@ describe("FamilyPage", () => {
       />,
     );
 
+    // TODO proper check to acertain idempotency
     expect(resubmittedForm.container).toEqual(newForm.container);
   });
 

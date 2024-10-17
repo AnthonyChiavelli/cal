@@ -41,15 +41,16 @@ export default function SimpleForm(props: ISimpleForm) {
   });
 
   return (
-    <form className="flex flex-col gap-3" autoComplete="off" onSubmit={handleSubmit(props.onSubmit)}>
+    <form role="form" className="flex flex-col gap-3" autoComplete="off" onSubmit={handleSubmit(props.onSubmit)}>
       <input autoComplete="false" name="hidden" type="text" style={{ display: "none" }} />
 
       {props.formElements.map((formElement) => {
         return (
           <div className="mt-1 space-y-8 sm:space-y-0" key={formElement.name}>
             <div className="sm:grid sm:grid-cols-3 sm:items-start sm:gap-2 sm:py-1">
-              <label htmlFor="firstName" className="block text-sm font-medium leading-6 text-gray-900 sm:pt-1.5">
-                {formElement.title}
+              <label htmlFor={formElement.name} className="block text-sm font-medium leading-6 text-gray-900 sm:pt-1.5">
+                {/* {formElement.title} */}
+                {formElement.name}
               </label>
               <div className="mt-2 sm:col-span-2 sm:mt-0">
                 <div className="flex sm:max-w-md">
@@ -77,6 +78,7 @@ export default function SimpleForm(props: ISimpleForm) {
                       rules={{ required: formElement.required }}
                       render={({ field }) => (
                         <CreatableSelect
+                          inputId={formElement.name}
                           className={cn("w-full", {
                             "input-error": errors[formElement.name],
                             [`creatable-${formElement.name}`]: true,
@@ -122,7 +124,7 @@ export default function SimpleForm(props: ISimpleForm) {
         <Button
           role="submit"
           dataCy="submit-form"
-          disabled={!isDirty}
+          // disabled={!isDirty}
           flavor="primary"
           text={props.editMode ? "Update" : "Add"}
           type="submit"

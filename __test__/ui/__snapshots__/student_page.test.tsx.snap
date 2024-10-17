@@ -8,6 +8,7 @@ exports[`StudentPage Renders a consistent snapshot when empty 1`] = `
       <form
         autocomplete="off"
         class="flex flex-col gap-3"
+        role="form"
       >
         <input
           autocomplete="false"
@@ -25,7 +26,7 @@ exports[`StudentPage Renders a consistent snapshot when empty 1`] = `
               class="block text-sm font-medium leading-6 text-gray-900 sm:pt-1.5"
               for="firstName"
             >
-              First Name
+              firstName
             </label>
             <div
               class="mt-2 sm:col-span-2 sm:mt-0"
@@ -53,9 +54,9 @@ exports[`StudentPage Renders a consistent snapshot when empty 1`] = `
           >
             <label
               class="block text-sm font-medium leading-6 text-gray-900 sm:pt-1.5"
-              for="firstName"
+              for="lastName"
             >
-              Last Name
+              lastName
             </label>
             <div
               class="mt-2 sm:col-span-2 sm:mt-0"
@@ -83,9 +84,9 @@ exports[`StudentPage Renders a consistent snapshot when empty 1`] = `
           >
             <label
               class="block text-sm font-medium leading-6 text-gray-900 sm:pt-1.5"
-              for="firstName"
+              for="gradeLevel"
             >
-              Grade Level
+              gradeLevel
             </label>
             <div
               class="mt-2 sm:col-span-2 sm:mt-0"
@@ -114,9 +115,9 @@ exports[`StudentPage Renders a consistent snapshot when empty 1`] = `
           >
             <label
               class="block text-sm font-medium leading-6 text-gray-900 sm:pt-1.5"
-              for="firstName"
+              for="areasOfNeed"
             >
-              Areas of need
+              areasOfNeed
             </label>
             <div
               class="mt-2 sm:col-span-2 sm:mt-0"
@@ -164,7 +165,7 @@ exports[`StudentPage Renders a consistent snapshot when empty 1`] = `
                           autocomplete="off"
                           autocorrect="off"
                           class=""
-                          id="react-select-2-input"
+                          id="areasOfNeed"
                           role="combobox"
                           spellcheck="false"
                           style="opacity: 1; width: 100%; grid-area: 1 / 2; min-width: 2px; border: 0px; margin: 0px; outline: 0; padding: 0px;"
@@ -219,9 +220,9 @@ exports[`StudentPage Renders a consistent snapshot when empty 1`] = `
           >
             <label
               class="block text-sm font-medium leading-6 text-gray-900 sm:pt-1.5"
-              for="firstName"
+              for="family"
             >
-              Famliy
+              family
             </label>
             <div
               class="mt-2 sm:col-span-2 sm:mt-0"
@@ -269,7 +270,7 @@ exports[`StudentPage Renders a consistent snapshot when empty 1`] = `
                           autocomplete="off"
                           autocorrect="off"
                           class=""
-                          id="react-select-3-input"
+                          id="family"
                           role="combobox"
                           spellcheck="false"
                           style="opacity: 1; width: 100%; grid-area: 1 / 2; min-width: 2px; border: 0px; margin: 0px; outline: 0; padding: 0px;"
@@ -322,9 +323,9 @@ exports[`StudentPage Renders a consistent snapshot when empty 1`] = `
           >
             <label
               class="block text-sm font-medium leading-6 text-gray-900 sm:pt-1.5"
-              for="firstName"
+              for="notes"
             >
-              Notes
+              notes
             </label>
             <div
               class="mt-2 sm:col-span-2 sm:mt-0"
@@ -345,9 +346,8 @@ exports[`StudentPage Renders a consistent snapshot when empty 1`] = `
         </div>
         <div>
           <button
-            class="text-sm font-semibold px-3 py-2 flex flex-row justify-center rounded-md shadow-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 bg-indigo-200  text-white"
+            class="text-sm font-semibold px-3 py-2 flex flex-row justify-center rounded-md shadow-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 bg-indigo-600 hover:bg-indigo-500  text-white"
             data-cy="submit-form"
-            disabled=""
             role="submit"
             type="submit"
           >
@@ -363,6 +363,7 @@ exports[`StudentPage Renders a consistent snapshot when empty 1`] = `
     <form
       autocomplete="off"
       class="flex flex-col gap-3"
+      role="form"
     >
       <input
         autocomplete="false"
@@ -380,7 +381,7 @@ exports[`StudentPage Renders a consistent snapshot when empty 1`] = `
             class="block text-sm font-medium leading-6 text-gray-900 sm:pt-1.5"
             for="firstName"
           >
-            First Name
+            firstName
           </label>
           <div
             class="mt-2 sm:col-span-2 sm:mt-0"
@@ -408,9 +409,9 @@ exports[`StudentPage Renders a consistent snapshot when empty 1`] = `
         >
           <label
             class="block text-sm font-medium leading-6 text-gray-900 sm:pt-1.5"
-            for="firstName"
+            for="lastName"
           >
-            Last Name
+            lastName
           </label>
           <div
             class="mt-2 sm:col-span-2 sm:mt-0"
@@ -438,9 +439,9 @@ exports[`StudentPage Renders a consistent snapshot when empty 1`] = `
         >
           <label
             class="block text-sm font-medium leading-6 text-gray-900 sm:pt-1.5"
-            for="firstName"
+            for="gradeLevel"
           >
-            Grade Level
+            gradeLevel
           </label>
           <div
             class="mt-2 sm:col-span-2 sm:mt-0"
@@ -469,9 +470,9 @@ exports[`StudentPage Renders a consistent snapshot when empty 1`] = `
         >
           <label
             class="block text-sm font-medium leading-6 text-gray-900 sm:pt-1.5"
-            for="firstName"
+            for="areasOfNeed"
           >
-            Areas of need
+            areasOfNeed
           </label>
           <div
             class="mt-2 sm:col-span-2 sm:mt-0"
@@ -519,7 +520,7 @@ exports[`StudentPage Renders a consistent snapshot when empty 1`] = `
                         autocomplete="off"
                         autocorrect="off"
                         class=""
-                        id="react-select-2-input"
+                        id="areasOfNeed"
                         role="combobox"
                         spellcheck="false"
                         style="opacity: 1; width: 100%; grid-area: 1 / 2; min-width: 2px; border: 0px; margin: 0px; outline: 0; padding: 0px;"
@@ -574,9 +575,9 @@ exports[`StudentPage Renders a consistent snapshot when empty 1`] = `
         >
           <label
             class="block text-sm font-medium leading-6 text-gray-900 sm:pt-1.5"
-            for="firstName"
+            for="family"
           >
-            Famliy
+            family
           </label>
           <div
             class="mt-2 sm:col-span-2 sm:mt-0"
@@ -624,7 +625,7 @@ exports[`StudentPage Renders a consistent snapshot when empty 1`] = `
                         autocomplete="off"
                         autocorrect="off"
                         class=""
-                        id="react-select-3-input"
+                        id="family"
                         role="combobox"
                         spellcheck="false"
                         style="opacity: 1; width: 100%; grid-area: 1 / 2; min-width: 2px; border: 0px; margin: 0px; outline: 0; padding: 0px;"
@@ -677,9 +678,9 @@ exports[`StudentPage Renders a consistent snapshot when empty 1`] = `
         >
           <label
             class="block text-sm font-medium leading-6 text-gray-900 sm:pt-1.5"
-            for="firstName"
+            for="notes"
           >
-            Notes
+            notes
           </label>
           <div
             class="mt-2 sm:col-span-2 sm:mt-0"
@@ -700,9 +701,8 @@ exports[`StudentPage Renders a consistent snapshot when empty 1`] = `
       </div>
       <div>
         <button
-          class="text-sm font-semibold px-3 py-2 flex flex-row justify-center rounded-md shadow-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 bg-indigo-200  text-white"
+          class="text-sm font-semibold px-3 py-2 flex flex-row justify-center rounded-md shadow-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 bg-indigo-600 hover:bg-indigo-500  text-white"
           data-cy="submit-form"
-          disabled=""
           role="submit"
           type="submit"
         >
@@ -775,6 +775,7 @@ exports[`StudentPage Renders a consistent snapshot when prefilled with data 1`] 
       <form
         autocomplete="off"
         class="flex flex-col gap-3"
+        role="form"
       >
         <input
           autocomplete="false"
@@ -792,7 +793,7 @@ exports[`StudentPage Renders a consistent snapshot when prefilled with data 1`] 
               class="block text-sm font-medium leading-6 text-gray-900 sm:pt-1.5"
               for="firstName"
             >
-              First Name
+              firstName
             </label>
             <div
               class="mt-2 sm:col-span-2 sm:mt-0"
@@ -820,9 +821,9 @@ exports[`StudentPage Renders a consistent snapshot when prefilled with data 1`] 
           >
             <label
               class="block text-sm font-medium leading-6 text-gray-900 sm:pt-1.5"
-              for="firstName"
+              for="lastName"
             >
-              Last Name
+              lastName
             </label>
             <div
               class="mt-2 sm:col-span-2 sm:mt-0"
@@ -850,9 +851,9 @@ exports[`StudentPage Renders a consistent snapshot when prefilled with data 1`] 
           >
             <label
               class="block text-sm font-medium leading-6 text-gray-900 sm:pt-1.5"
-              for="firstName"
+              for="gradeLevel"
             >
-              Grade Level
+              gradeLevel
             </label>
             <div
               class="mt-2 sm:col-span-2 sm:mt-0"
@@ -881,9 +882,9 @@ exports[`StudentPage Renders a consistent snapshot when prefilled with data 1`] 
           >
             <label
               class="block text-sm font-medium leading-6 text-gray-900 sm:pt-1.5"
-              for="firstName"
+              for="areasOfNeed"
             >
-              Areas of need
+              areasOfNeed
             </label>
             <div
               class="mt-2 sm:col-span-2 sm:mt-0"
@@ -909,13 +910,61 @@ exports[`StudentPage Renders a consistent snapshot when prefilled with data 1`] 
                     class=" css-189lesj-control"
                   >
                     <div
-                      class=" css-1fdsijx-ValueContainer"
+                      class=" css-3w2yfm-ValueContainer"
                     >
                       <div
-                        class=" css-1jqq78o-placeholder"
-                        id="react-select-4-placeholder"
+                        class=" css-1p3m7a8-multiValue"
                       >
-                        Select...
+                        <div
+                          class=" css-wsp0cs-MultiValueGeneric"
+                        >
+                          Mathicals
+                        </div>
+                        <div
+                          aria-label="Remove Mathicals"
+                          class=" css-12a83d4-MultiValueRemove"
+                          role="button"
+                        >
+                          <svg
+                            aria-hidden="true"
+                            class="css-tj5bde-Svg"
+                            focusable="false"
+                            height="14"
+                            viewBox="0 0 20 20"
+                            width="14"
+                          >
+                            <path
+                              d="M14.348 14.849c-0.469 0.469-1.229 0.469-1.697 0l-2.651-3.030-2.651 3.029c-0.469 0.469-1.229 0.469-1.697 0-0.469-0.469-0.469-1.229 0-1.697l2.758-3.15-2.759-3.152c-0.469-0.469-0.469-1.228 0-1.697s1.228-0.469 1.697 0l2.652 3.031 2.651-3.031c0.469-0.469 1.228-0.469 1.697 0s0.469 1.229 0 1.697l-2.758 3.152 2.758 3.15c0.469 0.469 0.469 1.229 0 1.698z"
+                            />
+                          </svg>
+                        </div>
+                      </div>
+                      <div
+                        class=" css-1p3m7a8-multiValue"
+                      >
+                        <div
+                          class=" css-wsp0cs-MultiValueGeneric"
+                        >
+                          Astronomy
+                        </div>
+                        <div
+                          aria-label="Remove Astronomy"
+                          class=" css-12a83d4-MultiValueRemove"
+                          role="button"
+                        >
+                          <svg
+                            aria-hidden="true"
+                            class="css-tj5bde-Svg"
+                            focusable="false"
+                            height="14"
+                            viewBox="0 0 20 20"
+                            width="14"
+                          >
+                            <path
+                              d="M14.348 14.849c-0.469 0.469-1.229 0.469-1.697 0l-2.651-3.030-2.651 3.029c-0.469 0.469-1.229 0.469-1.697 0-0.469-0.469-0.469-1.229 0-1.697l2.758-3.15-2.759-3.152c-0.469-0.469-0.469-1.228 0-1.697s1.228-0.469 1.697 0l2.652 3.031 2.651-3.031c0.469-0.469 1.228-0.469 1.697 0s0.469 1.229 0 1.697l-2.758 3.152 2.758 3.15c0.469 0.469 0.469 1.229 0 1.698z"
+                            />
+                          </svg>
+                        </div>
                       </div>
                       <div
                         class=" css-qbdosj-Input"
@@ -924,14 +973,13 @@ exports[`StudentPage Renders a consistent snapshot when prefilled with data 1`] 
                         <input
                           aria-activedescendant=""
                           aria-autocomplete="list"
-                          aria-describedby="react-select-4-placeholder"
                           aria-expanded="false"
                           aria-haspopup="true"
                           autocapitalize="none"
                           autocomplete="off"
                           autocorrect="off"
                           class=""
-                          id="react-select-4-input"
+                          id="areasOfNeed"
                           role="combobox"
                           spellcheck="false"
                           style="opacity: 1; width: 100%; grid-area: 1 / 2; min-width: 2px; border: 0px; margin: 0px; outline: 0; padding: 0px;"
@@ -944,6 +992,23 @@ exports[`StudentPage Renders a consistent snapshot when prefilled with data 1`] 
                     <div
                       class=" css-1hb7zxy-IndicatorsContainer"
                     >
+                      <div
+                        aria-hidden="true"
+                        class=" css-1xc3v61-indicatorContainer"
+                      >
+                        <svg
+                          aria-hidden="true"
+                          class="css-tj5bde-Svg"
+                          focusable="false"
+                          height="20"
+                          viewBox="0 0 20 20"
+                          width="20"
+                        >
+                          <path
+                            d="M14.348 14.849c-0.469 0.469-1.229 0.469-1.697 0l-2.651-3.030-2.651 3.029c-0.469 0.469-1.229 0.469-1.697 0-0.469-0.469-0.469-1.229 0-1.697l2.758-3.15-2.759-3.152c-0.469-0.469-0.469-1.228 0-1.697s1.228-0.469 1.697 0l2.652 3.031 2.651-3.031c0.469-0.469 1.228-0.469 1.697 0s0.469 1.229 0 1.697l-2.758 3.152 2.758 3.15c0.469 0.469 0.469 1.229 0 1.698z"
+                          />
+                        </svg>
+                      </div>
                       <span
                         class=" css-1u9des2-indicatorSeparator"
                       />
@@ -970,7 +1035,12 @@ exports[`StudentPage Renders a consistent snapshot when prefilled with data 1`] 
                     <input
                       name="areasOfNeed"
                       type="hidden"
-                      value=""
+                      value="areaOfNeed1"
+                    />
+                    <input
+                      name="areasOfNeed"
+                      type="hidden"
+                      value="areaOfNeed2"
                     />
                   </div>
                 </div>
@@ -986,9 +1056,9 @@ exports[`StudentPage Renders a consistent snapshot when prefilled with data 1`] 
           >
             <label
               class="block text-sm font-medium leading-6 text-gray-900 sm:pt-1.5"
-              for="firstName"
+              for="family"
             >
-              Famliy
+              family
             </label>
             <div
               class="mt-2 sm:col-span-2 sm:mt-0"
@@ -1017,10 +1087,9 @@ exports[`StudentPage Renders a consistent snapshot when prefilled with data 1`] 
                       class=" css-1fdsijx-ValueContainer"
                     >
                       <div
-                        class=" css-1jqq78o-placeholder"
-                        id="react-select-5-placeholder"
+                        class=" css-1dimb5e-singleValue"
                       >
-                        Select...
+                        Fooft
                       </div>
                       <div
                         class=" css-qbdosj-Input"
@@ -1029,14 +1098,13 @@ exports[`StudentPage Renders a consistent snapshot when prefilled with data 1`] 
                         <input
                           aria-activedescendant=""
                           aria-autocomplete="list"
-                          aria-describedby="react-select-5-placeholder"
                           aria-expanded="false"
                           aria-haspopup="true"
                           autocapitalize="none"
                           autocomplete="off"
                           autocorrect="off"
                           class=""
-                          id="react-select-5-input"
+                          id="family"
                           role="combobox"
                           spellcheck="false"
                           style="opacity: 1; width: 100%; grid-area: 1 / 2; min-width: 2px; border: 0px; margin: 0px; outline: 0; padding: 0px;"
@@ -1074,7 +1142,7 @@ exports[`StudentPage Renders a consistent snapshot when prefilled with data 1`] 
                   <input
                     name="family"
                     type="hidden"
-                    value=""
+                    value="family1"
                   />
                 </div>
               </div>
@@ -1089,9 +1157,9 @@ exports[`StudentPage Renders a consistent snapshot when prefilled with data 1`] 
           >
             <label
               class="block text-sm font-medium leading-6 text-gray-900 sm:pt-1.5"
-              for="firstName"
+              for="notes"
             >
-              Notes
+              notes
             </label>
             <div
               class="mt-2 sm:col-span-2 sm:mt-0"
@@ -1112,14 +1180,13 @@ exports[`StudentPage Renders a consistent snapshot when prefilled with data 1`] 
         </div>
         <div>
           <button
-            class="text-sm font-semibold px-3 py-2 flex flex-row justify-center rounded-md shadow-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 bg-indigo-200  text-white"
+            class="text-sm font-semibold px-3 py-2 flex flex-row justify-center rounded-md shadow-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 bg-indigo-600 hover:bg-indigo-500  text-white"
             data-cy="submit-form"
-            disabled=""
             role="submit"
             type="submit"
           >
             <span>
-              Add
+              Update
             </span>
           </button>
         </div>
@@ -1130,6 +1197,7 @@ exports[`StudentPage Renders a consistent snapshot when prefilled with data 1`] 
     <form
       autocomplete="off"
       class="flex flex-col gap-3"
+      role="form"
     >
       <input
         autocomplete="false"
@@ -1147,7 +1215,7 @@ exports[`StudentPage Renders a consistent snapshot when prefilled with data 1`] 
             class="block text-sm font-medium leading-6 text-gray-900 sm:pt-1.5"
             for="firstName"
           >
-            First Name
+            firstName
           </label>
           <div
             class="mt-2 sm:col-span-2 sm:mt-0"
@@ -1175,9 +1243,9 @@ exports[`StudentPage Renders a consistent snapshot when prefilled with data 1`] 
         >
           <label
             class="block text-sm font-medium leading-6 text-gray-900 sm:pt-1.5"
-            for="firstName"
+            for="lastName"
           >
-            Last Name
+            lastName
           </label>
           <div
             class="mt-2 sm:col-span-2 sm:mt-0"
@@ -1205,9 +1273,9 @@ exports[`StudentPage Renders a consistent snapshot when prefilled with data 1`] 
         >
           <label
             class="block text-sm font-medium leading-6 text-gray-900 sm:pt-1.5"
-            for="firstName"
+            for="gradeLevel"
           >
-            Grade Level
+            gradeLevel
           </label>
           <div
             class="mt-2 sm:col-span-2 sm:mt-0"
@@ -1236,9 +1304,9 @@ exports[`StudentPage Renders a consistent snapshot when prefilled with data 1`] 
         >
           <label
             class="block text-sm font-medium leading-6 text-gray-900 sm:pt-1.5"
-            for="firstName"
+            for="areasOfNeed"
           >
-            Areas of need
+            areasOfNeed
           </label>
           <div
             class="mt-2 sm:col-span-2 sm:mt-0"
@@ -1264,13 +1332,61 @@ exports[`StudentPage Renders a consistent snapshot when prefilled with data 1`] 
                   class=" css-189lesj-control"
                 >
                   <div
-                    class=" css-1fdsijx-ValueContainer"
+                    class=" css-3w2yfm-ValueContainer"
                   >
                     <div
-                      class=" css-1jqq78o-placeholder"
-                      id="react-select-4-placeholder"
+                      class=" css-1p3m7a8-multiValue"
                     >
-                      Select...
+                      <div
+                        class=" css-wsp0cs-MultiValueGeneric"
+                      >
+                        Mathicals
+                      </div>
+                      <div
+                        aria-label="Remove Mathicals"
+                        class=" css-12a83d4-MultiValueRemove"
+                        role="button"
+                      >
+                        <svg
+                          aria-hidden="true"
+                          class="css-tj5bde-Svg"
+                          focusable="false"
+                          height="14"
+                          viewBox="0 0 20 20"
+                          width="14"
+                        >
+                          <path
+                            d="M14.348 14.849c-0.469 0.469-1.229 0.469-1.697 0l-2.651-3.030-2.651 3.029c-0.469 0.469-1.229 0.469-1.697 0-0.469-0.469-0.469-1.229 0-1.697l2.758-3.15-2.759-3.152c-0.469-0.469-0.469-1.228 0-1.697s1.228-0.469 1.697 0l2.652 3.031 2.651-3.031c0.469-0.469 1.228-0.469 1.697 0s0.469 1.229 0 1.697l-2.758 3.152 2.758 3.15c0.469 0.469 0.469 1.229 0 1.698z"
+                          />
+                        </svg>
+                      </div>
+                    </div>
+                    <div
+                      class=" css-1p3m7a8-multiValue"
+                    >
+                      <div
+                        class=" css-wsp0cs-MultiValueGeneric"
+                      >
+                        Astronomy
+                      </div>
+                      <div
+                        aria-label="Remove Astronomy"
+                        class=" css-12a83d4-MultiValueRemove"
+                        role="button"
+                      >
+                        <svg
+                          aria-hidden="true"
+                          class="css-tj5bde-Svg"
+                          focusable="false"
+                          height="14"
+                          viewBox="0 0 20 20"
+                          width="14"
+                        >
+                          <path
+                            d="M14.348 14.849c-0.469 0.469-1.229 0.469-1.697 0l-2.651-3.030-2.651 3.029c-0.469 0.469-1.229 0.469-1.697 0-0.469-0.469-0.469-1.229 0-1.697l2.758-3.15-2.759-3.152c-0.469-0.469-0.469-1.228 0-1.697s1.228-0.469 1.697 0l2.652 3.031 2.651-3.031c0.469-0.469 1.228-0.469 1.697 0s0.469 1.229 0 1.697l-2.758 3.152 2.758 3.15c0.469 0.469 0.469 1.229 0 1.698z"
+                          />
+                        </svg>
+                      </div>
                     </div>
                     <div
                       class=" css-qbdosj-Input"
@@ -1279,14 +1395,13 @@ exports[`StudentPage Renders a consistent snapshot when prefilled with data 1`] 
                       <input
                         aria-activedescendant=""
                         aria-autocomplete="list"
-                        aria-describedby="react-select-4-placeholder"
                         aria-expanded="false"
                         aria-haspopup="true"
                         autocapitalize="none"
                         autocomplete="off"
                         autocorrect="off"
                         class=""
-                        id="react-select-4-input"
+                        id="areasOfNeed"
                         role="combobox"
                         spellcheck="false"
                         style="opacity: 1; width: 100%; grid-area: 1 / 2; min-width: 2px; border: 0px; margin: 0px; outline: 0; padding: 0px;"
@@ -1299,6 +1414,23 @@ exports[`StudentPage Renders a consistent snapshot when prefilled with data 1`] 
                   <div
                     class=" css-1hb7zxy-IndicatorsContainer"
                   >
+                    <div
+                      aria-hidden="true"
+                      class=" css-1xc3v61-indicatorContainer"
+                    >
+                      <svg
+                        aria-hidden="true"
+                        class="css-tj5bde-Svg"
+                        focusable="false"
+                        height="20"
+                        viewBox="0 0 20 20"
+                        width="20"
+                      >
+                        <path
+                          d="M14.348 14.849c-0.469 0.469-1.229 0.469-1.697 0l-2.651-3.030-2.651 3.029c-0.469 0.469-1.229 0.469-1.697 0-0.469-0.469-0.469-1.229 0-1.697l2.758-3.15-2.759-3.152c-0.469-0.469-0.469-1.228 0-1.697s1.228-0.469 1.697 0l2.652 3.031 2.651-3.031c0.469-0.469 1.228-0.469 1.697 0s0.469 1.229 0 1.697l-2.758 3.152 2.758 3.15c0.469 0.469 0.469 1.229 0 1.698z"
+                        />
+                      </svg>
+                    </div>
                     <span
                       class=" css-1u9des2-indicatorSeparator"
                     />
@@ -1325,7 +1457,12 @@ exports[`StudentPage Renders a consistent snapshot when prefilled with data 1`] 
                   <input
                     name="areasOfNeed"
                     type="hidden"
-                    value=""
+                    value="areaOfNeed1"
+                  />
+                  <input
+                    name="areasOfNeed"
+                    type="hidden"
+                    value="areaOfNeed2"
                   />
                 </div>
               </div>
@@ -1341,9 +1478,9 @@ exports[`StudentPage Renders a consistent snapshot when prefilled with data 1`] 
         >
           <label
             class="block text-sm font-medium leading-6 text-gray-900 sm:pt-1.5"
-            for="firstName"
+            for="family"
           >
-            Famliy
+            family
           </label>
           <div
             class="mt-2 sm:col-span-2 sm:mt-0"
@@ -1372,10 +1509,9 @@ exports[`StudentPage Renders a consistent snapshot when prefilled with data 1`] 
                     class=" css-1fdsijx-ValueContainer"
                   >
                     <div
-                      class=" css-1jqq78o-placeholder"
-                      id="react-select-5-placeholder"
+                      class=" css-1dimb5e-singleValue"
                     >
-                      Select...
+                      Fooft
                     </div>
                     <div
                       class=" css-qbdosj-Input"
@@ -1384,14 +1520,13 @@ exports[`StudentPage Renders a consistent snapshot when prefilled with data 1`] 
                       <input
                         aria-activedescendant=""
                         aria-autocomplete="list"
-                        aria-describedby="react-select-5-placeholder"
                         aria-expanded="false"
                         aria-haspopup="true"
                         autocapitalize="none"
                         autocomplete="off"
                         autocorrect="off"
                         class=""
-                        id="react-select-5-input"
+                        id="family"
                         role="combobox"
                         spellcheck="false"
                         style="opacity: 1; width: 100%; grid-area: 1 / 2; min-width: 2px; border: 0px; margin: 0px; outline: 0; padding: 0px;"
@@ -1429,7 +1564,7 @@ exports[`StudentPage Renders a consistent snapshot when prefilled with data 1`] 
                 <input
                   name="family"
                   type="hidden"
-                  value=""
+                  value="family1"
                 />
               </div>
             </div>
@@ -1444,9 +1579,9 @@ exports[`StudentPage Renders a consistent snapshot when prefilled with data 1`] 
         >
           <label
             class="block text-sm font-medium leading-6 text-gray-900 sm:pt-1.5"
-            for="firstName"
+            for="notes"
           >
-            Notes
+            notes
           </label>
           <div
             class="mt-2 sm:col-span-2 sm:mt-0"
@@ -1467,14 +1602,13 @@ exports[`StudentPage Renders a consistent snapshot when prefilled with data 1`] 
       </div>
       <div>
         <button
-          class="text-sm font-semibold px-3 py-2 flex flex-row justify-center rounded-md shadow-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 bg-indigo-200  text-white"
+          class="text-sm font-semibold px-3 py-2 flex flex-row justify-center rounded-md shadow-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 bg-indigo-600 hover:bg-indigo-500  text-white"
           data-cy="submit-form"
-          disabled=""
           role="submit"
           type="submit"
         >
           <span>
-            Add
+            Update
           </span>
         </button>
       </div>
@@ -1542,6 +1676,7 @@ exports[`StudentPage Renders without any families or areas of need present 1`] =
       <form
         autocomplete="off"
         class="flex flex-col gap-3"
+        role="form"
       >
         <input
           autocomplete="false"
@@ -1559,7 +1694,7 @@ exports[`StudentPage Renders without any families or areas of need present 1`] =
               class="block text-sm font-medium leading-6 text-gray-900 sm:pt-1.5"
               for="firstName"
             >
-              First Name
+              firstName
             </label>
             <div
               class="mt-2 sm:col-span-2 sm:mt-0"
@@ -1587,9 +1722,9 @@ exports[`StudentPage Renders without any families or areas of need present 1`] =
           >
             <label
               class="block text-sm font-medium leading-6 text-gray-900 sm:pt-1.5"
-              for="firstName"
+              for="lastName"
             >
-              Last Name
+              lastName
             </label>
             <div
               class="mt-2 sm:col-span-2 sm:mt-0"
@@ -1617,9 +1752,9 @@ exports[`StudentPage Renders without any families or areas of need present 1`] =
           >
             <label
               class="block text-sm font-medium leading-6 text-gray-900 sm:pt-1.5"
-              for="firstName"
+              for="gradeLevel"
             >
-              Grade Level
+              gradeLevel
             </label>
             <div
               class="mt-2 sm:col-span-2 sm:mt-0"
@@ -1648,9 +1783,9 @@ exports[`StudentPage Renders without any families or areas of need present 1`] =
           >
             <label
               class="block text-sm font-medium leading-6 text-gray-900 sm:pt-1.5"
-              for="firstName"
+              for="areasOfNeed"
             >
-              Areas of need
+              areasOfNeed
             </label>
             <div
               class="mt-2 sm:col-span-2 sm:mt-0"
@@ -1663,7 +1798,7 @@ exports[`StudentPage Renders without any families or areas of need present 1`] =
                 >
                   <span
                     class="css-1f43avz-a11yText-A11yText"
-                    id="react-select-6-live-region"
+                    id="react-select-8-live-region"
                   />
                   <span
                     aria-atomic="false"
@@ -1680,7 +1815,7 @@ exports[`StudentPage Renders without any families or areas of need present 1`] =
                     >
                       <div
                         class=" css-1jqq78o-placeholder"
-                        id="react-select-6-placeholder"
+                        id="react-select-8-placeholder"
                       >
                         Select...
                       </div>
@@ -1691,14 +1826,14 @@ exports[`StudentPage Renders without any families or areas of need present 1`] =
                         <input
                           aria-activedescendant=""
                           aria-autocomplete="list"
-                          aria-describedby="react-select-6-placeholder"
+                          aria-describedby="react-select-8-placeholder"
                           aria-expanded="false"
                           aria-haspopup="true"
                           autocapitalize="none"
                           autocomplete="off"
                           autocorrect="off"
                           class=""
-                          id="react-select-6-input"
+                          id="areasOfNeed"
                           role="combobox"
                           spellcheck="false"
                           style="opacity: 1; width: 100%; grid-area: 1 / 2; min-width: 2px; border: 0px; margin: 0px; outline: 0; padding: 0px;"
@@ -1753,9 +1888,9 @@ exports[`StudentPage Renders without any families or areas of need present 1`] =
           >
             <label
               class="block text-sm font-medium leading-6 text-gray-900 sm:pt-1.5"
-              for="firstName"
+              for="family"
             >
-              Famliy
+              family
             </label>
             <div
               class="mt-2 sm:col-span-2 sm:mt-0"
@@ -1768,7 +1903,7 @@ exports[`StudentPage Renders without any families or areas of need present 1`] =
                 >
                   <span
                     class="css-1f43avz-a11yText-A11yText"
-                    id="react-select-7-live-region"
+                    id="react-select-9-live-region"
                   />
                   <span
                     aria-atomic="false"
@@ -1785,7 +1920,7 @@ exports[`StudentPage Renders without any families or areas of need present 1`] =
                     >
                       <div
                         class=" css-1jqq78o-placeholder"
-                        id="react-select-7-placeholder"
+                        id="react-select-9-placeholder"
                       >
                         Select...
                       </div>
@@ -1796,14 +1931,14 @@ exports[`StudentPage Renders without any families or areas of need present 1`] =
                         <input
                           aria-activedescendant=""
                           aria-autocomplete="list"
-                          aria-describedby="react-select-7-placeholder"
+                          aria-describedby="react-select-9-placeholder"
                           aria-expanded="false"
                           aria-haspopup="true"
                           autocapitalize="none"
                           autocomplete="off"
                           autocorrect="off"
                           class=""
-                          id="react-select-7-input"
+                          id="family"
                           role="combobox"
                           spellcheck="false"
                           style="opacity: 1; width: 100%; grid-area: 1 / 2; min-width: 2px; border: 0px; margin: 0px; outline: 0; padding: 0px;"
@@ -1856,9 +1991,9 @@ exports[`StudentPage Renders without any families or areas of need present 1`] =
           >
             <label
               class="block text-sm font-medium leading-6 text-gray-900 sm:pt-1.5"
-              for="firstName"
+              for="notes"
             >
-              Notes
+              notes
             </label>
             <div
               class="mt-2 sm:col-span-2 sm:mt-0"
@@ -1879,9 +2014,8 @@ exports[`StudentPage Renders without any families or areas of need present 1`] =
         </div>
         <div>
           <button
-            class="text-sm font-semibold px-3 py-2 flex flex-row justify-center rounded-md shadow-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 bg-indigo-200  text-white"
+            class="text-sm font-semibold px-3 py-2 flex flex-row justify-center rounded-md shadow-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 bg-indigo-600 hover:bg-indigo-500  text-white"
             data-cy="submit-form"
-            disabled=""
             role="submit"
             type="submit"
           >
@@ -1897,6 +2031,7 @@ exports[`StudentPage Renders without any families or areas of need present 1`] =
     <form
       autocomplete="off"
       class="flex flex-col gap-3"
+      role="form"
     >
       <input
         autocomplete="false"
@@ -1914,7 +2049,7 @@ exports[`StudentPage Renders without any families or areas of need present 1`] =
             class="block text-sm font-medium leading-6 text-gray-900 sm:pt-1.5"
             for="firstName"
           >
-            First Name
+            firstName
           </label>
           <div
             class="mt-2 sm:col-span-2 sm:mt-0"
@@ -1942,9 +2077,9 @@ exports[`StudentPage Renders without any families or areas of need present 1`] =
         >
           <label
             class="block text-sm font-medium leading-6 text-gray-900 sm:pt-1.5"
-            for="firstName"
+            for="lastName"
           >
-            Last Name
+            lastName
           </label>
           <div
             class="mt-2 sm:col-span-2 sm:mt-0"
@@ -1972,9 +2107,9 @@ exports[`StudentPage Renders without any families or areas of need present 1`] =
         >
           <label
             class="block text-sm font-medium leading-6 text-gray-900 sm:pt-1.5"
-            for="firstName"
+            for="gradeLevel"
           >
-            Grade Level
+            gradeLevel
           </label>
           <div
             class="mt-2 sm:col-span-2 sm:mt-0"
@@ -2003,9 +2138,9 @@ exports[`StudentPage Renders without any families or areas of need present 1`] =
         >
           <label
             class="block text-sm font-medium leading-6 text-gray-900 sm:pt-1.5"
-            for="firstName"
+            for="areasOfNeed"
           >
-            Areas of need
+            areasOfNeed
           </label>
           <div
             class="mt-2 sm:col-span-2 sm:mt-0"
@@ -2018,7 +2153,7 @@ exports[`StudentPage Renders without any families or areas of need present 1`] =
               >
                 <span
                   class="css-1f43avz-a11yText-A11yText"
-                  id="react-select-6-live-region"
+                  id="react-select-8-live-region"
                 />
                 <span
                   aria-atomic="false"
@@ -2035,7 +2170,7 @@ exports[`StudentPage Renders without any families or areas of need present 1`] =
                   >
                     <div
                       class=" css-1jqq78o-placeholder"
-                      id="react-select-6-placeholder"
+                      id="react-select-8-placeholder"
                     >
                       Select...
                     </div>
@@ -2046,14 +2181,14 @@ exports[`StudentPage Renders without any families or areas of need present 1`] =
                       <input
                         aria-activedescendant=""
                         aria-autocomplete="list"
-                        aria-describedby="react-select-6-placeholder"
+                        aria-describedby="react-select-8-placeholder"
                         aria-expanded="false"
                         aria-haspopup="true"
                         autocapitalize="none"
                         autocomplete="off"
                         autocorrect="off"
                         class=""
-                        id="react-select-6-input"
+                        id="areasOfNeed"
                         role="combobox"
                         spellcheck="false"
                         style="opacity: 1; width: 100%; grid-area: 1 / 2; min-width: 2px; border: 0px; margin: 0px; outline: 0; padding: 0px;"
@@ -2108,9 +2243,9 @@ exports[`StudentPage Renders without any families or areas of need present 1`] =
         >
           <label
             class="block text-sm font-medium leading-6 text-gray-900 sm:pt-1.5"
-            for="firstName"
+            for="family"
           >
-            Famliy
+            family
           </label>
           <div
             class="mt-2 sm:col-span-2 sm:mt-0"
@@ -2123,7 +2258,7 @@ exports[`StudentPage Renders without any families or areas of need present 1`] =
               >
                 <span
                   class="css-1f43avz-a11yText-A11yText"
-                  id="react-select-7-live-region"
+                  id="react-select-9-live-region"
                 />
                 <span
                   aria-atomic="false"
@@ -2140,7 +2275,7 @@ exports[`StudentPage Renders without any families or areas of need present 1`] =
                   >
                     <div
                       class=" css-1jqq78o-placeholder"
-                      id="react-select-7-placeholder"
+                      id="react-select-9-placeholder"
                     >
                       Select...
                     </div>
@@ -2151,14 +2286,14 @@ exports[`StudentPage Renders without any families or areas of need present 1`] =
                       <input
                         aria-activedescendant=""
                         aria-autocomplete="list"
-                        aria-describedby="react-select-7-placeholder"
+                        aria-describedby="react-select-9-placeholder"
                         aria-expanded="false"
                         aria-haspopup="true"
                         autocapitalize="none"
                         autocomplete="off"
                         autocorrect="off"
                         class=""
-                        id="react-select-7-input"
+                        id="family"
                         role="combobox"
                         spellcheck="false"
                         style="opacity: 1; width: 100%; grid-area: 1 / 2; min-width: 2px; border: 0px; margin: 0px; outline: 0; padding: 0px;"
@@ -2211,9 +2346,9 @@ exports[`StudentPage Renders without any families or areas of need present 1`] =
         >
           <label
             class="block text-sm font-medium leading-6 text-gray-900 sm:pt-1.5"
-            for="firstName"
+            for="notes"
           >
-            Notes
+            notes
           </label>
           <div
             class="mt-2 sm:col-span-2 sm:mt-0"
@@ -2234,9 +2369,8 @@ exports[`StudentPage Renders without any families or areas of need present 1`] =
       </div>
       <div>
         <button
-          class="text-sm font-semibold px-3 py-2 flex flex-row justify-center rounded-md shadow-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 bg-indigo-200  text-white"
+          class="text-sm font-semibold px-3 py-2 flex flex-row justify-center rounded-md shadow-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 bg-indigo-600 hover:bg-indigo-500  text-white"
           data-cy="submit-form"
-          disabled=""
           role="submit"
           type="submit"
         >
