@@ -12,7 +12,7 @@ interface ISimpleForm {
     title: string;
     name: string;
     required?: boolean;
-    initialValue?: string | undefined;
+    initialValue?: any;
     type: "text" | "textarea" | "number" | "selectCreateable" | "multiselectCreateable" | "phone";
     additionalProps?: { [k: string]: any };
   }>;

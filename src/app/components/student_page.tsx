@@ -1,9 +1,11 @@
 "use client";
 
-import { useState } from "react";
+import { useMemo, useState } from "react";
 import { toast } from "react-toastify";
-import { Family, Student } from "@prisma/client";
+import { AreaOfNeed, Family, Prisma } from "@prisma/client";
+import { useRouter } from "next/navigation";
 import FamilyForm from "@/app/components/family_page";
+import LoadingPane from "@/app/components/loading_pane";
 import Modal from "@/app/components/modal";
 import SimpleForm from "@/app/components/simple_form";
 
@@ -24,34 +26,59 @@ interface StudentFormData {
   firstName: string;
   lastName: string;
   gradeLevel: number;
-  areasOfNeed: string[];
-  familyId?: string;
+  areasOfNeed: Array<{ value: string }>;
+  familyId?: { value: string };
   notes?: string;
 }
 
 interface IStudentCreateProps {
   // onSubmit: (formData: any) => void;
   families: Array<Family>;
-  student?: Student;
+  student?: Prisma.StudentGetPayload<{ include: { areaOfNeed: true; family: true } }>;
   updateOrCreateFamily: (formData: FamilyFormData, familyId?: string) => Promise<{ success: boolean }>;
-  updaterOrCreateStudent: (formData: StudentFormData, studentId?: string) => Promise<{ success: boolean }>;
+  updateOrCreateStudent: (formData: StudentFormData, studentId?: string) => Promise<{ success: boolean }>;
+  areasOfNeed: AreaOfNeed[];
 }
 
 export default function StudentPage(props: IStudentCreateProps) {
+  const [isLoading, setIsLoading] = useState(false);
+  const router = useRouter();
+
   const handleSubmit = async (formData: any) => {
+    setIsLoading(true);
     try {
-      await props.updateOrCreateFamily(formData);
+      await props.updateOrCreateStudent(formData, props.student?.id);
     } catch (e) {
+      setIsLoading(false);
       toast.error("Error creating student");
     }
+    router.push("/app/students");
+    toast.success(`Student ${props.student?.id ? "updated" : "created"}`);
+    setIsLoading(false);
   };
+
+  const initialValues = useMemo(() => {
+    return {
+      firstName: props.student?.firstName,
+      lastName: props.student?.lastName,
+      gradeLevel: props.student?.gradeLevel,
+      areasOfNeed: props.student?.areaOfNeed?.map((area) => ({ value: area.id, label: area.name })),
+      family: props.student?.family?.id
+        ? { value: props.student?.family?.id, label: props.student?.family?.familyName }
+        : undefined,
+      notes: props.student?.notes,
+    };
+  }, [props.student]);
 
   const [showCreateFamilyModal, setShowCreateFamilyModal] = useState(false);
   const [presetFamilyName, setPresetFamilyName] = useState<string | undefined>(undefined);
 
   return (
     <>
+      {isLoading && <LoadingPane />}
       <SimpleForm
+        initialValues={initialValues}
+        editMode={props.student !== undefined}
         formElements={[
           {
             title: "First Name",
@@ -79,13 +106,10 @@ export default function StudentPage(props: IStudentCreateProps) {
             name: "areasOfNeed",
             type: "multiselectCreateable",
             additionalProps: {
-              options: [
-                { label: "Math", value: "math" },
-                { label: "Reading", value: "reading" },
-                { label: "Writing", value: "writing" },
-                { label: "Behavior", value: "behavior" },
-                { label: "Social Skills", value: "socialSkills" },
-              ],
+              options: props.areasOfNeed.map((area) => ({
+                label: area.name,
+                value: area.id,
+              })),
             },
           },
           {

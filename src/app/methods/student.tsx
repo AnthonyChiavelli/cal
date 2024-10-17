@@ -69,5 +69,8 @@ export async function getAllStudents() {
 
 export async function getStudent(studentId: string) {
   const { user } = await getSessionOrFail();
-  return await prisma.student.findFirst({ where: { id: studentId, ownerId: user.email } });
+  return await prisma.student.findFirst({
+    where: { id: studentId, ownerId: user.email },
+    include: { family: true, areaOfNeed: true },
+  });
 }

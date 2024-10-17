@@ -10,12 +10,12 @@ interface IStudentFormData {
   firstName: string;
   lastName: string;
   gradeLevel: number;
-  areasOfNeed: string[];
-  familyId?: string;
-  notes: string;
+  areasOfNeed: Array<{ value: string }>;
+  family?: { value: string };
+  notes?: string;
 }
 
-export async function updaterOrCreateStudent(data: IStudentFormData, studentId?: string) {
+export async function updateOrCreateStudent(data: IStudentFormData, studentId?: string): Promise<{ success: boolean }> {
   const { user } = await getSessionOrFail();
 
   const firstName = data.firstName;
@@ -29,18 +29,37 @@ export async function updaterOrCreateStudent(data: IStudentFormData, studentId?:
     notes,
     owner: { connect: { email: user.email } },
   };
-  if (data.familyId !== undefined) {
-    studentData["family"] = { connect: { id: data.familyId } };
+  if (data.family !== undefined) {
+    studentData["family"] = { connect: { id: data.family.value } };
   }
-
-  const student = await prisma.student.create({ data: studentData });
-  await prisma.actionRecord.create({
-    data: {
-      actionType: ActionType.CREATE_STUDENT,
-      additionalData: { creationParams: JSON.stringify(studentData), studentObj: JSON.stringify(student) },
-      ownerId: user.email,
-    },
-  });
+  if (data.areasOfNeed !== undefined) {
+    if (data.areasOfNeed.length === 0) {
+      // @ts-ignore This works but fails typecheck
+      studentData["areaOfNeed"] = { set: [] };
+    } else {
+      studentData["areaOfNeed"] = { connect: data.areasOfNeed.map((area) => ({ id: area.value })) };
+    }
+  }
+  if (studentId !== undefined) {
+    await prisma.student.update({ where: { id: studentId, ownerId: user.email }, data: studentData });
+    await prisma.actionRecord.create({
+      data: {
+        actionType: ActionType.UPDATE_STUDENT,
+        additionalData: { studentId, studentObj: JSON.stringify(studentData) },
+        ownerId: user.email,
+      },
+    });
+    return { success: true };
+  } else {
+    await prisma.student.create({ data: studentData });
+    await prisma.actionRecord.create({
+      data: {
+        actionType: ActionType.CREATE_STUDENT,
+        additionalData: { studentObj: JSON.stringify(studentData) },
+        ownerId: user.email,
+      },
+    });
+  }
   return { success: true };
 }
 
@@ -68,5 +87,12 @@ export async function deleteStudent(studentId: string) {
   const { user } = await getSessionOrFail();
 
   await prisma.student.delete({ where: { id: studentId, ownerId: user.email } });
+  await prisma.actionRecord.create({
+    data: {
+      actionType: ActionType.DELETE_STUDENT,
+      additionalData: { studentId },
+      ownerId: user.email,
+    },
+  });
   redirect("/app/students", RedirectType.replace);
 }

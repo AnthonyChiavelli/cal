@@ -43,4 +43,33 @@ describe("Family create page", () => {
 
     cy.get("table tr td a").should("contain", "Pringer");
   });
+
+  it("Should autofill both parent's last names based on family names until they have been manually modified", () => {
+    
+    // Setup
+    cy.visit("http://localhost:3000/");
+    cy.get("a").contains("Log in").click();
+    cy.loginToAuth0(Cypress.env("auth0_username"), Cypress.env("auth0_password"));
+    cy.url().should("include", "/app");
+    cy.visit("http://localhost:3000/app");
+
+    cy.getCy("sidebar-link-Families").click();
+    cy.getCy("button-add-family").click();
+
+    // Fill form
+    cy.getCy("input-familyName").clear().type("Pringer");
+    cy.getCy("input-familyName").should("have.value", "Pringer");
+    cy.getCy("input-parent1LastName").should("have.value", "Pringer");
+    cy.getCy("input-parent2LastName").should("have.value", "Pringer");
+    
+    cy.getCy("input-parent1LastName").clear().type("Gunk");
+    cy.getCy("input-familyName").clear().type("Plooniper");
+    cy.getCy("input-parent1LastName").should("have.value", "Gunk");
+    cy.getCy("input-parent2LastName").should("have.value", "Plooniper");
+    
+    cy.getCy("input-parent2LastName").clear().type("Gunk");
+    cy.getCy("input-familyName").clear().type("Chooply");
+    cy.getCy("input-parent1LastName").should("have.value", "Gunk");
+    cy.getCy("input-parent2LastName").should("have.value", "Gunk");
+  });
 });

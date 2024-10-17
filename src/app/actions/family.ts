@@ -1,5 +1,6 @@
 "use server";
 
+import { ActionType } from "@prisma/client";
 import prisma from "@/db";
 import { getSessionOrFail } from "./util";
 
@@ -43,14 +44,24 @@ export async function updateOrCreateFamily(formData: FamilyFormData, familyId?: 
     await prisma.family.update({
       where: {
         id: familyId,
+        ownerId: user.email,
       },
       data: {
         familyName: formData.familyName,
         notes: formData.notes || "",
         parents: {
-          deleteMany: {},
           create: parentsQuery,
         },
+      },
+    });
+    await prisma.actionRecord.create({
+      data: {
+        actionType: ActionType.UPDATE_FAMILY,
+        additionalData: {
+          familyId,
+          familyObj: JSON.stringify({ ...formData }),
+        },
+        ownerId: user.email,
       },
     });
   } else {
@@ -67,6 +78,15 @@ export async function updateOrCreateFamily(formData: FamilyFormData, familyId?: 
         parents: {
           create: parentsQuery,
         },
+      },
+    });
+    await prisma.actionRecord.create({
+      data: {
+        actionType: ActionType.CREATE_FAMILY,
+        additionalData: {
+          familyObj: JSON.stringify(formData),
+        },
+        ownerId: user.email,
       },
     });
   }

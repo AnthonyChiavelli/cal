@@ -65,7 +65,7 @@ model Student {
 
   gradeLevel Int
   areaOfNeed AreaOfNeed[]
-  notes String
+  notes String?
 
   eventStudents EventStudent[]
 }
@@ -74,6 +74,8 @@ model AreaOfNeed {
   id String @id @default(uuid())
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+
+  name String
 
   owner User @relation(fields: [ownerId], references: [email])
   ownerId String
@@ -240,9 +242,12 @@ model ActionRecord {
 
 enum ActionType {
   CREATE_STUDENT
-  EDIT_STUDENT
+  UPDATE_STUDENT
   DELETE_STUDENT
   IMPORT_STUDENTS
+  CREATE_FAMILY
+  UPDATE_FAMILY
+  DELETE_FAMILY
   SCHEDULE_EVENT
   EDIT_EVENT
   DELETE_EVENT

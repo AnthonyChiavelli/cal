@@ -1,20 +1,18 @@
 "use client";
 
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo } from "react";
 import { cn } from "@nextui-org/react";
 import { useForm, useWatch } from "react-hook-form";
 import Button from "@/app/components/button";
 import PhoneInput from "@/app/components/phone_input";
 
 interface IFamilyFormProps {
+  // TODO fix
   family?: any;
   onSubmit: (data: any) => void;
 }
 
 export default function FamilyForm(props: IFamilyFormProps) {
-  const [parent1LastNameModified, setParent1LastNameModified] = useState(false);
-  const [parent2LastNameModified, setParent2LastNameModified] = useState(false);
-
   const initialValues = useMemo(() => {
     return {
       familyName: props.family?.familyName,
@@ -48,7 +46,7 @@ export default function FamilyForm(props: IFamilyFormProps) {
     if (!getFieldState("parent2LastName").isDirty) {
       setValue("parent2LastName", familyName);
     }
-  }, [setValue, familyName, parent1LastNameModified, getFieldState, props.family]);
+  }, [setValue, familyName, getFieldState, props.family]);
 
   return (
     <form className="flex flex-col gap-3" autoComplete="off" onSubmit={handleSubmit(props.onSubmit)}>
