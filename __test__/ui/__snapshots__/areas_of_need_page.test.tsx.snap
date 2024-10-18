@@ -1,0 +1,515 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`AreasOfNeedPage Renders a consistent snapshot when empty 1`] = `
+{
+  "asFragment": [Function],
+  "baseElement": <body>
+    <div>
+      <div>
+        <section
+          class="mt-5"
+        >
+          <h1
+            class=""
+          >
+            Areas of Need
+          </h1>
+          <table
+            class="min-w-full divide-y divide-gray-300"
+          >
+            <thead>
+              <tr
+                class="text-sm text-left font-semibold bg-slate-400 text-white"
+              >
+                <th
+                  class="py-3 px-4"
+                >
+                  Area
+                </th>
+                <th
+                  class="py-3 px-4"
+                >
+                  Created At
+                </th>
+                <th
+                  class="py-3 px-4"
+                >
+                  Actions
+                </th>
+              </tr>
+            </thead>
+            <tbody
+              class="bg-white"
+            >
+              <tr
+                class="bg-white italic"
+              >
+                <td
+                  class="text-center py-3"
+                  colspan="4"
+                >
+                  No areas of need yet!
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </section>
+        <section
+          class="mt-5"
+        >
+          <button
+            class="text-sm font-semibold px-3 py-2 flex flex-row justify-center rounded-md shadow-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 bg-indigo-600 hover:bg-indigo-500  text-white"
+            data-cy="button-add-area-of-need"
+            type="button"
+          >
+            <svg
+              aria-hidden="true"
+              class="h-5 w-5 mr-2"
+              data-slot="icon"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="1.5"
+              viewBox="0 0 24 24"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M12 4.5v15m7.5-7.5h-15"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              />
+            </svg>
+            <span>
+              Add Area of Need
+            </span>
+          </button>
+        </section>
+      </div>
+    </div>
+  </body>,
+  "container": <div>
+    <div>
+      <section
+        class="mt-5"
+      >
+        <h1
+          class=""
+        >
+          Areas of Need
+        </h1>
+        <table
+          class="min-w-full divide-y divide-gray-300"
+        >
+          <thead>
+            <tr
+              class="text-sm text-left font-semibold bg-slate-400 text-white"
+            >
+              <th
+                class="py-3 px-4"
+              >
+                Area
+              </th>
+              <th
+                class="py-3 px-4"
+              >
+                Created At
+              </th>
+              <th
+                class="py-3 px-4"
+              >
+                Actions
+              </th>
+            </tr>
+          </thead>
+          <tbody
+            class="bg-white"
+          >
+            <tr
+              class="bg-white italic"
+            >
+              <td
+                class="text-center py-3"
+                colspan="4"
+              >
+                No areas of need yet!
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </section>
+      <section
+        class="mt-5"
+      >
+        <button
+          class="text-sm font-semibold px-3 py-2 flex flex-row justify-center rounded-md shadow-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 bg-indigo-600 hover:bg-indigo-500  text-white"
+          data-cy="button-add-area-of-need"
+          type="button"
+        >
+          <svg
+            aria-hidden="true"
+            class="h-5 w-5 mr-2"
+            data-slot="icon"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="1.5"
+            viewBox="0 0 24 24"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M12 4.5v15m7.5-7.5h-15"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            />
+          </svg>
+          <span>
+            Add Area of Need
+          </span>
+        </button>
+      </section>
+    </div>
+  </div>,
+  "debug": [Function],
+  "findAllByAltText": [Function],
+  "findAllByDisplayValue": [Function],
+  "findAllByLabelText": [Function],
+  "findAllByPlaceholderText": [Function],
+  "findAllByRole": [Function],
+  "findAllByTestId": [Function],
+  "findAllByText": [Function],
+  "findAllByTitle": [Function],
+  "findByAltText": [Function],
+  "findByDisplayValue": [Function],
+  "findByLabelText": [Function],
+  "findByPlaceholderText": [Function],
+  "findByRole": [Function],
+  "findByTestId": [Function],
+  "findByText": [Function],
+  "findByTitle": [Function],
+  "getAllByAltText": [Function],
+  "getAllByDisplayValue": [Function],
+  "getAllByLabelText": [Function],
+  "getAllByPlaceholderText": [Function],
+  "getAllByRole": [Function],
+  "getAllByTestId": [Function],
+  "getAllByText": [Function],
+  "getAllByTitle": [Function],
+  "getByAltText": [Function],
+  "getByDisplayValue": [Function],
+  "getByLabelText": [Function],
+  "getByPlaceholderText": [Function],
+  "getByRole": [Function],
+  "getByTestId": [Function],
+  "getByText": [Function],
+  "getByTitle": [Function],
+  "queryAllByAltText": [Function],
+  "queryAllByDisplayValue": [Function],
+  "queryAllByLabelText": [Function],
+  "queryAllByPlaceholderText": [Function],
+  "queryAllByRole": [Function],
+  "queryAllByTestId": [Function],
+  "queryAllByText": [Function],
+  "queryAllByTitle": [Function],
+  "queryByAltText": [Function],
+  "queryByDisplayValue": [Function],
+  "queryByLabelText": [Function],
+  "queryByPlaceholderText": [Function],
+  "queryByRole": [Function],
+  "queryByTestId": [Function],
+  "queryByText": [Function],
+  "queryByTitle": [Function],
+  "rerender": [Function],
+  "unmount": [Function],
+}
+`;
+
+exports[`AreasOfNeedPage Renders a consistent snapshot when filled with data 1`] = `
+{
+  "asFragment": [Function],
+  "baseElement": <body>
+    <div>
+      <div>
+        <section
+          class="mt-5"
+        >
+          <h1
+            class=""
+          >
+            Areas of Need
+          </h1>
+          <table
+            class="min-w-full divide-y divide-gray-300"
+          >
+            <thead>
+              <tr
+                class="text-sm text-left font-semibold bg-slate-400 text-white"
+              >
+                <th
+                  class="py-3 px-4"
+                >
+                  Area
+                </th>
+                <th
+                  class="py-3 px-4"
+                >
+                  Created At
+                </th>
+                <th
+                  class="py-3 px-4"
+                >
+                  Actions
+                </th>
+              </tr>
+            </thead>
+            <tbody
+              class="bg-white"
+            >
+              <tr
+                class="text-sm text-gray-800 even:bg-gray-50"
+              >
+                <td
+                  class="py-3 px-4"
+                >
+                  Charcuterie
+                </td>
+                <td
+                  class="py-3 px-4"
+                >
+                  2/1/2021, 7:00:00 PM
+                </td>
+                <td
+                  class="py-3 px-4 gap-2 flex flex-row"
+                >
+                  <button
+                    class="text-red-500 hover:text-red-700"
+                  >
+                    Delete
+                  </button>
+                </td>
+              </tr>
+              <tr
+                class="text-sm text-gray-800 even:bg-gray-50"
+              >
+                <td
+                  class="py-3 px-4"
+                >
+                  Ham Slicing
+                </td>
+                <td
+                  class="py-3 px-4"
+                >
+                  4/3/2021, 8:00:00 PM
+                </td>
+                <td
+                  class="py-3 px-4 gap-2 flex flex-row"
+                >
+                  <button
+                    class="text-red-500 hover:text-red-700"
+                  >
+                    Delete
+                  </button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </section>
+        <section
+          class="mt-5"
+        >
+          <button
+            class="text-sm font-semibold px-3 py-2 flex flex-row justify-center rounded-md shadow-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 bg-indigo-600 hover:bg-indigo-500  text-white"
+            data-cy="button-add-area-of-need"
+            type="button"
+          >
+            <svg
+              aria-hidden="true"
+              class="h-5 w-5 mr-2"
+              data-slot="icon"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="1.5"
+              viewBox="0 0 24 24"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M12 4.5v15m7.5-7.5h-15"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              />
+            </svg>
+            <span>
+              Add Area of Need
+            </span>
+          </button>
+        </section>
+      </div>
+    </div>
+  </body>,
+  "container": <div>
+    <div>
+      <section
+        class="mt-5"
+      >
+        <h1
+          class=""
+        >
+          Areas of Need
+        </h1>
+        <table
+          class="min-w-full divide-y divide-gray-300"
+        >
+          <thead>
+            <tr
+              class="text-sm text-left font-semibold bg-slate-400 text-white"
+            >
+              <th
+                class="py-3 px-4"
+              >
+                Area
+              </th>
+              <th
+                class="py-3 px-4"
+              >
+                Created At
+              </th>
+              <th
+                class="py-3 px-4"
+              >
+                Actions
+              </th>
+            </tr>
+          </thead>
+          <tbody
+            class="bg-white"
+          >
+            <tr
+              class="text-sm text-gray-800 even:bg-gray-50"
+            >
+              <td
+                class="py-3 px-4"
+              >
+                Charcuterie
+              </td>
+              <td
+                class="py-3 px-4"
+              >
+                2/1/2021, 7:00:00 PM
+              </td>
+              <td
+                class="py-3 px-4 gap-2 flex flex-row"
+              >
+                <button
+                  class="text-red-500 hover:text-red-700"
+                >
+                  Delete
+                </button>
+              </td>
+            </tr>
+            <tr
+              class="text-sm text-gray-800 even:bg-gray-50"
+            >
+              <td
+                class="py-3 px-4"
+              >
+                Ham Slicing
+              </td>
+              <td
+                class="py-3 px-4"
+              >
+                4/3/2021, 8:00:00 PM
+              </td>
+              <td
+                class="py-3 px-4 gap-2 flex flex-row"
+              >
+                <button
+                  class="text-red-500 hover:text-red-700"
+                >
+                  Delete
+                </button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </section>
+      <section
+        class="mt-5"
+      >
+        <button
+          class="text-sm font-semibold px-3 py-2 flex flex-row justify-center rounded-md shadow-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 bg-indigo-600 hover:bg-indigo-500  text-white"
+          data-cy="button-add-area-of-need"
+          type="button"
+        >
+          <svg
+            aria-hidden="true"
+            class="h-5 w-5 mr-2"
+            data-slot="icon"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="1.5"
+            viewBox="0 0 24 24"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M12 4.5v15m7.5-7.5h-15"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            />
+          </svg>
+          <span>
+            Add Area of Need
+          </span>
+        </button>
+      </section>
+    </div>
+  </div>,
+  "debug": [Function],
+  "findAllByAltText": [Function],
+  "findAllByDisplayValue": [Function],
+  "findAllByLabelText": [Function],
+  "findAllByPlaceholderText": [Function],
+  "findAllByRole": [Function],
+  "findAllByTestId": [Function],
+  "findAllByText": [Function],
+  "findAllByTitle": [Function],
+  "findByAltText": [Function],
+  "findByDisplayValue": [Function],
+  "findByLabelText": [Function],
+  "findByPlaceholderText": [Function],
+  "findByRole": [Function],
+  "findByTestId": [Function],
+  "findByText": [Function],
+  "findByTitle": [Function],
+  "getAllByAltText": [Function],
+  "getAllByDisplayValue": [Function],
+  "getAllByLabelText": [Function],
+  "getAllByPlaceholderText": [Function],
+  "getAllByRole": [Function],
+  "getAllByTestId": [Function],
+  "getAllByText": [Function],
+  "getAllByTitle": [Function],
+  "getByAltText": [Function],
+  "getByDisplayValue": [Function],
+  "getByLabelText": [Function],
+  "getByPlaceholderText": [Function],
+  "getByRole": [Function],
+  "getByTestId": [Function],
+  "getByText": [Function],
+  "getByTitle": [Function],
+  "queryAllByAltText": [Function],
+  "queryAllByDisplayValue": [Function],
+  "queryAllByLabelText": [Function],
+  "queryAllByPlaceholderText": [Function],
+  "queryAllByRole": [Function],
+  "queryAllByTestId": [Function],
+  "queryAllByText": [Function],
+  "queryAllByTitle": [Function],
+  "queryByAltText": [Function],
+  "queryByDisplayValue": [Function],
+  "queryByLabelText": [Function],
+  "queryByPlaceholderText": [Function],
+  "queryByRole": [Function],
+  "queryByTestId": [Function],
+  "queryByText": [Function],
+  "queryByTitle": [Function],
+  "rerender": [Function],
+  "unmount": [Function],
+}
+`;

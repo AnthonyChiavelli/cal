@@ -9,6 +9,7 @@ import {
   ArrowLeftStartOnRectangleIcon,
   DocumentDuplicateIcon,
   UserGroupIcon,
+  BeakerIcon,
   ChartBarIcon,
   DocumentTextIcon,
   ChevronDoubleLeftIcon,
@@ -60,6 +61,7 @@ export default function Sidebar(props: ISidebarProps) {
             <SidebarEntry icon={UsersIcon} text="Students" href="/app/students" highlighted={false} />
             <SidebarEntry icon={DocumentDuplicateIcon} text="Invoices" href="/app/invoices" highlighted={false} />
             <SidebarEntry icon={UserGroupIcon} text="Families" href="/app/families" highlighted={false} />
+            <SidebarEntry icon={BeakerIcon} text="Areas Of Need" href="/app/areas-of-need" highlighted={false} />
             <SidebarEntry icon={ChartBarIcon} text="Analytics" href="/app/analytics" highlighted={false} />
             <SidebarEntry icon={DocumentTextIcon} text="Logs" href="/app/logs" highlighted={false} />
             <li className="my-px">

@@ -124,7 +124,7 @@ export default function SimpleForm(props: ISimpleForm) {
         <Button
           role="submit"
           dataCy="submit-form"
-          // disabled={!isDirty}
+          disabled={!isDirty}
           flavor="primary"
           text={props.editMode ? "Update" : "Add"}
           type="submit"

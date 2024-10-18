@@ -8,6 +8,7 @@ exports[`SimpleForm Renders a consistent snapshot with various form element type
       <form
         autocomplete="off"
         class="flex flex-col gap-3"
+        role="form"
       >
         <input
           autocomplete="false"
@@ -25,7 +26,7 @@ exports[`SimpleForm Renders a consistent snapshot with various form element type
               class="block text-sm font-medium leading-6 text-gray-900 sm:pt-1.5"
               for="firstName"
             >
-              First Name
+              firstName
             </label>
             <div
               class="mt-2 sm:col-span-2 sm:mt-0"
@@ -53,9 +54,9 @@ exports[`SimpleForm Renders a consistent snapshot with various form element type
           >
             <label
               class="block text-sm font-medium leading-6 text-gray-900 sm:pt-1.5"
-              for="firstName"
+              for="lastName"
             >
-              Last Name
+              lastName
             </label>
             <div
               class="mt-2 sm:col-span-2 sm:mt-0"
@@ -83,9 +84,9 @@ exports[`SimpleForm Renders a consistent snapshot with various form element type
           >
             <label
               class="block text-sm font-medium leading-6 text-gray-900 sm:pt-1.5"
-              for="firstName"
+              for="gradeLevel"
             >
-              Grade Level
+              gradeLevel
             </label>
             <div
               class="mt-2 sm:col-span-2 sm:mt-0"
@@ -114,9 +115,9 @@ exports[`SimpleForm Renders a consistent snapshot with various form element type
           >
             <label
               class="block text-sm font-medium leading-6 text-gray-900 sm:pt-1.5"
-              for="firstName"
+              for="areasOfNeed"
             >
-              Areas of need
+              areasOfNeed
             </label>
             <div
               class="mt-2 sm:col-span-2 sm:mt-0"
@@ -164,7 +165,7 @@ exports[`SimpleForm Renders a consistent snapshot with various form element type
                           autocomplete="off"
                           autocorrect="off"
                           class=""
-                          id="react-select-2-input"
+                          id="areasOfNeed"
                           role="combobox"
                           spellcheck="false"
                           style="opacity: 1; width: 100%; grid-area: 1 / 2; min-width: 2px; border: 0px; margin: 0px; outline: 0; padding: 0px;"
@@ -219,9 +220,9 @@ exports[`SimpleForm Renders a consistent snapshot with various form element type
           >
             <label
               class="block text-sm font-medium leading-6 text-gray-900 sm:pt-1.5"
-              for="firstName"
+              for="notes"
             >
-              Notes
+              notes
             </label>
             <div
               class="mt-2 sm:col-span-2 sm:mt-0"
@@ -260,6 +261,7 @@ exports[`SimpleForm Renders a consistent snapshot with various form element type
     <form
       autocomplete="off"
       class="flex flex-col gap-3"
+      role="form"
     >
       <input
         autocomplete="false"
@@ -277,7 +279,7 @@ exports[`SimpleForm Renders a consistent snapshot with various form element type
             class="block text-sm font-medium leading-6 text-gray-900 sm:pt-1.5"
             for="firstName"
           >
-            First Name
+            firstName
           </label>
           <div
             class="mt-2 sm:col-span-2 sm:mt-0"
@@ -305,9 +307,9 @@ exports[`SimpleForm Renders a consistent snapshot with various form element type
         >
           <label
             class="block text-sm font-medium leading-6 text-gray-900 sm:pt-1.5"
-            for="firstName"
+            for="lastName"
           >
-            Last Name
+            lastName
           </label>
           <div
             class="mt-2 sm:col-span-2 sm:mt-0"
@@ -335,9 +337,9 @@ exports[`SimpleForm Renders a consistent snapshot with various form element type
         >
           <label
             class="block text-sm font-medium leading-6 text-gray-900 sm:pt-1.5"
-            for="firstName"
+            for="gradeLevel"
           >
-            Grade Level
+            gradeLevel
           </label>
           <div
             class="mt-2 sm:col-span-2 sm:mt-0"
@@ -366,9 +368,9 @@ exports[`SimpleForm Renders a consistent snapshot with various form element type
         >
           <label
             class="block text-sm font-medium leading-6 text-gray-900 sm:pt-1.5"
-            for="firstName"
+            for="areasOfNeed"
           >
-            Areas of need
+            areasOfNeed
           </label>
           <div
             class="mt-2 sm:col-span-2 sm:mt-0"
@@ -416,7 +418,7 @@ exports[`SimpleForm Renders a consistent snapshot with various form element type
                         autocomplete="off"
                         autocorrect="off"
                         class=""
-                        id="react-select-2-input"
+                        id="areasOfNeed"
                         role="combobox"
                         spellcheck="false"
                         style="opacity: 1; width: 100%; grid-area: 1 / 2; min-width: 2px; border: 0px; margin: 0px; outline: 0; padding: 0px;"
@@ -471,9 +473,9 @@ exports[`SimpleForm Renders a consistent snapshot with various form element type
         >
           <label
             class="block text-sm font-medium leading-6 text-gray-900 sm:pt-1.5"
-            for="firstName"
+            for="notes"
           >
-            Notes
+            notes
           </label>
           <div
             class="mt-2 sm:col-span-2 sm:mt-0"
