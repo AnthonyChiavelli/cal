@@ -48,7 +48,11 @@ export async function updateOrCreateFamily(formData: FamilyFormData, familyId?: 
         familyName: formData.familyName,
         notes: formData.notes || "",
         parents: {
+          // TODO update parents instead of creating new ones
           create: parentsQuery,
+          update: {
+            
+          }
         },
       },
     });

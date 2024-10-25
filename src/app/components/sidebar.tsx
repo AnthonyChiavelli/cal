@@ -29,12 +29,12 @@ export default function Sidebar(props: ISidebarProps) {
       {props.expanded && (
         <div
           onClick={() => props.setExpanded(false)}
-          className="block md:hidden overlay-zone fixed left-60 right-0 bottom-0 top-0 z-10 bg-transparent"
+          className="overlay-zone fixed bottom-0 left-60 right-0 top-0 z-10 block bg-transparent md:hidden"
         />
       )}
       <aside
         className={classNames(
-          "z-30 sidebar shrink-0 w-64 md:shadow transform md:translate-x-0 transition-transform duration-150 ease-in text-white bg-gradient-45 from-azure to-hot-pink",
+          "sidebar z-30 w-64 shrink-0 transform bg-gradient-45 from-azure to-hot-pink text-white transition-transform duration-150 ease-in md:translate-x-0 md:shadow",
           {
             "translate-x-0": props.expanded,
             "-translate-x-64": !props.expanded,
@@ -48,14 +48,14 @@ export default function Sidebar(props: ISidebarProps) {
         <div className="sidebar-content px-4 py-6">
           <ul
             onClick={() => props.setExpanded(false)}
-            className={classNames("flex flex-col w-full items-stretch md:visible", {
+            className={classNames("flex w-full flex-col items-stretch md:visible", {
               visible: props.expanded,
               invisible: !props.expanded,
             })}
           >
             <SidebarEntry icon={HomeIcon} text="Home" href="/app" highlighted={false} />
             <li className="my-px">
-              <span className="flex font-medium text-sm text-gray-100 px-4 my-4 uppercase">Pages</span>
+              <span className="my-4 flex px-4 text-sm font-medium uppercase text-gray-100">Pages</span>
             </li>
             <SidebarEntry icon={CalendarDaysIcon} text="Schedule" href="/app/schedule" highlighted={false} />
             <SidebarEntry icon={UsersIcon} text="Students" href="/app/students" highlighted={false} />
@@ -65,7 +65,7 @@ export default function Sidebar(props: ISidebarProps) {
             <SidebarEntry icon={ChartBarIcon} text="Analytics" href="/app/analytics" highlighted={false} />
             <SidebarEntry icon={DocumentTextIcon} text="Logs" href="/app/logs" highlighted={false} />
             <li className="my-px">
-              <span className="flex font-medium text-sm text-gray-100 px-4 my-4 uppercase">Account</span>
+              <span className="my-4 flex px-4 text-sm font-medium uppercase text-gray-100">Account</span>
             </li>
             <SidebarEntry icon={UserIcon} text="Profile" href="/app/profile" highlighted={false} />
             <SidebarEntry icon={Cog6ToothIcon} text="Settings" href="/app/settings" highlighted={false} />
@@ -77,12 +77,12 @@ export default function Sidebar(props: ISidebarProps) {
             />
 
             <li
-              className="my-px absolute bottom-3 left-0 right-0 block md:hidden"
+              className="absolute bottom-3 left-0 right-0 my-px block md:hidden"
               onClick={() => props.setExpanded(false)}
             >
               <div
                 className={classNames(
-                  "flex flex-row items-center justify-center h-10 px-3 rounded-lg text-gray-300 hover:bg-gray-100 hover:text-gray-700",
+                  "flex h-10 flex-row items-center justify-center rounded-lg px-3 text-gray-300 hover:bg-gray-100 hover:text-gray-700",
                 )}
               >
                 <ChevronDoubleLeftIcon className="h-6 w-6 text-gray-300" />

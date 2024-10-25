@@ -36,6 +36,7 @@ interface IFamilyPageProps {
 
 export default function FamilyPage(props: IFamilyPageProps): JSX.Element {
   const [isLoading, setIsLoading] = useState(false);
+  const [showFamilyForm, setShowFamilyForm] = useState(true);
   const router = useRouter();
 
   const [showDeleteModal, setShowDeleteModal] = useState(false);
@@ -65,7 +66,7 @@ export default function FamilyPage(props: IFamilyPageProps): JSX.Element {
         }
       } catch {
         setIsLoading(false);
-        toast.error("Error creating family");
+        toast.error(`Error ${props.family?.id ? "updating" : "creating"} family`);
       }
     },
     [props, router],
@@ -95,6 +96,32 @@ export default function FamilyPage(props: IFamilyPageProps): JSX.Element {
   return (
     <>
       {isLoading && <LoadingPane />}
+      <div className="my-5 mb-5">
+        <h2>Finance</h2>
+        <div className="mt-1 space-y-8 sm:space-y-0" key="associated-students">
+          <div className="sm:grid sm:grid-cols-3 sm:items-start sm:gap-2 sm:py-1">
+            <label htmlFor="balance" className="block text-sm font-medium leading-6 text-gray-900 sm:pt-1.5">
+              Current balance
+            </label>
+            <div className="mt-2 sm:col-span-2 sm:mt-0">
+              <div className="flex sm:max-w-md">${Number(props.family.balance).toFixed(2)}</div>
+            </div>
+          </div>
+          <div className="sm:grid sm:grid-cols-3 sm:items-start sm:gap-2 sm:py-1">
+            <label htmlFor="invoices" className="block text-sm font-medium leading-6 text-gray-900 sm:pt-1.5">
+              Past invoices
+            </label>
+            <div className="mt-2 sm:col-span-2 sm:mt-0">
+              <div className="flex sm:max-w-md">
+                <div className="italic">No past invoices</div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div className="mt-1">
+          <Button text="Create invoice" flavor="primary" />
+        </div>
+      </div>
       {props.family && (
         <div className="my-5 mb-5">
           <h2>Family Information</h2>
@@ -122,8 +149,10 @@ export default function FamilyPage(props: IFamilyPageProps): JSX.Element {
         </div>
       )}
       <div className="my-5">
-        <h2>Family Profile</h2>
-        <FamilyForm onSubmit={onSubmit} family={props.family} />
+        <h2 onClick={() => setShowFamilyForm(p => !p)}>Family Profile</h2>
+        <div className={cn({visible: showFamilyForm, invisible: !showFamilyForm})}>
+          <FamilyForm onSubmit={onSubmit} family={props.family} />
+        </div>
       </div>
       <ConfirmationModal
         open={showDeleteModal}

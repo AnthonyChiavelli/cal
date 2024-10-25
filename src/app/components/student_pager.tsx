@@ -61,11 +61,11 @@ export default function StudentPager(props: IStudentPager): JSX.Element {
         <span className="font-bold">{props.totalCount}</span>{" "}
         {searchParams.has("search") ? "results" : "total students"}
       </div>
-      <div className="flex rounded-md -space-x-px">
+      <div className="flex -space-x-px rounded-md">
         <div
           onClick={() => handleIncPage(-1)}
           className={classNames(
-            "p-2 bg-white ring-1 ring-inset ring-gray-300 flex items-center content-center rounded-l-md hover:bg-gray-50 focus:z-20 focus:outline-offset-0",
+            "flex content-center items-center rounded-l-md bg-white p-2 ring-1 ring-inset ring-gray-300 hover:bg-gray-50 focus:z-20 focus:outline-offset-0",
             { "cursor-pointer": currentPage > 1 },
           )}
         >
@@ -76,7 +76,7 @@ export default function StudentPager(props: IStudentPager): JSX.Element {
             key={pageNumber}
             onClick={() => handleChangePage(pageNumber)}
             className={classNames(
-              "page-number p-1 px-3 ring-1 ring-inset ring-gray-300 flex items-center cursor-pointer content-center focus:z-20 focus:outline-offset-0",
+              "page-number flex cursor-pointer content-center items-center p-1 px-3 ring-1 ring-inset ring-gray-300 focus:z-20 focus:outline-offset-0",
               { "bg-white text-black hover:bg-gray-50": pageNumber !== currentPage },
               { "bg-blue-500 text-white hover:bg-blue-700": pageNumber === currentPage },
             )}
@@ -87,7 +87,7 @@ export default function StudentPager(props: IStudentPager): JSX.Element {
         <div
           onClick={() => handleIncPage(1)}
           className={classNames(
-            "p-2 bg-white ring-1 ring-inset ring-gray-300 flex items-center content-center rounded-r-md hover:bg-gray-50 focus:z-20 focus:outline-offset-0",
+            "flex content-center items-center rounded-r-md bg-white p-2 ring-1 ring-inset ring-gray-300 hover:bg-gray-50 focus:z-20 focus:outline-offset-0",
             { "cursor-pointer": currentPage < pageNumbersToShow[pageNumbersToShow.length - 1] },
           )}
         >

@@ -16,11 +16,11 @@ export default function NavWrapper(props: ISidebarProps) {
   useOnMediaQueryMatch("768px", (m) => setSidebarExpanded(!m));
 
   return (
-    <div className="flex flex-row min-h-screen bg-gray-100 text-gray-800">
+    <div className="flex min-h-screen flex-row bg-gray-100 text-gray-800">
       <Sidebar expanded={sidebarExpanded} setExpanded={setSidebarExpanded} />
-      <main className="main max-h-screen overflow-hidden flex flex-col flex-grow -ml-64 md:ml-0 transition-all duration-150 ease-in">
+      <main className="main -ml-64 flex max-h-screen flex-grow flex-col overflow-hidden transition-all duration-150 ease-in md:ml-0">
         <Header userName={props.userName ?? "unknown"} handleClickExpandSidebar={() => setSidebarExpanded(true)} />
-        <div className="min-h-0 flex flex-col flex-grow p-4 overflow-y-auto">{props.children}</div>
+        <div className="flex min-h-0 flex-grow flex-col overflow-y-auto p-4">{props.children}</div>
       </main>
     </div>
   );

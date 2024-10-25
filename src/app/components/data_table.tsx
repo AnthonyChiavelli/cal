@@ -9,10 +9,10 @@ export default function DataTable(props: IDataTableProps) {
   return (
     <table className="min-w-full divide-y divide-gray-300">
       <thead>
-        <tr className="text-sm text-left font-semibold bg-slate-400 text-white">
+        <tr className="bg-slate-400 text-left text-sm font-semibold text-white">
           {props.columns.map((column) => {
             return (
-              <th key={column} className="py-3 px-4">
+              <th key={column} className="px-4 py-3">
                 {column}
               </th>
             );

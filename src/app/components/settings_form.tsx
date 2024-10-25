@@ -38,18 +38,18 @@ export default function SettingsForm(props: ISettingsFormProps) {
       {isLoading && <LoadingPane />}
       <dl className="divide-y divide-gray-100">
         <div className="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
-          <dt className="text-sm font-medium leading-6 text-gray-900 flex flex-row gap-3 items-center justify-between">
+          <dt className="flex flex-row items-center justify-between gap-3 text-sm font-medium leading-6 text-gray-900">
             Base pricing
             <InfoPopover text="The default amount to charge 1 student for a session" />
           </dt>
-          <dd className="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0 flex items-center mb-2">
+          <dd className="mb-2 mt-1 flex items-center text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0">
             <Input defaultValue={String(props.userSettings.basePrice)} type="number" min="0" name="basePrice" />
           </dd>
-          <dt className="text-sm font-medium leading-6 text-gray-900 flex flex-row gap-3 items-center justify-between">
+          <dt className="flex flex-row items-center justify-between gap-3 text-sm font-medium leading-6 text-gray-900">
             Show mini day-view calendar
             <InfoPopover text="Show a mini day-view calendar at the bottom of the page when a day is selected in the month view on mobile display, rather than navigating to the day-view calendar page" />
           </dt>
-          <dd className="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0 flex items-center mb-2">
+          <dd className="mb-2 mt-1 flex items-center text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0">
             <Switch
               defaultSelected={props.userSettings.showInlineDayCalendarInMobileView}
               name="showInlineDayCalendarInMobileView"
@@ -57,7 +57,7 @@ export default function SettingsForm(props: ISettingsFormProps) {
           </dd>
         </div>
       </dl>
-      <button type="submit" className="mt-6 bg-blue-500 text-white rounded-lg px-4 py-2">
+      <button type="submit" className="mt-6 rounded-lg bg-blue-500 px-4 py-2 text-white">
         Save
       </button>
     </form>

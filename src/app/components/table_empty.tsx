@@ -6,7 +6,7 @@ interface ITableEmptyProps {
 export default function TableEmpty(props: ITableEmptyProps) {
   return (
     <tr className="bg-white italic">
-      <td className="text-center py-3" colSpan={props.colSpan}>
+      <td className="py-3 text-center" colSpan={props.colSpan}>
         {props.children}
       </td>
     </tr>

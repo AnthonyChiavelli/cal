@@ -29,7 +29,7 @@ export default function RootLayout({
   return (
     <UserProvider>
       <html lang="en">
-        <body className={`${inter.className} bg-slate-500 text-slate-100 overflow-hidden`}>
+        <body className={`${inter.className} overflow-hidden bg-slate-500 text-slate-100`}>
           <Providers>{children}</Providers>
         </body>
       </html>

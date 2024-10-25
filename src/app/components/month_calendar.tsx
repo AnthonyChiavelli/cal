@@ -90,15 +90,15 @@ export default function MonthCalendar(props: IMonthCalendar) {
 
   return (
     <div className="lg:flex lg:h-full lg:flex-col">
-      <header className="flex flex-col xs:flex-row items-center justify-between border-b border-gray-200 px-2 lg:px-6 py-4 lg:flex-none">
-        <h1 className="flex flex-row xs:flex-col items-center justify-center text-base font-semibold leading-6 text-gray-900">
+      <header className="flex flex-col items-center justify-between border-b border-gray-200 px-2 py-4 xs:flex-row lg:flex-none lg:px-6">
+        <h1 className="flex flex-row items-center justify-center text-base font-semibold leading-6 text-gray-900 xs:flex-col">
           <time dateTime={`${year}-${month}`}>{displayDate}</time>
-          <div className={classNames("text-xs font-normal ml-3 xs:ml-0", { invisible: !isCurrentMonth })}>
+          <div className={classNames("ml-3 text-xs font-normal xs:ml-0", { invisible: !isCurrentMonth })}>
             (Current month)
           </div>
         </h1>
         <div className="flex items-center">
-          <div className="relative flex rounded-md bg-white shadow-sm items-stretch">
+          <div className="relative flex items-stretch rounded-md bg-white shadow-sm">
             <button
               type="button"
               className="flex h-9 w-12 items-center justify-center rounded-l-md border-y border-l border-gray-300 pr-1 text-gray-400 hover:text-gray-500 focus:relative md:w-9 md:pr-0 md:hover:bg-gray-50"
@@ -107,7 +107,7 @@ export default function MonthCalendar(props: IMonthCalendar) {
               <span className="sr-only">Previous month</span>
               <ChevronLeftIcon className="h-5 w-5" aria-hidden="true" />
             </button>
-            <div className="flex items-center content-center border-y border border-gray-300 pr-1">
+            <div className="flex content-center items-center border border-y border-gray-300 pr-1">
               <button
                 onClick={() => goToCurrentMonth()}
                 type="button"
@@ -142,7 +142,7 @@ export default function MonthCalendar(props: IMonthCalendar) {
         </div>
       </header>
 
-      <div className="shadow ring-1 ring-black ring-opacity-5 lg:flex lg:flex-auto lg:flex-col relative">
+      <div className="relative shadow ring-1 ring-black ring-opacity-5 lg:flex lg:flex-auto lg:flex-col">
         {isPending && <LoadingPane />}
         <div className="grid grid-cols-7 gap-px border-b border-gray-300 bg-gray-200 text-center text-xs font-semibold leading-6 text-gray-700 lg:flex-none">
           {["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"].map((day) => (
@@ -161,7 +161,7 @@ export default function MonthCalendar(props: IMonthCalendar) {
                 key={day.date}
                 className={classNames(
                   day.isCurrentMonth ? "bg-white" : "bg-gray-50 text-gray-500",
-                  "relative px-3 py-2 group",
+                  "group relative px-3 py-2",
                 )}
               >
                 <Link href={`?p=day&t=${day.date}`}>
@@ -176,9 +176,9 @@ export default function MonthCalendar(props: IMonthCalendar) {
                     {day.date.split("-").pop()?.replace(/^0/, "")}
                   </time>
                 </Link>
-                <div className="hidden group-hover:block absolute right-3 bottom-3">
+                <div className="absolute bottom-3 right-3 hidden group-hover:block">
                   <PlusCircleIcon
-                    className="h-6 w-6 text-blue-400 cursor-pointer"
+                    className="h-6 w-6 cursor-pointer text-blue-400"
                     onClick={() => {
                       handleLaunchCreateModal(new Date(day.date));
                     }}
@@ -191,8 +191,8 @@ export default function MonthCalendar(props: IMonthCalendar) {
                       <li key={calendarEvent.id}>
                         <Tooltip
                           content={
-                            <div className="text-gray-900 p-3">
-                              <div className="text-md font-bold flex flex-row items-center">
+                            <div className="p-3 text-gray-900">
+                              <div className="text-md flex flex-row items-center font-bold">
                                 {calendarEvent.name} {calendarEvent.event.cancelledAt && "(Cancelled)"}{" "}
                                 {calendarEvent.event.completed && "(Completed)"}
                               </div>
@@ -202,12 +202,12 @@ export default function MonthCalendar(props: IMonthCalendar) {
                           placement="top"
                         >
                           <Link href={calendarEvent.href} className="flex">
-                            <p className="flex-auto truncate font-small text-gray-900 group-hover:text-indigo-600">
+                            <p className="font-small flex-auto truncate text-gray-900 group-hover:text-indigo-600">
                               <span className="flex flex-row items-center">
                                 <span className={classNames({ "line-through": calendarEvent.event.cancelledAt })}>
                                   {calendarEvent.name}
                                 </span>
-                                {calendarEvent.event.completed && <CheckIcon className="h-4 w-4 ml-1 text-green-500" />}
+                                {calendarEvent.event.completed && <CheckIcon className="ml-1 h-4 w-4 text-green-500" />}
                               </span>
                             </p>
                             <time

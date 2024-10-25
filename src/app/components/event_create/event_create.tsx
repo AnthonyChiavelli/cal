@@ -79,7 +79,7 @@ export default function EventCreate(props: IEventCreateProps) {
   }, [state]);
 
   return (
-    <form action={handleSubmit} className="flex flex-col justify-between h-full">
+    <form action={handleSubmit} className="flex h-full flex-col justify-between">
       <div className="flex flex-col gap-5">
         {state.eventType === EventType.CLASS && (
           <>

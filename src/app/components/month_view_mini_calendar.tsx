@@ -26,7 +26,7 @@ export default function MonthViewMiniCalendar(props: IMonthViewMiniCalendarProps
               !isSelected && day.isToday && "text-indigo-600",
               !isSelected && day.isCurrentMonth && !day.isToday && "text-gray-900",
               !isSelected && !day.isCurrentMonth && !day.isToday && "text-gray-500",
-              "flex h-14 flex-col px-3 py-2 hover:bg-gray-100 focus:z-10 border-blue-400",
+              "flex h-14 flex-col border-blue-400 px-3 py-2 hover:bg-gray-100 focus:z-10",
             )}
           >
             <time

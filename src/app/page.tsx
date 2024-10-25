@@ -6,9 +6,9 @@ import HomeNavBar from "./components/home_page/nav_bar";
 export default async function Home() {
   const session = await getSession();
   return (
-    <div className="flex flex-col items-center justify-center h-dvh w-screen">
+    <div className="flex h-dvh w-screen flex-col items-center justify-center">
       <HomeNavBar />
-      <h1 className="text-2xl mb-5">Welcome to Cal</h1>
+      <h1 className="mb-5 text-2xl">Welcome to Cal</h1>
       {session?.user ? (
         <Link href="/app">
           <Button flavor="pizzaz" text="Go to app" />

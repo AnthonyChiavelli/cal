@@ -11,7 +11,7 @@ export default async function FamiliesPage({ searchParams }: { searchParams: { s
   return (
     <div>
       <h1>Families</h1>
-      <section className="flex items-center gap-2 mb-5">
+      <section className="mb-5 flex items-center gap-2">
         <Link href="/app/families/add">
           <Button flavor="primary" text="Add Family" dataCy="button-add-family" iconName="PlusIcon" />
         </Link>
@@ -32,7 +32,7 @@ export default async function FamiliesPage({ searchParams }: { searchParams: { s
           )}
           {!families.length && (
             <tr>
-              <td colSpan={4} className="text-center py-4">
+              <td colSpan={4} className="py-4 text-center">
                 No families found
               </td>
             </tr>

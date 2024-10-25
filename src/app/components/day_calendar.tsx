@@ -125,7 +125,7 @@ export default function DayCalendar(props: IDateCalendarProps) {
             <p className="mt-1 text-sm text-gray-500">{displayDay}</p>
           </div>
           <div className="flex items-center">
-            <div className="relative flex rounded-md bg-white shadow-sm items-stretch">
+            <div className="relative flex items-stretch rounded-md bg-white shadow-sm">
               <Link href={`?p=day&t=${getAdjacentDateString(props.dateString || "", -1)}`}>
                 <button
                   type="button"
@@ -136,7 +136,7 @@ export default function DayCalendar(props: IDateCalendarProps) {
                 </button>
               </Link>
               <Link
-                className="flex items-center content-center border-y border border-gray-300 pr-1"
+                className="flex content-center items-center border border-y border-gray-300 pr-1"
                 href={`?p=day&t=${createDateString(new Date())}`}
               >
                 <button
@@ -204,7 +204,7 @@ export default function DayCalendar(props: IDateCalendarProps) {
               {/* Horizontal lines */}
               <div
                 data-cy="calendar-row-grid"
-                className="col-start-1 col-end-2 row-start-1 grid divide-y divide-gray-100 z-10"
+                className="z-10 col-start-1 col-end-2 row-start-1 grid divide-y divide-gray-100"
                 style={{ gridTemplateRows: "repeat(48, minmax(3.5rem, 1fr))" }}
               >
                 <div key="container-offset" ref={containerOffset} className="row-end-1 h-7"></div>
@@ -249,7 +249,7 @@ export default function DayCalendar(props: IDateCalendarProps) {
                     <li
                       key={event.id}
                       // TODO fix this margin top/bottom fudge factor
-                      className="relative flex z-20 mt-[5px] mb-[-12px]"
+                      className="relative z-20 mb-[-12px] mt-[5px] flex"
                       style={{
                         gridRow: `${Math.round(startMinute / 5)} / span ${(endMinute - startMinute) / 5}`,
                         gridColumn: `auto / span ${Math.floor(12 / concurrentEvents)}`,
@@ -261,7 +261,7 @@ export default function DayCalendar(props: IDateCalendarProps) {
                 })}
                 {isCurrentDay && (
                   <li
-                    className="h-1 bg-green-500 relative mt-px inline-flex"
+                    className="relative mt-px inline-flex h-1 bg-green-500"
                     key="current-time-line"
                     style={{
                       gridRow: ` ${Math.round((new Date().getHours() * 60 + new Date().getMinutes()) / 5)} / span 1`,

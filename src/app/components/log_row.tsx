@@ -15,13 +15,13 @@ interface ILogRowProps {
 export default function LogRow(props: ILogRowProps) {
   return (
     <tr className="text-sm text-gray-800 even:bg-gray-50">
-      <td className="py-3 px-4">{props.record.actionType.toLocaleLowerCase().replace(/_/, " ")}</td>
-      <td className="py-3 px-4">{props.record.success ? "Success ✅" : "Failure ❌"}</td>
-      <td className="flex flex-row py-3 px-4">
-        <span className="mr-1 truncate flex-shrink">{props.record.success ? "Data" : "Error"}</span>
+      <td className="px-4 py-3">{props.record.actionType.toLocaleLowerCase().replace(/_/, " ")}</td>
+      <td className="px-4 py-3">{props.record.success ? "Success ✅" : "Failure ❌"}</td>
+      <td className="flex flex-row px-4 py-3">
+        <span className="mr-1 flex-shrink truncate">{props.record.success ? "Data" : "Error"}</span>
         <Popover placement="right">
           <PopoverTrigger>
-            <ArrowTopRightOnSquareIcon className="w-5 h-5 ml-2 cursor-pointer" />
+            <ArrowTopRightOnSquareIcon className="ml-2 h-5 w-5 cursor-pointer" />
           </PopoverTrigger>
           <PopoverContent>
             <div className="px-1 py-2 text-black">
@@ -32,7 +32,7 @@ export default function LogRow(props: ILogRowProps) {
           </PopoverContent>
         </Popover>
       </td>
-      <td className="py-3 px-4">{props.record.createdAt.toLocaleString()}</td>
+      <td className="px-4 py-3">{props.record.createdAt.toLocaleString()}</td>
     </tr>
   );
 }

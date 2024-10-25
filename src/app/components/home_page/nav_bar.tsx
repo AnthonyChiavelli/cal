@@ -1,10 +1,10 @@
 export default function HomeNavBar() {
   return (
-    <nav className="bg-transparent fixed left-0 right-0 top-0 h-16 flex flex-row justify-between">
-      <div className="flex justify-center items-center pl-14">
-        <h1 className="text-2xl mb-0">Xylum</h1>
+    <nav className="fixed left-0 right-0 top-0 flex h-16 flex-row justify-between bg-transparent">
+      <div className="flex items-center justify-center pl-14">
+        <h1 className="mb-0 text-2xl">Xylum</h1>
       </div>
-      <ul className="flex flex-row gap-14 items-center justify-around pr-14">
+      <ul className="flex flex-row items-center justify-around gap-14 pr-14">
         <li>
           <a href="/app/schedule">Home</a>
         </li>

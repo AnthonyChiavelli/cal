@@ -33,7 +33,7 @@ export default function AreaOfNeedCreateModal(props: IAreaOfNeedCreateModalProps
           Create new &apos;Area of need&apos;
           <Tooltip
             content={
-              <div className="text-black p-3">
+              <div className="p-3 text-black">
                 <div>
                   An &apos;area of need&apos; is an academic subject that a student may have particular trouble with.
                 </div>

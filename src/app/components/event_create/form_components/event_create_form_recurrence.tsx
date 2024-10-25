@@ -98,7 +98,7 @@ export default function EventCreateFormRecurrence(props: IEventCreateNotesProps)
                 <>
                   <CheckboxGroup
                     isRequired
-                    className="flex-1 mt-5"
+                    className="mt-5 flex-1"
                     orientation="horizontal"
                     label="Select days"
                     value={props.state.recurrencePattern?.weeklyDays}
@@ -112,7 +112,7 @@ export default function EventCreateFormRecurrence(props: IEventCreateNotesProps)
                       </Checkbox>
                     ))}
                   </CheckboxGroup>
-                  <div className="flex-1 mt-5 xs:mt-0">
+                  <div className="mt-5 flex-1 xs:mt-0">
                     <Input
                       className="mt-5"
                       isRequired={props.state.recurrencePattern?.recurrenceType === "weekly"}
@@ -165,9 +165,9 @@ export default function EventCreateFormRecurrence(props: IEventCreateNotesProps)
               </Checkbox>
             )}
             {showRecurrencePreview && Boolean(props.state.date) && (
-              <Popover className="text-slate-900 w-full" placement="top-start" backdrop="blur" shouldFlip>
+              <Popover className="w-full text-slate-900" placement="top-start" backdrop="blur" shouldFlip>
                 <PopoverTrigger>
-                  <span className="mt-5 cursor-pointer bg-rose-500 hover:bg-rose-600 text-white text-sm font-semibold px-3 py-2 flex flex-row justify-center rounded-md shadow-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2">
+                  <span className="mt-5 flex cursor-pointer flex-row justify-center rounded-md bg-rose-500 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-rose-600 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2">
                     Preview Recurrence Schedule
                   </span>
                 </PopoverTrigger>
