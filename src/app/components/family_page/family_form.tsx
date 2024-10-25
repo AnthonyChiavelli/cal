@@ -5,11 +5,34 @@ import { cn } from "@nextui-org/react";
 import { useForm, useWatch } from "react-hook-form";
 import Button from "@/app/components/button";
 import PhoneInput from "@/app/components/phone_input";
+import { FamilyWithRelations } from "@/types";
 
 interface IFamilyFormProps {
-  // TODO fix
-  family?: any;
-  onSubmit: (data: any) => void;
+  family?: FamilyWithRelations;
+  onSubmit: (data: RawFamilyFormData) => void;
+}
+
+// ReactHookForm calls onsubmit with this type
+export interface RawFamilyFormData {
+  familyName?: string;
+  parent1FirstName?: string;
+  parent1LastName?: string;
+  parent1Phone?: string | null;
+  parent2FirstName?: string | null;
+  parent2LastName?: string | null;
+  parent2Phone?: string | null;
+  notes?: string | null;
+}
+
+export interface FamilyFormData {
+  familyName: string;
+  parent1FirstName: string;
+  parent1LastName: string;
+  parent1Phone: string;
+  parent2FirstName?: string;
+  parent2LastName?: string;
+  parent2Phone?: string;
+  notes?: string;
 }
 
 export default function FamilyForm(props: IFamilyFormProps) {
@@ -60,6 +83,7 @@ export default function FamilyForm(props: IFamilyFormProps) {
             <div className="flex sm:max-w-md">
               <input
                 aria-labelledby={"familyName"}
+                required
                 data-cy={`input-${"familyName"}`}
                 data-testid={`input-${"familyName"}`}
                 className={cn("input w-full", {

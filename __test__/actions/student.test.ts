@@ -152,6 +152,54 @@ describe("updateOrCreateStudent", () => {
       expect(prismaMock.actionRecord.create).toHaveBeenCalledTimes(0);
     }
   });
+
+  it("should create Areas Of Need on the fly if they don't exist already", async () => {
+    const mockData = {
+      ...getStudentMockData(),
+      areasOfNeed: [{ value: "Test Area" }, { value: "New Label", __isNew__: true }],
+    };
+    try {
+      await updateOrCreateStudent(mockData);
+    } catch (err: any) {
+      expect(err.message).toBe("NEXT_REDIRECT");
+    } finally {
+      expect(prismaMock.student.create).toHaveBeenCalledTimes(1);
+      expect(prismaMock.student.create).toHaveBeenCalledWith({
+        data: {
+          ...getStudentMockData(),
+          areaOfNeed: {
+            connect: [{ id: "Test Area" }],
+            create: [{ name: "New Label", owner: { connect: { email: "test-user@example.com" } } }],
+          },
+          owner: {
+            connect: {
+              email: "test-user@example.com",
+            },
+          },
+        },
+      });
+      expect(prismaMock.actionRecord.create).toHaveBeenCalledTimes(1);
+      expect(prismaMock.actionRecord.create).toHaveBeenCalledWith({
+        data: {
+          actionType: ActionType.CREATE_STUDENT,
+          additionalData: {
+            studentObj: JSON.stringify({
+              firstName: "Testoolio",
+              lastName: "Testorini",
+              gradeLevel: 12,
+              notes: "Problem Child",
+              owner: { connect: { email: "test-user@example.com" } },
+              areaOfNeed: {
+                connect: [{ id: "Test Area" }],
+                create: [{ name: "New Label", owner: { connect: { email: "test-user@example.com" } } }],
+              },
+            }),
+          },
+          ownerId: "test-user@example.com",
+        },
+      });
+    }
+  });
 });
 
 describe("doCSVUpload", () => {

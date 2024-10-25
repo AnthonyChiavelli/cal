@@ -3,32 +3,18 @@
 import { useCallback, useMemo, useState } from "react";
 import { cn } from "@nextui-org/react";
 import { toast } from "react-toastify";
-import { Prisma } from "@prisma/client";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import Button from "@/app/components/button";
 import ConfirmationModal from "@/app/components/confirmation_modal";
+import FamilyForm, { FamilyFormData, RawFamilyFormData } from "@/app/components/family_page/family_form";
 import LoadingPane from "@/app/components/loading_pane";
-import FamilyForm from "./family_form";
-
-interface FamilyFormData {
-  familyId?: string;
-  familyName: string;
-  parent1FirstName: string;
-  parent1LastName: string;
-  parent1Phone: string;
-  parent2FirstName?: string;
-  parent2LastName?: string;
-  parent2Phone?: string;
-  notes?: string;
-}
+import { FamilyWithRelations } from "@/types";
 
 interface IFamilyPageProps {
   updateOrCreateFamily: (formData: FamilyFormData, familyId?: string) => Promise<{ success: boolean }>;
   deleteFamily?: (familyId: string) => Promise<{ success: boolean }>;
-  family?: Prisma.FamilyGetPayload<{
-    include: { parents: true; students: true };
-  }> | null;
+  family?: FamilyWithRelations;
   presetFamilyName?: string | undefined;
   noRedirect?: boolean;
   onCreate?: () => void;
@@ -46,10 +32,10 @@ export default function FamilyPage(props: IFamilyPageProps): JSX.Element {
   );
 
   const onSubmit = useCallback(
-    async (formData: FamilyFormData) => {
+    async (formData: RawFamilyFormData) => {
       try {
         setIsLoading(true);
-        const res = await props.updateOrCreateFamily(formData, props.family?.id);
+        const res = await props.updateOrCreateFamily(formData as FamilyFormData, props.family?.id);
         setIsLoading(false);
         if (res.success) {
           toast.success(`Family ${props.family?.id ? "updated" : "created"}`);

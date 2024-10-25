@@ -1,6 +1,5 @@
 "use server";
 
-// TODO make this work
 import { Prisma } from "@prisma/client";
 import { getSessionOrFail } from "@/app/actions";
 import prisma from "@/db";
@@ -9,7 +8,7 @@ export async function getFamilies(searchParams: {
   search?: string;
 }): Promise<Prisma.FamilyGetPayload<{ include: { parents: true; students: true; invoices: true } }>[]> {
   const { user } = await getSessionOrFail();
-  const query: any = {
+  const query: Prisma.FamilyFindManyArgs = {
     where: {
       ownerId: { equals: user.email },
     },
@@ -42,7 +41,19 @@ export async function getFamilies(searchParams: {
   })) as Prisma.FamilyGetPayload<{ include: { parents: true; students: true; invoices: true } }>[];
 }
 
-// export async function getStudent(studentId: string) {
-//   const { user } = await getSessionOrFail();
-//   return await prisma.student.findFirst({ where: { id: studentId, ownerId: user.email } });
-// }
+export async function getFamily(
+  familyId: string,
+): Promise<Prisma.FamilyGetPayload<{ include: { parents: true; students: true; invoices: true } }> | null> {
+  const { user } = await getSessionOrFail();
+  return await prisma.family.findUnique({
+    where: {
+      id: familyId,
+      ownerId: user.email,
+    },
+    include: {
+      parents: true,
+      students: true,
+      invoices: true,
+    },
+  });
+}

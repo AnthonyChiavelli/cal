@@ -5,24 +5,12 @@ import { toast } from "react-toastify";
 import { AreaOfNeed, Family, Prisma } from "@prisma/client";
 import { useRouter } from "next/navigation";
 import FamilyForm from "@/app/components/family_page";
+import { FamilyFormData } from "@/app/components/family_page/family_form";
 import LoadingPane from "@/app/components/loading_pane";
 import Modal from "@/app/components/modal";
 import SimpleForm from "@/app/components/simple_form";
 
-// TODO extract this to 1 definition
-interface FamilyFormData {
-  familyName: string;
-  parent1FirstName: string;
-  parent1LastName: string;
-  parent1Phone: string;
-  parent2FirstName?: string;
-  parent2LastName?: string;
-  parent2Phone?: string;
-  notes?: string;
-}
-
-// TODO extract this to 1 definition
-interface StudentFormData {
+export interface StudentFormData {
   firstName: string;
   lastName: string;
   gradeLevel: number;
@@ -32,7 +20,6 @@ interface StudentFormData {
 }
 
 interface IStudentCreateProps {
-  // onSubmit: (formData: any) => void;
   families: Array<Family>;
   student?: Prisma.StudentGetPayload<{ include: { areaOfNeed: true; family: true } }>;
   updateOrCreateFamily: (formData: FamilyFormData, familyId?: string) => Promise<{ success: boolean }>;
@@ -44,16 +31,16 @@ export default function StudentPage(props: IStudentCreateProps) {
   const [isLoading, setIsLoading] = useState(false);
   const router = useRouter();
 
-  const handleSubmit = async (formData: any) => {
+  const handleSubmit = async (formData: { [k: string]: string }) => {
     setIsLoading(true);
     try {
-      await props.updateOrCreateStudent(formData, props.student?.id);
+      await props.updateOrCreateStudent(formData as unknown as StudentFormData, props.student?.id);
+      router.push("/app/students");
+      toast.success(`Student ${props.student?.id ? "updated" : "created"}`);
     } catch (e) {
       setIsLoading(false);
       toast.error("Error creating student");
     }
-    router.push("/app/students");
-    toast.success(`Student ${props.student?.id ? "updated" : "created"}`);
     setIsLoading(false);
   };
 

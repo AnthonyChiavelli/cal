@@ -1,5 +1,6 @@
 "use server";
 
+import { Prisma } from "@prisma/client";
 import { getSessionOrFail } from "@/app/actions";
 import prisma from "@/db";
 
@@ -8,7 +9,7 @@ const PAGE_SIZE = 10;
 export async function getStudents(searchParams: { page?: Number; search?: string }) {
   const { user } = await getSessionOrFail();
   const page = Number(searchParams?.page) || 1;
-  const query: any = {
+  const query: Prisma.StudentFindManyArgs = {
     where: {
       ownerId: { equals: user.email },
     },
@@ -34,7 +35,7 @@ export async function getStudents(searchParams: { page?: Number; search?: string
 
 export async function getTotalStudentCount(searchParams: { search?: string }) {
   const { user } = await getSessionOrFail();
-  const query: any = {
+  const query: Prisma.StudentCountArgs = {
     where: {
       ownerId: { equals: user.email },
     },

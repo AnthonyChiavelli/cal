@@ -1,7 +1,7 @@
 "use server";
 
 import prisma from "../../db";
-import { ActionType, ClassType, EventType, User } from "@prisma/client";
+import { ActionType, ClassType, EventType, Prisma, User } from "@prisma/client";
 import { redirect } from "next/navigation";
 import { getSessionOrFail } from "@/app/actions";
 import { RecurrencePattern } from "@/app/types";
@@ -23,7 +23,7 @@ async function createEventFromData(
   recurrenceGroupId: string | null,
   user: User,
 ) {
-  const eventCreationQueryObject: any = {
+  const eventCreationQueryObject: { data: Prisma.EventCreateInput } = {
     data: {
       scheduledFor: date,
       durationMinutes: eventCreationData.duration,

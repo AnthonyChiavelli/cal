@@ -18,7 +18,6 @@ interface ISimpleForm {
   }>;
   editMode?: boolean;
   initialValues?: { [k: ExtractKeyValues<ISimpleForm["formElements"], "name">]: any };
-  // TODO get this working
   onSubmit: (formData: { [k: ExtractKeyValues<ISimpleForm["formElements"], "name">]: string }) => void;
 }
 

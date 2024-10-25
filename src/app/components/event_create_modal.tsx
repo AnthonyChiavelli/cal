@@ -12,7 +12,7 @@ interface IEventCreateModalProps {
   presetDate?: { date?: Date; time?: Date };
 }
 
-export default function EventCreateModal(props: IEventCreateModalProps, ref: any) {
+export default function EventCreateModal(props: IEventCreateModalProps) {
   return (
     <Modal open={props.open} close={props.onClose}>
       <>
