@@ -1,19 +1,9 @@
 "use server";
 
 import { ActionType } from "@prisma/client";
+import { FamilyFormData } from "@/app/components/family_page/family_form";
 import prisma from "@/db";
 import { getSessionOrFail } from "./util";
-
-interface FamilyFormData {
-  familyName: string;
-  parent1FirstName: string;
-  parent1LastName: string;
-  parent1Phone: string;
-  parent2FirstName?: string;
-  parent2LastName?: string;
-  parent2Phone?: string;
-  notes?: string;
-}
 
 export async function updateOrCreateFamily(formData: FamilyFormData, familyId?: string): Promise<{ success: boolean }> {
   const { user } = await getSessionOrFail();

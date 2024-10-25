@@ -3,14 +3,14 @@
 import { ActionType, Prisma } from "@prisma/client";
 import csvtojson from "csvtojson";
 import { RedirectType, redirect } from "next/navigation";
+import { getSessionOrFail } from "@/app/actions/util";
 import prisma from "@/db";
-import { getSessionOrFail } from "./util";
 
 interface IStudentFormData {
   firstName: string;
   lastName: string;
   gradeLevel: number;
-  areasOfNeed: Array<{ value: string }>;
+  areasOfNeed: Array<{ value: string; __isNew__?: boolean }>;
   family?: { value: string };
   notes?: string;
 }
@@ -37,7 +37,13 @@ export async function updateOrCreateStudent(data: IStudentFormData, studentId?: 
       // @ts-ignore This works but fails typecheck
       studentData["areaOfNeed"] = { set: [] };
     } else {
-      studentData["areaOfNeed"] = { connect: data.areasOfNeed.map((area) => ({ id: area.value })) };
+      // TODO check for near-duplicate areas of need
+      studentData["areaOfNeed"] = {
+        connect: data.areasOfNeed.filter((a) => !a.__isNew__).map((area) => ({ id: area.value })),
+        create: data.areasOfNeed
+          .filter((a) => a.__isNew__)
+          .map((area) => ({ name: area.value, owner: { connect: { email: user.email } } })),
+      };
     }
   }
   if (studentId !== undefined) {

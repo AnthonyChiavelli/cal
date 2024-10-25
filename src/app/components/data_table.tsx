@@ -1,8 +1,10 @@
 "use client";
 
+import { ReactNode } from "react";
+
 interface IDataTableProps {
   columns: string[];
-  children: any;
+  children: ReactNode;
 }
 
 export default function DataTable(props: IDataTableProps) {
