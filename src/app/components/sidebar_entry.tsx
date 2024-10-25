@@ -14,7 +14,7 @@ export default function SidebarEntry(props: ISidebarEntry) {
     <li className="my-px">
       <Link
         href={props.href}
-        className={classNames("flex flex-row items-center h-10 px-3 rounded-lg", {
+        className={classNames("flex h-10 flex-row items-center rounded-lg px-3", {
           "bg-gray-100 text-gray-700": props.highlighted,
           "text-gray-100 hover:bg-gray-100 hover:text-gray-700": !props.highlighted,
         })}

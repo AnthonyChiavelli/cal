@@ -9,10 +9,10 @@ interface IUpcomingEventProps {
 export default function UpcomingEvent(props: IUpcomingEventProps) {
   return (
     <div className="flex items-center py-3">
-      <div className="text-1xl text-slate-500 rounded-full bg-purple-200 flex items-center justify-center w-7 h-7 flex-shrink-0 mx-3">
+      <div className="text-1xl mx-3 flex h-7 w-7 flex-shrink-0 items-center justify-center rounded-full bg-purple-200 text-slate-500">
         {props.event.classType === "GROUP" ? "G" : "P"}
       </div>
-      <div className="border-b pb-2 grow">
+      <div className="grow border-b pb-2">
         <div className="text-sm">
           {props.event.classType === "GROUP" ? "Group" : "Private"} class from{" "}
           {dayjs(props.event.scheduledFor).format("MM/DD/YYYY")} to{" "}

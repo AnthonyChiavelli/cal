@@ -67,9 +67,9 @@ export default function AreasOfNeedPage(props: IAreasOfNeedPage) {
         <DataTable columns={["Area", "Created At", "Actions"]}>
           {props.areasOfNeed.map((area) => (
             <tr key={area.id} className="text-sm text-gray-800 even:bg-gray-50">
-              <td className="py-3 px-4">{area.name}</td>
-              <td className="py-3 px-4">{area.createdAt.toLocaleString()}</td>
-              <td className="py-3 px-4 gap-2 flex flex-row">
+              <td className="px-4 py-3">{area.name}</td>
+              <td className="px-4 py-3">{area.createdAt.toLocaleString()}</td>
+              <td className="flex flex-row gap-2 px-4 py-3">
                 <button className="text-red-500 hover:text-red-700" onClick={() => setAreaOfNeedToDelete(area.id)}>
                   Delete
                 </button>

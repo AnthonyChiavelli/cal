@@ -50,7 +50,7 @@ export default function StudentPage(props: IStudentCreateProps) {
       await props.updateOrCreateStudent(formData, props.student?.id);
     } catch (e) {
       setIsLoading(false);
-      toast.error("Error creating student");
+      toast.error(`Error ${props.student?.id ? "updating" : "creating"} student`);
     }
     router.push("/app/students");
     toast.success(`Student ${props.student?.id ? "updated" : "created"}`);

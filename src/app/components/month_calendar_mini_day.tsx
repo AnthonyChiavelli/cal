@@ -28,8 +28,8 @@ export default function MonthCalendarMiniDay(props: IMonthCalendarMiniDayProps) 
             </li>
           </Link>
         ))}
-        {props.day.events.length === 0 && <div className="text-center p-4 pr-6 text-gray-500">No events</div>}
-        <div className="flex flex-col gap-3 xs:flex-row p-2 items-center justify-around">
+        {props.day.events.length === 0 && <div className="p-4 pr-6 text-center text-gray-500">No events</div>}
+        <div className="flex flex-col items-center justify-around gap-3 p-2 xs:flex-row">
           <Link href={`?p=day&t=${props.day.date}`}>
             <Button text="Go to day" flavor="primary" iconName="ArrowUpRightIcon" />
           </Link>

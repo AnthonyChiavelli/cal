@@ -36,7 +36,7 @@ export default function EventCreateFormEventType(props: IEventCreateNotesProps) 
                 <div className="flex-[5]">{student.firstName}</div>
                 <Input
                   isRequired
-                  className="flex-shrink-0 flex-grow-1 max-w-32"
+                  className="flex-grow-1 max-w-32 flex-shrink-0"
                   name={`cost-${student.id}`}
                   value={cost.toString()}
                   onValueChange={(newCost: string) =>
@@ -56,7 +56,7 @@ export default function EventCreateFormEventType(props: IEventCreateNotesProps) 
                   required
                 />
                 <XMarkIcon
-                  className="cursor-pointer remove-student"
+                  className="remove-student cursor-pointer"
                   width={20}
                   height={20}
                   onClick={() => props.dispatch({ type: EventCreateActionType.REMOVE_STUDENT, payload: student })}
@@ -68,7 +68,7 @@ export default function EventCreateFormEventType(props: IEventCreateNotesProps) 
             </div>
             {/* Price total */}
             {props.state.students.length > 0 && (
-              <div className="flex flex-row justify-between mt-5">
+              <div className="mt-5 flex flex-row justify-between">
                 <div>Total</div>
                 <div className="flex flex-row">
                   <div className="font-bold" data-cy="event-total">
@@ -76,7 +76,7 @@ export default function EventCreateFormEventType(props: IEventCreateNotesProps) 
                   </div>
                   <Popover>
                     <PopoverTrigger>
-                      <InformationCircleIcon className="cursor-pointer ml-3" width={20} height={20} />
+                      <InformationCircleIcon className="ml-3 cursor-pointer" width={20} height={20} />
                     </PopoverTrigger>
                     <PopoverContent className="p-5 text-black">
                       <p>
@@ -91,7 +91,7 @@ export default function EventCreateFormEventType(props: IEventCreateNotesProps) 
               </div>
             )}
           </div>
-          <div className="flex flex-col items-start mt-5">
+          <div className="mt-5 flex flex-col items-start">
             {/* Student search/add */}
             <Autocomplete
               data-cy="student-autocomplete"

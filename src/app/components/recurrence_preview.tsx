@@ -26,7 +26,7 @@ export default function RecurrencePreview(props: IRecurrenecePreviewProps) {
             </div>
           ))}
         </div>
-        <div className="flex flex-row justify-around space-x-2 mt-5">
+        <div className="mt-5 flex flex-row justify-around space-x-2">
           <button onClick={() => setPage(page - 1)} disabled={page === 0}>
             <ChevronLeftIcon className={classNames("h-5 w-5", { "text-slate-300": page === 0 })} />
           </button>

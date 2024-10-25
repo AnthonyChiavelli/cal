@@ -60,15 +60,15 @@ export default function CalendarEvent(props: ICalendarEventProps) {
       data-cy={`calendar-event`}
       href={"/app/schedule/" + props.event.id}
       className={classNames(
-        "@container group absolute inset-1 flex flex-col rounded-lg p-2 text-xs leading-5 overflow-x-hidden overflow-y-auto",
+        "group absolute inset-1 flex flex-col overflow-y-auto overflow-x-hidden rounded-lg p-2 text-xs leading-5 @container",
         eventColors,
       )}
     >
-      <div className="flex flex-row justify-between flex-wrap">
-        <p className={classNames("font-semibold truncate", { "line-through": props.event.cancelledAt })}>
+      <div className="flex flex-row flex-wrap justify-between">
+        <p className={classNames("truncate font-semibold", { "line-through": props.event.cancelledAt })}>
           {eventDisplayName}
         </p>
-        <div className="text-md font-semibold flex flex-row gap-2" onClick={handleMarkCompleted}>
+        <div className="text-md flex flex-row gap-2 font-semibold" onClick={handleMarkCompleted}>
           <span className="hidden @[160px]:block">Completed?</span>
           <input
             className={classNames({ hidden: props.event.cancelledAt })}

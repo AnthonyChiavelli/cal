@@ -118,9 +118,9 @@ export default function WeekCalendar(props: IWeekCalendarProps) {
   }, []);
 
   return (
-    <div className="flex h-full flex-col relative">
+    <div className="relative flex h-full flex-col">
       {isMobileSize && (
-        <div className="absolute inset-0 opacity-70 bg-black z-50 flex items-center justify-center text-white p-5">
+        <div className="absolute inset-0 z-50 flex items-center justify-center bg-black p-5 text-white opacity-70">
           Week view calendar not yet supported on small screen sizes. Stay tuned!
         </div>
       )}
@@ -129,7 +129,7 @@ export default function WeekCalendar(props: IWeekCalendarProps) {
           <time dateTime={`${year}-${month}-${day}`}>{displayDate}</time>
         </h1>
         <div className="flex items-center">
-          <div className="relative flex rounded-md bg-white shadow-sm items-stretch">
+          <div className="relative flex items-stretch rounded-md bg-white shadow-sm">
             <button
               onClick={goToPreviousWeek}
               type="button"
@@ -138,7 +138,7 @@ export default function WeekCalendar(props: IWeekCalendarProps) {
               <span className="sr-only">Previous week</span>
               <ChevronLeftIcon className="h-5 w-5" aria-hidden="true" />
             </button>
-            <div className="flex items-center content-center border-y border border-gray-300 pr-1">
+            <div className="flex content-center items-center border border-y border-gray-300 pr-1">
               <button
                 onClick={goToCurrentWeek}
                 type="button"
@@ -192,7 +192,7 @@ export default function WeekCalendar(props: IWeekCalendarProps) {
             <div className="-mr-px hidden grid-cols-14 divide-x divide-gray-100 border-r border-gray-100 text-sm leading-6 text-gray-500 sm:grid">
               <div className="col-end-1 w-14" />
               {daysOfWeek.map((day) => (
-                <Link href={day.href} key={day.date} className="sm:col-start-auto sm:col-span-2">
+                <Link href={day.href} key={day.date} className="sm:col-span-2 sm:col-start-auto">
                   <div key={day.date} className="flex items-center justify-center py-3">
                     <span className={classNames({ "flex items-baseline": day.isToday })}>
                       {day.day}{" "}
@@ -217,7 +217,7 @@ export default function WeekCalendar(props: IWeekCalendarProps) {
               {/* Horizontal lines */}
               <div
                 key="horizontal-line"
-                className="col-start-1 col-end-2 row-start-1 grid divide-y divide-gray-100 z-10"
+                className="z-10 col-start-1 col-end-2 row-start-1 grid divide-y divide-gray-100"
                 style={{ gridTemplateRows: "repeat(48, minmax(3.5rem, 1fr))" }}
               >
                 <div ref={containerOffset} className="row-end-1 h-7"></div>
@@ -226,7 +226,7 @@ export default function WeekCalendar(props: IWeekCalendarProps) {
                   //  Calendar row pair
                   <Fragment key={i}>
                     {/* Hour row */}
-                    <div className="grid grid-cols-7 relative" key={i}>
+                    <div className="relative grid grid-cols-7" key={i}>
                       {/* Hour display */}
                       <div className="absolute left-0 z-20 -ml-14 -mt-2.5 w-14 pr-2 text-right text-xs leading-5 text-gray-400">
                         {i % 12 === 0 ? 12 : i % 12}
@@ -235,7 +235,7 @@ export default function WeekCalendar(props: IWeekCalendarProps) {
                       {/* Hour cells */}
                       {Array.from({ length: 7 }).map((_, j) => (
                         <div
-                          className="col-span-1 z-20"
+                          className="z-20 col-span-1"
                           onClick={() => handleClickCalendar(i, new Date(year, month - 1, day + j))}
                           key={`${i}-${j}`}
                         ></div>
@@ -247,7 +247,7 @@ export default function WeekCalendar(props: IWeekCalendarProps) {
                       {/* Half-hour cells */}
                       {Array.from({ length: 7 }).map((_, j) => (
                         <div
-                          className="col-span-1 z-20"
+                          className="z-20 col-span-1"
                           onClick={() => handleClickCalendar(i + 0.5, new Date(year, month - 1, day + j))}
                           key={`${i}-${j}`}
                         ></div>
@@ -294,7 +294,7 @@ export default function WeekCalendar(props: IWeekCalendarProps) {
                     <li
                       key={event.id}
                       // TODO fix this margin top/bottom fudge factor
-                      className={`relative mt-px flex ${dayToCSSColumnClassMap[column]} col-span-2 mt-[5px] mb-[-12px] z-20`}
+                      className={`relative mt-px flex ${dayToCSSColumnClassMap[column]} z-20 col-span-2 mb-[-12px] mt-[5px]`}
                       style={{
                         gridRow: `${Math.round(startMinute / 5)} / span ${(endMinute - startMinute) / 5}`,
                       }}
@@ -306,7 +306,7 @@ export default function WeekCalendar(props: IWeekCalendarProps) {
                 {/* Time line */}
                 {isCurrentWeek && (
                   <li
-                    className="h-1 bg-green-500 relative mt-px inline-flex"
+                    className="relative mt-px inline-flex h-1 bg-green-500"
                     key="current-time-line"
                     style={{
                       gridRow: `${Math.round((new Date().getHours() * 60 + new Date().getMinutes()) / 5)} / span 1`,

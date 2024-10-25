@@ -41,15 +41,15 @@ async function Students({
         <EntitySearch placeHolder="Search students" />
       </section>
       <div className="mt-5 flex flex-col gap-y-2">
-        <div className="overflow-hidden shadow ring-1 ring-black ring-opacity-5 rounded-lg">
+        <div className="overflow-hidden rounded-lg shadow ring-1 ring-black ring-opacity-5">
           <table className="min-w-full divide-y divide-gray-300">
             <thead>
-              <tr className="text-sm text-left font-semibold bg-slate-400 text-white">
-                <th className="py-3 px-4">First Name</th>
-                <th className="py-3 px-4">Last Name</th>
-                <th className="py-3 px-4">Grade Level</th>
-                <th className="py-3 px-4">Notes</th>
-                <th className="py-3 px-4">Created At</th>
+              <tr className="bg-slate-400 text-left text-sm font-semibold text-white">
+                <th className="px-4 py-3">First Name</th>
+                <th className="px-4 py-3">Last Name</th>
+                <th className="px-4 py-3">Grade Level</th>
+                <th className="px-4 py-3">Notes</th>
+                <th className="px-4 py-3">Created At</th>
                 <th></th>
               </tr>
             </thead>
@@ -68,16 +68,16 @@ async function Students({
               )}
               {students.map((student) => (
                 <tr key={student.id} className="text-sm text-gray-800 even:bg-gray-50">
-                  <td className="py-3 px-4">{student.firstName}</td>
-                  <td className="py-3 px-4">{student.lastName}</td>
-                  <td className="py-3 px-4">{student.gradeLevel}</td>
-                  <td className="py-3 px-4">{student.notes}</td>
-                  <td className="py-3 px-4">{dayjs(student.createdAt).format("MM/DD/YYYY")}</td>
-                  <td className="relative whitespace-nowrap py-3 px-4 text-right text-sm font-medium flex justify-end gap-2">
+                  <td className="px-4 py-3">{student.firstName}</td>
+                  <td className="px-4 py-3">{student.lastName}</td>
+                  <td className="px-4 py-3">{student.gradeLevel}</td>
+                  <td className="px-4 py-3">{student.notes}</td>
+                  <td className="px-4 py-3">{dayjs(student.createdAt).format("MM/DD/YYYY")}</td>
+                  <td className="relative flex justify-end gap-2 whitespace-nowrap px-4 py-3 text-right text-sm font-medium">
                     <Link href={`/app/students/${student.id}`} className="text-gray-800">
                       <PencilIcon width={20} height={20} />
                     </Link>
-                    <div className="text-gray-800 cursor-pointer">
+                    <div className="cursor-pointer text-gray-800">
                       <DeleteStudent studentId={student.id} />
                     </div>
                   </td>

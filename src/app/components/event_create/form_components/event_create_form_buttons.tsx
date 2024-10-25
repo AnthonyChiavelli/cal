@@ -11,7 +11,7 @@ interface IEventCreateNotesProps {
 
 export default function EventCreateFormButtons(props: IEventCreateNotesProps) {
   return (
-    <div className="flex flex-col gap-3 justify-end pt-5">
+    <div className="flex flex-col justify-end gap-3 pt-5">
       {props.state.validationErrors.length > 0 && <div className="text-red-400">Please fix form errors</div>}
       <Button
         type="submit"

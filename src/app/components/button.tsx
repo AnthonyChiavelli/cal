@@ -37,7 +37,7 @@ export default function Button(props: IButtonProps) {
       data-cy={props.dataCy}
       data-testid={props.dataTestId}
       className={classNames(
-        "text-sm font-semibold px-3 py-2 flex flex-row justify-center rounded-md shadow-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2",
+        "flex flex-row justify-center rounded-md px-3 py-2 text-sm font-semibold shadow-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2",
         colorClasses,
         props.className,
       )}
@@ -45,7 +45,7 @@ export default function Button(props: IButtonProps) {
       type={props.type || "button"}
       disabled={props.disabled}
     >
-      {IconElement && <IconElement className="h-5 w-5 mr-2" />}
+      {IconElement && <IconElement className="mr-2 h-5 w-5" />}
       <span>{props.text}</span>
     </button>
   );

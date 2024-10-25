@@ -63,12 +63,12 @@ function ImportStudents() {
     } else if (csvFileParsed && csvFileParsed.error) {
       return (
         <>
-          <div className="flex items-center text-2xl mb-5">
+          <div className="mb-5 flex items-center text-2xl">
             <ExclamationCircleIcon width={30} height={30} className="mr-2" />
             Oops!
           </div>
-          <div className="text-xl mb-2">Looks like there&apos;s some problems with your file:</div>
-          <div className="text-sm flex flex-col items-center mb-5">
+          <div className="mb-2 text-xl">Looks like there&apos;s some problems with your file:</div>
+          <div className="mb-5 flex flex-col items-center text-sm">
             {csvFileParsed.errors.map((error) => (
               <div key={error}>{error}</div>
             ))}
@@ -98,7 +98,7 @@ function ImportStudents() {
       <h1 className="flex items-center gap-2">
         Import students from a CSV file{" "}
         <QuestionMarkCircleIcon
-          className="cursor-pointer w-10 h-10"
+          className="h-10 w-10 cursor-pointer"
           width={30}
           height={30}
           onClick={() => setHelpModalOpen(true)}
@@ -110,7 +110,7 @@ function ImportStudents() {
           <label
             htmlFor="csv-file-input"
             className={classNames(
-              "w-full flex flex-col items-center py-6 border-2 border-slate-500 border-dashed rounded-lg bg-white",
+              "flex w-full flex-col items-center rounded-lg border-2 border-dashed border-slate-500 bg-white py-6",
               { "cursor-pointer": !csvParseLoading },
             )}
           >
@@ -126,7 +126,7 @@ function ImportStudents() {
               onChange={handleFileInputChange}
             />
           </label>
-          <div className="flex justify-center my-5">
+          <div className="my-5 flex justify-center">
             <Button flavor="primary" type="submit" text="Upload" disabled={!(csvFileParsed && !csvFileParsed.error)} />
           </div>
         </form>

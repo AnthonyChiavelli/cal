@@ -29,7 +29,7 @@ async function App() {
       </header>
       <section>
         <div className="lg:grid lg:grid-cols-10 lg:gap-10 lg:px-0">
-          <div className="bg-white p-4 mb-7 lg:col-span-6 rounded-sm shadow-md">
+          <div className="mb-7 rounded-sm bg-white p-4 shadow-md lg:col-span-6">
             <DayCalendar
               dateString={createDateString(new Date())}
               events={await getEventsForDay(createDateString(new Date()))}
@@ -41,7 +41,7 @@ async function App() {
               condensed
             />
           </div>
-          <div className="bg-white p-4 mb-7 lg:col-span-4 rounded-sm shadow-md">
+          <div className="mb-7 rounded-sm bg-white p-4 shadow-md lg:col-span-4">
             <h4>Finances</h4>
             <div className="mt-5 p-3">
               <div className="mb-5">

@@ -14,7 +14,7 @@ export default function EventCreateFormEventType(props: IEventCreateNotesProps) 
     <Card>
       <CardBody>
         {/* Date/time settings */}
-        <fieldset className="xs:flex flex-row gap-3 space-y-3">
+        <fieldset className="flex-row gap-3 space-y-3 xs:flex">
           <legend>Time</legend>
           <Input
             isRequired
