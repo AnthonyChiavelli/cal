@@ -31,6 +31,7 @@ model User {
   parents Parent[]
   actionRecords ActionRecord[]
   recurrenceGroups RecurrenceGroup[]
+  payments Payment[]
 }
 
 model UserSettings {
@@ -182,6 +183,24 @@ model Invoice {
 
   family Family @relation(fields: [familyId], references: [id])
   familyId String
+
+  payments Payment[]
+}
+
+model Payment {
+  id Int @id @default(autoincrement())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  owner User @relation(fields: [ownerId], references: [email])
+  ownerId String
+
+  amount Decimal @db.Money
+  paymentMethod PaymentType
+  paymentIdentifier String  
+
+  invoice Invoice @relation(fields: [invoiceId], references: [id])
+  invoiceId String
 }
 
 
@@ -257,4 +276,13 @@ enum ActionType {
   CANCEL_EVENT
   MARK_COMPLETE_EVENT
   CREATE_RECURRING_EVENT
+}
+
+enum PaymentType {
+  CASH
+  CHECK
+  PAYMENT_APP
+  BANK_TRANSFER
+  CREDIT_APPLIED
+  OTHER
 }

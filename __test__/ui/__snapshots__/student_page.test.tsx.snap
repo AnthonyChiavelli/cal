@@ -346,7 +346,7 @@ exports[`StudentPage Renders a consistent snapshot when empty 1`] = `
         </div>
         <div>
           <button
-            class="text-sm font-semibold px-3 py-2 flex flex-row justify-center rounded-md shadow-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 bg-indigo-200  text-white"
+            class="flex flex-row justify-center rounded-md px-3 py-2 text-sm font-semibold shadow-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 bg-indigo-200  text-white"
             data-cy="submit-form"
             disabled=""
             role="submit"
@@ -702,7 +702,7 @@ exports[`StudentPage Renders a consistent snapshot when empty 1`] = `
       </div>
       <div>
         <button
-          class="text-sm font-semibold px-3 py-2 flex flex-row justify-center rounded-md shadow-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 bg-indigo-200  text-white"
+          class="flex flex-row justify-center rounded-md px-3 py-2 text-sm font-semibold shadow-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 bg-indigo-200  text-white"
           data-cy="submit-form"
           disabled=""
           role="submit"
@@ -1182,7 +1182,7 @@ exports[`StudentPage Renders a consistent snapshot when prefilled with data 1`] 
         </div>
         <div>
           <button
-            class="text-sm font-semibold px-3 py-2 flex flex-row justify-center rounded-md shadow-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 bg-indigo-200  text-white"
+            class="flex flex-row justify-center rounded-md px-3 py-2 text-sm font-semibold shadow-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 bg-indigo-200  text-white"
             data-cy="submit-form"
             disabled=""
             role="submit"
@@ -1605,7 +1605,7 @@ exports[`StudentPage Renders a consistent snapshot when prefilled with data 1`] 
       </div>
       <div>
         <button
-          class="text-sm font-semibold px-3 py-2 flex flex-row justify-center rounded-md shadow-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 bg-indigo-200  text-white"
+          class="flex flex-row justify-center rounded-md px-3 py-2 text-sm font-semibold shadow-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 bg-indigo-200  text-white"
           data-cy="submit-form"
           disabled=""
           role="submit"
@@ -2018,7 +2018,7 @@ exports[`StudentPage Renders without any families or areas of need present 1`] =
         </div>
         <div>
           <button
-            class="text-sm font-semibold px-3 py-2 flex flex-row justify-center rounded-md shadow-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 bg-indigo-200  text-white"
+            class="flex flex-row justify-center rounded-md px-3 py-2 text-sm font-semibold shadow-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 bg-indigo-200  text-white"
             data-cy="submit-form"
             disabled=""
             role="submit"
@@ -2374,7 +2374,7 @@ exports[`StudentPage Renders without any families or areas of need present 1`] =
       </div>
       <div>
         <button
-          class="text-sm font-semibold px-3 py-2 flex flex-row justify-center rounded-md shadow-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 bg-indigo-200  text-white"
+          class="flex flex-row justify-center rounded-md px-3 py-2 text-sm font-semibold shadow-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 bg-indigo-200  text-white"
           data-cy="submit-form"
           disabled=""
           role="submit"

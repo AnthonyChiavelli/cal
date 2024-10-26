@@ -12,9 +12,11 @@ jest.mock("../../src/app/actions/util", () => ({
 const getFamilyMockData = () => {
   return {
     familyName: "Tingledumper",
+    parent1Id: "parent1Id",
     parent1FirstName: "Scane",
     parent1LastName: "Tingledumper",
     parent1Phone: "(555) 555-5555",
+    parent2Id: "parent2Id",
     parent2FirstName: "Thrixy",
     parent2LastName: "Humpenstump",
     parent2Phone: "(555) 555-5556",
@@ -93,22 +95,30 @@ describe("updateOrCreateFamily", () => {
           familyName: "Tingledumper",
           notes: "New notes",
           parents: {
-            create: [
+            update: [
               {
-                email: "",
-                firstName: "Toobus",
-                isPrimary: true,
-                lastName: "Tingledumper",
-                ownerId: "test-user@example.com",
-                phone: "(555) 555-5555",
+                where: {
+                  id: 'parent1Id'
+                },
+                data:
+                {
+                  email: "",
+                  firstName: "Toobus",
+                  lastName: "Tingledumper",
+                  phone: "(555) 555-5555",
+                },
               },
               {
-                email: "",
-                firstName: "Thrixy",
-                isPrimary: false,
-                lastName: "Humpenstump",
-                ownerId: "test-user@example.com",
-                phone: "(555) 555-5556",
+                where: {
+                  id: 'parent2Id'
+                },
+                data:
+                {
+                  email: "",
+                  firstName: "Thrixy",
+                  lastName: "Humpenstump",
+                  phone: "(555) 555-5556",
+                },
               },
             ],
           },
@@ -197,22 +207,30 @@ describe("updateOrCreateFamily", () => {
           familyName: "Tingledumper",
           notes: "Some notes",
           parents: {
-            create: [
+            update: [
               {
-                email: "",
-                firstName: "Scane",
-                isPrimary: true,
-                lastName: "Tingledumper",
-                ownerId: "test-user@example.com",
-                phone: "(555) 555-5555",
+                where: {
+                  id: 'parent1Id'
+                },
+                data:
+                {
+                  email: "",
+                  firstName: "Scane",
+                  lastName: "Tingledumper",
+                  phone: "(555) 555-5555",
+                },
               },
               {
-                email: "",
-                firstName: "Thrixy",
-                isPrimary: false,
-                lastName: "Humpenstump",
-                ownerId: "test-user@example.com",
-                phone: "(555) 555-5556",
+                where: {
+                  id: 'parent2Id'
+                },
+                data:
+                {
+                  email: "",
+                  firstName: "Thrixy",
+                  lastName: "Humpenstump",
+                  phone: "(555) 555-5556",
+                },
               },
             ],
           },

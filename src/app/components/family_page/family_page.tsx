@@ -36,6 +36,8 @@ export default function FamilyPage(props: IFamilyPageProps): JSX.Element {
     async (formData: RawFamilyFormData) => {
       try {
         setIsLoading(true);
+        formData.parent1Id = props.family?.parents.find(p => p.isPrimary)?.id
+        formData.parent2Id = props.family?.parents.find(p => !p.isPrimary)?.id
         const res = await props.updateOrCreateFamily(formData as FamilyFormData, props.family?.id);
         setIsLoading(false);
         if (res.success) {

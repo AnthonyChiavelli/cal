@@ -8,27 +8,35 @@ import { getSessionOrFail } from "./util";
 export async function updateOrCreateFamily(formData: FamilyFormData, familyId?: string): Promise<{ success: boolean }> {
   const { user } = await getSessionOrFail();
 
-  const parentsQuery = [
-    {
-      isPrimary: true,
-      firstName: formData.parent1FirstName,
-      lastName: formData.parent1LastName,
-      email: "",
-      phone: formData.parent1Phone,
-      ownerId: user.email,
-    },
-  ];
-  if (formData.parent2FirstName && formData.parent2LastName && formData.parent2Phone) {
-    parentsQuery.push({
-      isPrimary: false,
-      firstName: formData.parent2FirstName,
-      lastName: formData.parent2LastName,
-      email: "",
-      phone: formData.parent2Phone,
-      ownerId: user.email,
-    });
-  }
+
   if (familyId) {
+    const parentsQuery = [
+      {
+        where: {
+          id: formData.parent1Id
+        },
+        data: {
+          firstName: formData.parent1FirstName,
+          lastName: formData.parent1LastName,
+          email: "",
+          phone: formData.parent1Phone,
+        }
+      },
+    ];
+    if (formData.parent2FirstName && formData.parent2LastName && formData.parent2Phone) {
+      parentsQuery.push({
+        where: {
+          id: formData.parent2Id
+        },
+        data: {
+          firstName: formData.parent2FirstName,
+          lastName: formData.parent2LastName,
+          email: "",
+          phone: formData.parent2Phone,
+        }
+      });
+    }
+
     await prisma.family.update({
       where: {
         id: familyId,
@@ -38,9 +46,7 @@ export async function updateOrCreateFamily(formData: FamilyFormData, familyId?: 
         familyName: formData.familyName,
         notes: formData.notes || "",
         parents: {
-          // TODO update parents instead of creating new ones
-          create: parentsQuery,
-          // update: {},
+          update: parentsQuery
         },
       },
     });
@@ -55,6 +61,27 @@ export async function updateOrCreateFamily(formData: FamilyFormData, familyId?: 
       },
     });
   } else {
+    const parentsQuery = [
+      {
+        isPrimary: true,
+        firstName: formData.parent1FirstName,
+        lastName: formData.parent1LastName,
+        email: "",
+        phone: formData.parent1Phone,
+        ownerId: user.email,
+      },
+    ];
+    if (formData.parent2FirstName && formData.parent2LastName && formData.parent2Phone) {
+      parentsQuery.push({
+        isPrimary: false,
+        firstName: formData.parent2FirstName,
+        lastName: formData.parent2LastName,
+        email: "",
+        phone: formData.parent2Phone,
+        ownerId: user.email,
+      });
+    }
+    console.log(parentsQuery)
     await prisma.family.create({
       data: {
         familyName: formData.familyName,

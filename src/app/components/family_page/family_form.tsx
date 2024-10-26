@@ -15,9 +15,11 @@ interface IFamilyFormProps {
 // ReactHookForm calls onsubmit with this type
 export interface RawFamilyFormData {
   familyName?: string;
+  parent1Id?: string;
   parent1FirstName?: string;
   parent1LastName?: string;
   parent1Phone?: string | null;
+  parent2Id?: string;
   parent2FirstName?: string | null;
   parent2LastName?: string | null;
   parent2Phone?: string | null;
@@ -26,9 +28,11 @@ export interface RawFamilyFormData {
 
 export interface FamilyFormData {
   familyName: string;
+  parent1Id?: string;
   parent1FirstName: string;
   parent1LastName: string;
   parent1Phone: string;
+  parent2Id?: string;
   parent2FirstName?: string;
   parent2LastName?: string;
   parent2Phone?: string;
@@ -37,14 +41,16 @@ export interface FamilyFormData {
 
 export default function FamilyForm(props: IFamilyFormProps) {
   const initialValues = useMemo(() => {
+    const primaryParent = props.family?.parents?.find(f => f.isPrimary)
+    const secondaryParent = props.family?.parents?.find(f => !f.isPrimary)
     return {
       familyName: props.family?.familyName,
-      parent1FirstName: props.family?.parents[0].firstName,
-      parent1LastName: props.family?.parents[0].lastName,
-      parent1Phone: props.family?.parents[0].phone,
-      parent2FirstName: props.family?.parents[1]?.firstName,
-      parent2LastName: props.family?.parents[1]?.lastName,
-      parent2Phone: props.family?.parents[1]?.phone,
+      parent1FirstName: primaryParent?.firstName,
+      parent1LastName: primaryParent?.lastName,
+      parent1Phone: primaryParent?.phone,
+      parent2FirstName: secondaryParent?.firstName,
+      parent2LastName: secondaryParent?.lastName,
+      parent2Phone: secondaryParent?.phone,
       notes: props.family?.notes,
     };
   }, [props.family]);

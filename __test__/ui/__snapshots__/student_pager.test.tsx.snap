@@ -24,10 +24,10 @@ exports[`StudentPager Paginates correctly with page 1, totalCount 1, and pageSiz
           total students
         </div>
         <div
-          class="flex rounded-md -space-x-px"
+          class="flex -space-x-px rounded-md"
         >
           <div
-            class="p-2 bg-white ring-1 ring-inset ring-gray-300 flex items-center content-center rounded-l-md hover:bg-gray-50 focus:z-20 focus:outline-offset-0"
+            class="flex content-center items-center rounded-l-md bg-white p-2 ring-1 ring-inset ring-gray-300 hover:bg-gray-50 focus:z-20 focus:outline-offset-0"
           >
             <svg
               aria-hidden="true"
@@ -48,14 +48,14 @@ exports[`StudentPager Paginates correctly with page 1, totalCount 1, and pageSiz
             </svg>
           </div>
           <div
-            class="page-number p-1 px-3 ring-1 ring-inset ring-gray-300 flex items-center cursor-pointer content-center focus:z-20 focus:outline-offset-0 bg-blue-500 text-white hover:bg-blue-700"
+            class="page-number flex cursor-pointer content-center items-center p-1 px-3 ring-1 ring-inset ring-gray-300 focus:z-20 focus:outline-offset-0 bg-blue-500 text-white hover:bg-blue-700"
           >
             <span>
               1
             </span>
           </div>
           <div
-            class="p-2 bg-white ring-1 ring-inset ring-gray-300 flex items-center content-center rounded-r-md hover:bg-gray-50 focus:z-20 focus:outline-offset-0"
+            class="flex content-center items-center rounded-r-md bg-white p-2 ring-1 ring-inset ring-gray-300 hover:bg-gray-50 focus:z-20 focus:outline-offset-0"
           >
             <svg
               aria-hidden="true"
@@ -99,10 +99,10 @@ exports[`StudentPager Paginates correctly with page 1, totalCount 1, and pageSiz
         total students
       </div>
       <div
-        class="flex rounded-md -space-x-px"
+        class="flex -space-x-px rounded-md"
       >
         <div
-          class="p-2 bg-white ring-1 ring-inset ring-gray-300 flex items-center content-center rounded-l-md hover:bg-gray-50 focus:z-20 focus:outline-offset-0"
+          class="flex content-center items-center rounded-l-md bg-white p-2 ring-1 ring-inset ring-gray-300 hover:bg-gray-50 focus:z-20 focus:outline-offset-0"
         >
           <svg
             aria-hidden="true"
@@ -123,14 +123,14 @@ exports[`StudentPager Paginates correctly with page 1, totalCount 1, and pageSiz
           </svg>
         </div>
         <div
-          class="page-number p-1 px-3 ring-1 ring-inset ring-gray-300 flex items-center cursor-pointer content-center focus:z-20 focus:outline-offset-0 bg-blue-500 text-white hover:bg-blue-700"
+          class="page-number flex cursor-pointer content-center items-center p-1 px-3 ring-1 ring-inset ring-gray-300 focus:z-20 focus:outline-offset-0 bg-blue-500 text-white hover:bg-blue-700"
         >
           <span>
             1
           </span>
         </div>
         <div
-          class="p-2 bg-white ring-1 ring-inset ring-gray-300 flex items-center content-center rounded-r-md hover:bg-gray-50 focus:z-20 focus:outline-offset-0"
+          class="flex content-center items-center rounded-r-md bg-white p-2 ring-1 ring-inset ring-gray-300 hover:bg-gray-50 focus:z-20 focus:outline-offset-0"
         >
           <svg
             aria-hidden="true"
@@ -231,10 +231,10 @@ exports[`StudentPager Paginates correctly with page 1, totalCount 153, and pageS
           total students
         </div>
         <div
-          class="flex rounded-md -space-x-px"
+          class="flex -space-x-px rounded-md"
         >
           <div
-            class="p-2 bg-white ring-1 ring-inset ring-gray-300 flex items-center content-center rounded-l-md hover:bg-gray-50 focus:z-20 focus:outline-offset-0"
+            class="flex content-center items-center rounded-l-md bg-white p-2 ring-1 ring-inset ring-gray-300 hover:bg-gray-50 focus:z-20 focus:outline-offset-0"
           >
             <svg
               aria-hidden="true"
@@ -255,42 +255,42 @@ exports[`StudentPager Paginates correctly with page 1, totalCount 153, and pageS
             </svg>
           </div>
           <div
-            class="page-number p-1 px-3 ring-1 ring-inset ring-gray-300 flex items-center cursor-pointer content-center focus:z-20 focus:outline-offset-0 bg-blue-500 text-white hover:bg-blue-700"
+            class="page-number flex cursor-pointer content-center items-center p-1 px-3 ring-1 ring-inset ring-gray-300 focus:z-20 focus:outline-offset-0 bg-blue-500 text-white hover:bg-blue-700"
           >
             <span>
               1
             </span>
           </div>
           <div
-            class="page-number p-1 px-3 ring-1 ring-inset ring-gray-300 flex items-center cursor-pointer content-center focus:z-20 focus:outline-offset-0 bg-white text-black hover:bg-gray-50"
+            class="page-number flex cursor-pointer content-center items-center p-1 px-3 ring-1 ring-inset ring-gray-300 focus:z-20 focus:outline-offset-0 bg-white text-black hover:bg-gray-50"
           >
             <span>
               2
             </span>
           </div>
           <div
-            class="page-number p-1 px-3 ring-1 ring-inset ring-gray-300 flex items-center cursor-pointer content-center focus:z-20 focus:outline-offset-0 bg-white text-black hover:bg-gray-50"
+            class="page-number flex cursor-pointer content-center items-center p-1 px-3 ring-1 ring-inset ring-gray-300 focus:z-20 focus:outline-offset-0 bg-white text-black hover:bg-gray-50"
           >
             <span>
               3
             </span>
           </div>
           <div
-            class="page-number p-1 px-3 ring-1 ring-inset ring-gray-300 flex items-center cursor-pointer content-center focus:z-20 focus:outline-offset-0 bg-white text-black hover:bg-gray-50"
+            class="page-number flex cursor-pointer content-center items-center p-1 px-3 ring-1 ring-inset ring-gray-300 focus:z-20 focus:outline-offset-0 bg-white text-black hover:bg-gray-50"
           >
             <span>
               4
             </span>
           </div>
           <div
-            class="page-number p-1 px-3 ring-1 ring-inset ring-gray-300 flex items-center cursor-pointer content-center focus:z-20 focus:outline-offset-0 bg-white text-black hover:bg-gray-50"
+            class="page-number flex cursor-pointer content-center items-center p-1 px-3 ring-1 ring-inset ring-gray-300 focus:z-20 focus:outline-offset-0 bg-white text-black hover:bg-gray-50"
           >
             <span>
               5
             </span>
           </div>
           <div
-            class="p-2 bg-white ring-1 ring-inset ring-gray-300 flex items-center content-center rounded-r-md hover:bg-gray-50 focus:z-20 focus:outline-offset-0 cursor-pointer"
+            class="flex content-center items-center rounded-r-md bg-white p-2 ring-1 ring-inset ring-gray-300 hover:bg-gray-50 focus:z-20 focus:outline-offset-0 cursor-pointer"
           >
             <svg
               aria-hidden="true"
@@ -334,10 +334,10 @@ exports[`StudentPager Paginates correctly with page 1, totalCount 153, and pageS
         total students
       </div>
       <div
-        class="flex rounded-md -space-x-px"
+        class="flex -space-x-px rounded-md"
       >
         <div
-          class="p-2 bg-white ring-1 ring-inset ring-gray-300 flex items-center content-center rounded-l-md hover:bg-gray-50 focus:z-20 focus:outline-offset-0"
+          class="flex content-center items-center rounded-l-md bg-white p-2 ring-1 ring-inset ring-gray-300 hover:bg-gray-50 focus:z-20 focus:outline-offset-0"
         >
           <svg
             aria-hidden="true"
@@ -358,42 +358,42 @@ exports[`StudentPager Paginates correctly with page 1, totalCount 153, and pageS
           </svg>
         </div>
         <div
-          class="page-number p-1 px-3 ring-1 ring-inset ring-gray-300 flex items-center cursor-pointer content-center focus:z-20 focus:outline-offset-0 bg-blue-500 text-white hover:bg-blue-700"
+          class="page-number flex cursor-pointer content-center items-center p-1 px-3 ring-1 ring-inset ring-gray-300 focus:z-20 focus:outline-offset-0 bg-blue-500 text-white hover:bg-blue-700"
         >
           <span>
             1
           </span>
         </div>
         <div
-          class="page-number p-1 px-3 ring-1 ring-inset ring-gray-300 flex items-center cursor-pointer content-center focus:z-20 focus:outline-offset-0 bg-white text-black hover:bg-gray-50"
+          class="page-number flex cursor-pointer content-center items-center p-1 px-3 ring-1 ring-inset ring-gray-300 focus:z-20 focus:outline-offset-0 bg-white text-black hover:bg-gray-50"
         >
           <span>
             2
           </span>
         </div>
         <div
-          class="page-number p-1 px-3 ring-1 ring-inset ring-gray-300 flex items-center cursor-pointer content-center focus:z-20 focus:outline-offset-0 bg-white text-black hover:bg-gray-50"
+          class="page-number flex cursor-pointer content-center items-center p-1 px-3 ring-1 ring-inset ring-gray-300 focus:z-20 focus:outline-offset-0 bg-white text-black hover:bg-gray-50"
         >
           <span>
             3
           </span>
         </div>
         <div
-          class="page-number p-1 px-3 ring-1 ring-inset ring-gray-300 flex items-center cursor-pointer content-center focus:z-20 focus:outline-offset-0 bg-white text-black hover:bg-gray-50"
+          class="page-number flex cursor-pointer content-center items-center p-1 px-3 ring-1 ring-inset ring-gray-300 focus:z-20 focus:outline-offset-0 bg-white text-black hover:bg-gray-50"
         >
           <span>
             4
           </span>
         </div>
         <div
-          class="page-number p-1 px-3 ring-1 ring-inset ring-gray-300 flex items-center cursor-pointer content-center focus:z-20 focus:outline-offset-0 bg-white text-black hover:bg-gray-50"
+          class="page-number flex cursor-pointer content-center items-center p-1 px-3 ring-1 ring-inset ring-gray-300 focus:z-20 focus:outline-offset-0 bg-white text-black hover:bg-gray-50"
         >
           <span>
             5
           </span>
         </div>
         <div
-          class="p-2 bg-white ring-1 ring-inset ring-gray-300 flex items-center content-center rounded-r-md hover:bg-gray-50 focus:z-20 focus:outline-offset-0 cursor-pointer"
+          class="flex content-center items-center rounded-r-md bg-white p-2 ring-1 ring-inset ring-gray-300 hover:bg-gray-50 focus:z-20 focus:outline-offset-0 cursor-pointer"
         >
           <svg
             aria-hidden="true"
@@ -494,10 +494,10 @@ exports[`StudentPager Paginates correctly with page 7, totalCount 153, and pageS
           total students
         </div>
         <div
-          class="flex rounded-md -space-x-px"
+          class="flex -space-x-px rounded-md"
         >
           <div
-            class="p-2 bg-white ring-1 ring-inset ring-gray-300 flex items-center content-center rounded-l-md hover:bg-gray-50 focus:z-20 focus:outline-offset-0 cursor-pointer"
+            class="flex content-center items-center rounded-l-md bg-white p-2 ring-1 ring-inset ring-gray-300 hover:bg-gray-50 focus:z-20 focus:outline-offset-0 cursor-pointer"
           >
             <svg
               aria-hidden="true"
@@ -518,42 +518,42 @@ exports[`StudentPager Paginates correctly with page 7, totalCount 153, and pageS
             </svg>
           </div>
           <div
-            class="page-number p-1 px-3 ring-1 ring-inset ring-gray-300 flex items-center cursor-pointer content-center focus:z-20 focus:outline-offset-0 bg-white text-black hover:bg-gray-50"
+            class="page-number flex cursor-pointer content-center items-center p-1 px-3 ring-1 ring-inset ring-gray-300 focus:z-20 focus:outline-offset-0 bg-white text-black hover:bg-gray-50"
           >
             <span>
               5
             </span>
           </div>
           <div
-            class="page-number p-1 px-3 ring-1 ring-inset ring-gray-300 flex items-center cursor-pointer content-center focus:z-20 focus:outline-offset-0 bg-white text-black hover:bg-gray-50"
+            class="page-number flex cursor-pointer content-center items-center p-1 px-3 ring-1 ring-inset ring-gray-300 focus:z-20 focus:outline-offset-0 bg-white text-black hover:bg-gray-50"
           >
             <span>
               6
             </span>
           </div>
           <div
-            class="page-number p-1 px-3 ring-1 ring-inset ring-gray-300 flex items-center cursor-pointer content-center focus:z-20 focus:outline-offset-0 bg-blue-500 text-white hover:bg-blue-700"
+            class="page-number flex cursor-pointer content-center items-center p-1 px-3 ring-1 ring-inset ring-gray-300 focus:z-20 focus:outline-offset-0 bg-blue-500 text-white hover:bg-blue-700"
           >
             <span>
               7
             </span>
           </div>
           <div
-            class="page-number p-1 px-3 ring-1 ring-inset ring-gray-300 flex items-center cursor-pointer content-center focus:z-20 focus:outline-offset-0 bg-white text-black hover:bg-gray-50"
+            class="page-number flex cursor-pointer content-center items-center p-1 px-3 ring-1 ring-inset ring-gray-300 focus:z-20 focus:outline-offset-0 bg-white text-black hover:bg-gray-50"
           >
             <span>
               8
             </span>
           </div>
           <div
-            class="page-number p-1 px-3 ring-1 ring-inset ring-gray-300 flex items-center cursor-pointer content-center focus:z-20 focus:outline-offset-0 bg-white text-black hover:bg-gray-50"
+            class="page-number flex cursor-pointer content-center items-center p-1 px-3 ring-1 ring-inset ring-gray-300 focus:z-20 focus:outline-offset-0 bg-white text-black hover:bg-gray-50"
           >
             <span>
               9
             </span>
           </div>
           <div
-            class="p-2 bg-white ring-1 ring-inset ring-gray-300 flex items-center content-center rounded-r-md hover:bg-gray-50 focus:z-20 focus:outline-offset-0 cursor-pointer"
+            class="flex content-center items-center rounded-r-md bg-white p-2 ring-1 ring-inset ring-gray-300 hover:bg-gray-50 focus:z-20 focus:outline-offset-0 cursor-pointer"
           >
             <svg
               aria-hidden="true"
@@ -597,10 +597,10 @@ exports[`StudentPager Paginates correctly with page 7, totalCount 153, and pageS
         total students
       </div>
       <div
-        class="flex rounded-md -space-x-px"
+        class="flex -space-x-px rounded-md"
       >
         <div
-          class="p-2 bg-white ring-1 ring-inset ring-gray-300 flex items-center content-center rounded-l-md hover:bg-gray-50 focus:z-20 focus:outline-offset-0 cursor-pointer"
+          class="flex content-center items-center rounded-l-md bg-white p-2 ring-1 ring-inset ring-gray-300 hover:bg-gray-50 focus:z-20 focus:outline-offset-0 cursor-pointer"
         >
           <svg
             aria-hidden="true"
@@ -621,42 +621,42 @@ exports[`StudentPager Paginates correctly with page 7, totalCount 153, and pageS
           </svg>
         </div>
         <div
-          class="page-number p-1 px-3 ring-1 ring-inset ring-gray-300 flex items-center cursor-pointer content-center focus:z-20 focus:outline-offset-0 bg-white text-black hover:bg-gray-50"
+          class="page-number flex cursor-pointer content-center items-center p-1 px-3 ring-1 ring-inset ring-gray-300 focus:z-20 focus:outline-offset-0 bg-white text-black hover:bg-gray-50"
         >
           <span>
             5
           </span>
         </div>
         <div
-          class="page-number p-1 px-3 ring-1 ring-inset ring-gray-300 flex items-center cursor-pointer content-center focus:z-20 focus:outline-offset-0 bg-white text-black hover:bg-gray-50"
+          class="page-number flex cursor-pointer content-center items-center p-1 px-3 ring-1 ring-inset ring-gray-300 focus:z-20 focus:outline-offset-0 bg-white text-black hover:bg-gray-50"
         >
           <span>
             6
           </span>
         </div>
         <div
-          class="page-number p-1 px-3 ring-1 ring-inset ring-gray-300 flex items-center cursor-pointer content-center focus:z-20 focus:outline-offset-0 bg-blue-500 text-white hover:bg-blue-700"
+          class="page-number flex cursor-pointer content-center items-center p-1 px-3 ring-1 ring-inset ring-gray-300 focus:z-20 focus:outline-offset-0 bg-blue-500 text-white hover:bg-blue-700"
         >
           <span>
             7
           </span>
         </div>
         <div
-          class="page-number p-1 px-3 ring-1 ring-inset ring-gray-300 flex items-center cursor-pointer content-center focus:z-20 focus:outline-offset-0 bg-white text-black hover:bg-gray-50"
+          class="page-number flex cursor-pointer content-center items-center p-1 px-3 ring-1 ring-inset ring-gray-300 focus:z-20 focus:outline-offset-0 bg-white text-black hover:bg-gray-50"
         >
           <span>
             8
           </span>
         </div>
         <div
-          class="page-number p-1 px-3 ring-1 ring-inset ring-gray-300 flex items-center cursor-pointer content-center focus:z-20 focus:outline-offset-0 bg-white text-black hover:bg-gray-50"
+          class="page-number flex cursor-pointer content-center items-center p-1 px-3 ring-1 ring-inset ring-gray-300 focus:z-20 focus:outline-offset-0 bg-white text-black hover:bg-gray-50"
         >
           <span>
             9
           </span>
         </div>
         <div
-          class="p-2 bg-white ring-1 ring-inset ring-gray-300 flex items-center content-center rounded-r-md hover:bg-gray-50 focus:z-20 focus:outline-offset-0 cursor-pointer"
+          class="flex content-center items-center rounded-r-md bg-white p-2 ring-1 ring-inset ring-gray-300 hover:bg-gray-50 focus:z-20 focus:outline-offset-0 cursor-pointer"
         >
           <svg
             aria-hidden="true"
@@ -757,10 +757,10 @@ exports[`StudentPager Paginates correctly with page 9, totalCount 100, and pageS
           total students
         </div>
         <div
-          class="flex rounded-md -space-x-px"
+          class="flex -space-x-px rounded-md"
         >
           <div
-            class="p-2 bg-white ring-1 ring-inset ring-gray-300 flex items-center content-center rounded-l-md hover:bg-gray-50 focus:z-20 focus:outline-offset-0 cursor-pointer"
+            class="flex content-center items-center rounded-l-md bg-white p-2 ring-1 ring-inset ring-gray-300 hover:bg-gray-50 focus:z-20 focus:outline-offset-0 cursor-pointer"
           >
             <svg
               aria-hidden="true"
@@ -781,42 +781,42 @@ exports[`StudentPager Paginates correctly with page 9, totalCount 100, and pageS
             </svg>
           </div>
           <div
-            class="page-number p-1 px-3 ring-1 ring-inset ring-gray-300 flex items-center cursor-pointer content-center focus:z-20 focus:outline-offset-0 bg-white text-black hover:bg-gray-50"
+            class="page-number flex cursor-pointer content-center items-center p-1 px-3 ring-1 ring-inset ring-gray-300 focus:z-20 focus:outline-offset-0 bg-white text-black hover:bg-gray-50"
           >
             <span>
               6
             </span>
           </div>
           <div
-            class="page-number p-1 px-3 ring-1 ring-inset ring-gray-300 flex items-center cursor-pointer content-center focus:z-20 focus:outline-offset-0 bg-white text-black hover:bg-gray-50"
+            class="page-number flex cursor-pointer content-center items-center p-1 px-3 ring-1 ring-inset ring-gray-300 focus:z-20 focus:outline-offset-0 bg-white text-black hover:bg-gray-50"
           >
             <span>
               7
             </span>
           </div>
           <div
-            class="page-number p-1 px-3 ring-1 ring-inset ring-gray-300 flex items-center cursor-pointer content-center focus:z-20 focus:outline-offset-0 bg-white text-black hover:bg-gray-50"
+            class="page-number flex cursor-pointer content-center items-center p-1 px-3 ring-1 ring-inset ring-gray-300 focus:z-20 focus:outline-offset-0 bg-white text-black hover:bg-gray-50"
           >
             <span>
               8
             </span>
           </div>
           <div
-            class="page-number p-1 px-3 ring-1 ring-inset ring-gray-300 flex items-center cursor-pointer content-center focus:z-20 focus:outline-offset-0 bg-blue-500 text-white hover:bg-blue-700"
+            class="page-number flex cursor-pointer content-center items-center p-1 px-3 ring-1 ring-inset ring-gray-300 focus:z-20 focus:outline-offset-0 bg-blue-500 text-white hover:bg-blue-700"
           >
             <span>
               9
             </span>
           </div>
           <div
-            class="page-number p-1 px-3 ring-1 ring-inset ring-gray-300 flex items-center cursor-pointer content-center focus:z-20 focus:outline-offset-0 bg-white text-black hover:bg-gray-50"
+            class="page-number flex cursor-pointer content-center items-center p-1 px-3 ring-1 ring-inset ring-gray-300 focus:z-20 focus:outline-offset-0 bg-white text-black hover:bg-gray-50"
           >
             <span>
               10
             </span>
           </div>
           <div
-            class="p-2 bg-white ring-1 ring-inset ring-gray-300 flex items-center content-center rounded-r-md hover:bg-gray-50 focus:z-20 focus:outline-offset-0 cursor-pointer"
+            class="flex content-center items-center rounded-r-md bg-white p-2 ring-1 ring-inset ring-gray-300 hover:bg-gray-50 focus:z-20 focus:outline-offset-0 cursor-pointer"
           >
             <svg
               aria-hidden="true"
@@ -860,10 +860,10 @@ exports[`StudentPager Paginates correctly with page 9, totalCount 100, and pageS
         total students
       </div>
       <div
-        class="flex rounded-md -space-x-px"
+        class="flex -space-x-px rounded-md"
       >
         <div
-          class="p-2 bg-white ring-1 ring-inset ring-gray-300 flex items-center content-center rounded-l-md hover:bg-gray-50 focus:z-20 focus:outline-offset-0 cursor-pointer"
+          class="flex content-center items-center rounded-l-md bg-white p-2 ring-1 ring-inset ring-gray-300 hover:bg-gray-50 focus:z-20 focus:outline-offset-0 cursor-pointer"
         >
           <svg
             aria-hidden="true"
@@ -884,42 +884,42 @@ exports[`StudentPager Paginates correctly with page 9, totalCount 100, and pageS
           </svg>
         </div>
         <div
-          class="page-number p-1 px-3 ring-1 ring-inset ring-gray-300 flex items-center cursor-pointer content-center focus:z-20 focus:outline-offset-0 bg-white text-black hover:bg-gray-50"
+          class="page-number flex cursor-pointer content-center items-center p-1 px-3 ring-1 ring-inset ring-gray-300 focus:z-20 focus:outline-offset-0 bg-white text-black hover:bg-gray-50"
         >
           <span>
             6
           </span>
         </div>
         <div
-          class="page-number p-1 px-3 ring-1 ring-inset ring-gray-300 flex items-center cursor-pointer content-center focus:z-20 focus:outline-offset-0 bg-white text-black hover:bg-gray-50"
+          class="page-number flex cursor-pointer content-center items-center p-1 px-3 ring-1 ring-inset ring-gray-300 focus:z-20 focus:outline-offset-0 bg-white text-black hover:bg-gray-50"
         >
           <span>
             7
           </span>
         </div>
         <div
-          class="page-number p-1 px-3 ring-1 ring-inset ring-gray-300 flex items-center cursor-pointer content-center focus:z-20 focus:outline-offset-0 bg-white text-black hover:bg-gray-50"
+          class="page-number flex cursor-pointer content-center items-center p-1 px-3 ring-1 ring-inset ring-gray-300 focus:z-20 focus:outline-offset-0 bg-white text-black hover:bg-gray-50"
         >
           <span>
             8
           </span>
         </div>
         <div
-          class="page-number p-1 px-3 ring-1 ring-inset ring-gray-300 flex items-center cursor-pointer content-center focus:z-20 focus:outline-offset-0 bg-blue-500 text-white hover:bg-blue-700"
+          class="page-number flex cursor-pointer content-center items-center p-1 px-3 ring-1 ring-inset ring-gray-300 focus:z-20 focus:outline-offset-0 bg-blue-500 text-white hover:bg-blue-700"
         >
           <span>
             9
           </span>
         </div>
         <div
-          class="page-number p-1 px-3 ring-1 ring-inset ring-gray-300 flex items-center cursor-pointer content-center focus:z-20 focus:outline-offset-0 bg-white text-black hover:bg-gray-50"
+          class="page-number flex cursor-pointer content-center items-center p-1 px-3 ring-1 ring-inset ring-gray-300 focus:z-20 focus:outline-offset-0 bg-white text-black hover:bg-gray-50"
         >
           <span>
             10
           </span>
         </div>
         <div
-          class="p-2 bg-white ring-1 ring-inset ring-gray-300 flex items-center content-center rounded-r-md hover:bg-gray-50 focus:z-20 focus:outline-offset-0 cursor-pointer"
+          class="flex content-center items-center rounded-r-md bg-white p-2 ring-1 ring-inset ring-gray-300 hover:bg-gray-50 focus:z-20 focus:outline-offset-0 cursor-pointer"
         >
           <svg
             aria-hidden="true"
@@ -1020,10 +1020,10 @@ exports[`StudentPager Paginates correctly with page 9, totalCount 101, and pageS
           total students
         </div>
         <div
-          class="flex rounded-md -space-x-px"
+          class="flex -space-x-px rounded-md"
         >
           <div
-            class="p-2 bg-white ring-1 ring-inset ring-gray-300 flex items-center content-center rounded-l-md hover:bg-gray-50 focus:z-20 focus:outline-offset-0 cursor-pointer"
+            class="flex content-center items-center rounded-l-md bg-white p-2 ring-1 ring-inset ring-gray-300 hover:bg-gray-50 focus:z-20 focus:outline-offset-0 cursor-pointer"
           >
             <svg
               aria-hidden="true"
@@ -1044,42 +1044,42 @@ exports[`StudentPager Paginates correctly with page 9, totalCount 101, and pageS
             </svg>
           </div>
           <div
-            class="page-number p-1 px-3 ring-1 ring-inset ring-gray-300 flex items-center cursor-pointer content-center focus:z-20 focus:outline-offset-0 bg-white text-black hover:bg-gray-50"
+            class="page-number flex cursor-pointer content-center items-center p-1 px-3 ring-1 ring-inset ring-gray-300 focus:z-20 focus:outline-offset-0 bg-white text-black hover:bg-gray-50"
           >
             <span>
               7
             </span>
           </div>
           <div
-            class="page-number p-1 px-3 ring-1 ring-inset ring-gray-300 flex items-center cursor-pointer content-center focus:z-20 focus:outline-offset-0 bg-white text-black hover:bg-gray-50"
+            class="page-number flex cursor-pointer content-center items-center p-1 px-3 ring-1 ring-inset ring-gray-300 focus:z-20 focus:outline-offset-0 bg-white text-black hover:bg-gray-50"
           >
             <span>
               8
             </span>
           </div>
           <div
-            class="page-number p-1 px-3 ring-1 ring-inset ring-gray-300 flex items-center cursor-pointer content-center focus:z-20 focus:outline-offset-0 bg-blue-500 text-white hover:bg-blue-700"
+            class="page-number flex cursor-pointer content-center items-center p-1 px-3 ring-1 ring-inset ring-gray-300 focus:z-20 focus:outline-offset-0 bg-blue-500 text-white hover:bg-blue-700"
           >
             <span>
               9
             </span>
           </div>
           <div
-            class="page-number p-1 px-3 ring-1 ring-inset ring-gray-300 flex items-center cursor-pointer content-center focus:z-20 focus:outline-offset-0 bg-white text-black hover:bg-gray-50"
+            class="page-number flex cursor-pointer content-center items-center p-1 px-3 ring-1 ring-inset ring-gray-300 focus:z-20 focus:outline-offset-0 bg-white text-black hover:bg-gray-50"
           >
             <span>
               10
             </span>
           </div>
           <div
-            class="page-number p-1 px-3 ring-1 ring-inset ring-gray-300 flex items-center cursor-pointer content-center focus:z-20 focus:outline-offset-0 bg-white text-black hover:bg-gray-50"
+            class="page-number flex cursor-pointer content-center items-center p-1 px-3 ring-1 ring-inset ring-gray-300 focus:z-20 focus:outline-offset-0 bg-white text-black hover:bg-gray-50"
           >
             <span>
               11
             </span>
           </div>
           <div
-            class="p-2 bg-white ring-1 ring-inset ring-gray-300 flex items-center content-center rounded-r-md hover:bg-gray-50 focus:z-20 focus:outline-offset-0 cursor-pointer"
+            class="flex content-center items-center rounded-r-md bg-white p-2 ring-1 ring-inset ring-gray-300 hover:bg-gray-50 focus:z-20 focus:outline-offset-0 cursor-pointer"
           >
             <svg
               aria-hidden="true"
@@ -1123,10 +1123,10 @@ exports[`StudentPager Paginates correctly with page 9, totalCount 101, and pageS
         total students
       </div>
       <div
-        class="flex rounded-md -space-x-px"
+        class="flex -space-x-px rounded-md"
       >
         <div
-          class="p-2 bg-white ring-1 ring-inset ring-gray-300 flex items-center content-center rounded-l-md hover:bg-gray-50 focus:z-20 focus:outline-offset-0 cursor-pointer"
+          class="flex content-center items-center rounded-l-md bg-white p-2 ring-1 ring-inset ring-gray-300 hover:bg-gray-50 focus:z-20 focus:outline-offset-0 cursor-pointer"
         >
           <svg
             aria-hidden="true"
@@ -1147,42 +1147,42 @@ exports[`StudentPager Paginates correctly with page 9, totalCount 101, and pageS
           </svg>
         </div>
         <div
-          class="page-number p-1 px-3 ring-1 ring-inset ring-gray-300 flex items-center cursor-pointer content-center focus:z-20 focus:outline-offset-0 bg-white text-black hover:bg-gray-50"
+          class="page-number flex cursor-pointer content-center items-center p-1 px-3 ring-1 ring-inset ring-gray-300 focus:z-20 focus:outline-offset-0 bg-white text-black hover:bg-gray-50"
         >
           <span>
             7
           </span>
         </div>
         <div
-          class="page-number p-1 px-3 ring-1 ring-inset ring-gray-300 flex items-center cursor-pointer content-center focus:z-20 focus:outline-offset-0 bg-white text-black hover:bg-gray-50"
+          class="page-number flex cursor-pointer content-center items-center p-1 px-3 ring-1 ring-inset ring-gray-300 focus:z-20 focus:outline-offset-0 bg-white text-black hover:bg-gray-50"
         >
           <span>
             8
           </span>
         </div>
         <div
-          class="page-number p-1 px-3 ring-1 ring-inset ring-gray-300 flex items-center cursor-pointer content-center focus:z-20 focus:outline-offset-0 bg-blue-500 text-white hover:bg-blue-700"
+          class="page-number flex cursor-pointer content-center items-center p-1 px-3 ring-1 ring-inset ring-gray-300 focus:z-20 focus:outline-offset-0 bg-blue-500 text-white hover:bg-blue-700"
         >
           <span>
             9
           </span>
         </div>
         <div
-          class="page-number p-1 px-3 ring-1 ring-inset ring-gray-300 flex items-center cursor-pointer content-center focus:z-20 focus:outline-offset-0 bg-white text-black hover:bg-gray-50"
+          class="page-number flex cursor-pointer content-center items-center p-1 px-3 ring-1 ring-inset ring-gray-300 focus:z-20 focus:outline-offset-0 bg-white text-black hover:bg-gray-50"
         >
           <span>
             10
           </span>
         </div>
         <div
-          class="page-number p-1 px-3 ring-1 ring-inset ring-gray-300 flex items-center cursor-pointer content-center focus:z-20 focus:outline-offset-0 bg-white text-black hover:bg-gray-50"
+          class="page-number flex cursor-pointer content-center items-center p-1 px-3 ring-1 ring-inset ring-gray-300 focus:z-20 focus:outline-offset-0 bg-white text-black hover:bg-gray-50"
         >
           <span>
             11
           </span>
         </div>
         <div
-          class="p-2 bg-white ring-1 ring-inset ring-gray-300 flex items-center content-center rounded-r-md hover:bg-gray-50 focus:z-20 focus:outline-offset-0 cursor-pointer"
+          class="flex content-center items-center rounded-r-md bg-white p-2 ring-1 ring-inset ring-gray-300 hover:bg-gray-50 focus:z-20 focus:outline-offset-0 cursor-pointer"
         >
           <svg
             aria-hidden="true"
