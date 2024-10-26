@@ -5,6 +5,31 @@ exports[`StudentPage Renders a consistent snapshot when empty 1`] = `
   "asFragment": [Function],
   "baseElement": <body>
     <div>
+      <div
+        class="my-5 mb-5"
+      >
+        <div
+          class="mt-1 space-y-8 sm:space-y-0"
+        >
+          <div
+            class="sm:grid sm:grid-cols-3 sm:items-start sm:gap-2 sm:py-1"
+          >
+            <label
+              class="block text-sm font-medium leading-6 text-gray-900 sm:pt-1.5"
+              for="firstName"
+            >
+              Family
+            </label>
+            <div
+              class="mt-2 sm:col-span-2 sm:mt-0"
+            >
+              <a
+                href="/app/families/undefined"
+              />
+            </div>
+          </div>
+        </div>
+      </div>
       <form
         autocomplete="off"
         class="flex flex-col gap-3"
@@ -361,6 +386,31 @@ exports[`StudentPage Renders a consistent snapshot when empty 1`] = `
     </div>
   </body>,
   "container": <div>
+    <div
+      class="my-5 mb-5"
+    >
+      <div
+        class="mt-1 space-y-8 sm:space-y-0"
+      >
+        <div
+          class="sm:grid sm:grid-cols-3 sm:items-start sm:gap-2 sm:py-1"
+        >
+          <label
+            class="block text-sm font-medium leading-6 text-gray-900 sm:pt-1.5"
+            for="firstName"
+          >
+            Family
+          </label>
+          <div
+            class="mt-2 sm:col-span-2 sm:mt-0"
+          >
+            <a
+              href="/app/families/undefined"
+            />
+          </div>
+        </div>
+      </div>
+    </div>
     <form
       autocomplete="off"
       class="flex flex-col gap-3"
@@ -774,6 +824,33 @@ exports[`StudentPage Renders a consistent snapshot when prefilled with data 1`] 
   "asFragment": [Function],
   "baseElement": <body>
     <div>
+      <div
+        class="my-5 mb-5"
+      >
+        <div
+          class="mt-1 space-y-8 sm:space-y-0"
+        >
+          <div
+            class="sm:grid sm:grid-cols-3 sm:items-start sm:gap-2 sm:py-1"
+          >
+            <label
+              class="block text-sm font-medium leading-6 text-gray-900 sm:pt-1.5"
+              for="firstName"
+            >
+              Family
+            </label>
+            <div
+              class="mt-2 sm:col-span-2 sm:mt-0"
+            >
+              <a
+                href="/app/families/family1"
+              >
+                Fooft
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
       <form
         autocomplete="off"
         class="flex flex-col gap-3"
@@ -1197,6 +1274,33 @@ exports[`StudentPage Renders a consistent snapshot when prefilled with data 1`] 
     </div>
   </body>,
   "container": <div>
+    <div
+      class="my-5 mb-5"
+    >
+      <div
+        class="mt-1 space-y-8 sm:space-y-0"
+      >
+        <div
+          class="sm:grid sm:grid-cols-3 sm:items-start sm:gap-2 sm:py-1"
+        >
+          <label
+            class="block text-sm font-medium leading-6 text-gray-900 sm:pt-1.5"
+            for="firstName"
+          >
+            Family
+          </label>
+          <div
+            class="mt-2 sm:col-span-2 sm:mt-0"
+          >
+            <a
+              href="/app/families/family1"
+            >
+              Fooft
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
     <form
       autocomplete="off"
       class="flex flex-col gap-3"
@@ -1677,6 +1781,31 @@ exports[`StudentPage Renders without any families or areas of need present 1`] =
   "asFragment": [Function],
   "baseElement": <body>
     <div>
+      <div
+        class="my-5 mb-5"
+      >
+        <div
+          class="mt-1 space-y-8 sm:space-y-0"
+        >
+          <div
+            class="sm:grid sm:grid-cols-3 sm:items-start sm:gap-2 sm:py-1"
+          >
+            <label
+              class="block text-sm font-medium leading-6 text-gray-900 sm:pt-1.5"
+              for="firstName"
+            >
+              Family
+            </label>
+            <div
+              class="mt-2 sm:col-span-2 sm:mt-0"
+            >
+              <a
+                href="/app/families/undefined"
+              />
+            </div>
+          </div>
+        </div>
+      </div>
       <form
         autocomplete="off"
         class="flex flex-col gap-3"
@@ -2033,6 +2162,31 @@ exports[`StudentPage Renders without any families or areas of need present 1`] =
     </div>
   </body>,
   "container": <div>
+    <div
+      class="my-5 mb-5"
+    >
+      <div
+        class="mt-1 space-y-8 sm:space-y-0"
+      >
+        <div
+          class="sm:grid sm:grid-cols-3 sm:items-start sm:gap-2 sm:py-1"
+        >
+          <label
+            class="block text-sm font-medium leading-6 text-gray-900 sm:pt-1.5"
+            for="firstName"
+          >
+            Family
+          </label>
+          <div
+            class="mt-2 sm:col-span-2 sm:mt-0"
+          >
+            <a
+              href="/app/families/undefined"
+            />
+          </div>
+        </div>
+      </div>
+    </div>
     <form
       autocomplete="off"
       class="flex flex-col gap-3"

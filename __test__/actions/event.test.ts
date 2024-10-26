@@ -2,14 +2,67 @@
  * @jest-environment node
  */
 import { prismaMock } from "../../src/singleton";
+import { TEST_USER_EMAIL } from "../constants";
 import { recurrenceTestCases } from "../support/test_data/recurring_schedule";
-import { ClassType, Event, EventType, RecurrenceGroup } from "@prisma/client";
+import { ClassType, Event, EventType, Prisma, RecurrenceGroup } from "@prisma/client";
 import { cancelEvent, createRecurrenceGroup, markEventCompleted, createEvent } from "@/app/actions/event";
 import { RecurrencePattern } from "@/app/types";
 
 jest.mock("../../src/app/actions/util", () => ({
-  getSessionOrFail: jest.fn(() => Promise.resolve({ user: { email: "test@examples.com" }, session: {} })),
+  getSessionOrFail: jest.fn(() => Promise.resolve({ user: { email: TEST_USER_EMAIL }, session: {} })),
 }));
+
+const mockEvent: Prisma.EventGetPayload<{
+  include: { eventStudents: { include: { student: { include: { family: true } } } } };
+}> = {
+  id: "1",
+  scheduledFor: new Date("2022-01-01"),
+  durationMinutes: 2,
+  eventType: EventType.CLASS,
+  createdAt: new Date(),
+  updatedAt: new Date(),
+  classType: ClassType.GROUP,
+  parentName: null,
+  studentName: null,
+  completed: false,
+  cancelledAt: null,
+  recurrenceGroupId: null,
+  referralSource: null,
+  notes: "A class",
+  ownerId: TEST_USER_EMAIL,
+  eventStudents: [
+    {
+      id: "1",
+      cost: new Prisma.Decimal(34),
+      ownerId: TEST_USER_EMAIL,
+      eventId: "1",
+      createdAt: new Date(),
+      updatedAt: new Date(),
+      cancelledAt: new Date(),
+      studentId: "1",
+      student: {
+        id: "1",
+        ownerId: TEST_USER_EMAIL,
+        createdAt: new Date(),
+        updatedAt: new Date(),
+        gradeLevel: 1,
+        notes: "",
+        firstName: "John",
+        lastName: "Smith",
+        familyId: "f1",
+        family: {
+          id: "f1",
+          createdAt: new Date(),
+          updatedAt: new Date(),
+          balance: new Prisma.Decimal(0),
+          notes: "",
+          familyName: "Smith",
+          ownerId: TEST_USER_EMAIL,
+        },
+      },
+    },
+  ],
+};
 
 describe("createEvent", () => {
   it("should create a basic class event", async () => {
@@ -48,12 +101,12 @@ describe("createEvent", () => {
             {
               cost: 34,
               id: "1",
-              ownerId: "test@examples.com",
+              ownerId: TEST_USER_EMAIL,
             },
             {
               cost: 109,
               id: "2",
-              ownerId: "test@examples.com",
+              ownerId: TEST_USER_EMAIL,
             },
           ],
         },
@@ -61,7 +114,7 @@ describe("createEvent", () => {
         notes: "A class",
         owner: {
           connect: {
-            email: "test@examples.com",
+            email: TEST_USER_EMAIL,
           },
         },
         scheduledFor: new Date("2022-01-01T00:00:00.000Z"),
@@ -92,7 +145,7 @@ describe("createEvent", () => {
         durationMinutes: 2,
         owner: {
           connect: {
-            email: "test@examples.com",
+            email: TEST_USER_EMAIL,
           },
         },
         scheduledFor: new Date("2022-01-01T00:00:00.000Z"),
@@ -191,7 +244,7 @@ describe("createEvent", () => {
         },
         owner: {
           connect: {
-            email: "test@examples.com",
+            email: TEST_USER_EMAIL,
           },
         },
       },
@@ -241,7 +294,7 @@ describe("cancelEvent", () => {
     expect(prismaMock.event.update).toHaveBeenCalledWith({
       where: {
         id: 1,
-        ownerId: "test@examples.com",
+        ownerId: TEST_USER_EMAIL,
       },
       data: { cancelledAt: expect.anything() },
     });
@@ -267,7 +320,7 @@ describe("cancelEvent", () => {
         actionType: "CANCEL_EVENT",
         success: true,
         additionalData: { eventId: 1 },
-        ownerId: "test@examples.com",
+        ownerId: TEST_USER_EMAIL,
       },
     });
   });
@@ -276,7 +329,7 @@ describe("cancelEvent", () => {
 describe("markEventCompleted", () => {
   it("should mark an event complete", async () => {
     // @ts-ignore
-    prismaMock.event.findFirstOrThrow.mockResolvedValue({ id: "1", cancelledAt: null });
+    prismaMock.event.findFirstOrThrow.mockResolvedValue(mockEvent);
 
     // @ts-ignore
     await markEventCompleted(1, true);
@@ -284,7 +337,7 @@ describe("markEventCompleted", () => {
     expect(prismaMock.event.update).toHaveBeenCalledWith({
       where: {
         id: 1,
-        ownerId: "test@examples.com",
+        ownerId: TEST_USER_EMAIL,
       },
       data: { completed: true },
     });
@@ -308,9 +361,38 @@ describe("markEventCompleted", () => {
         actionType: "MARK_COMPLETE_EVENT",
         success: true,
         additionalData: { eventId: 1 },
-        ownerId: "test@examples.com",
+        ownerId: TEST_USER_EMAIL,
       },
     });
+  });
+
+  it("should update all associated family balances", async () => {
+    // TODO make this test rigorous
+    // @ts-ignore
+    prismaMock.event.update.mockReturnValue("eventUpdatePromise");
+    // @ts-ignore
+    prismaMock.family.update.mockReturnValue("famUpdatePromise");
+    // @ts-ignore
+    prismaMock.event.findFirstOrThrow.mockResolvedValue({
+      id: "1",
+      cancelledAt: null,
+      eventStudents: [
+        { student: { family: { id: "1" } }, cost: 34 },
+        { student: { family: { id: "2" } }, cost: 109 },
+        { student: { family: { id: "2" } }, cost: 109 },
+      ],
+    });
+    await markEventCompleted(1, true);
+    expect(prismaMock.$transaction).toHaveBeenCalledTimes(1);
+    expect(prismaMock.$transaction).toHaveBeenCalledWith(false);
+    // expect(prismaMock.family.update).toHaveBeenCalledWith({
+    //   where: { id: "1" },
+    //   data: { balance: { increment: 34 } },
+    // });
+    // expect(prismaMock.family.update).toHaveBeenCalledWith({
+    //   where: { id: "2" },
+    //   data: { balance: { increment: 218 } },
+    // });
   });
 });
 

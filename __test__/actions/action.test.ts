@@ -4,10 +4,11 @@
 import "../../src/singleton";
 import * as AllActions from "@/app/actions";
 import { getSessionOrFail } from "@/app/actions/util";
+import { TEST_USER_EMAIL } from "../constants";
 
 jest.mock("../../src/app/actions/util");
 jest.mock("../../src/app/actions/util", () => ({
-  getSessionOrFail: jest.fn(() => Promise.resolve({ user: { email: "test@examples.com" }, session: {} })),
+  getSessionOrFail: jest.fn(() => Promise.resolve({ user: { email: TEST_USER_EMAIL }, session: {} })),
 }));
 
 const authGuardBlackList = ["getSessionOrFail"];

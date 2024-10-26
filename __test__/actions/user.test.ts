@@ -7,12 +7,13 @@ import { Decimal } from "@prisma/client/runtime/library";
 import { getUserSettings, updateUserSettings } from "@/app/actions/user";
 import { getSessionOrFail } from "@/app/actions/util";
 import { createFormDataFromObject } from "@/util/formdata";
+import { TEST_USER_EMAIL } from "../constants";
 
 jest.mock("@auth0/nextjs-auth0", () => ({
-  getSession: jest.fn(() => Promise.resolve({ user: { email: "test@example.com" } })),
+  getSession: jest.fn(() => Promise.resolve({ user: { email: TEST_USER_EMAIL } })),
 }));
 jest.mock("../../src/app/actions/util", () => ({
-  getSessionOrFail: jest.fn(() => Promise.resolve({ user: { email: "test@examples.com" }, session: {} })),
+  getSessionOrFail: jest.fn(() => Promise.resolve({ user: { email: TEST_USER_EMAIL }, session: {} })),
 }));
 jest.mock("next/navigation");
 
@@ -28,7 +29,7 @@ describe("updateUserSettings", () => {
   });
 
   it("should create the user settings with the provided form data if the user settings had not existed", async () => {
-    const mockUser = { id: 1, email: "test@example.com" };
+    const mockUser = { id: 1, email: TEST_USER_EMAIL };
     const mockSession = { user: mockUser };
     // @ts-ignore
     getSessionOrFail.mockResolvedValue({ session: mockSession, user: mockUser });
@@ -48,7 +49,7 @@ describe("updateUserSettings", () => {
   });
 
   it("should update the user settings with the provided form data if the user settings had existed", async () => {
-    const mockUser = { id: 1, email: "test@example.com" };
+    const mockUser = { id: 1, email: TEST_USER_EMAIL };
     const mockSession = { user: mockUser };
     // @ts-ignore
     getSessionOrFail.mockResolvedValue({ session: mockSession, user: mockUser });

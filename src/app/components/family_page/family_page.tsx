@@ -1,6 +1,7 @@
 "use client";
 
 import { useCallback, useMemo, useState } from "react";
+import { ChevronRightIcon, ChevronDownIcon } from "@heroicons/react/16/solid";
 import { cn } from "@nextui-org/react";
 import { toast } from "react-toastify";
 import Link from "next/link";
@@ -36,8 +37,8 @@ export default function FamilyPage(props: IFamilyPageProps): JSX.Element {
     async (formData: RawFamilyFormData) => {
       try {
         setIsLoading(true);
-        formData.parent1Id = props.family?.parents.find(p => p.isPrimary)?.id
-        formData.parent2Id = props.family?.parents.find(p => !p.isPrimary)?.id
+        formData.parent1Id = props.family?.parents.find((p) => p.isPrimary)?.id;
+        formData.parent2Id = props.family?.parents.find((p) => !p.isPrimary)?.id;
         const res = await props.updateOrCreateFamily(formData as FamilyFormData, props.family?.id);
         setIsLoading(false);
         if (res.success) {
@@ -121,7 +122,7 @@ export default function FamilyPage(props: IFamilyPageProps): JSX.Element {
                 Associated students
               </label>
               <div className="mt-2 sm:col-span-2 sm:mt-0">
-                <div className="flex sm:max-w-md" key="associated-students">
+                <div className="flex flex-col sm:max-w-md" key="associated-students">
                   {props.family?.students.map((student) => (
                     <Link href={`/app/students/${student.id}`} key={student.id}>
                       <span data-testid={`family-student-${student.id}`}>
@@ -139,7 +140,12 @@ export default function FamilyPage(props: IFamilyPageProps): JSX.Element {
         </div>
       )}
       <div className="my-5">
-        <h2 onClick={() => setShowFamilyForm((p) => !p)}>Family Profile</h2>
+        <div className="flex items-center gap-3">
+          <h2>
+            Family Profile
+          </h2>
+          <h5 className="cursor-pointer text-blue-400" onClick={() => setShowFamilyForm((p) => !p)}>{showFamilyForm ? 'Hide' : 'Show'}</h5>
+        </div>
         <div className={cn({ visible: showFamilyForm, invisible: !showFamilyForm })}>
           <FamilyForm onSubmit={onSubmit} family={props.family} />
         </div>

@@ -48,7 +48,6 @@ export default function SimpleForm(props: ISimpleForm) {
           <div className="mt-1 space-y-8 sm:space-y-0" key={formElement.name}>
             <div className="sm:grid sm:grid-cols-3 sm:items-start sm:gap-2 sm:py-1">
               <label htmlFor={formElement.name} className="block text-sm font-medium leading-6 text-gray-900 sm:pt-1.5">
-                {/* {formElement.title} */}
                 {formElement.name}
               </label>
               <div className="mt-2 sm:col-span-2 sm:mt-0">

@@ -3,6 +3,7 @@
 import { useMemo, useState } from "react";
 import { toast } from "react-toastify";
 import { AreaOfNeed, Family, Prisma } from "@prisma/client";
+import Link from "next/link";
 import { useRouter } from "next/navigation";
 import FamilyForm from "@/app/components/family_page";
 import { FamilyFormData } from "@/app/components/family_page/family_form";
@@ -63,6 +64,18 @@ export default function StudentPage(props: IStudentCreateProps) {
   return (
     <>
       {isLoading && <LoadingPane />}
+      <div className="my-5 mb-5">
+        <div className="mt-1 space-y-8 sm:space-y-0" key="associated-students">
+          <div className="sm:grid sm:grid-cols-3 sm:items-start sm:gap-2 sm:py-1">
+            <label htmlFor="firstName" className="block text-sm font-medium leading-6 text-gray-900 sm:pt-1.5">
+              Family
+            </label>
+            <div className="mt-2 sm:col-span-2 sm:mt-0">
+              <Link href={`/app/families/${props.student?.family?.id}`}>{props.student?.family?.familyName}</Link>
+            </div>
+          </div>
+        </div>
+      </div>
       <SimpleForm
         initialValues={initialValues}
         editMode={props.student !== undefined}

@@ -8,9 +8,18 @@ exports[`FamilyPage Renders a consistent snapshot when empty 1`] = `
       <div
         class="my-5"
       >
-        <h2>
-          Family Profile
-        </h2>
+        <div
+          class="flex items-center gap-3"
+        >
+          <h2>
+            Family Profile
+          </h2>
+          <h5
+            class="cursor-pointer text-blue-400"
+          >
+            Hide
+          </h5>
+        </div>
         <div
           class="visible"
         >
@@ -283,9 +292,18 @@ exports[`FamilyPage Renders a consistent snapshot when empty 1`] = `
     <div
       class="my-5"
     >
-      <h2>
-        Family Profile
-      </h2>
+      <div
+        class="flex items-center gap-3"
+      >
+        <h2>
+          Family Profile
+        </h2>
+        <h5
+          class="cursor-pointer text-blue-400"
+        >
+          Hide
+        </h5>
+      </div>
       <div
         class="visible"
       >
@@ -700,7 +718,7 @@ exports[`FamilyPage Renders a consistent snapshot when prefilled with data 1`] =
               class="mt-2 sm:col-span-2 sm:mt-0"
             >
               <div
-                class="flex sm:max-w-md"
+                class="flex flex-col sm:max-w-md"
               >
                 <a
                   href="/app/students/s1"
@@ -721,9 +739,18 @@ exports[`FamilyPage Renders a consistent snapshot when prefilled with data 1`] =
       <div
         class="my-5"
       >
-        <h2>
-          Family Profile
-        </h2>
+        <div
+          class="flex items-center gap-3"
+        >
+          <h2>
+            Family Profile
+          </h2>
+          <h5
+            class="cursor-pointer text-blue-400"
+          >
+            Hide
+          </h5>
+        </div>
         <div
           class="visible"
         >
@@ -1096,7 +1123,7 @@ exports[`FamilyPage Renders a consistent snapshot when prefilled with data 1`] =
             class="mt-2 sm:col-span-2 sm:mt-0"
           >
             <div
-              class="flex sm:max-w-md"
+              class="flex flex-col sm:max-w-md"
             >
               <a
                 href="/app/students/s1"
@@ -1117,9 +1144,18 @@ exports[`FamilyPage Renders a consistent snapshot when prefilled with data 1`] =
     <div
       class="my-5"
     >
-      <h2>
-        Family Profile
-      </h2>
+      <div
+        class="flex items-center gap-3"
+      >
+        <h2>
+          Family Profile
+        </h2>
+        <h5
+          class="cursor-pointer text-blue-400"
+        >
+          Hide
+        </h5>
+      </div>
       <div
         class="visible"
       >

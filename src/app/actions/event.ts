@@ -139,11 +139,27 @@ export async function deleteEvent(classId: string) {
 export async function markEventCompleted(eventId: string, completed: boolean) {
   const { user } = await getSessionOrFail();
   try {
-    const event = await prisma.event.findFirstOrThrow({ where: { id: eventId, ownerId: user.email } });
+    const event = await prisma.event.findFirstOrThrow({
+      where: { id: eventId, ownerId: user.email },
+      include: { eventStudents: { include: { student: { include: { family: true } } } } },
+    });
     if (event.cancelledAt) {
       throw new Error("Cannot mark a cancelled event as complete");
     }
-    await prisma.event.update({ where: { id: eventId, ownerId: user.email }, data: { completed } });
+
+    const eventUpdateQuery = prisma.event.update({ where: { id: eventId, ownerId: user.email }, data: { completed } });
+    const familyUpdateQueries = event.eventStudents.map((eventStudent) => {
+      const family = eventStudent.student.family;
+      return family
+        ? prisma.family.update({
+            where: { id: family.id },
+            data: { balance: { increment: eventStudent.cost } },
+          })
+        : null;
+    })
+    console.log([eventUpdateQuery, ...familyUpdateQueries])
+    await prisma.$transaction([eventUpdateQuery, ...familyUpdateQueries]);
+
     await prisma.actionRecord.create({
       data: {
         actionType: ActionType.MARK_COMPLETE_EVENT,
