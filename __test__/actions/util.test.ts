@@ -3,10 +3,10 @@
  */
 import { getSessionOrFail } from "../../src/app/actions/util";
 import { prismaMock } from "../../src/singleton";
+import { TEST_USER_EMAIL } from "../constants";
 import { getSession } from "@auth0/nextjs-auth0";
 import { User } from "@prisma/client";
 import { redirect } from "next/navigation";
-import { TEST_USER_EMAIL } from "../constants";
 
 jest.mock("@auth0/nextjs-auth0", () => {
   return {

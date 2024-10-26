@@ -2,12 +2,12 @@
  * @jest-environment node
  */
 import { prismaMock } from "../../src/singleton";
+import { TEST_USER_EMAIL } from "../constants";
 import { UserSettings } from "@prisma/client";
 import { Decimal } from "@prisma/client/runtime/library";
 import { getUserSettings, updateUserSettings } from "@/app/actions/user";
 import { getSessionOrFail } from "@/app/actions/util";
 import { createFormDataFromObject } from "@/util/formdata";
-import { TEST_USER_EMAIL } from "../constants";
 
 jest.mock("@auth0/nextjs-auth0", () => ({
   getSession: jest.fn(() => Promise.resolve({ user: { email: TEST_USER_EMAIL } })),

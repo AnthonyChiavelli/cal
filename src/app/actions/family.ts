@@ -8,32 +8,31 @@ import { getSessionOrFail } from "./util";
 export async function updateOrCreateFamily(formData: FamilyFormData, familyId?: string): Promise<{ success: boolean }> {
   const { user } = await getSessionOrFail();
 
-
   if (familyId) {
     const parentsQuery = [
       {
         where: {
-          id: formData.parent1Id
+          id: formData.parent1Id,
         },
         data: {
           firstName: formData.parent1FirstName,
           lastName: formData.parent1LastName,
           email: "",
           phone: formData.parent1Phone,
-        }
+        },
       },
     ];
     if (formData.parent2FirstName && formData.parent2LastName && formData.parent2Phone) {
       parentsQuery.push({
         where: {
-          id: formData.parent2Id
+          id: formData.parent2Id,
         },
         data: {
           firstName: formData.parent2FirstName,
           lastName: formData.parent2LastName,
           email: "",
           phone: formData.parent2Phone,
-        }
+        },
       });
     }
 
@@ -46,7 +45,7 @@ export async function updateOrCreateFamily(formData: FamilyFormData, familyId?: 
         familyName: formData.familyName,
         notes: formData.notes || "",
         parents: {
-          update: parentsQuery
+          update: parentsQuery,
         },
       },
     });
@@ -81,7 +80,6 @@ export async function updateOrCreateFamily(formData: FamilyFormData, familyId?: 
         ownerId: user.email,
       });
     }
-    console.log(parentsQuery)
     await prisma.family.create({
       data: {
         familyName: formData.familyName,

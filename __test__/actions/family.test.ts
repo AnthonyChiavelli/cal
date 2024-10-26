@@ -98,10 +98,9 @@ describe("updateOrCreateFamily", () => {
             update: [
               {
                 where: {
-                  id: 'parent1Id'
+                  id: "parent1Id",
                 },
-                data:
-                {
+                data: {
                   email: "",
                   firstName: "Toobus",
                   lastName: "Tingledumper",
@@ -110,10 +109,9 @@ describe("updateOrCreateFamily", () => {
               },
               {
                 where: {
-                  id: 'parent2Id'
+                  id: "parent2Id",
                 },
-                data:
-                {
+                data: {
                   email: "",
                   firstName: "Thrixy",
                   lastName: "Humpenstump",
@@ -210,10 +208,9 @@ describe("updateOrCreateFamily", () => {
             update: [
               {
                 where: {
-                  id: 'parent1Id'
+                  id: "parent1Id",
                 },
-                data:
-                {
+                data: {
                   email: "",
                   firstName: "Scane",
                   lastName: "Tingledumper",
@@ -222,10 +219,9 @@ describe("updateOrCreateFamily", () => {
               },
               {
                 where: {
-                  id: 'parent2Id'
+                  id: "parent2Id",
                 },
-                data:
-                {
+                data: {
                   email: "",
                   firstName: "Thrixy",
                   lastName: "Humpenstump",

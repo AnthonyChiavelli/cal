@@ -2,9 +2,9 @@
  * @jest-environment node
  */
 import "../../src/singleton";
+import { TEST_USER_EMAIL } from "../constants";
 import * as AllActions from "@/app/actions";
 import { getSessionOrFail } from "@/app/actions/util";
-import { TEST_USER_EMAIL } from "../constants";
 
 jest.mock("../../src/app/actions/util");
 jest.mock("../../src/app/actions/util", () => ({

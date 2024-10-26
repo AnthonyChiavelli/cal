@@ -156,8 +156,8 @@ export async function markEventCompleted(eventId: string, completed: boolean) {
             data: { balance: { increment: eventStudent.cost } },
           })
         : null;
-    })
-    console.log([eventUpdateQuery, ...familyUpdateQueries])
+    });
+    // @ts-ignore
     await prisma.$transaction([eventUpdateQuery, ...familyUpdateQueries]);
 
     await prisma.actionRecord.create({

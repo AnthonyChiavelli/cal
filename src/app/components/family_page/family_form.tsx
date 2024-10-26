@@ -41,8 +41,8 @@ export interface FamilyFormData {
 
 export default function FamilyForm(props: IFamilyFormProps) {
   const initialValues = useMemo(() => {
-    const primaryParent = props.family?.parents?.find(f => f.isPrimary)
-    const secondaryParent = props.family?.parents?.find(f => !f.isPrimary)
+    const primaryParent = props.family?.parents?.find((f) => f.isPrimary);
+    const secondaryParent = props.family?.parents?.find((f) => !f.isPrimary);
     return {
       familyName: props.family?.familyName,
       parent1FirstName: primaryParent?.firstName,

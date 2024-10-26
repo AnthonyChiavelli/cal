@@ -1,7 +1,6 @@
 "use client";
 
 import { useCallback, useMemo, useState } from "react";
-import { ChevronRightIcon, ChevronDownIcon } from "@heroicons/react/16/solid";
 import { cn } from "@nextui-org/react";
 import { toast } from "react-toastify";
 import Link from "next/link";
@@ -141,10 +140,10 @@ export default function FamilyPage(props: IFamilyPageProps): JSX.Element {
       )}
       <div className="my-5">
         <div className="flex items-center gap-3">
-          <h2>
-            Family Profile
-          </h2>
-          <h5 className="cursor-pointer text-blue-400" onClick={() => setShowFamilyForm((p) => !p)}>{showFamilyForm ? 'Hide' : 'Show'}</h5>
+          <h2>Family Profile</h2>
+          <h5 className="cursor-pointer text-blue-400" onClick={() => setShowFamilyForm((p) => !p)}>
+            {showFamilyForm ? "Hide" : "Show"}
+          </h5>
         </div>
         <div className={cn({ visible: showFamilyForm, invisible: !showFamilyForm })}>
           <FamilyForm onSubmit={onSubmit} family={props.family} />

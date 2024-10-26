@@ -61,6 +61,66 @@ const mockEvent: Prisma.EventGetPayload<{
         },
       },
     },
+    {
+      id: "2",
+      cost: new Prisma.Decimal(78),
+      ownerId: TEST_USER_EMAIL,
+      eventId: "1",
+      createdAt: new Date(),
+      updatedAt: new Date(),
+      cancelledAt: new Date(),
+      studentId: "1",
+      student: {
+        id: "1",
+        ownerId: TEST_USER_EMAIL,
+        createdAt: new Date(),
+        updatedAt: new Date(),
+        gradeLevel: 1,
+        notes: "",
+        firstName: "John",
+        lastName: "Smith",
+        familyId: "f1",
+        family: {
+          id: "f1",
+          createdAt: new Date(),
+          updatedAt: new Date(),
+          balance: new Prisma.Decimal(0),
+          notes: "",
+          familyName: "Smith",
+          ownerId: TEST_USER_EMAIL,
+        },
+      },
+    },
+    {
+      id: "3",
+      cost: new Prisma.Decimal(12),
+      ownerId: TEST_USER_EMAIL,
+      eventId: "1",
+      createdAt: new Date(),
+      updatedAt: new Date(),
+      cancelledAt: new Date(),
+      studentId: "1",
+      student: {
+        id: "1",
+        ownerId: TEST_USER_EMAIL,
+        createdAt: new Date(),
+        updatedAt: new Date(),
+        gradeLevel: 1,
+        notes: "",
+        firstName: "John",
+        lastName: "Smith",
+        familyId: "f1",
+        family: {
+          id: "f2",
+          createdAt: new Date(),
+          updatedAt: new Date(),
+          balance: new Prisma.Decimal(0),
+          notes: "",
+          familyName: "Smith",
+          ownerId: TEST_USER_EMAIL,
+        },
+      },
+    },
   ],
 };
 
@@ -352,7 +412,7 @@ describe("markEventCompleted", () => {
 
   it("should generate an ActionRecord", async () => {
     // @ts-ignore
-    prismaMock.event.findFirstOrThrow.mockResolvedValue({ id: "1", cancelledAt: null });
+    prismaMock.event.findFirstOrThrow.mockResolvedValue(mockEvent);
     // @ts-ignore
     await markEventCompleted(1, true);
     expect(prismaMock.actionRecord.create).toHaveBeenCalledTimes(1);
@@ -366,33 +426,20 @@ describe("markEventCompleted", () => {
     });
   });
 
-  it("should update all associated family balances", async () => {
-    // TODO make this test rigorous
+  it("should update all associated family balances in a transaction", async () => {
     // @ts-ignore
-    prismaMock.event.update.mockReturnValue("eventUpdatePromise");
+    prismaMock.event.update.mockImplementation((a) => a);
     // @ts-ignore
-    prismaMock.family.update.mockReturnValue("famUpdatePromise");
-    // @ts-ignore
-    prismaMock.event.findFirstOrThrow.mockResolvedValue({
-      id: "1",
-      cancelledAt: null,
-      eventStudents: [
-        { student: { family: { id: "1" } }, cost: 34 },
-        { student: { family: { id: "2" } }, cost: 109 },
-        { student: { family: { id: "2" } }, cost: 109 },
-      ],
-    });
+    prismaMock.family.update.mockImplementation((a) => a);
+    prismaMock.event.findFirstOrThrow.mockResolvedValue(mockEvent);
     await markEventCompleted(1, true);
     expect(prismaMock.$transaction).toHaveBeenCalledTimes(1);
-    expect(prismaMock.$transaction).toHaveBeenCalledWith(false);
-    // expect(prismaMock.family.update).toHaveBeenCalledWith({
-    //   where: { id: "1" },
-    //   data: { balance: { increment: 34 } },
-    // });
-    // expect(prismaMock.family.update).toHaveBeenCalledWith({
-    //   where: { id: "2" },
-    //   data: { balance: { increment: 218 } },
-    // });
+    expect(prismaMock.$transaction).toHaveBeenCalledWith([
+      { data: { completed: true }, where: { id: 1, ownerId: "test@example.com" } },
+      { data: { balance: { increment: new Prisma.Decimal(34) } }, where: { id: "f1" } },
+      { data: { balance: { increment: new Prisma.Decimal(78) } }, where: { id: "f1" } },
+      { data: { balance: { increment: new Prisma.Decimal(12) } }, where: { id: "f2" } },
+    ]);
   });
 });
 
