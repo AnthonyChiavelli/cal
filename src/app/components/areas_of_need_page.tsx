@@ -8,7 +8,6 @@ import Button from "@/app/components/button";
 import ConfirmationModal from "@/app/components/confirmation_modal";
 import DataTable from "@/app/components/data_table";
 import LoadingPane from "@/app/components/loading_pane";
-import TableEmpty from "@/app/components/table_empty";
 
 interface IAreasOfNeedPage {
   areasOfNeed: AreaOfNeed[];
@@ -64,19 +63,21 @@ export default function AreasOfNeedPage(props: IAreasOfNeedPage) {
       {isLoading && <LoadingPane />}
       <section className="mt-5">
         <h1 className="">Areas of Need</h1>
-        <DataTable columns={["Area", "Created At", "Actions"]}>
-          {props.areasOfNeed.map((area) => (
-            <tr key={area.id} className="text-sm text-gray-800 even:bg-gray-50">
-              <td className="px-4 py-3">{area.name}</td>
-              <td className="px-4 py-3">{area.createdAt.toLocaleString()}</td>
-              <td className="flex flex-row gap-2 px-4 py-3">
-                <button className="text-red-500 hover:text-red-700" onClick={() => setAreaOfNeedToDelete(area.id)}>
-                  Delete
-                </button>
-              </td>
-            </tr>
-          ))}
-          {!props.areasOfNeed.length && <TableEmpty colSpan={4}>No areas of need yet!</TableEmpty>}
+        <DataTable columns={["Area", "Created At", "Actions"]} noEntitiesMessage="No areas of need yet!">
+          {props.areasOfNeed.map((area) => ({
+            rowKey: area.id,
+            cells: [
+              area.name,
+              area.createdAt.toLocaleString(),
+              <button
+                key="delete"
+                className="text-red-500 hover:text-red-700"
+                onClick={() => setAreaOfNeedToDelete(area.id)}
+              >
+                Delete
+              </button>,
+            ],
+          }))}
         </DataTable>
       </section>
       <section className="mt-5">

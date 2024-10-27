@@ -1,12 +1,13 @@
 /**
  * @jest-environment node
  */
+import { updateOrCreateStudent, deleteStudent, doCSVUpload } from "../../src/app/actions/student";
 import { prismaMock } from "../../src/singleton";
-import { ActionType, Prisma } from "@prisma/client";
-import { updateOrCreateStudent, deleteStudent, doCSVUpload } from "@/app/actions/student";
+import { TEST_USER_EMAIL } from "../constants";
+import { ActionType } from "@prisma/client";
 
 jest.mock("../../src/app/actions/util", () => ({
-  getSessionOrFail: jest.fn(() => Promise.resolve({ user: { email: "test-user@example.com" }, session: {} })),
+  getSessionOrFail: jest.fn(() => Promise.resolve({ user: { email: TEST_USER_EMAIL }, session: {} })),
 }));
 
 const getStudentMockData = () => {
@@ -32,7 +33,7 @@ describe("updateOrCreateStudent", () => {
           ...mockData,
           owner: {
             connect: {
-              email: "test-user@example.com",
+              email: TEST_USER_EMAIL,
             },
           },
         },
@@ -46,12 +47,12 @@ describe("updateOrCreateStudent", () => {
               ...mockData,
               owner: {
                 connect: {
-                  email: "test-user@example.com",
+                  email: TEST_USER_EMAIL,
                 },
               },
             }),
           },
-          ownerId: "test-user@example.com",
+          ownerId: TEST_USER_EMAIL,
         },
       });
     }
@@ -68,13 +69,13 @@ describe("updateOrCreateStudent", () => {
       expect(prismaMock.student.update).toHaveBeenCalledWith({
         where: {
           id: "1",
-          ownerId: "test-user@example.com",
+          ownerId: TEST_USER_EMAIL,
         },
         data: {
           ...mockData,
           owner: {
             connect: {
-              email: "test-user@example.com",
+              email: TEST_USER_EMAIL,
             },
           },
         },
@@ -90,12 +91,12 @@ describe("updateOrCreateStudent", () => {
               ...mockData,
               owner: {
                 connect: {
-                  email: "test-user@example.com",
+                  email: TEST_USER_EMAIL,
                 },
               },
             }),
           },
-          ownerId: "test-user@example.com",
+          ownerId: TEST_USER_EMAIL,
         },
       });
     }
@@ -115,7 +116,7 @@ describe("updateOrCreateStudent", () => {
           ...mockData,
           owner: {
             connect: {
-              email: "test-user@example.com",
+              email: TEST_USER_EMAIL,
             },
           },
         },
@@ -137,13 +138,13 @@ describe("updateOrCreateStudent", () => {
       expect(prismaMock.student.update).toHaveBeenCalledWith({
         where: {
           id: "1",
-          ownerId: "test-user@example.com",
+          ownerId: TEST_USER_EMAIL,
         },
         data: {
           ...mockData,
           owner: {
             connect: {
-              email: "test-user@example.com",
+              email: TEST_USER_EMAIL,
             },
           },
         },
@@ -169,11 +170,11 @@ describe("updateOrCreateStudent", () => {
           ...getStudentMockData(),
           areaOfNeed: {
             connect: [{ id: "Test Area" }],
-            create: [{ name: "New Label", owner: { connect: { email: "test-user@example.com" } } }],
+            create: [{ name: "New Label", owner: { connect: { email: TEST_USER_EMAIL } } }],
           },
           owner: {
             connect: {
-              email: "test-user@example.com",
+              email: TEST_USER_EMAIL,
             },
           },
         },
@@ -188,14 +189,14 @@ describe("updateOrCreateStudent", () => {
               lastName: "Testorini",
               gradeLevel: 12,
               notes: "Problem Child",
-              owner: { connect: { email: "test-user@example.com" } },
+              owner: { connect: { email: TEST_USER_EMAIL } },
               areaOfNeed: {
                 connect: [{ id: "Test Area" }],
-                create: [{ name: "New Label", owner: { connect: { email: "test-user@example.com" } } }],
+                create: [{ name: "New Label", owner: { connect: { email: TEST_USER_EMAIL } } }],
               },
             }),
           },
-          ownerId: "test-user@example.com",
+          ownerId: TEST_USER_EMAIL,
         },
       });
     }
@@ -224,7 +225,7 @@ describe("doCSVUpload", () => {
           lastName: "Testorini",
           gradeLevel: 12,
           notes: "Problem Child",
-          ownerId: "test-user@example.com",
+          ownerId: TEST_USER_EMAIL,
         },
       });
     }
@@ -243,7 +244,7 @@ describe("deleteStudent", () => {
       expect(prismaMock.student.delete).toHaveBeenCalledWith({
         where: {
           id: studentId,
-          ownerId: "test-user@example.com",
+          ownerId: TEST_USER_EMAIL,
         },
       });
       expect(prismaMock.actionRecord.create).toHaveBeenCalledTimes(1);
@@ -251,7 +252,7 @@ describe("deleteStudent", () => {
         data: {
           actionType: ActionType.DELETE_STUDENT,
           additionalData: { studentId },
-          ownerId: "test-user@example.com",
+          ownerId: TEST_USER_EMAIL,
         },
       });
     }
@@ -268,7 +269,7 @@ describe("deleteStudent", () => {
       expect(prismaMock.student.delete).toHaveBeenCalledWith({
         where: {
           id: studentId,
-          ownerId: "test-user@example.com",
+          ownerId: TEST_USER_EMAIL,
         },
       });
       expect(prismaMock.actionRecord.create).toHaveBeenCalledTimes(0);

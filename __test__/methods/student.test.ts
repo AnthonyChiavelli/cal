@@ -2,11 +2,12 @@
  * @jest-environment node
  */
 import { prismaMock } from "../../src/singleton";
+import { TEST_USER_EMAIL } from "../constants";
 import { Student } from "@prisma/client";
 import { getAllStudents, getStudent, getStudents } from "@/app/methods/student";
 
 jest.mock("../../src/app/actions/util", () => ({
-  getSessionOrFail: jest.fn(() => Promise.resolve({ user: { email: "test-user@example.com" }, session: {} })),
+  getSessionOrFail: jest.fn(() => Promise.resolve({ user: { email: TEST_USER_EMAIL }, session: {} })),
 }));
 
 describe("getStudents", () => {
@@ -27,7 +28,7 @@ describe("getStudents", () => {
       take: 10,
       where: {
         ownerId: {
-          equals: "test-user@example.com",
+          equals: TEST_USER_EMAIL,
         },
       },
     });
@@ -67,7 +68,7 @@ describe("getStudents", () => {
       take: 10,
       where: {
         ownerId: {
-          equals: "test-user@example.com",
+          equals: TEST_USER_EMAIL,
         },
         OR: [
           {
@@ -112,7 +113,7 @@ describe("getTotalStudentCount", () => {
       take: 10,
       where: {
         ownerId: {
-          equals: "test-user@example.com",
+          equals: TEST_USER_EMAIL,
         },
       },
     });
@@ -152,7 +153,7 @@ describe("getTotalStudentCount", () => {
       take: 10,
       where: {
         ownerId: {
-          equals: "test-user@example.com",
+          equals: TEST_USER_EMAIL,
         },
         OR: [
           {
@@ -191,7 +192,7 @@ describe("getAllStudents", () => {
       },
       where: {
         ownerId: {
-          equals: "test-user@example.com",
+          equals: TEST_USER_EMAIL,
         },
       },
     });
@@ -207,7 +208,7 @@ describe("getStudent", () => {
     expect(result).toEqual(mockStudentDBEntity);
     expect(prismaMock.student.findFirst).toHaveBeenCalledTimes(1);
     expect(prismaMock.student.findFirst).toHaveBeenCalledWith(
-      expect.objectContaining({ where: { id: "1", ownerId: "test-user@example.com" } }),
+      expect.objectContaining({ where: { id: "1", ownerId: TEST_USER_EMAIL } }),
     );
   });
 });

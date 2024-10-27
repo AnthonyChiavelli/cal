@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useCallback, useMemo, useState } from "react";
 import { toast } from "react-toastify";
 import { AreaOfNeed, Family, Prisma } from "@prisma/client";
 import Link from "next/link";
@@ -10,6 +10,8 @@ import { FamilyFormData } from "@/app/components/family_page/family_form";
 import LoadingPane from "@/app/components/loading_pane";
 import Modal from "@/app/components/modal";
 import SimpleForm from "@/app/components/simple_form";
+import Button from "./button";
+import ConfirmationModal from "./confirmation_modal";
 
 export interface StudentFormData {
   firstName: string;
@@ -25,11 +27,13 @@ interface IStudentCreateProps {
   student?: Prisma.StudentGetPayload<{ include: { areaOfNeed: true; family: true } }>;
   updateOrCreateFamily: (formData: FamilyFormData, familyId?: string) => Promise<{ success: boolean }>;
   updateOrCreateStudent: (formData: StudentFormData, studentId?: string) => Promise<{ success: boolean }>;
+  deleteStudent?: (studentId: string) => void;
   areasOfNeed: AreaOfNeed[];
 }
 
 export default function StudentPage(props: IStudentCreateProps) {
   const [isLoading, setIsLoading] = useState(false);
+  const [showDeleteConfirmationModal, setShowDeleteConfirmationModal] = useState(false);
   const router = useRouter();
 
   const handleSubmit = async (formData: { [k: string]: string }) => {
@@ -44,6 +48,19 @@ export default function StudentPage(props: IStudentCreateProps) {
     }
     setIsLoading(false);
   };
+
+  const handleDeleteStudent = useCallback(async () => {
+    if (props.student?.id && props.deleteStudent) {
+      try {
+        await props.deleteStudent(props.student.id);
+        setShowDeleteConfirmationModal(false);
+        toast.success("Student deleted");
+        router.refresh();
+      } catch (e) {
+        toast.success("Error deleting student");
+      }
+    }
+  }, [router]);
 
   const initialValues = useMemo(() => {
     return {
@@ -64,18 +81,20 @@ export default function StudentPage(props: IStudentCreateProps) {
   return (
     <>
       {isLoading && <LoadingPane />}
-      <div className="my-5 mb-5">
-        <div className="mt-1 space-y-8 sm:space-y-0" key="associated-students">
-          <div className="sm:grid sm:grid-cols-3 sm:items-start sm:gap-2 sm:py-1">
-            <label htmlFor="firstName" className="block text-sm font-medium leading-6 text-gray-900 sm:pt-1.5">
-              Family
-            </label>
-            <div className="mt-2 sm:col-span-2 sm:mt-0">
-              <Link href={`/app/families/${props.student?.family?.id}`}>{props.student?.family?.familyName}</Link>
+      {props.student && (
+        <div className="my-5 mb-5">
+          <div className="mt-1 space-y-8 sm:space-y-0" key="associated-students">
+            <div className="sm:grid sm:grid-cols-3 sm:items-start sm:gap-2 sm:py-1">
+              <label htmlFor="firstName" className="block text-sm font-medium leading-6 text-gray-900 sm:pt-1.5">
+                Family
+              </label>
+              <div className="mt-2 sm:col-span-2 sm:mt-0">
+                <Link href={`/app/families/${props.student?.family?.id}`}>{props.student?.family?.familyName}</Link>
+              </div>
             </div>
           </div>
         </div>
-      </div>
+      )}
       <SimpleForm
         initialValues={initialValues}
         editMode={props.student !== undefined}
@@ -113,7 +132,7 @@ export default function StudentPage(props: IStudentCreateProps) {
             },
           },
           {
-            title: "Famliy",
+            title: "Family",
             name: "family",
             type: "selectCreateable",
             required: true,
@@ -135,6 +154,15 @@ export default function StudentPage(props: IStudentCreateProps) {
           },
         ]}
         onSubmit={handleSubmit}
+      />
+      <section className="mt-5">
+        <Button text="Delete Student" flavor="danger" onClick={() => setShowDeleteConfirmationModal(true)} />
+      </section>
+      <ConfirmationModal
+        message="Are you sure you want to do this?"
+        open={showDeleteConfirmationModal}
+        onDeny={() => setShowDeleteConfirmationModal(false)}
+        onAccept={handleDeleteStudent}
       />
       <Modal open={showCreateFamilyModal} close={() => setShowCreateFamilyModal(false)}>
         {showCreateFamilyModal ? (

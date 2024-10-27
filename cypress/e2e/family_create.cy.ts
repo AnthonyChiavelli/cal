@@ -41,7 +41,7 @@ describe("Family create page", () => {
 
     cy.url().should("equal", "http://localhost:3000/app/families");
 
-    cy.get("table tr td a").should("contain", "Pringer");
+    cy.get("table tr td").should("contain", "Pringer");
   });
 
   it("Should autofill both parent's last names based on family names until they have been manually modified", () => {

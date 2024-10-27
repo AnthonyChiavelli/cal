@@ -2,10 +2,11 @@
  * @jest-environment node
  */
 import { prismaMock } from "../../src/singleton";
+import { TEST_USER_EMAIL } from "../constants";
 import { getAreasOfNeed } from "@/app/methods/areaofNeed";
 
 jest.mock("../../src/app/actions/util", () => ({
-  getSessionOrFail: jest.fn(() => Promise.resolve({ user: { email: "test-user@example.com" }, session: {} })),
+  getSessionOrFail: jest.fn(() => Promise.resolve({ user: { email: TEST_USER_EMAIL }, session: {} })),
 }));
 
 describe("getAreasOfNeed", () => {
@@ -16,7 +17,7 @@ describe("getAreasOfNeed", () => {
     expect(prismaMock.areaOfNeed.findMany).toHaveBeenCalledTimes(1);
     expect(prismaMock.areaOfNeed.findMany).toHaveBeenCalledWith({
       orderBy: { createdAt: "desc" },
-      where: { ownerId: "test-user@example.com" },
+      where: { ownerId: TEST_USER_EMAIL },
     });
   });
 });

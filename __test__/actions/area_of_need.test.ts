@@ -1,13 +1,13 @@
 /**
  * @jest-environment node
  */
-import prisma from "../../src/db";
 import { prismaMock } from "../../src/singleton";
-import { ActionType, Prisma } from "@prisma/client";
+import { TEST_USER_EMAIL } from "../constants";
+import { ActionType } from "@prisma/client";
 import { updateOrCreateAreaOfNeed, deleteAreaOfNeed } from "@/app/actions/area_of_need";
 
 jest.mock("../../src/app/actions/util", () => ({
-  getSessionOrFail: jest.fn(() => Promise.resolve({ user: { email: "test-user@example.com" }, session: {} })),
+  getSessionOrFail: jest.fn(() => Promise.resolve({ user: { email: TEST_USER_EMAIL }, session: {} })),
 }));
 
 describe("updateOrCreateAreaOfNeed", () => {
@@ -21,7 +21,7 @@ describe("updateOrCreateAreaOfNeed", () => {
         name: "Biology",
         owner: {
           connect: {
-            email: "test-user@example.com",
+            email: TEST_USER_EMAIL,
           },
         },
       },
@@ -35,12 +35,12 @@ describe("updateOrCreateAreaOfNeed", () => {
             name: "Biology",
             owner: {
               connect: {
-                email: "test-user@example.com",
+                email: TEST_USER_EMAIL,
               },
             },
           }),
         },
-        ownerId: "test-user@example.com",
+        ownerId: TEST_USER_EMAIL,
       },
     });
   });
@@ -66,13 +66,13 @@ describe("deleteAreaOfNeed", () => {
       id: "1",
       name: "Chemistrism",
     } as any);
-    prismaMock.areaOfNeed.delete.mockResolvedValue({ id: "1", ownerId: "test-user@example.com" } as any);
+    prismaMock.areaOfNeed.delete.mockResolvedValue({ id: "1", ownerId: TEST_USER_EMAIL } as any);
     await deleteAreaOfNeed("1");
     expect(prismaMock.areaOfNeed.delete).toHaveBeenCalledTimes(1);
     expect(prismaMock.areaOfNeed.delete).toHaveBeenCalledWith({
       where: {
         id: "1",
-        ownerId: "test-user@example.com",
+        ownerId: TEST_USER_EMAIL,
       },
     });
     expect(prismaMock.actionRecord.create).toHaveBeenCalledTimes(1);
@@ -85,12 +85,12 @@ describe("deleteAreaOfNeed", () => {
             name: "Chemistrism",
             owner: {
               connect: {
-                email: "test-user@example.com",
+                email: TEST_USER_EMAIL,
               },
             },
           }),
         },
-        ownerId: "test-user@example.com",
+        ownerId: TEST_USER_EMAIL,
       },
     });
   });

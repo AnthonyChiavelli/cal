@@ -2,11 +2,12 @@
  * @jest-environment node
  */
 import { prismaMock } from "../../src/singleton";
-import { ActionType, Prisma } from "@prisma/client";
+import { TEST_USER_EMAIL } from "../constants";
+import { ActionType } from "@prisma/client";
 import { updateOrCreateFamily, deleteFamily } from "@/app/actions/family";
 
 jest.mock("../../src/app/actions/util", () => ({
-  getSessionOrFail: jest.fn(() => Promise.resolve({ user: { email: "test-user@example.com" }, session: {} })),
+  getSessionOrFail: jest.fn(() => Promise.resolve({ user: { email: TEST_USER_EMAIL }, session: {} })),
 }));
 
 const getFamilyMockData = () => {
@@ -40,7 +41,7 @@ describe("updateOrCreateFamily", () => {
           notes: "Some notes",
           owner: {
             connect: {
-              email: "test-user@example.com",
+              email: TEST_USER_EMAIL,
             },
           },
           parents: {
@@ -50,7 +51,7 @@ describe("updateOrCreateFamily", () => {
                 firstName: "Scane",
                 isPrimary: true,
                 lastName: "Tingledumper",
-                ownerId: "test-user@example.com",
+                ownerId: TEST_USER_EMAIL,
                 phone: "(555) 555-5555",
               },
               {
@@ -58,7 +59,7 @@ describe("updateOrCreateFamily", () => {
                 firstName: "Thrixy",
                 isPrimary: false,
                 lastName: "Humpenstump",
-                ownerId: "test-user@example.com",
+                ownerId: TEST_USER_EMAIL,
                 phone: "(555) 555-5556",
               },
             ],
@@ -72,7 +73,7 @@ describe("updateOrCreateFamily", () => {
           additionalData: {
             familyObj: JSON.stringify(mockData),
           },
-          ownerId: "test-user@example.com",
+          ownerId: TEST_USER_EMAIL,
         },
       });
     }
@@ -89,7 +90,7 @@ describe("updateOrCreateFamily", () => {
       expect(prismaMock.family.update).toHaveBeenCalledWith({
         where: {
           id: "1",
-          ownerId: "test-user@example.com",
+          ownerId: TEST_USER_EMAIL,
         },
         data: {
           familyName: "Tingledumper",
@@ -135,7 +136,7 @@ describe("updateOrCreateFamily", () => {
               notes: "New notes",
             }),
           },
-          ownerId: "test-user@example.com",
+          ownerId: TEST_USER_EMAIL,
         },
       });
     }
@@ -157,7 +158,7 @@ describe("updateOrCreateFamily", () => {
           notes: "Some notes",
           owner: {
             connect: {
-              email: "test-user@example.com",
+              email: TEST_USER_EMAIL,
             },
           },
           parents: {
@@ -167,7 +168,7 @@ describe("updateOrCreateFamily", () => {
                 firstName: "Scane",
                 isPrimary: true,
                 lastName: "Tingledumper",
-                ownerId: "test-user@example.com",
+                ownerId: TEST_USER_EMAIL,
                 phone: "(555) 555-5555",
               },
               {
@@ -175,7 +176,7 @@ describe("updateOrCreateFamily", () => {
                 firstName: "Thrixy",
                 isPrimary: false,
                 lastName: "Humpenstump",
-                ownerId: "test-user@example.com",
+                ownerId: TEST_USER_EMAIL,
                 phone: "(555) 555-5556",
               },
             ],
@@ -199,7 +200,7 @@ describe("updateOrCreateFamily", () => {
       expect(prismaMock.family.update).toHaveBeenCalledWith({
         where: {
           id: "1",
-          ownerId: "test-user@example.com",
+          ownerId: TEST_USER_EMAIL,
         },
         data: {
           familyName: "Tingledumper",
@@ -251,7 +252,7 @@ describe("deleteFamily", () => {
       expect(prismaMock.family.findUnique).toHaveBeenCalledWith({
         where: {
           id: familyId,
-          ownerId: "test-user@example.com",
+          ownerId: TEST_USER_EMAIL,
         },
         include: {
           students: true,
@@ -260,7 +261,7 @@ describe("deleteFamily", () => {
       expect(prismaMock.family.delete).toHaveBeenCalledWith({
         where: {
           id: familyId,
-          ownerId: "test-user@example.com",
+          ownerId: TEST_USER_EMAIL,
         },
       });
     }

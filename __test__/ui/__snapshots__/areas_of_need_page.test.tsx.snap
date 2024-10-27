@@ -14,45 +14,47 @@ exports[`AreasOfNeedPage Renders a consistent snapshot when empty 1`] = `
           >
             Areas of Need
           </h1>
-          <table
-            class="min-w-full divide-y divide-gray-300"
+          <div
+            class="overflow-hidden rounded-lg shadow ring-1 ring-black ring-opacity-5"
           >
-            <thead>
-              <tr
-                class="bg-slate-400 text-left text-sm font-semibold text-white"
-              >
-                <th
-                  class="px-4 py-3"
-                >
-                  Area
-                </th>
-                <th
-                  class="px-4 py-3"
-                >
-                  Created At
-                </th>
-                <th
-                  class="px-4 py-3"
-                >
-                  Actions
-                </th>
-              </tr>
-            </thead>
-            <tbody
-              class="bg-white"
+            <table
+              class="min-w-full divide-y divide-gray-300"
             >
-              <tr
-                class="bg-white italic"
-              >
-                <td
-                  class="py-3 text-center"
-                  colspan="4"
+              <thead>
+                <tr
+                  class="bg-slate-400 text-left text-sm font-semibold text-white"
                 >
-                  No areas of need yet!
-                </td>
-              </tr>
-            </tbody>
-          </table>
+                  <th
+                    class="px-4 py-3"
+                  >
+                    Area
+                  </th>
+                  <th
+                    class="px-4 py-3"
+                  >
+                    Created At
+                  </th>
+                  <th
+                    class="px-4 py-3"
+                  >
+                    Actions
+                  </th>
+                </tr>
+              </thead>
+              <tbody
+                class="bg-white"
+              >
+                <tr>
+                  <td
+                    class="py-4 text-center"
+                    colspan="3"
+                  >
+                    No areas of need yet!
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
         </section>
         <section
           class="mt-5"
@@ -96,45 +98,47 @@ exports[`AreasOfNeedPage Renders a consistent snapshot when empty 1`] = `
         >
           Areas of Need
         </h1>
-        <table
-          class="min-w-full divide-y divide-gray-300"
+        <div
+          class="overflow-hidden rounded-lg shadow ring-1 ring-black ring-opacity-5"
         >
-          <thead>
-            <tr
-              class="bg-slate-400 text-left text-sm font-semibold text-white"
-            >
-              <th
-                class="px-4 py-3"
-              >
-                Area
-              </th>
-              <th
-                class="px-4 py-3"
-              >
-                Created At
-              </th>
-              <th
-                class="px-4 py-3"
-              >
-                Actions
-              </th>
-            </tr>
-          </thead>
-          <tbody
-            class="bg-white"
+          <table
+            class="min-w-full divide-y divide-gray-300"
           >
-            <tr
-              class="bg-white italic"
-            >
-              <td
-                class="py-3 text-center"
-                colspan="4"
+            <thead>
+              <tr
+                class="bg-slate-400 text-left text-sm font-semibold text-white"
               >
-                No areas of need yet!
-              </td>
-            </tr>
-          </tbody>
-        </table>
+                <th
+                  class="px-4 py-3"
+                >
+                  Area
+                </th>
+                <th
+                  class="px-4 py-3"
+                >
+                  Created At
+                </th>
+                <th
+                  class="px-4 py-3"
+                >
+                  Actions
+                </th>
+              </tr>
+            </thead>
+            <tbody
+              class="bg-white"
+            >
+              <tr>
+                <td
+                  class="py-4 text-center"
+                  colspan="3"
+                >
+                  No areas of need yet!
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
       </section>
       <section
         class="mt-5"
@@ -235,81 +239,85 @@ exports[`AreasOfNeedPage Renders a consistent snapshot when filled with data 1`]
           >
             Areas of Need
           </h1>
-          <table
-            class="min-w-full divide-y divide-gray-300"
+          <div
+            class="overflow-hidden rounded-lg shadow ring-1 ring-black ring-opacity-5"
           >
-            <thead>
-              <tr
-                class="bg-slate-400 text-left text-sm font-semibold text-white"
-              >
-                <th
-                  class="px-4 py-3"
-                >
-                  Area
-                </th>
-                <th
-                  class="px-4 py-3"
-                >
-                  Created At
-                </th>
-                <th
-                  class="px-4 py-3"
-                >
-                  Actions
-                </th>
-              </tr>
-            </thead>
-            <tbody
-              class="bg-white"
+            <table
+              class="min-w-full divide-y divide-gray-300"
             >
-              <tr
-                class="text-sm text-gray-800 even:bg-gray-50"
-              >
-                <td
-                  class="px-4 py-3"
+              <thead>
+                <tr
+                  class="bg-slate-400 text-left text-sm font-semibold text-white"
                 >
-                  Charcuterie
-                </td>
-                <td
-                  class="px-4 py-3"
-                >
-                  2/1/2021, 7:00:00 PM
-                </td>
-                <td
-                  class="flex flex-row gap-2 px-4 py-3"
-                >
-                  <button
-                    class="text-red-500 hover:text-red-700"
+                  <th
+                    class="px-4 py-3"
                   >
-                    Delete
-                  </button>
-                </td>
-              </tr>
-              <tr
-                class="text-sm text-gray-800 even:bg-gray-50"
-              >
-                <td
-                  class="px-4 py-3"
-                >
-                  Ham Slicing
-                </td>
-                <td
-                  class="px-4 py-3"
-                >
-                  4/3/2021, 8:00:00 PM
-                </td>
-                <td
-                  class="flex flex-row gap-2 px-4 py-3"
-                >
-                  <button
-                    class="text-red-500 hover:text-red-700"
+                    Area
+                  </th>
+                  <th
+                    class="px-4 py-3"
                   >
-                    Delete
-                  </button>
-                </td>
-              </tr>
-            </tbody>
-          </table>
+                    Created At
+                  </th>
+                  <th
+                    class="px-4 py-3"
+                  >
+                    Actions
+                  </th>
+                </tr>
+              </thead>
+              <tbody
+                class="bg-white"
+              >
+                <tr
+                  class="text-sm text-gray-800 even:bg-gray-50"
+                >
+                  <td
+                    class="px-4 py-3"
+                  >
+                    Charcuterie
+                  </td>
+                  <td
+                    class="px-4 py-3"
+                  >
+                    2/1/2021, 7:00:00 PM
+                  </td>
+                  <td
+                    class="px-4 py-3"
+                  >
+                    <button
+                      class="text-red-500 hover:text-red-700"
+                    >
+                      Delete
+                    </button>
+                  </td>
+                </tr>
+                <tr
+                  class="text-sm text-gray-800 even:bg-gray-50"
+                >
+                  <td
+                    class="px-4 py-3"
+                  >
+                    Ham Slicing
+                  </td>
+                  <td
+                    class="px-4 py-3"
+                  >
+                    4/3/2021, 8:00:00 PM
+                  </td>
+                  <td
+                    class="px-4 py-3"
+                  >
+                    <button
+                      class="text-red-500 hover:text-red-700"
+                    >
+                      Delete
+                    </button>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
         </section>
         <section
           class="mt-5"
@@ -353,81 +361,85 @@ exports[`AreasOfNeedPage Renders a consistent snapshot when filled with data 1`]
         >
           Areas of Need
         </h1>
-        <table
-          class="min-w-full divide-y divide-gray-300"
+        <div
+          class="overflow-hidden rounded-lg shadow ring-1 ring-black ring-opacity-5"
         >
-          <thead>
-            <tr
-              class="bg-slate-400 text-left text-sm font-semibold text-white"
-            >
-              <th
-                class="px-4 py-3"
-              >
-                Area
-              </th>
-              <th
-                class="px-4 py-3"
-              >
-                Created At
-              </th>
-              <th
-                class="px-4 py-3"
-              >
-                Actions
-              </th>
-            </tr>
-          </thead>
-          <tbody
-            class="bg-white"
+          <table
+            class="min-w-full divide-y divide-gray-300"
           >
-            <tr
-              class="text-sm text-gray-800 even:bg-gray-50"
-            >
-              <td
-                class="px-4 py-3"
+            <thead>
+              <tr
+                class="bg-slate-400 text-left text-sm font-semibold text-white"
               >
-                Charcuterie
-              </td>
-              <td
-                class="px-4 py-3"
-              >
-                2/1/2021, 7:00:00 PM
-              </td>
-              <td
-                class="flex flex-row gap-2 px-4 py-3"
-              >
-                <button
-                  class="text-red-500 hover:text-red-700"
+                <th
+                  class="px-4 py-3"
                 >
-                  Delete
-                </button>
-              </td>
-            </tr>
-            <tr
-              class="text-sm text-gray-800 even:bg-gray-50"
-            >
-              <td
-                class="px-4 py-3"
-              >
-                Ham Slicing
-              </td>
-              <td
-                class="px-4 py-3"
-              >
-                4/3/2021, 8:00:00 PM
-              </td>
-              <td
-                class="flex flex-row gap-2 px-4 py-3"
-              >
-                <button
-                  class="text-red-500 hover:text-red-700"
+                  Area
+                </th>
+                <th
+                  class="px-4 py-3"
                 >
-                  Delete
-                </button>
-              </td>
-            </tr>
-          </tbody>
-        </table>
+                  Created At
+                </th>
+                <th
+                  class="px-4 py-3"
+                >
+                  Actions
+                </th>
+              </tr>
+            </thead>
+            <tbody
+              class="bg-white"
+            >
+              <tr
+                class="text-sm text-gray-800 even:bg-gray-50"
+              >
+                <td
+                  class="px-4 py-3"
+                >
+                  Charcuterie
+                </td>
+                <td
+                  class="px-4 py-3"
+                >
+                  2/1/2021, 7:00:00 PM
+                </td>
+                <td
+                  class="px-4 py-3"
+                >
+                  <button
+                    class="text-red-500 hover:text-red-700"
+                  >
+                    Delete
+                  </button>
+                </td>
+              </tr>
+              <tr
+                class="text-sm text-gray-800 even:bg-gray-50"
+              >
+                <td
+                  class="px-4 py-3"
+                >
+                  Ham Slicing
+                </td>
+                <td
+                  class="px-4 py-3"
+                >
+                  4/3/2021, 8:00:00 PM
+                </td>
+                <td
+                  class="px-4 py-3"
+                >
+                  <button
+                    class="text-red-500 hover:text-red-700"
+                  >
+                    Delete
+                  </button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
       </section>
       <section
         class="mt-5"

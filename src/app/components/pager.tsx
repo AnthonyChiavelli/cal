@@ -4,12 +4,12 @@ import { ChevronLeftIcon, ChevronRightIcon } from "@heroicons/react/24/outline";
 import classNames from "classnames";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 
-interface IStudentPager {
+interface IPagerProps {
   totalCount: number;
   pageSize: number;
 }
 
-export default function StudentPager(props: IStudentPager): JSX.Element {
+export default function Pager(props: IPagerProps): JSX.Element {
   const searchParams = useSearchParams();
   const pathname = usePathname();
   const { replace } = useRouter();
@@ -57,9 +57,14 @@ export default function StudentPager(props: IStudentPager): JSX.Element {
   return (
     <div className="my-5 flex items-center justify-between">
       <div>
-        Showing {range[0]} to {Math.min(range[1], props.totalCount)} of{" "}
-        <span className="font-bold">{props.totalCount}</span>{" "}
-        {searchParams.has("search") ? "results" : "total students"}
+        {props.totalCount > 0 ? (
+          <>
+            Showing {Math.min(range[0], props.totalCount)} to {Math.min(range[1], props.totalCount)} of{" "}
+            <span className="font-bold">{props.totalCount}</span> {searchParams.has("search") ? "results" : "total"}
+          </>
+        ) : (
+          <>Showing 0 results</>
+        )}
       </div>
       <div className="flex -space-x-px rounded-md">
         <div

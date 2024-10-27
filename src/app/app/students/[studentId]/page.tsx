@@ -1,4 +1,5 @@
 import { updateOrCreateStudent, updateOrCreateFamily } from "@/app/actions";
+import { deleteStudent } from "@/app/actions/student";
 import ResourceNotFound from "@/app/components/resource_not_found";
 import StudentPage from "@/app/components/student_page";
 import { getAreasOfNeed } from "@/app/methods/areaOfNeed";
@@ -26,6 +27,7 @@ export default async function StudentServerPage(props: IStudentPageProps) {
       updateOrCreateFamily={updateOrCreateFamily}
       areasOfNeed={areasOfNeed}
       student={student}
+      deleteStudent={deleteStudent}
       families={families}
     />
   );

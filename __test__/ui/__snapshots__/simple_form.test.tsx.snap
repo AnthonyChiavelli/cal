@@ -26,7 +26,7 @@ exports[`SimpleForm Renders a consistent snapshot with various form element type
               class="block text-sm font-medium leading-6 text-gray-900 sm:pt-1.5"
               for="firstName"
             >
-              firstName
+              First Name
             </label>
             <div
               class="mt-2 sm:col-span-2 sm:mt-0"
@@ -56,7 +56,7 @@ exports[`SimpleForm Renders a consistent snapshot with various form element type
               class="block text-sm font-medium leading-6 text-gray-900 sm:pt-1.5"
               for="lastName"
             >
-              lastName
+              Last Name
             </label>
             <div
               class="mt-2 sm:col-span-2 sm:mt-0"
@@ -86,7 +86,7 @@ exports[`SimpleForm Renders a consistent snapshot with various form element type
               class="block text-sm font-medium leading-6 text-gray-900 sm:pt-1.5"
               for="gradeLevel"
             >
-              gradeLevel
+              Grade Level
             </label>
             <div
               class="mt-2 sm:col-span-2 sm:mt-0"
@@ -117,7 +117,7 @@ exports[`SimpleForm Renders a consistent snapshot with various form element type
               class="block text-sm font-medium leading-6 text-gray-900 sm:pt-1.5"
               for="areasOfNeed"
             >
-              areasOfNeed
+              Areas of need
             </label>
             <div
               class="mt-2 sm:col-span-2 sm:mt-0"
@@ -222,7 +222,7 @@ exports[`SimpleForm Renders a consistent snapshot with various form element type
               class="block text-sm font-medium leading-6 text-gray-900 sm:pt-1.5"
               for="notes"
             >
-              notes
+              Notes
             </label>
             <div
               class="mt-2 sm:col-span-2 sm:mt-0"
@@ -279,7 +279,7 @@ exports[`SimpleForm Renders a consistent snapshot with various form element type
             class="block text-sm font-medium leading-6 text-gray-900 sm:pt-1.5"
             for="firstName"
           >
-            firstName
+            First Name
           </label>
           <div
             class="mt-2 sm:col-span-2 sm:mt-0"
@@ -309,7 +309,7 @@ exports[`SimpleForm Renders a consistent snapshot with various form element type
             class="block text-sm font-medium leading-6 text-gray-900 sm:pt-1.5"
             for="lastName"
           >
-            lastName
+            Last Name
           </label>
           <div
             class="mt-2 sm:col-span-2 sm:mt-0"
@@ -339,7 +339,7 @@ exports[`SimpleForm Renders a consistent snapshot with various form element type
             class="block text-sm font-medium leading-6 text-gray-900 sm:pt-1.5"
             for="gradeLevel"
           >
-            gradeLevel
+            Grade Level
           </label>
           <div
             class="mt-2 sm:col-span-2 sm:mt-0"
@@ -370,7 +370,7 @@ exports[`SimpleForm Renders a consistent snapshot with various form element type
             class="block text-sm font-medium leading-6 text-gray-900 sm:pt-1.5"
             for="areasOfNeed"
           >
-            areasOfNeed
+            Areas of need
           </label>
           <div
             class="mt-2 sm:col-span-2 sm:mt-0"
@@ -475,7 +475,7 @@ exports[`SimpleForm Renders a consistent snapshot with various form element type
             class="block text-sm font-medium leading-6 text-gray-900 sm:pt-1.5"
             for="notes"
           >
-            notes
+            Notes
           </label>
           <div
             class="mt-2 sm:col-span-2 sm:mt-0"

@@ -2,11 +2,12 @@
  * @jest-environment node
  */
 import { prismaMock } from "../../src/singleton";
+import { TEST_USER_EMAIL } from "../constants";
 import { Event } from "@prisma/client";
 import { getEvent, getEvents } from "@/app/methods/event";
 
 jest.mock("../../src/app/actions/util", () => ({
-  getSessionOrFail: jest.fn(() => Promise.resolve({ user: { email: "test-user@example.com" }, session: {} })),
+  getSessionOrFail: jest.fn(() => Promise.resolve({ user: { email: TEST_USER_EMAIL }, session: {} })),
 }));
 
 describe("getEvents", () => {
@@ -25,7 +26,7 @@ describe("getEvents", () => {
       include: { eventStudents: { include: { student: true } } },
       where: {
         ...mockData,
-        ownerId: "test-user@example.com",
+        ownerId: TEST_USER_EMAIL,
       },
     });
   });
@@ -40,7 +41,7 @@ describe("getEvent", () => {
 
     expect(prismaMock.event.findFirst).toHaveBeenCalledTimes(1);
     expect(prismaMock.event.findFirst).toHaveBeenCalledWith({
-      where: { id: "1", ownerId: "test-user@example.com" },
+      where: { id: "1", ownerId: TEST_USER_EMAIL },
       include: { eventStudents: { include: { student: true } } },
     });
   });

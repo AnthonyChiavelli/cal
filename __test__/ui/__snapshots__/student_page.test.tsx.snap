@@ -5,31 +5,6 @@ exports[`StudentPage Renders a consistent snapshot when empty 1`] = `
   "asFragment": [Function],
   "baseElement": <body>
     <div>
-      <div
-        class="my-5 mb-5"
-      >
-        <div
-          class="mt-1 space-y-8 sm:space-y-0"
-        >
-          <div
-            class="sm:grid sm:grid-cols-3 sm:items-start sm:gap-2 sm:py-1"
-          >
-            <label
-              class="block text-sm font-medium leading-6 text-gray-900 sm:pt-1.5"
-              for="firstName"
-            >
-              Family
-            </label>
-            <div
-              class="mt-2 sm:col-span-2 sm:mt-0"
-            >
-              <a
-                href="/app/families/undefined"
-              />
-            </div>
-          </div>
-        </div>
-      </div>
       <form
         autocomplete="off"
         class="flex flex-col gap-3"
@@ -51,7 +26,7 @@ exports[`StudentPage Renders a consistent snapshot when empty 1`] = `
               class="block text-sm font-medium leading-6 text-gray-900 sm:pt-1.5"
               for="firstName"
             >
-              firstName
+              First Name
             </label>
             <div
               class="mt-2 sm:col-span-2 sm:mt-0"
@@ -81,7 +56,7 @@ exports[`StudentPage Renders a consistent snapshot when empty 1`] = `
               class="block text-sm font-medium leading-6 text-gray-900 sm:pt-1.5"
               for="lastName"
             >
-              lastName
+              Last Name
             </label>
             <div
               class="mt-2 sm:col-span-2 sm:mt-0"
@@ -111,7 +86,7 @@ exports[`StudentPage Renders a consistent snapshot when empty 1`] = `
               class="block text-sm font-medium leading-6 text-gray-900 sm:pt-1.5"
               for="gradeLevel"
             >
-              gradeLevel
+              Grade Level
             </label>
             <div
               class="mt-2 sm:col-span-2 sm:mt-0"
@@ -142,7 +117,7 @@ exports[`StudentPage Renders a consistent snapshot when empty 1`] = `
               class="block text-sm font-medium leading-6 text-gray-900 sm:pt-1.5"
               for="areasOfNeed"
             >
-              areasOfNeed
+              Areas of need
             </label>
             <div
               class="mt-2 sm:col-span-2 sm:mt-0"
@@ -247,7 +222,7 @@ exports[`StudentPage Renders a consistent snapshot when empty 1`] = `
               class="block text-sm font-medium leading-6 text-gray-900 sm:pt-1.5"
               for="family"
             >
-              family
+              Family
             </label>
             <div
               class="mt-2 sm:col-span-2 sm:mt-0"
@@ -350,7 +325,7 @@ exports[`StudentPage Renders a consistent snapshot when empty 1`] = `
               class="block text-sm font-medium leading-6 text-gray-900 sm:pt-1.5"
               for="notes"
             >
-              notes
+              Notes
             </label>
             <div
               class="mt-2 sm:col-span-2 sm:mt-0"
@@ -383,34 +358,21 @@ exports[`StudentPage Renders a consistent snapshot when empty 1`] = `
           </button>
         </div>
       </form>
+      <section
+        class="mt-5"
+      >
+        <button
+          class="flex flex-row justify-center rounded-md px-3 py-2 text-sm font-semibold shadow-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 bg-red-500 hover:bg-red-700 text-white hover:text-white"
+          type="button"
+        >
+          <span>
+            Delete Student
+          </span>
+        </button>
+      </section>
     </div>
   </body>,
   "container": <div>
-    <div
-      class="my-5 mb-5"
-    >
-      <div
-        class="mt-1 space-y-8 sm:space-y-0"
-      >
-        <div
-          class="sm:grid sm:grid-cols-3 sm:items-start sm:gap-2 sm:py-1"
-        >
-          <label
-            class="block text-sm font-medium leading-6 text-gray-900 sm:pt-1.5"
-            for="firstName"
-          >
-            Family
-          </label>
-          <div
-            class="mt-2 sm:col-span-2 sm:mt-0"
-          >
-            <a
-              href="/app/families/undefined"
-            />
-          </div>
-        </div>
-      </div>
-    </div>
     <form
       autocomplete="off"
       class="flex flex-col gap-3"
@@ -432,7 +394,7 @@ exports[`StudentPage Renders a consistent snapshot when empty 1`] = `
             class="block text-sm font-medium leading-6 text-gray-900 sm:pt-1.5"
             for="firstName"
           >
-            firstName
+            First Name
           </label>
           <div
             class="mt-2 sm:col-span-2 sm:mt-0"
@@ -462,7 +424,7 @@ exports[`StudentPage Renders a consistent snapshot when empty 1`] = `
             class="block text-sm font-medium leading-6 text-gray-900 sm:pt-1.5"
             for="lastName"
           >
-            lastName
+            Last Name
           </label>
           <div
             class="mt-2 sm:col-span-2 sm:mt-0"
@@ -492,7 +454,7 @@ exports[`StudentPage Renders a consistent snapshot when empty 1`] = `
             class="block text-sm font-medium leading-6 text-gray-900 sm:pt-1.5"
             for="gradeLevel"
           >
-            gradeLevel
+            Grade Level
           </label>
           <div
             class="mt-2 sm:col-span-2 sm:mt-0"
@@ -523,7 +485,7 @@ exports[`StudentPage Renders a consistent snapshot when empty 1`] = `
             class="block text-sm font-medium leading-6 text-gray-900 sm:pt-1.5"
             for="areasOfNeed"
           >
-            areasOfNeed
+            Areas of need
           </label>
           <div
             class="mt-2 sm:col-span-2 sm:mt-0"
@@ -628,7 +590,7 @@ exports[`StudentPage Renders a consistent snapshot when empty 1`] = `
             class="block text-sm font-medium leading-6 text-gray-900 sm:pt-1.5"
             for="family"
           >
-            family
+            Family
           </label>
           <div
             class="mt-2 sm:col-span-2 sm:mt-0"
@@ -731,7 +693,7 @@ exports[`StudentPage Renders a consistent snapshot when empty 1`] = `
             class="block text-sm font-medium leading-6 text-gray-900 sm:pt-1.5"
             for="notes"
           >
-            notes
+            Notes
           </label>
           <div
             class="mt-2 sm:col-span-2 sm:mt-0"
@@ -764,6 +726,18 @@ exports[`StudentPage Renders a consistent snapshot when empty 1`] = `
         </button>
       </div>
     </form>
+    <section
+      class="mt-5"
+    >
+      <button
+        class="flex flex-row justify-center rounded-md px-3 py-2 text-sm font-semibold shadow-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 bg-red-500 hover:bg-red-700 text-white hover:text-white"
+        type="button"
+      >
+        <span>
+          Delete Student
+        </span>
+      </button>
+    </section>
   </div>,
   "debug": [Function],
   "findAllByAltText": [Function],
@@ -872,7 +846,7 @@ exports[`StudentPage Renders a consistent snapshot when prefilled with data 1`] 
               class="block text-sm font-medium leading-6 text-gray-900 sm:pt-1.5"
               for="firstName"
             >
-              firstName
+              First Name
             </label>
             <div
               class="mt-2 sm:col-span-2 sm:mt-0"
@@ -902,7 +876,7 @@ exports[`StudentPage Renders a consistent snapshot when prefilled with data 1`] 
               class="block text-sm font-medium leading-6 text-gray-900 sm:pt-1.5"
               for="lastName"
             >
-              lastName
+              Last Name
             </label>
             <div
               class="mt-2 sm:col-span-2 sm:mt-0"
@@ -932,7 +906,7 @@ exports[`StudentPage Renders a consistent snapshot when prefilled with data 1`] 
               class="block text-sm font-medium leading-6 text-gray-900 sm:pt-1.5"
               for="gradeLevel"
             >
-              gradeLevel
+              Grade Level
             </label>
             <div
               class="mt-2 sm:col-span-2 sm:mt-0"
@@ -963,7 +937,7 @@ exports[`StudentPage Renders a consistent snapshot when prefilled with data 1`] 
               class="block text-sm font-medium leading-6 text-gray-900 sm:pt-1.5"
               for="areasOfNeed"
             >
-              areasOfNeed
+              Areas of need
             </label>
             <div
               class="mt-2 sm:col-span-2 sm:mt-0"
@@ -1137,7 +1111,7 @@ exports[`StudentPage Renders a consistent snapshot when prefilled with data 1`] 
               class="block text-sm font-medium leading-6 text-gray-900 sm:pt-1.5"
               for="family"
             >
-              family
+              Family
             </label>
             <div
               class="mt-2 sm:col-span-2 sm:mt-0"
@@ -1238,7 +1212,7 @@ exports[`StudentPage Renders a consistent snapshot when prefilled with data 1`] 
               class="block text-sm font-medium leading-6 text-gray-900 sm:pt-1.5"
               for="notes"
             >
-              notes
+              Notes
             </label>
             <div
               class="mt-2 sm:col-span-2 sm:mt-0"
@@ -1271,6 +1245,18 @@ exports[`StudentPage Renders a consistent snapshot when prefilled with data 1`] 
           </button>
         </div>
       </form>
+      <section
+        class="mt-5"
+      >
+        <button
+          class="flex flex-row justify-center rounded-md px-3 py-2 text-sm font-semibold shadow-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 bg-red-500 hover:bg-red-700 text-white hover:text-white"
+          type="button"
+        >
+          <span>
+            Delete Student
+          </span>
+        </button>
+      </section>
     </div>
   </body>,
   "container": <div>
@@ -1322,7 +1308,7 @@ exports[`StudentPage Renders a consistent snapshot when prefilled with data 1`] 
             class="block text-sm font-medium leading-6 text-gray-900 sm:pt-1.5"
             for="firstName"
           >
-            firstName
+            First Name
           </label>
           <div
             class="mt-2 sm:col-span-2 sm:mt-0"
@@ -1352,7 +1338,7 @@ exports[`StudentPage Renders a consistent snapshot when prefilled with data 1`] 
             class="block text-sm font-medium leading-6 text-gray-900 sm:pt-1.5"
             for="lastName"
           >
-            lastName
+            Last Name
           </label>
           <div
             class="mt-2 sm:col-span-2 sm:mt-0"
@@ -1382,7 +1368,7 @@ exports[`StudentPage Renders a consistent snapshot when prefilled with data 1`] 
             class="block text-sm font-medium leading-6 text-gray-900 sm:pt-1.5"
             for="gradeLevel"
           >
-            gradeLevel
+            Grade Level
           </label>
           <div
             class="mt-2 sm:col-span-2 sm:mt-0"
@@ -1413,7 +1399,7 @@ exports[`StudentPage Renders a consistent snapshot when prefilled with data 1`] 
             class="block text-sm font-medium leading-6 text-gray-900 sm:pt-1.5"
             for="areasOfNeed"
           >
-            areasOfNeed
+            Areas of need
           </label>
           <div
             class="mt-2 sm:col-span-2 sm:mt-0"
@@ -1587,7 +1573,7 @@ exports[`StudentPage Renders a consistent snapshot when prefilled with data 1`] 
             class="block text-sm font-medium leading-6 text-gray-900 sm:pt-1.5"
             for="family"
           >
-            family
+            Family
           </label>
           <div
             class="mt-2 sm:col-span-2 sm:mt-0"
@@ -1688,7 +1674,7 @@ exports[`StudentPage Renders a consistent snapshot when prefilled with data 1`] 
             class="block text-sm font-medium leading-6 text-gray-900 sm:pt-1.5"
             for="notes"
           >
-            notes
+            Notes
           </label>
           <div
             class="mt-2 sm:col-span-2 sm:mt-0"
@@ -1721,6 +1707,18 @@ exports[`StudentPage Renders a consistent snapshot when prefilled with data 1`] 
         </button>
       </div>
     </form>
+    <section
+      class="mt-5"
+    >
+      <button
+        class="flex flex-row justify-center rounded-md px-3 py-2 text-sm font-semibold shadow-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 bg-red-500 hover:bg-red-700 text-white hover:text-white"
+        type="button"
+      >
+        <span>
+          Delete Student
+        </span>
+      </button>
+    </section>
   </div>,
   "debug": [Function],
   "findAllByAltText": [Function],
@@ -1781,31 +1779,6 @@ exports[`StudentPage Renders without any families or areas of need present 1`] =
   "asFragment": [Function],
   "baseElement": <body>
     <div>
-      <div
-        class="my-5 mb-5"
-      >
-        <div
-          class="mt-1 space-y-8 sm:space-y-0"
-        >
-          <div
-            class="sm:grid sm:grid-cols-3 sm:items-start sm:gap-2 sm:py-1"
-          >
-            <label
-              class="block text-sm font-medium leading-6 text-gray-900 sm:pt-1.5"
-              for="firstName"
-            >
-              Family
-            </label>
-            <div
-              class="mt-2 sm:col-span-2 sm:mt-0"
-            >
-              <a
-                href="/app/families/undefined"
-              />
-            </div>
-          </div>
-        </div>
-      </div>
       <form
         autocomplete="off"
         class="flex flex-col gap-3"
@@ -1827,7 +1800,7 @@ exports[`StudentPage Renders without any families or areas of need present 1`] =
               class="block text-sm font-medium leading-6 text-gray-900 sm:pt-1.5"
               for="firstName"
             >
-              firstName
+              First Name
             </label>
             <div
               class="mt-2 sm:col-span-2 sm:mt-0"
@@ -1857,7 +1830,7 @@ exports[`StudentPage Renders without any families or areas of need present 1`] =
               class="block text-sm font-medium leading-6 text-gray-900 sm:pt-1.5"
               for="lastName"
             >
-              lastName
+              Last Name
             </label>
             <div
               class="mt-2 sm:col-span-2 sm:mt-0"
@@ -1887,7 +1860,7 @@ exports[`StudentPage Renders without any families or areas of need present 1`] =
               class="block text-sm font-medium leading-6 text-gray-900 sm:pt-1.5"
               for="gradeLevel"
             >
-              gradeLevel
+              Grade Level
             </label>
             <div
               class="mt-2 sm:col-span-2 sm:mt-0"
@@ -1918,7 +1891,7 @@ exports[`StudentPage Renders without any families or areas of need present 1`] =
               class="block text-sm font-medium leading-6 text-gray-900 sm:pt-1.5"
               for="areasOfNeed"
             >
-              areasOfNeed
+              Areas of need
             </label>
             <div
               class="mt-2 sm:col-span-2 sm:mt-0"
@@ -2023,7 +1996,7 @@ exports[`StudentPage Renders without any families or areas of need present 1`] =
               class="block text-sm font-medium leading-6 text-gray-900 sm:pt-1.5"
               for="family"
             >
-              family
+              Family
             </label>
             <div
               class="mt-2 sm:col-span-2 sm:mt-0"
@@ -2126,7 +2099,7 @@ exports[`StudentPage Renders without any families or areas of need present 1`] =
               class="block text-sm font-medium leading-6 text-gray-900 sm:pt-1.5"
               for="notes"
             >
-              notes
+              Notes
             </label>
             <div
               class="mt-2 sm:col-span-2 sm:mt-0"
@@ -2159,34 +2132,21 @@ exports[`StudentPage Renders without any families or areas of need present 1`] =
           </button>
         </div>
       </form>
+      <section
+        class="mt-5"
+      >
+        <button
+          class="flex flex-row justify-center rounded-md px-3 py-2 text-sm font-semibold shadow-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 bg-red-500 hover:bg-red-700 text-white hover:text-white"
+          type="button"
+        >
+          <span>
+            Delete Student
+          </span>
+        </button>
+      </section>
     </div>
   </body>,
   "container": <div>
-    <div
-      class="my-5 mb-5"
-    >
-      <div
-        class="mt-1 space-y-8 sm:space-y-0"
-      >
-        <div
-          class="sm:grid sm:grid-cols-3 sm:items-start sm:gap-2 sm:py-1"
-        >
-          <label
-            class="block text-sm font-medium leading-6 text-gray-900 sm:pt-1.5"
-            for="firstName"
-          >
-            Family
-          </label>
-          <div
-            class="mt-2 sm:col-span-2 sm:mt-0"
-          >
-            <a
-              href="/app/families/undefined"
-            />
-          </div>
-        </div>
-      </div>
-    </div>
     <form
       autocomplete="off"
       class="flex flex-col gap-3"
@@ -2208,7 +2168,7 @@ exports[`StudentPage Renders without any families or areas of need present 1`] =
             class="block text-sm font-medium leading-6 text-gray-900 sm:pt-1.5"
             for="firstName"
           >
-            firstName
+            First Name
           </label>
           <div
             class="mt-2 sm:col-span-2 sm:mt-0"
@@ -2238,7 +2198,7 @@ exports[`StudentPage Renders without any families or areas of need present 1`] =
             class="block text-sm font-medium leading-6 text-gray-900 sm:pt-1.5"
             for="lastName"
           >
-            lastName
+            Last Name
           </label>
           <div
             class="mt-2 sm:col-span-2 sm:mt-0"
@@ -2268,7 +2228,7 @@ exports[`StudentPage Renders without any families or areas of need present 1`] =
             class="block text-sm font-medium leading-6 text-gray-900 sm:pt-1.5"
             for="gradeLevel"
           >
-            gradeLevel
+            Grade Level
           </label>
           <div
             class="mt-2 sm:col-span-2 sm:mt-0"
@@ -2299,7 +2259,7 @@ exports[`StudentPage Renders without any families or areas of need present 1`] =
             class="block text-sm font-medium leading-6 text-gray-900 sm:pt-1.5"
             for="areasOfNeed"
           >
-            areasOfNeed
+            Areas of need
           </label>
           <div
             class="mt-2 sm:col-span-2 sm:mt-0"
@@ -2404,7 +2364,7 @@ exports[`StudentPage Renders without any families or areas of need present 1`] =
             class="block text-sm font-medium leading-6 text-gray-900 sm:pt-1.5"
             for="family"
           >
-            family
+            Family
           </label>
           <div
             class="mt-2 sm:col-span-2 sm:mt-0"
@@ -2507,7 +2467,7 @@ exports[`StudentPage Renders without any families or areas of need present 1`] =
             class="block text-sm font-medium leading-6 text-gray-900 sm:pt-1.5"
             for="notes"
           >
-            notes
+            Notes
           </label>
           <div
             class="mt-2 sm:col-span-2 sm:mt-0"
@@ -2540,6 +2500,18 @@ exports[`StudentPage Renders without any families or areas of need present 1`] =
         </button>
       </div>
     </form>
+    <section
+      class="mt-5"
+    >
+      <button
+        class="flex flex-row justify-center rounded-md px-3 py-2 text-sm font-semibold shadow-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 bg-red-500 hover:bg-red-700 text-white hover:text-white"
+        type="button"
+      >
+        <span>
+          Delete Student
+        </span>
+      </button>
+    </section>
   </div>,
   "debug": [Function],
   "findAllByAltText": [Function],

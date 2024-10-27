@@ -108,7 +108,9 @@ export default function FamilyPage(props: IFamilyPageProps): JSX.Element {
             </div>
           </div>
           <div className="mt-1">
-            <Button text="Create invoice" flavor="primary" />
+            <Link href={`/app/invoices/create/${props.family.id}`}>
+              <Button text="Create invoice" flavor="primary" />
+            </Link>
           </div>
         </div>
       )}

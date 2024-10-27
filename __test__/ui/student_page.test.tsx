@@ -134,8 +134,8 @@ describe("StudentPage", () => {
     fireEvent.change(screen.getByTestId("input-gradeLevel"), { target: { value: "12" } });
     fireEvent.change(screen.getByTestId("textarea-notes"), { target: { value: "A fine student" } });
 
-    await selectEvent.select(container.getByLabelText("family"), "Droofus");
-    await selectEvent.select(container.getByLabelText("areasOfNeed"), "Wizardry");
+    await selectEvent.select(container.getByLabelText("Family"), "Droofus");
+    await selectEvent.select(container.getByLabelText("Areas of need"), "Wizardry");
 
     const submitButton = screen.getByRole("submit");
     expect(submitButton).not.toBeDisabled();
@@ -178,8 +178,8 @@ describe("StudentPage", () => {
     fireEvent.change(screen.getByTestId("input-lastName"), { target: { value: "Wanko" } });
     fireEvent.change(screen.getByTestId("input-gradeLevel"), { target: { value: "12" } });
 
-    await selectEvent.select(container.getByLabelText("family"), "Droofus");
-    await selectEvent.select(container.getByLabelText("areasOfNeed"), "Wizardry");
+    await selectEvent.select(container.getByLabelText("Family"), "Droofus");
+    await selectEvent.select(container.getByLabelText("Areas of need"), "Wizardry");
 
     const submitButton = screen.getByRole("submit");
     expect(submitButton).not.toBeDisabled();

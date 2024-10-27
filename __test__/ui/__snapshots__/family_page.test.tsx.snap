@@ -686,14 +686,18 @@ exports[`FamilyPage Renders a consistent snapshot when prefilled with data 1`] =
         <div
           class="mt-1"
         >
-          <button
-            class="flex flex-row justify-center rounded-md px-3 py-2 text-sm font-semibold shadow-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 bg-indigo-600 hover:bg-indigo-500  text-white"
-            type="button"
+          <a
+            href="/app/invoices/create/f1"
           >
-            <span>
-              Create invoice
-            </span>
-          </button>
+            <button
+              class="flex flex-row justify-center rounded-md px-3 py-2 text-sm font-semibold shadow-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 bg-indigo-600 hover:bg-indigo-500  text-white"
+              type="button"
+            >
+              <span>
+                Create invoice
+              </span>
+            </button>
+          </a>
         </div>
       </div>
       <div
@@ -1091,14 +1095,18 @@ exports[`FamilyPage Renders a consistent snapshot when prefilled with data 1`] =
       <div
         class="mt-1"
       >
-        <button
-          class="flex flex-row justify-center rounded-md px-3 py-2 text-sm font-semibold shadow-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 bg-indigo-600 hover:bg-indigo-500  text-white"
-          type="button"
+        <a
+          href="/app/invoices/create/f1"
         >
-          <span>
-            Create invoice
-          </span>
-        </button>
+          <button
+            class="flex flex-row justify-center rounded-md px-3 py-2 text-sm font-semibold shadow-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 bg-indigo-600 hover:bg-indigo-500  text-white"
+            type="button"
+          >
+            <span>
+              Create invoice
+            </span>
+          </button>
+        </a>
       </div>
     </div>
     <div
