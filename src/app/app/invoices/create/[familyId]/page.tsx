@@ -1,5 +1,5 @@
 import { createInvoice } from "@/app/actions/invoice";
-import InvoicePage from "@/app/components/invoice_create/invoice_page";
+import InvoiceCreatePage from "@/app/components/invoice_create/invoice_create_page";
 import { getFamily } from "@/app/methods/family";
 
 interface ICreateInvoiceProps {
@@ -10,5 +10,5 @@ interface ICreateInvoiceProps {
 
 export default async function CreateInvoice(props: ICreateInvoiceProps) {
   const family = await getFamily(props.params.familyId);
-  return <InvoicePage family={family} onSubmit={createInvoice} />;
+  return <InvoiceCreatePage family={family} onSubmit={createInvoice} />;
 }

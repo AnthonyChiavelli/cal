@@ -1,13 +1,13 @@
 "use server";
 
-import { CreateInterfaceFormData } from "../components/invoice_create/invoice_page";
+import { CreateInterfaceFormData } from "../components/invoice_create/invoice_create_page";
 import { ActionType, Prisma } from "@prisma/client";
 import prisma from "@/db";
 import { getSessionOrFail } from "./util";
 
 export async function createInvoice(
   formData: CreateInterfaceFormData,
-): Promise<{ success: boolean; invoiceId?: string }> {
+): Promise<{ success: boolean; invoiceId?: number }> {
   const { user } = await getSessionOrFail();
 
   try {
@@ -34,7 +34,7 @@ export async function createInvoice(
     });
     return {
       success: true,
-      invoiceId: result.id,
+      invoiceId: Number(result.id),
     };
   } catch (e) {
     await prisma.actionRecord.create({
@@ -46,6 +46,6 @@ export async function createInvoice(
       },
     });
     // throw new Error("Error creating invoice");
-    throw e
+    throw e;
   }
 }

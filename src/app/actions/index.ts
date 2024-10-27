@@ -3,3 +3,4 @@ export * from "./family";
 export * from "./student";
 export * from "./user";
 export * from "./util";
+export * from "./invoice";

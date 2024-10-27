@@ -2,7 +2,8 @@
 
 import { useCallback, useMemo } from "react";
 import { cn } from "@nextui-org/react";
-import { useForm } from "react-hook-form";
+import { Controller, useForm } from "react-hook-form";
+import CreatableSelect from "react-select/creatable";
 import { toast } from "react-toastify";
 import Button from "../button";
 import { Family } from "@prisma/client";
@@ -15,20 +16,34 @@ export interface CreateInterfaceFormData {
 
 interface IInvoicePageProps {
   family?: Family | null;
-  onSubmit: (formData: CreateInterfaceFormData) => Promise<{ success: boolean; invoiceId?: string }>;
+  families?: Family[];
+  onSubmit: (formData: CreateInterfaceFormData) => Promise<{ success: boolean; invoiceId?: number }>;
 }
 
-export default function InvoicePage(props: IInvoicePageProps) {
+export default function InvoiceCreatePage(props: IInvoicePageProps) {
   const {
     register,
     handleSubmit,
     setValue,
+    control,
+    watch,
     formState: { errors },
   } = useForm();
 
   const router = useRouter();
 
-  const familyBalance = useMemo(() => props.family?.balance, [props.family]);
+  const watchFamilyInput = watch("family");
+  const familyBalance = useMemo(() => {
+    if (props.family) {
+      return props.family.balance;
+    }
+    if (watchFamilyInput) {
+      const family = props.families?.find((f) => f.id === watchFamilyInput?.value);
+      if (family) {
+        return family.balance;
+      }
+    }
+  }, [props.family, watchFamilyInput, props.families]);
 
   const handleApplyFullBalance = useCallback(() => {
     setValue("amount", familyBalance);
@@ -37,7 +52,8 @@ export default function InvoicePage(props: IInvoicePageProps) {
   const onSubmit = useCallback(
     async (formData: any) => {
       try {
-        const response = await props.onSubmit({ ...formData, familyId: props.family?.id });
+        const familyId = props.family?.id || formData.family.value;
+        const response = await props.onSubmit({ ...formData, familyId });
         if (!response.success) {
           throw new Error();
         }
@@ -46,7 +62,7 @@ export default function InvoicePage(props: IInvoicePageProps) {
           router.push(`/app/invoices/${response.invoiceId}`);
         }
       } catch (e) {
-        toast.success("Invoice creation error");
+        toast.error("Invoice creation error");
       }
     },
     [props, router],
@@ -67,16 +83,37 @@ export default function InvoicePage(props: IInvoicePageProps) {
                 {props.family ? (
                   <div>{props.family.familyName}</div>
                 ) : (
-                  <input
-                    aria-labelledby={"familyName"}
-                    required
-                    data-cy={`input-${"familyName"}`}
-                    data-testid={`input-${"familyName"}`}
-                    className={cn("input w-full", {
-                      "input-error": errors["familyName"],
-                    })}
-                    {...register("familyName", { required: true })}
-                  />
+                  <>
+                    <Controller
+                      name={"family"}
+                      control={control}
+                      rules={{ required: true }}
+                      render={({ field }) => (
+                        <CreatableSelect
+                          inputId={"family"}
+                          className={cn("w-full", {
+                            "input-error": errors["family"],
+                            [`creatable-${"family"}`]: true,
+                          })}
+                          isMulti={false}
+                          data-testid={`input-${"family"}`}
+                          data-cy={`input-${"family"}`}
+                          options={props.families?.map((f) => ({ value: f.id, label: f.familyName }))}
+                          {...field}
+                          styles={{
+                            control: (baseStyles) => ({
+                              ...baseStyles,
+                              borderRadius: ".5rem",
+                              borderWidth: "2px",
+                              borderColor: errors["family"] ? "#ff8e93" : "rgb(228, 228, 231)",
+                              paddingTop: "7px",
+                              paddingBottom: "7px",
+                            }),
+                          }}
+                        />
+                      )}
+                    />
+                  </>
                 )}
               </div>
             </div>

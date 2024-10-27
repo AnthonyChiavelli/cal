@@ -47,9 +47,9 @@ export async function getInvoiceCount(searchParams: { search?: string }): Promis
   return await prisma.invoice.count(query);
 }
 
-export async function getInvoice(invoiceId: string) {
+export async function getInvoice(invoiceId: number): Promise<Prisma.InvoiceGetPayload<{ include: { family: true } }>> {
   const { user } = await getSessionOrFail();
-  return await prisma.invoice.findFirst({
+  return await prisma.invoice.findFirstOrThrow({
     where: { id: invoiceId, ownerId: user.email },
     include: { family: true },
   });

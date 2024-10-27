@@ -60,7 +60,7 @@ export default function StudentPage(props: IStudentCreateProps) {
         toast.success("Error deleting student");
       }
     }
-  }, [router]);
+  }, [router, props]);
 
   const initialValues = useMemo(() => {
     return {

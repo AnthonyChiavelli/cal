@@ -5,11 +5,7 @@ import { createInvoice } from "../../src/app/actions/invoice";
 import { prismaMock } from "../../src/singleton";
 import { TEST_USER_EMAIL } from "../constants";
 import { Invoice, Prisma } from "@prisma/client";
-import { PaymentType, UserSettings } from "@prisma/client";
-import { Decimal } from "@prisma/client/runtime/library";
-import { getUserSettings, updateUserSettings } from "@/app/actions/user";
 import { getSessionOrFail } from "@/app/actions/util";
-import { createFormDataFromObject } from "@/util/formdata";
 
 jest.mock("@auth0/nextjs-auth0", () => ({
   getSession: jest.fn(() => Promise.resolve({ user: { email: TEST_USER_EMAIL } })),
@@ -37,7 +33,7 @@ describe("createInvoice", () => {
   });
 
   it("should have an auth guard", async () => {
-    prismaMock.invoice.create.mockResolvedValue({id: "1"} as any)
+    prismaMock.invoice.create.mockResolvedValue({ id: "1" } as any);
     await createInvoice({ familyId: "1", amount: 23 });
     expect(getSessionOrFail).toHaveBeenCalledTimes(1);
   });
