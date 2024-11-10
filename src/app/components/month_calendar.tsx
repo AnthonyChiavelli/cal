@@ -10,12 +10,12 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import CalenderOverflowMenu from "@/app/components/calendar_overflow_menu";
 import CalendarViewMenu from "@/app/components/calendar_view_menu";
+import EventCreateModal from "@/app/components/event_create_modal";
 import LoadingPane from "@/app/components/loading_pane";
 import MonthCalendarMiniDay from "@/app/components/month_calendar_mini_day";
 import MonthViewMiniCalendar from "@/app/components/month_view_mini_calendar";
 import { CalendarDay } from "@/types";
 import { createMonthString, getAdjacentMonthString, parseMonthString } from "@/util/calendar";
-import EventCreateModal from "./event_create_modal";
 
 interface IMonthCalendar {
   monthString?: string;

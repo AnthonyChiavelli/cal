@@ -1,7 +1,7 @@
 import { useMemo, useState } from "react";
 import { ChevronLeftIcon, ChevronRightIcon } from "@heroicons/react/24/outline";
-import { RecurrencePattern } from "../types";
 import classNames from "classnames";
+import { RecurrencePattern } from "@/app/types";
 import { getDatesForRecurrencePattern } from "@/util/calendar";
 
 interface IRecurrenecePreviewProps {

@@ -1,4 +1,4 @@
-import { Event, EventStudent, Family, Invoice, Parent, Student } from "@prisma/client";
+import { Event, EventStudent, Prisma, Student } from "@prisma/client";
 
 export type CalendarDay = {
   date: string;
@@ -16,4 +16,9 @@ export type CalendarDay = {
 };
 
 export type EventWithRelations = Event & { eventStudents: Array<EventStudent & { student: Student }> };
-export type FamilyWithRelations = Family & { parents: Parent[]; students: Student[]; invoices: Invoice[] };
+export type FamilyWithRelations = Prisma.FamilyGetPayload<{
+  include: { parents: true; students: true; invoices: true };
+}>;
+export type EventStudentWithRelations = Prisma.EventStudentGetPayload<{
+  include: { event: true; student: { include: { family: true } } };
+}>;

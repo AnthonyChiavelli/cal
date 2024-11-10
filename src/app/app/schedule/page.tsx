@@ -1,7 +1,7 @@
-import MonthCalendar from "../../components/month_calendar";
 import { withPageAuthRequired } from "@auth0/nextjs-auth0";
 import { getUserSettings } from "@/app/actions/user";
 import DayCalendar from "@/app/components/day_calendar";
+import MonthCalendar from "@/app/components/month_calendar";
 import WeekCalendar from "@/app/components/week_calendar";
 import { getEvents } from "@/app/methods/event";
 import { getAllStudents } from "@/app/methods/student";

@@ -1,9 +1,9 @@
 "use client";
 
 import { useState } from "react";
+import Header from "@/app/components/header";
+import Sidebar from "@/app/components/sidebar";
 import { useOnMediaQueryMatch } from "@/util/hooks";
-import Header from "./header";
-import Sidebar from "./sidebar";
 
 interface ISidebarProps {
   children: React.ReactNode;

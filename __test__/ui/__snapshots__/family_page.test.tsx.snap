@@ -17,11 +17,11 @@ exports[`FamilyPage Renders a consistent snapshot when empty 1`] = `
           <h5
             class="cursor-pointer text-blue-400"
           >
-            Hide
+            Show
           </h5>
         </div>
         <div
-          class="visible"
+          class="invisible"
         >
           <form
             autocomplete="off"
@@ -301,11 +301,11 @@ exports[`FamilyPage Renders a consistent snapshot when empty 1`] = `
         <h5
           class="cursor-pointer text-blue-400"
         >
-          Hide
+          Show
         </h5>
       </div>
       <div
-        class="visible"
+        class="invisible"
       >
         <form
           autocomplete="off"

@@ -3,8 +3,8 @@
 import * as React from "react";
 import { NextUIProvider } from "@nextui-org/system";
 import { useRouter } from "next/navigation";
+import clientSetup from "@/app/app/client-setup";
 import { useOnMount } from "@/util/hooks";
-import clientSetup from "./app/client-setup";
 
 export interface ProvidersProps {
   children: React.ReactNode;

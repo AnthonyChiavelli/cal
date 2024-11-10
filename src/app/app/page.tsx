@@ -1,9 +1,9 @@
-import { getUserSettings } from "../actions";
-import DayCalendar from "../components/day_calendar";
-import { getAllStudents } from "../methods/student";
 import { getSession, withPageAuthRequired } from "@auth0/nextjs-auth0";
+import { getUserSettings } from "@/app/actions";
 import DailyFinances from "@/app/components/daily_finances";
+import DayCalendar from "@/app/components/day_calendar";
 import { getEvents } from "@/app/methods/event";
+import { getAllStudents } from "@/app/methods/student";
 import { createDateString, getDaysForCalendarMonthGrid, splitDateString } from "@/util/calendar";
 
 async function getEventsForDay(dateString: string) {

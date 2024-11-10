@@ -3,7 +3,7 @@
 import { Bars3Icon } from "@heroicons/react/24/outline";
 import Image from "next/image";
 import Link from "next/link";
-import Breadcrumbs from "./breadcrumbs";
+import Breadcrumbs from "@/app/components/breadcrumbs";
 
 interface IHeaderProps {
   userName?: string;

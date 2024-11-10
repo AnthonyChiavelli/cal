@@ -6,13 +6,13 @@ import { ChevronLeftIcon, ChevronRightIcon } from "@heroicons/react/20/solid";
 import { Student, UserSettings } from "@prisma/client";
 import classNames from "classnames";
 import Link from "next/link";
+import CalendarEvent from "@/app/components/calendar_event";
+import CalenderOverflowMenu from "@/app/components/calendar_overflow_menu";
+import CalendarViewMenu from "@/app/components/calendar_view_menu";
+import EventCreateModal from "@/app/components/event_create_modal";
+import MiniMonthCalendar from "@/app/components/mini_month_calendar";
 import { CalendarDay, EventWithRelations } from "@/types";
 import { createDateString, getAdjacentDateString, splitDateString } from "@/util/calendar";
-import CalendarEvent from "./calendar_event";
-import CalenderOverflowMenu from "./calendar_overflow_menu";
-import CalendarViewMenu from "./calendar_view_menu";
-import EventCreateModal from "./event_create_modal";
-import MiniMonthCalendar from "./mini_month_calendar";
 
 interface IDateCalendarProps {
   dateString?: string;

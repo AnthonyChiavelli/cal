@@ -1,128 +1,17 @@
 /**
  * @jest-environment node
  */
+import { mockEventFull } from "../../mock_data/event";
+import { cancelEvent, createRecurrenceGroup, markEventCompleted, createEvent } from "../../src/app/actions/event";
+import { RecurrencePattern } from "../../src/app/types";
 import { prismaMock } from "../../src/singleton";
 import { TEST_USER_EMAIL } from "../constants";
 import { recurrenceTestCases } from "../support/test_data/recurring_schedule";
 import { ClassType, Event, EventType, Prisma, RecurrenceGroup } from "@prisma/client";
-import { cancelEvent, createRecurrenceGroup, markEventCompleted, createEvent } from "@/app/actions/event";
-import { RecurrencePattern } from "@/app/types";
 
 jest.mock("../../src/app/actions/util", () => ({
   getSessionOrFail: jest.fn(() => Promise.resolve({ user: { email: TEST_USER_EMAIL }, session: {} })),
 }));
-
-const mockEvent: Prisma.EventGetPayload<{
-  include: { eventStudents: { include: { student: { include: { family: true } } } } };
-}> = {
-  id: "1",
-  scheduledFor: new Date("2022-01-01"),
-  durationMinutes: 2,
-  eventType: EventType.CLASS,
-  createdAt: new Date(),
-  updatedAt: new Date(),
-  classType: ClassType.GROUP,
-  parentName: null,
-  studentName: null,
-  completed: false,
-  cancelledAt: null,
-  recurrenceGroupId: null,
-  referralSource: null,
-  notes: "A class",
-  ownerId: TEST_USER_EMAIL,
-  eventStudents: [
-    {
-      id: "1",
-      cost: new Prisma.Decimal(34),
-      ownerId: TEST_USER_EMAIL,
-      eventId: "1",
-      createdAt: new Date(),
-      updatedAt: new Date(),
-      cancelledAt: new Date(),
-      studentId: "1",
-      student: {
-        id: "1",
-        ownerId: TEST_USER_EMAIL,
-        createdAt: new Date(),
-        updatedAt: new Date(),
-        gradeLevel: 1,
-        notes: "",
-        firstName: "John",
-        lastName: "Smith",
-        familyId: "f1",
-        family: {
-          id: "f1",
-          createdAt: new Date(),
-          updatedAt: new Date(),
-          balance: new Prisma.Decimal(0),
-          notes: "",
-          familyName: "Smith",
-          ownerId: TEST_USER_EMAIL,
-        },
-      },
-    },
-    {
-      id: "2",
-      cost: new Prisma.Decimal(78),
-      ownerId: TEST_USER_EMAIL,
-      eventId: "1",
-      createdAt: new Date(),
-      updatedAt: new Date(),
-      cancelledAt: new Date(),
-      studentId: "1",
-      student: {
-        id: "1",
-        ownerId: TEST_USER_EMAIL,
-        createdAt: new Date(),
-        updatedAt: new Date(),
-        gradeLevel: 1,
-        notes: "",
-        firstName: "John",
-        lastName: "Smith",
-        familyId: "f1",
-        family: {
-          id: "f1",
-          createdAt: new Date(),
-          updatedAt: new Date(),
-          balance: new Prisma.Decimal(0),
-          notes: "",
-          familyName: "Smith",
-          ownerId: TEST_USER_EMAIL,
-        },
-      },
-    },
-    {
-      id: "3",
-      cost: new Prisma.Decimal(12),
-      ownerId: TEST_USER_EMAIL,
-      eventId: "1",
-      createdAt: new Date(),
-      updatedAt: new Date(),
-      cancelledAt: new Date(),
-      studentId: "1",
-      student: {
-        id: "1",
-        ownerId: TEST_USER_EMAIL,
-        createdAt: new Date(),
-        updatedAt: new Date(),
-        gradeLevel: 1,
-        notes: "",
-        firstName: "John",
-        lastName: "Smith",
-        familyId: "f1",
-        family: {
-          id: "f2",
-          createdAt: new Date(),
-          updatedAt: new Date(),
-          balance: new Prisma.Decimal(0),
-          notes: "",
-          familyName: "Smith",
-          ownerId: TEST_USER_EMAIL,
-        },
-      },
-    },
-  ],
-};
 
 describe("createEvent", () => {
   it("should create a basic class event", async () => {
@@ -136,11 +25,11 @@ describe("createEvent", () => {
         notes: "A class",
         eventStudents: [
           {
-            id: "1",
+            studentId: "1",
             cost: 34,
           },
           {
-            id: "2",
+            studentId: "2",
             cost: 109,
           },
         ],
@@ -160,12 +49,12 @@ describe("createEvent", () => {
           create: [
             {
               cost: 34,
-              id: "1",
+              studentId: "1",
               ownerId: TEST_USER_EMAIL,
             },
             {
               cost: 109,
-              id: "2",
+              studentId: "2",
               ownerId: TEST_USER_EMAIL,
             },
           ],
@@ -190,6 +79,8 @@ describe("createEvent", () => {
         duration: 2,
         eventType: EventType.CONSULTATION,
         notes: "A consultation",
+        classType: ClassType.GROUP,
+        eventStudents: [],
       });
     } catch (e) {
       if (e.message !== "NEXT_REDIRECT") {
@@ -201,6 +92,7 @@ describe("createEvent", () => {
     expect(prismaMock.event.create).toHaveBeenCalledWith({
       data: {
         eventType: EventType.CONSULTATION,
+        classType: ClassType.GROUP,
         notes: "A consultation",
         durationMinutes: 2,
         owner: {
@@ -322,6 +214,7 @@ describe("createEvent", () => {
           scheduledFor: new Date("2022-01-01"),
           duration: 2,
           eventType: EventType.CLASS,
+          classType: ClassType.GROUP,
           notes: "A class",
           recurrencePattern,
           eventStudents: [],
@@ -389,7 +282,7 @@ describe("cancelEvent", () => {
 describe("markEventCompleted", () => {
   it("should mark an event complete", async () => {
     // @ts-ignore
-    prismaMock.event.findFirstOrThrow.mockResolvedValue(mockEvent);
+    prismaMock.event.findFirstOrThrow.mockResolvedValue(mockEventFull);
 
     // @ts-ignore
     await markEventCompleted(1, true);
@@ -412,7 +305,7 @@ describe("markEventCompleted", () => {
 
   it("should generate an ActionRecord", async () => {
     // @ts-ignore
-    prismaMock.event.findFirstOrThrow.mockResolvedValue(mockEvent);
+    prismaMock.event.findFirstOrThrow.mockResolvedValue(mockEventFull);
     // @ts-ignore
     await markEventCompleted(1, true);
     expect(prismaMock.actionRecord.create).toHaveBeenCalledTimes(1);
@@ -431,7 +324,7 @@ describe("markEventCompleted", () => {
     prismaMock.event.update.mockImplementation((a) => a);
     // @ts-ignore
     prismaMock.family.update.mockImplementation((a) => a);
-    prismaMock.event.findFirstOrThrow.mockResolvedValue(mockEvent);
+    prismaMock.event.findFirstOrThrow.mockResolvedValue(mockEventFull);
     await markEventCompleted(1, true);
     expect(prismaMock.$transaction).toHaveBeenCalledTimes(1);
     expect(prismaMock.$transaction).toHaveBeenCalledWith([

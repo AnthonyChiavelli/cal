@@ -1,13 +1,13 @@
 /**
  * @jest-environment node
  */
+import { getUserSettings, updateUserSettings } from "../../src/app/actions/user";
+import { getSessionOrFail } from "../../src/app/actions/util";
 import { prismaMock } from "../../src/singleton";
+import { createFormDataFromObject } from "../../src/util/formdata";
 import { TEST_USER_EMAIL } from "../constants";
 import { UserSettings } from "@prisma/client";
 import { Decimal } from "@prisma/client/runtime/library";
-import { getUserSettings, updateUserSettings } from "@/app/actions/user";
-import { getSessionOrFail } from "@/app/actions/util";
-import { createFormDataFromObject } from "@/util/formdata";
 
 jest.mock("@auth0/nextjs-auth0", () => ({
   getSession: jest.fn(() => Promise.resolve({ user: { email: TEST_USER_EMAIL } })),
@@ -34,7 +34,11 @@ describe("updateUserSettings", () => {
     // @ts-ignore
     getSessionOrFail.mockResolvedValue({ session: mockSession, user: mockUser });
 
-    const formData = createFormDataFromObject({ basePrice: 60, showInlineDayCalendarInMobileView: true });
+    const formData = createFormDataFromObject({
+      basePrice: 60,
+      showInlineDayCalendarInMobileView: true,
+      clientInvoiceTemplate: "Pay up",
+    });
     const res = await updateUserSettings(formData);
 
     expect(prismaMock.userSettings.findFirst).toHaveBeenCalledTimes(1);
@@ -43,6 +47,7 @@ describe("updateUserSettings", () => {
       data: {
         basePrice: 60,
         showInlineDayCalendarInMobileView: true,
+        clientInvoiceTemplate: "Pay up",
       },
     });
     expect(res).toEqual({ success: true });
@@ -58,9 +63,14 @@ describe("updateUserSettings", () => {
       userEmail: mockUser.email,
       basePrice: new Decimal(50),
       showInlineDayCalendarInMobileView: false,
+      clientInvoiceTemplate: "Pay up",
     });
 
-    const formData = createFormDataFromObject({ basePrice: 60, showInlineDayCalendarInMobileView: true });
+    const formData = createFormDataFromObject({
+      basePrice: 60,
+      showInlineDayCalendarInMobileView: true,
+      clientInvoiceTemplate: "Pay up",
+    });
     const res = await updateUserSettings(formData);
 
     expect(prismaMock.userSettings.findFirst).toHaveBeenCalledTimes(1);
@@ -70,11 +80,14 @@ describe("updateUserSettings", () => {
       data: {
         basePrice: 60,
         showInlineDayCalendarInMobileView: true,
+        clientInvoiceTemplate: "Pay up",
       },
     });
     expect(res).toEqual({ success: true });
   });
 });
+
+// TODO allow partial updates and create test
 
 describe("getUserSettings", () => {
   beforeEach(() => {

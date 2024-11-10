@@ -2,7 +2,7 @@
 
 import { Student, UserSettings } from "@prisma/client";
 import EventCreate from "@/app/components/event_create";
-import Modal from "./modal";
+import Modal from "@/app/components/modal";
 
 interface IEventCreateModalProps {
   students: Student[];

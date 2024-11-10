@@ -1,7 +1,7 @@
 import { ClockIcon } from "@heroicons/react/20/solid";
 import Link from "next/link";
+import Button from "@/app/components/button";
 import { CalendarDay } from "@/types";
-import Button from "./button";
 
 interface IMonthCalendarMiniDayProps {
   day: CalendarDay;

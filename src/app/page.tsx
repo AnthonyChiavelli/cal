@@ -1,7 +1,7 @@
 import { getSession } from "@auth0/nextjs-auth0";
 import Link from "next/link";
-import Button from "./components/button";
-import HomeNavBar from "./components/home_page/nav_bar";
+import Button from "@/app/components/button";
+import HomeNavBar from "@/app/components/home_page/nav_bar";
 
 export default async function Home() {
   const session = await getSession();

@@ -15,8 +15,8 @@ import {
   ChevronDoubleLeftIcon,
 } from "@heroicons/react/16/solid";
 import classNames from "classnames";
-import ProductLogo from "./product_logo";
-import SidebarEntry from "./sidebar_entry";
+import ProductLogo from "@/app/components/product_logo";
+import SidebarEntry from "@/app/components/sidebar_entry";
 
 interface ISidebarProps {
   expanded: boolean;

@@ -13,7 +13,7 @@ import {
   Switch,
   cn,
 } from "@nextui-org/react";
-import RecurrencePreview from "../../recurrence_preview";
+import RecurrencePreview from "@/app/components/recurrence_preview";
 import { EventCreateAction, EventCreateActionType, IEventCreateState } from "@/app/reducers/event_create";
 import { DayOfWeek, RecurrencePattern } from "@/app/types";
 import {

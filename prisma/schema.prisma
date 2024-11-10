@@ -45,6 +45,8 @@ model UserSettings {
   basePrice Decimal @db.Money
 
   showInlineDayCalendarInMobileView Boolean @default(true)
+
+  clientInvoiceTemplate String @default("")
 }
 
 
@@ -151,6 +153,9 @@ model EventStudent {
   student Student @relation(fields: [studentId], references: [id])
   studentId String
 
+  invoice Invoice? @relation(fields: [invoiceId], references: [id])
+  invoiceId Int?
+
   cost Decimal
   cancelledAt DateTime?
 }
@@ -185,6 +190,14 @@ model Invoice {
   familyId String
 
   payments Payment[]
+
+  status InvoiceStatus @default(SENT)
+
+  customPriceModifier Decimal @db.Money @default(0)
+
+  eventStudents EventStudent[]
+
+  adhocInvoiceItem AdhocInvoiceItem[]
 }
 
 model Payment {
@@ -290,5 +303,13 @@ enum PaymentType {
   PAYMENT_APP
   BANK_TRANSFER
   CREDIT_APPLIED
+  FORBEARANCE
   OTHER
+}
+
+enum InvoiceStatus {
+  CREATED
+  SENT
+  PARTIALLY_PAID
+  CLOSED
 }

@@ -3,11 +3,13 @@
 import { useCallback, useMemo, useState } from "react";
 import { cn } from "@nextui-org/react";
 import { toast } from "react-toastify";
+import { Invoice } from "@prisma/client";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import Button from "@/app/components/button";
 import ConfirmationModal from "@/app/components/confirmation_modal";
 import FamilyForm, { FamilyFormData, RawFamilyFormData } from "@/app/components/family_page/family_form";
+import InvoiceStatusBadge from "@/app/components/invoice_status_badge";
 import LoadingPane from "@/app/components/loading_pane";
 import { FamilyWithRelations } from "@/types";
 
@@ -22,7 +24,7 @@ interface IFamilyPageProps {
 
 export default function FamilyPage(props: IFamilyPageProps): JSX.Element {
   const [isLoading, setIsLoading] = useState(false);
-  const [showFamilyForm, setShowFamilyForm] = useState(true);
+  const [showFamilyForm, setShowFamilyForm] = useState(false);
   const router = useRouter();
 
   const [showDeleteModal, setShowDeleteModal] = useState(false);
@@ -98,11 +100,22 @@ export default function FamilyPage(props: IFamilyPageProps): JSX.Element {
             </div>
             <div className="sm:grid sm:grid-cols-3 sm:items-start sm:gap-2 sm:py-1">
               <label htmlFor="invoices" className="block text-sm font-medium leading-6 text-gray-900 sm:pt-1.5">
-                Past invoices
+                invoices
               </label>
-              <div className="mt-2 sm:col-span-2 sm:mt-0">
-                <div className="flex sm:max-w-md">
-                  <div className="italic">No past invoices</div>
+              <div className="mt-2">
+                <div className="flex w-full">
+                  {props.family?.invoices.length === 0 ? (
+                    <div className="italic">No past invoices</div>
+                  ) : (
+                    <div>
+                      {props.family?.invoices.map((invoice: Invoice) => (
+                        <div className="flex justify-between" key={invoice.id}>
+                          <Link href={`/app/invoices/${invoice.id}`}>{invoice.createdAt.toDateString()}</Link>
+                          <InvoiceStatusBadge status={invoice.status} />
+                        </div>
+                      ))}
+                    </div>
+                  )}
                 </div>
               </div>
             </div>
@@ -116,12 +129,9 @@ export default function FamilyPage(props: IFamilyPageProps): JSX.Element {
       )}
       {props.family && (
         <div className="my-5 mb-5">
-          <h2>Family Information</h2>
+          <h2>Students</h2>
           <div className="mt-1 space-y-8 sm:space-y-0" key="associated-students">
             <div className="sm:grid sm:grid-cols-3 sm:items-start sm:gap-2 sm:py-1">
-              <label htmlFor="firstName" className="block text-sm font-medium leading-6 text-gray-900 sm:pt-1.5">
-                Associated students
-              </label>
               <div className="mt-2 sm:col-span-2 sm:mt-0">
                 <div className="flex flex-col sm:max-w-md" key="associated-students">
                   {props.family?.students.map((student) => (

@@ -1,5 +1,5 @@
-import Button from "../components/button";
 import Link from "next/link";
+import Button from "@/app/components/button";
 
 export default function LoginError() {
   return (

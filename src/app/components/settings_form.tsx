@@ -5,7 +5,7 @@ import { Input, Switch } from "@nextui-org/react";
 import { toast } from "react-toastify";
 import { UserSettings } from "@prisma/client";
 import InfoPopover from "@/app/components/info_popover";
-import LoadingPane from "./loading_pane";
+import LoadingPane from "@/app/components/loading_pane";
 
 interface ISettingsFormProps {
   updateUserSettings: (formData: FormData) => Promise<{ success: boolean } | undefined>;
@@ -14,6 +14,7 @@ interface ISettingsFormProps {
 
 export default function SettingsForm(props: ISettingsFormProps) {
   const [isLoading, setIsLoading] = useState(false);
+  const [clientInvoiceTemplate, setClientInvoiceTemplate] = useState(props.userSettings.clientInvoiceTemplate);
 
   const handleSubmit = useCallback(
     async (formData: FormData) => {
@@ -32,6 +33,10 @@ export default function SettingsForm(props: ISettingsFormProps) {
     },
     [props],
   );
+
+  const handleChangeInvoiceTemplate = useCallback((e: React.ChangeEvent<HTMLTextAreaElement>) => {
+    setClientInvoiceTemplate(e.target.value);
+  }, []);
 
   return (
     <form className="mt-6 border-t border-gray-100" action={handleSubmit}>
@@ -54,6 +59,22 @@ export default function SettingsForm(props: ISettingsFormProps) {
               defaultSelected={props.userSettings.showInlineDayCalendarInMobileView}
               name="showInlineDayCalendarInMobileView"
             />
+          </dd>
+          <dt className="flex flex-row items-center justify-between gap-3 text-sm font-medium leading-6 text-gray-900">
+            Invoice Text Template
+            <InfoPopover text="The default amount to charge 1 student for a session" />
+          </dt>
+          <dd className="mb-2 mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0">
+            <textarea
+              value={clientInvoiceTemplate}
+              onChange={handleChangeInvoiceTemplate}
+              name="clientInvoiceSolicitation"
+              className="textarea textarea-bordered w-full"
+            />
+            <div>
+              Available template tags: &#123;familyLastName&#125;, &#123;parent1FirstName&#125;,
+              &#123;parent1LastName&#125;, &#123;invoiceAmount&#125;, &#123;totalBalance&#125;,
+            </div>
           </dd>
         </div>
       </dl>

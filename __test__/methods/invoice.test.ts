@@ -1,7 +1,7 @@
 /**
  * @jest-environment node
  */
-import { getInvoices } from "../../src/app/methods/invoice";
+import { getInvoice, getInvoiceCount, getInvoices } from "../../src/app/methods/invoice";
 import { prismaMock } from "../../src/singleton";
 import { TEST_USER_EMAIL } from "../constants";
 import { Prisma } from "@prisma/client";
@@ -13,11 +13,12 @@ jest.mock("../../src/app/actions/util", () => ({
 const mockInvoiceCollection: Prisma.InvoiceGetPayload<{ include: { family: true } }>[] = Array(25)
   .fill(0)
   .map((_, i) => ({
-    id: i.toString(),
+    id: i,
     createdAt: new Date(),
     updatedAt: new Date(),
     ownerId: TEST_USER_EMAIL,
     amount: new Prisma.Decimal(10 + i),
+    status: "CREATED",
     paidAmount: new Prisma.Decimal(0),
     paid: i % 2 === 0,
     sent: false,
@@ -99,6 +100,44 @@ describe("getInvoices", () => {
       },
       skip: 0,
       take: PAGE_SIZE,
+    });
+  });
+});
+
+describe("getInvoiceCount", () => {
+  it("should make the proper query to return the total count of invoices", async () => {
+    prismaMock.invoice.count.mockResolvedValueOnce(15);
+    await getInvoiceCount({});
+    expect(prismaMock.invoice.count).toHaveBeenCalledTimes(1);
+    expect(prismaMock.invoice.count).toHaveBeenCalledWith({
+      where: {
+        ownerId: { equals: TEST_USER_EMAIL },
+      },
+    });
+  });
+  it("should make the proper query to return the total count of invoices filtered based on a query", async () => {
+    prismaMock.invoice.count.mockResolvedValueOnce(15);
+    await getInvoiceCount({ search: "Banana" });
+    expect(prismaMock.invoice.count).toHaveBeenCalledTimes(1);
+    expect(prismaMock.invoice.count).toHaveBeenCalledWith({
+      where: {
+        ownerId: { equals: TEST_USER_EMAIL },
+        family: {
+          familyName: { contains: "Banana", mode: "insensitive" },
+        },
+      },
+    });
+  });
+});
+
+describe("getInvoice", () => {
+  it("should make the proper query to return an invoice by ID", async () => {
+    prismaMock.invoice.findFirstOrThrow.mockResolvedValueOnce(mockInvoiceCollection[0]);
+    await getInvoice(12);
+    expect(prismaMock.invoice.findFirstOrThrow).toHaveBeenCalledTimes(1);
+    expect(prismaMock.invoice.findFirstOrThrow).toHaveBeenCalledWith({
+      where: { id: 12, ownerId: TEST_USER_EMAIL },
+      include: { family: { include: { parents: true, students: true } } },
     });
   });
 });

@@ -1,8 +1,8 @@
 "use server";
 
 import { ActionType } from "@prisma/client";
+import { getSessionOrFail } from "@/app/actions/util";
 import prisma from "@/db";
-import { getSessionOrFail } from "./util";
 
 export async function updateOrCreateAreaOfNeed(name: string, areaOfNeedId?: string): Promise<{ success: boolean }> {
   const { user } = await getSessionOrFail();

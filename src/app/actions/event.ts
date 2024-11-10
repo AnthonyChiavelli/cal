@@ -1,10 +1,10 @@
 "use server";
 
-import prisma from "../../db";
 import { ActionType, ClassType, EventType, Prisma, User } from "@prisma/client";
 import { redirect } from "next/navigation";
 import { getSessionOrFail } from "@/app/actions";
 import { RecurrencePattern } from "@/app/types";
+import prisma from "@/db";
 import { createDateString, createMonthString, getDatesForRecurrencePattern } from "@/util/calendar";
 
 interface ICreateEventData {

@@ -1,4 +1,4 @@
-import LoadingPane from "../components/loading_pane";
+import LoadingPane from "@/app/components/loading_pane";
 
 export default function LoadingPage() {
   return (

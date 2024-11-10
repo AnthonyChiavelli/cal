@@ -24,5 +24,6 @@ export function userSettings(): UserSettings {
     showInlineDayCalendarInMobileView: faker.datatype.boolean(),
     createdAt: faker.date.past(),
     updatedAt: faker.date.recent(),
+    clientInvoiceTemplate: "Pay me",
   };
 }

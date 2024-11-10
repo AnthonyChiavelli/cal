@@ -2,7 +2,7 @@
 
 import { Fragment, useRef } from "react";
 import { Dialog, Transition } from "@headlessui/react";
-import Button from "./button";
+import Button from "@/app/components/button";
 
 interface IConfirmationModalProps {
   message: string;
@@ -34,7 +34,7 @@ export default function ConfirmationModal(props: IConfirmationModalProps) {
         </Transition.Child>
 
         <div className="fixed inset-0 z-10 w-screen overflow-y-auto">
-          <div className="z-50 flex min-h-full justify-center p-4 text-center sm:items-center sm:p-0">
+          <div className="z-50 flex min-h-full items-center justify-center p-4 text-center sm:p-0">
             <Transition.Child
               as={Fragment}
               enter="ease-out duration-300"

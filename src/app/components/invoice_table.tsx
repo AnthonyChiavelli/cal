@@ -3,10 +3,11 @@
 import React from "react";
 import { Prisma } from "@prisma/client";
 import Link from "next/link";
+import Button from "@/app/components/button";
 import DataTable from "@/app/components/data_table";
-import Button from "./button";
-import EntitySearch from "./entity_search";
-import Pager from "./pager";
+import EntitySearch from "@/app/components/entity_search";
+import InvoiceStatusBadge from "@/app/components/invoice_status_badge";
+import Pager from "@/app/components/pager";
 
 interface IInvoiceTableProps {
   invoices: Prisma.InvoiceGetPayload<{ include: { family: true } }>[];
@@ -28,7 +29,7 @@ export default function InvoiceTable(props: IInvoiceTableProps) {
       <section className="mt-5">
         {/* @ts-ignore Strange TS error claiming children is not an array... */}
         <DataTable
-          columns={["Family Name", "Original Balance", "Current Balance", "Paid", "Date"]}
+          columns={["Family Name", "Original Balance", "Current Balance", "Status", "Date"]}
           noEntitiesMessage="No invoices yet!"
         >
           {props.invoices.map((invoice) => ({
@@ -41,7 +42,7 @@ export default function InvoiceTable(props: IInvoiceTableProps) {
               invoice.family.familyName,
               invoice.amount.toString(),
               new Prisma.Decimal(invoice.amount).minus(new Prisma.Decimal(invoice.paidAmount)).toString(),
-              invoice.paid ? "Y" : "N",
+              <InvoiceStatusBadge key="status" status={invoice.status} />,
               invoice.createdAt.toDateString(),
             ],
           }))}

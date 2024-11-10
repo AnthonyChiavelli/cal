@@ -2,17 +2,17 @@
 
 import { Fragment, startTransition, useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { ChevronLeftIcon, ChevronRightIcon } from "@heroicons/react/20/solid";
-import { useOnMediaQueryState } from "../../util/hooks";
 import { Event, EventStudent, Student, UserSettings } from "@prisma/client";
 import classNames from "classnames";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
+import Button from "@/app/components/button";
+import CalendarEvent from "@/app/components/calendar_event";
+import CalenderOverflowMenu from "@/app/components/calendar_overflow_menu";
+import CalendarViewMenu from "@/app/components/calendar_view_menu";
+import EventCreateModal from "@/app/components/event_create_modal";
 import { createDateString, getAdjacentWeekString, getPreviousMonday, parseDateString } from "@/util/calendar";
-import Button from "./button";
-import CalendarEvent from "./calendar_event";
-import CalenderOverflowMenu from "./calendar_overflow_menu";
-import CalendarViewMenu from "./calendar_view_menu";
-import EventCreateModal from "./event_create_modal";
+import { useOnMediaQueryState } from "@/util/hooks";
 
 interface IWeekCalendarProps {
   weekString: string;
