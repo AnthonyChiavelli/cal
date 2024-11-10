@@ -47,9 +47,7 @@ export async function getInvoiceCount(searchParams: { search?: string }): Promis
   return await prisma.invoice.count(query);
 }
 
-export async function getInvoice(
-  invoiceId: number,
-): Promise<Prisma.InvoiceGetPayload<{
+export async function getInvoice(invoiceId: number): Promise<Prisma.InvoiceGetPayload<{
   include: { family: { include: { parents: true; students: true } }; eventStudents: true };
 }> | null> {
   const { user } = await getSessionOrFail();

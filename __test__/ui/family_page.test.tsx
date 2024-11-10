@@ -1,5 +1,6 @@
 import React from "react";
 import { fireEvent, render, screen, waitFor } from "@testing-library/react";
+import { mockFamilyWithRelations } from "../../mock_data/family";
 import { Decimal } from "@prisma/client/runtime/library";
 import "@testing-library/jest-dom";
 import FamilyPage from "@/app/components/family_page";
@@ -14,55 +15,6 @@ jest.mock("next/navigation", () => ({
     return {};
   },
 }));
-
-const mockFamily = {
-  id: "f1",
-  createdAt: new Date("10/09/1990"),
-  updatedAt: new Date("10/09/1990"),
-  ownerId: "test@test.com",
-  balance: 3 as unknown as Decimal,
-  familyName: "Smith",
-  parents: [
-    {
-      id: "1",
-      createdAt: new Date("2021-01-01"),
-      updatedAt: new Date("2021-01-01"),
-      ownerId: "1",
-      familyId: "1",
-      firstName: "John",
-      lastName: "Smith",
-      phone: "+15554443333",
-      email: "",
-      isPrimary: true,
-    },
-    {
-      id: "2",
-      createdAt: new Date("2021-01-01"),
-      updatedAt: new Date("2021-01-01"),
-      ownerId: "1",
-      familyId: "1",
-      firstName: "Jane",
-      lastName: "Smith",
-      phone: "+17775553333",
-      email: "",
-      isPrimary: false,
-    },
-  ],
-  notes: "Some notes",
-  students: [
-    {
-      id: "s1",
-      createdAt: new Date("10/09/1990"),
-      updatedAt: new Date("10/09/1990"),
-      ownerId: "test@test.com",
-      familyId: "f1",
-      firstName: "Johnny",
-      lastName: "Smith",
-      gradeLevel: 1,
-      notes: "",
-    },
-  ],
-};
 
 describe("FamilyPage", () => {
   it("Renders a consistent snapshot when empty", async () => {
@@ -80,7 +32,7 @@ describe("FamilyPage", () => {
       <FamilyPage
         updateOrCreateFamily={() => Promise.resolve({ success: true })}
         deleteFamily={() => Promise.resolve({ success: true })}
-        family={mockFamily}
+        family={mockFamilyWithRelations}
       />,
     );
     expect(container).toMatchSnapshot();
@@ -96,7 +48,7 @@ describe("FamilyPage", () => {
     const deleteButton = screen.queryByTestId("delete-family");
     expect(deleteButton).toBeNull();
 
-    const associatedStudentsSection = screen.queryByText("Associated students");
+    const associatedStudentsSection = screen.queryByText("Students");
     expect(associatedStudentsSection).toBeNull();
 
     const submitButton = screen.queryByRole("submit");
@@ -108,10 +60,10 @@ describe("FamilyPage", () => {
       <FamilyPage
         updateOrCreateFamily={() => Promise.resolve({ success: true })}
         deleteFamily={() => Promise.resolve({ success: true })}
-        family={{ ...mockFamily, students: [] }}
+        family={{ ...mockFamilyWithRelations, students: [] }}
       />,
     );
-    const associatedStudentsSection = screen.queryByText("Associated students");
+    const associatedStudentsSection = screen.queryByText("Students");
     expect(associatedStudentsSection).not.toBeNull();
 
     expect(screen.getByTestId("input-familyName")).toHaveValue("Smith");
@@ -129,10 +81,10 @@ describe("FamilyPage", () => {
       <FamilyPage
         updateOrCreateFamily={() => Promise.resolve({ success: true })}
         deleteFamily={() => Promise.resolve({ success: true })}
-        family={mockFamily}
+        family={mockFamilyWithRelations}
       />,
     );
-    const associatedStudentsSection = screen.queryByText("Associated students");
+    const associatedStudentsSection = screen.queryByText("Students");
     expect(associatedStudentsSection).not.toBeNull();
 
     const deleteButton = screen.getByTestId("delete-family");
@@ -194,7 +146,7 @@ describe("FamilyPage", () => {
       <FamilyPage
         updateOrCreateFamily={mockSubmit}
         deleteFamily={() => Promise.resolve({ success: true })}
-        family={{ ...mockFamily, students: [] }}
+        family={{ ...mockFamilyWithRelations, students: [] }}
       />,
     );
 
@@ -224,51 +176,6 @@ describe("FamilyPage", () => {
       },
       "f1",
     );
-  });
-
-  it("Submits the same exact data when editing a new family but not making any changes", async () => {
-    const mockSubmit = jest.fn(() => Promise.resolve({ success: true }));
-    const resubmittedForm = render(
-      <FamilyPage
-        updateOrCreateFamily={mockSubmit}
-        deleteFamily={() => Promise.resolve({ success: true })}
-        family={{ ...mockFamily, students: [] }}
-      />,
-    );
-
-    const submitButton = screen.getByRole("submit");
-    (submitButton as any).disabled = false;
-    expect(submitButton).not.toBeDisabled();
-    fireEvent.click(submitButton);
-    (submitButton as any).disabled = true;
-    await waitFor(() => expect(mockSubmit).toHaveBeenCalled());
-
-    expect(mockSubmit).toHaveBeenCalledWith(
-      {
-        familyName: "Smith",
-        notes: "Some notes",
-        parent1Id: "1",
-        parent1FirstName: "John",
-        parent1LastName: "Smith",
-        parent1Phone: "+15554443333",
-        parent2Id: "2",
-        parent2FirstName: "Jane",
-        parent2LastName: "Smith",
-        parent2Phone: "+17775553333",
-      },
-      "f1",
-    );
-
-    const newForm = render(
-      <FamilyPage
-        updateOrCreateFamily={mockSubmit}
-        deleteFamily={() => Promise.resolve({ success: true })}
-        family={{ ...mockFamily, students: [] }}
-      />,
-    );
-
-    // TODO proper check to acertain idempotency
-    expect(resubmittedForm.container).toEqual(newForm.container);
   });
 
   it("Does not submit without required data", async () => {

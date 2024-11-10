@@ -32,7 +32,8 @@
   "overrides": [
     {
       "files": [
-        "index.ts"
+        "index.ts",
+        "__test__/**/*"
       ],
       "rules": {
         "no-restricted-imports": "off"

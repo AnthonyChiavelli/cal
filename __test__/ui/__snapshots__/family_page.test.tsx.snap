@@ -666,18 +666,57 @@ exports[`FamilyPage Renders a consistent snapshot when prefilled with data 1`] =
               class="block text-sm font-medium leading-6 text-gray-900 sm:pt-1.5"
               for="invoices"
             >
-              Past invoices
+              invoices
             </label>
             <div
-              class="mt-2 sm:col-span-2 sm:mt-0"
+              class="mt-2"
             >
               <div
-                class="flex sm:max-w-md"
+                class="flex w-full"
               >
-                <div
-                  class="italic"
-                >
-                  No past invoices
+                <div>
+                  <div
+                    class="flex justify-between"
+                  >
+                    <a
+                      href="/app/invoices/1"
+                    >
+                      Tue Oct 09 1990
+                    </a>
+                    <div
+                      class="badge badge-lg px-5 bg-green-300"
+                    >
+                      Created
+                    </div>
+                  </div>
+                  <div
+                    class="flex justify-between"
+                  >
+                    <a
+                      href="/app/invoices/2"
+                    >
+                      Tue Oct 09 1990
+                    </a>
+                    <div
+                      class="badge badge-lg px-5 bg-green-300"
+                    >
+                      Created
+                    </div>
+                  </div>
+                  <div
+                    class="flex justify-between"
+                  >
+                    <a
+                      href="/app/invoices/3"
+                    >
+                      Tue Oct 09 1990
+                    </a>
+                    <div
+                      class="badge badge-lg px-5 bg-green-300"
+                    >
+                      Created
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
@@ -704,7 +743,7 @@ exports[`FamilyPage Renders a consistent snapshot when prefilled with data 1`] =
         class="my-5 mb-5"
       >
         <h2>
-          Family Information
+          Students
         </h2>
         <div
           class="mt-1 space-y-8 sm:space-y-0"
@@ -712,12 +751,6 @@ exports[`FamilyPage Renders a consistent snapshot when prefilled with data 1`] =
           <div
             class="sm:grid sm:grid-cols-3 sm:items-start sm:gap-2 sm:py-1"
           >
-            <label
-              class="block text-sm font-medium leading-6 text-gray-900 sm:pt-1.5"
-              for="firstName"
-            >
-              Associated students
-            </label>
             <div
               class="mt-2 sm:col-span-2 sm:mt-0"
             >
@@ -731,6 +764,17 @@ exports[`FamilyPage Renders a consistent snapshot when prefilled with data 1`] =
                     data-testid="family-student-s1"
                   >
                     Johnny
+                     
+                    Smith
+                  </span>
+                </a>
+                <a
+                  href="/app/students/s2"
+                >
+                  <span
+                    data-testid="family-student-s2"
+                  >
+                    Plonny
                      
                     Smith
                   </span>
@@ -752,11 +796,11 @@ exports[`FamilyPage Renders a consistent snapshot when prefilled with data 1`] =
           <h5
             class="cursor-pointer text-blue-400"
           >
-            Hide
+            Show
           </h5>
         </div>
         <div
-          class="visible"
+          class="invisible"
         >
           <form
             autocomplete="off"
@@ -1075,18 +1119,57 @@ exports[`FamilyPage Renders a consistent snapshot when prefilled with data 1`] =
             class="block text-sm font-medium leading-6 text-gray-900 sm:pt-1.5"
             for="invoices"
           >
-            Past invoices
+            invoices
           </label>
           <div
-            class="mt-2 sm:col-span-2 sm:mt-0"
+            class="mt-2"
           >
             <div
-              class="flex sm:max-w-md"
+              class="flex w-full"
             >
-              <div
-                class="italic"
-              >
-                No past invoices
+              <div>
+                <div
+                  class="flex justify-between"
+                >
+                  <a
+                    href="/app/invoices/1"
+                  >
+                    Tue Oct 09 1990
+                  </a>
+                  <div
+                    class="badge badge-lg px-5 bg-green-300"
+                  >
+                    Created
+                  </div>
+                </div>
+                <div
+                  class="flex justify-between"
+                >
+                  <a
+                    href="/app/invoices/2"
+                  >
+                    Tue Oct 09 1990
+                  </a>
+                  <div
+                    class="badge badge-lg px-5 bg-green-300"
+                  >
+                    Created
+                  </div>
+                </div>
+                <div
+                  class="flex justify-between"
+                >
+                  <a
+                    href="/app/invoices/3"
+                  >
+                    Tue Oct 09 1990
+                  </a>
+                  <div
+                    class="badge badge-lg px-5 bg-green-300"
+                  >
+                    Created
+                  </div>
+                </div>
               </div>
             </div>
           </div>
@@ -1113,7 +1196,7 @@ exports[`FamilyPage Renders a consistent snapshot when prefilled with data 1`] =
       class="my-5 mb-5"
     >
       <h2>
-        Family Information
+        Students
       </h2>
       <div
         class="mt-1 space-y-8 sm:space-y-0"
@@ -1121,12 +1204,6 @@ exports[`FamilyPage Renders a consistent snapshot when prefilled with data 1`] =
         <div
           class="sm:grid sm:grid-cols-3 sm:items-start sm:gap-2 sm:py-1"
         >
-          <label
-            class="block text-sm font-medium leading-6 text-gray-900 sm:pt-1.5"
-            for="firstName"
-          >
-            Associated students
-          </label>
           <div
             class="mt-2 sm:col-span-2 sm:mt-0"
           >
@@ -1140,6 +1217,17 @@ exports[`FamilyPage Renders a consistent snapshot when prefilled with data 1`] =
                   data-testid="family-student-s1"
                 >
                   Johnny
+                   
+                  Smith
+                </span>
+              </a>
+              <a
+                href="/app/students/s2"
+              >
+                <span
+                  data-testid="family-student-s2"
+                >
+                  Plonny
                    
                   Smith
                 </span>
@@ -1161,11 +1249,11 @@ exports[`FamilyPage Renders a consistent snapshot when prefilled with data 1`] =
         <h5
           class="cursor-pointer text-blue-400"
         >
-          Hide
+          Show
         </h5>
       </div>
       <div
-        class="visible"
+        class="invisible"
       >
         <form
           autocomplete="off"

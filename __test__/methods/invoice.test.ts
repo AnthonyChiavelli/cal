@@ -134,10 +134,10 @@ describe("getInvoice", () => {
   it("should make the proper query to return an invoice by ID", async () => {
     prismaMock.invoice.findFirstOrThrow.mockResolvedValueOnce(mockInvoiceCollection[0]);
     await getInvoice(12);
-    expect(prismaMock.invoice.findFirstOrThrow).toHaveBeenCalledTimes(1);
-    expect(prismaMock.invoice.findFirstOrThrow).toHaveBeenCalledWith({
+    expect(prismaMock.invoice.findFirst).toHaveBeenCalledTimes(1);
+    expect(prismaMock.invoice.findFirst).toHaveBeenCalledWith({
       where: { id: 12, ownerId: TEST_USER_EMAIL },
-      include: { family: { include: { parents: true, students: true } } },
+      include: { eventStudents: true, family: { include: { parents: true, students: true } } },
     });
   });
 });

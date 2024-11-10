@@ -1,4 +1,4 @@
-import { renderClientInvoiceTemplate } from "../../src/util/invoice";
+import { renderClientInvoiceTemplate, validNextStatuses } from "../../src/util/invoice";
 import { InvoiceStatus, Prisma } from "@prisma/client";
 import { Decimal } from "@prisma/client/runtime/library";
 import "@testing-library/jest-dom";
@@ -12,6 +12,7 @@ const mockInvoice: Prisma.InvoiceGetPayload<{ include: { family: { include: { pa
   amount: new Prisma.Decimal(20),
   status: InvoiceStatus.CREATED,
   paidAmount: new Prisma.Decimal(0),
+  customPriceModifier: new Prisma.Decimal(0),
   sent: false,
   paid: false,
   family: {
@@ -75,4 +76,19 @@ describe("renderClientInvoiceTemplate", () => {
       "Hi Smith, you owe me $20.00. You are John Smith and Jane Smith. Your total balance is $90.00. Please send me my monies, Smith family!",
     );
   });
+});
+
+describe("validNextStatuses", () => {
+  it.each([
+    [InvoiceStatus.CREATED, [InvoiceStatus.SENT, InvoiceStatus.PARTIALLY_PAID, InvoiceStatus.CLOSED]],
+    [InvoiceStatus.SENT, [InvoiceStatus.PARTIALLY_PAID, InvoiceStatus.CLOSED]],
+    [InvoiceStatus.PARTIALLY_PAID, [InvoiceStatus.CLOSED]],
+    [InvoiceStatus.CLOSED, []],
+  ])(
+    "should return the correct next valid statuses for each current status",
+    (currentStatus: InvoiceStatus, allowedNextStatuses: InvoiceStatus[]) => {
+      // @ts-ignore
+      expect(validNextStatuses(currentStatus).sort()).toEqual(allowedNextStatuses.sort());
+    },
+  );
 });
