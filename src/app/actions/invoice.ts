@@ -56,22 +56,66 @@ export async function createInvoice(
   }
 }
 
-// TODO test
 export async function updateInvoiceStatus(invoiceId: number, newStatus: InvoiceStatus) {
   const { user } = await getSessionOrFail();
 
-  const invoice = await prisma.invoice.findFirstOrThrow({ where: { id: { equals: invoiceId } } });
+  const invoice = await prisma.invoice.findFirstOrThrow({
+    where: { id: { equals: invoiceId }, ownerId: { equals: user.email } },
+  });
   if (!validNextStatuses(invoice.status).includes(newStatus)) {
+    await prisma.actionRecord.create({
+      data: {
+        actionType: ActionType.UPDATE_INVOICE,
+        success: false,
+        owner: {
+          connect: { email: user.email },
+        },
+        additionalData: {
+          invoiceId,
+          newStatus,
+          details: "Cannot transition to this status",
+        },
+      },
+    });
     throw new Error("Cannot transition to this status");
   }
-  // TODO add action record
-  return await prisma.invoice.update({
-    where: {
-      ownerId: { equals: user.email },
-      id: invoiceId,
-    },
-    data: {
-      status: newStatus,
-    },
-  });
+
+  try {
+    await prisma.invoice.update({
+      where: {
+        ownerId: { equals: user.email },
+        id: invoiceId,
+      },
+      data: {
+        status: newStatus,
+      },
+    });
+    await prisma.actionRecord.create({
+      data: {
+        actionType: ActionType.UPDATE_INVOICE,
+        success: true,
+        owner: {
+          connect: { email: user.email },
+        },
+        additionalData: {
+          invoiceId,
+          newStatus,
+        },
+      },
+    });
+  } catch {
+    await prisma.actionRecord.create({
+      data: {
+        actionType: ActionType.UPDATE_INVOICE,
+        success: false,
+        owner: {
+          connect: { email: user.email },
+        },
+        additionalData: {
+          invoiceId,
+          newStatus,
+        },
+      },
+    });
+  }
 }

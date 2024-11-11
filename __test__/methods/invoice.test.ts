@@ -17,6 +17,7 @@ const mockInvoiceCollection: Prisma.InvoiceGetPayload<{ include: { family: true 
     createdAt: new Date(),
     updatedAt: new Date(),
     ownerId: TEST_USER_EMAIL,
+    customPriceModifier: new Prisma.Decimal(0),
     amount: new Prisma.Decimal(10 + i),
     status: "CREATED",
     paidAmount: new Prisma.Decimal(0),
@@ -138,6 +139,29 @@ describe("getInvoice", () => {
     expect(prismaMock.invoice.findFirst).toHaveBeenCalledWith({
       where: { id: 12, ownerId: TEST_USER_EMAIL },
       include: { eventStudents: true, family: { include: { parents: true, students: true } } },
+    });
+  });
+});
+
+describe("getInvoiceCount", () => {
+  it("should make the proper query count invoices, without a search query", async () => {
+    prismaMock.invoice.findFirstOrThrow.mockResolvedValueOnce(mockInvoiceCollection[0]);
+    await getInvoiceCount({});
+    expect(prismaMock.invoice.count).toHaveBeenCalledTimes(1);
+    expect(prismaMock.invoice.count).toHaveBeenCalledWith({
+      where: { ownerId: { equals: TEST_USER_EMAIL } },
+    });
+  });
+
+  it("should make the proper query count invoices, with a search query", async () => {
+    prismaMock.invoice.findFirstOrThrow.mockResolvedValueOnce(mockInvoiceCollection[0]);
+    await getInvoiceCount({ search: "Scrumpty" });
+    expect(prismaMock.invoice.count).toHaveBeenCalledTimes(1);
+    expect(prismaMock.invoice.count).toHaveBeenCalledWith({
+      where: {
+        ownerId: { equals: TEST_USER_EMAIL },
+        family: { familyName: { contains: "Scrumpty", mode: "insensitive" } },
+      },
     });
   });
 });

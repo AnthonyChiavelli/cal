@@ -24,7 +24,6 @@ async function calendarDaysForMonth(timeValue: string) {
   });
 
   return getDaysForCalendarMonthGrid(month as IMonthNumber, year).map((calDay: CalendarDay) => {
-    // TODO something more elegant than this
     const [year, month, date] = calDay.date.split("-").map(Number);
     const eventsForToday = events.filter(
       (e) =>

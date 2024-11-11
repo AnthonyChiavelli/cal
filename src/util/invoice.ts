@@ -23,11 +23,9 @@ export function renderClientInvoiceTemplate(
 // TODO test
 export function getInvoiceTotal(invoice: Prisma.InvoiceGetPayload<{ include: { eventStudents: true } }>): number {
   const eventClassTotal = invoice.eventStudents.reduce((m, event) => Number(event.cost) + m, 0);
-  // const adhocItemsTotal = invoice.adhocItems.reduce((m, item) => Number(event.cost) + m, 0)
   return eventClassTotal;
 }
 
-// TODO test
 export function validNextStatuses(currentStatus: InvoiceStatus): InvoiceStatus[] {
   switch (currentStatus) {
     case InvoiceStatus.CREATED:

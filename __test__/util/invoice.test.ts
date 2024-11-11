@@ -1,4 +1,5 @@
-import { renderClientInvoiceTemplate, validNextStatuses } from "../../src/util/invoice";
+import { mockInvoiceWithRelations } from "../../mock_data/invoice";
+import { getInvoiceTotal, renderClientInvoiceTemplate, validNextStatuses } from "../../src/util/invoice";
 import { InvoiceStatus, Prisma } from "@prisma/client";
 import { Decimal } from "@prisma/client/runtime/library";
 import "@testing-library/jest-dom";
@@ -91,4 +92,11 @@ describe("validNextStatuses", () => {
       expect(validNextStatuses(currentStatus).sort()).toEqual(allowedNextStatuses.sort());
     },
   );
+});
+
+describe("getInvoiceTotal", () => {
+  it("Should return the proper total based on invoice data", () => {
+    const result = getInvoiceTotal(mockInvoiceWithRelations);
+    expect(result).toBe(124);
+  });
 });

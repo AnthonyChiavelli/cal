@@ -2,11 +2,11 @@
  * @jest-environment node
  */
 import { mockInvoiceWithRelations } from "../../mock_data/invoice";
-import { createInvoice } from "../../src/app/actions/invoice";
+import { createInvoice, updateInvoiceStatus } from "../../src/app/actions/invoice";
 import { getSessionOrFail } from "../../src/app/actions/util";
 import { prismaMock } from "../../src/singleton";
 import { TEST_USER_EMAIL } from "../constants";
-import { Invoice, InvoiceStatus, Prisma } from "@prisma/client";
+import { ActionType, Invoice, InvoiceStatus } from "@prisma/client";
 
 jest.mock("@auth0/nextjs-auth0", () => ({
   getSession: jest.fn(() => Promise.resolve({ user: { email: TEST_USER_EMAIL } })),
@@ -98,6 +98,78 @@ describe("createInvoice", () => {
         },
         ownerId: "test@example.com",
         success: false,
+      },
+    });
+  });
+});
+
+describe("updateInvoiceStatus", () => {
+  it("should update an invoice status when possible, creating an action record", async () => {
+    prismaMock.invoice.findFirstOrThrow.mockResolvedValue({
+      id: 100,
+      status: InvoiceStatus.CREATED,
+    } as Invoice);
+    await updateInvoiceStatus(100, InvoiceStatus.CLOSED);
+
+    expect(prismaMock.invoice.findFirstOrThrow).toHaveBeenCalledTimes(1);
+    expect(prismaMock.invoice.findFirstOrThrow).toHaveBeenCalledWith({
+      where: { id: { equals: 100 }, ownerId: { equals: TEST_USER_EMAIL } },
+    });
+
+    expect(prismaMock.invoice.update).toHaveBeenCalledTimes(1);
+    expect(prismaMock.invoice.update).toHaveBeenCalledWith({
+      where: {
+        ownerId: { equals: TEST_USER_EMAIL },
+        id: 100,
+      },
+      data: {
+        status: InvoiceStatus.CLOSED,
+      },
+    });
+
+    expect(prismaMock.actionRecord.create).toHaveBeenCalledTimes(1);
+    expect(prismaMock.actionRecord.create).toHaveBeenCalledWith({
+      data: {
+        actionType: ActionType.UPDATE_INVOICE,
+        success: true,
+        owner: {
+          connect: { email: TEST_USER_EMAIL },
+        },
+        additionalData: {
+          invoiceId: 100,
+          newStatus: InvoiceStatus.CLOSED,
+        },
+      },
+    });
+  });
+
+  it("should fail when trying to update to an invalid status, creating an action record", async () => {
+    prismaMock.invoice.findFirstOrThrow.mockResolvedValue({
+      id: 100,
+      status: InvoiceStatus.CLOSED,
+    } as Invoice);
+    try {
+      await updateInvoiceStatus(100, InvoiceStatus.CREATED);
+    } catch {}
+
+    expect(prismaMock.invoice.findFirstOrThrow).toHaveBeenCalledTimes(1);
+    expect(prismaMock.invoice.findFirstOrThrow).toHaveBeenCalledWith({
+      where: { id: { equals: 100 }, ownerId: { equals: TEST_USER_EMAIL } },
+    });
+
+    expect(prismaMock.actionRecord.create).toHaveBeenCalledTimes(1);
+    expect(prismaMock.actionRecord.create).toHaveBeenCalledWith({
+      data: {
+        actionType: ActionType.UPDATE_INVOICE,
+        success: false,
+        owner: {
+          connect: { email: TEST_USER_EMAIL },
+        },
+        additionalData: {
+          invoiceId: 100,
+          newStatus: InvoiceStatus.CREATED,
+          details: "Cannot transition to this status",
+        },
       },
     });
   });

@@ -32,7 +32,6 @@ export async function getInvoices(searchParams: {
   });
 }
 
-// TODO write test
 export async function getInvoiceCount(searchParams: { search?: string }): Promise<number> {
   const { user } = await getSessionOrFail();
   const query: Prisma.InvoiceCountArgs = {
