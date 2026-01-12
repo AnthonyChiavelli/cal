@@ -158,7 +158,7 @@ export async function markEventCompleted(eventId: string, completed: boolean) {
         : null;
     })
     // TODO fix
-    await prisma.$transaction([eventUpdateQuery, ...familyUpdateQueries]);
+    await prisma.$transaction([eventUpdateQuery, ...familyUpdateQueries.filter(q => q !== null)]);
 
     await prisma.actionRecord.create({
       data: {
