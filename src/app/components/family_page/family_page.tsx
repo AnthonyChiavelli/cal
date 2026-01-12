@@ -1,7 +1,6 @@
 "use client";
 
 import { useCallback, useMemo, useState } from "react";
-import { ChevronRightIcon, ChevronDownIcon } from "@heroicons/react/16/solid";
 import { cn } from "@nextui-org/react";
 import { toast } from "react-toastify";
 import Link from "next/link";

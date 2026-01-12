@@ -165,7 +165,6 @@ export function createInitialState(
 export function eventCreateReducer(state: IEventCreateState, action: EventCreateAction): IEventCreateState {
   if (process.env.NODE_ENV === "development") {
     // eslint-disable-next-line no-console
-    console.log("EventCreateReducer", action);
   }
   switch (action.type) {
     case EventCreateActionType.UPDATE_EVENT_TYPE: {

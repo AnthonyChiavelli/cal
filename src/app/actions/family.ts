@@ -81,7 +81,6 @@ export async function updateOrCreateFamily(formData: FamilyFormData, familyId?: 
         ownerId: user.email,
       });
     }
-    console.log(parentsQuery)
     await prisma.family.create({
       data: {
         familyName: formData.familyName,

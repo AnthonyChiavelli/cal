@@ -157,7 +157,7 @@ export async function markEventCompleted(eventId: string, completed: boolean) {
           })
         : null;
     })
-    console.log([eventUpdateQuery, ...familyUpdateQueries])
+    // TODO fix
     await prisma.$transaction([eventUpdateQuery, ...familyUpdateQueries]);
 
     await prisma.actionRecord.create({
