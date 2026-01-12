@@ -8,7 +8,7 @@ export default async function Home() {
   return (
     <div className="flex h-dvh w-screen flex-col items-center justify-center">
       <HomeNavBar />
-      <h1 className="mb-5 text-2xl">Welcome to Cal</h1>
+      <h1 className="mb-5 text-2xl">Welcome to Cal 🐈‍⬛</h1>
       {session?.user ? (
         <Link href="/app">
           <Button flavor="pizzaz" text="Go to app" />
