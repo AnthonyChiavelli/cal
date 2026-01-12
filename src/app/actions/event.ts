@@ -1,7 +1,7 @@
 "use server";
 
 import prisma from "../../db";
-import { ActionType, ClassType, EventType, Prisma, User } from "@prisma/client";
+import { ActionType, ClassType, EventType, Family, Prisma, EventStudent, User, Student } from "@prisma/client";
 import { redirect } from "next/navigation";
 import { getSessionOrFail } from "@/app/actions";
 import { RecurrencePattern } from "@/app/types";
@@ -148,17 +148,17 @@ export async function markEventCompleted(eventId: string, completed: boolean) {
     }
 
     const eventUpdateQuery = prisma.event.update({ where: { id: eventId, ownerId: user.email }, data: { completed } });
-    const familyUpdateQueries = event.eventStudents.map((eventStudent) => {
+    const eventStudentsWithFamilies = event.eventStudents.filter((es): es is EventStudent & {student: (Student & {family: Family})}  => es.student.family !== null)
+    const familyUpdateQueries: Prisma.Prisma__FamilyClient<Family>[] = eventStudentsWithFamilies.map((eventStudent) => {
       const family = eventStudent.student.family;
-      return family
-        ? prisma.family.update({
-            where: { id: family.id },
-            data: { balance: { increment: eventStudent.cost } },
-          })
-        : null;
-    })
+      return prisma.family.update({
+        where: { id: family.id },
+        data: { balance: { increment: eventStudent.cost } },
+      });
+    });
+
     // TODO fix
-    await prisma.$transaction([eventUpdateQuery, ...familyUpdateQueries.filter(q => q !== null)]);
+    await prisma.$transaction([eventUpdateQuery, ...familyUpdateQueries]);
 
     await prisma.actionRecord.create({
       data: {
