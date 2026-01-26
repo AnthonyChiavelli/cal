@@ -7,6 +7,6 @@ export const GET = handleAuth({
     console.error("🌵🌵🌵🌵🌵🌵🌵🌵🌵🌵🌵🌵");
     console.error(error);
     console.error("🌵🌵🌵🌵🌵🌵🌵🌵🌵🌵🌵🌵");
-    return redirect(`http://${req.nextUrl.host}/login-error`);
+    return redirect(`http://${req.nextUrl.host}/login-error-poop`);
   },
 });
